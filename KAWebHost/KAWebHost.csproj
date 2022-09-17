@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\KA.DataProvider\KA.DataProvider.csproj" />
+    <ProjectReference Include="..\KA.Infrastructure\KA.Infrastructure.csproj" />
+    <ProjectReference Include="..\KA.Repository\KA.Repository.csproj" />
+    <ProjectReference Include="..\KA.Service\KA.Service.csproj" />
+    <ProjectReference Include="..\KA.ViewModels\KA.ViewModels.csproj" />
+  </ItemGroup>
+
+</Project>

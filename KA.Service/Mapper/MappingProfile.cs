@@ -1,0 +1,32 @@
+﻿using AutoMapper;
+using KA.ViewModels.Authen;
+using Microsoft.Extensions.Configuration;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace KA.Service.Mapper
+{
+    public class MappingProfile : Profile
+    {
+        private readonly IConfiguration _configuration;
+
+        public MappingProfile(IConfiguration configuration)
+        {
+            MappingEntityToViewModel();
+            MappingDtoToEntity();
+
+        }
+
+        private void MappingEntityToViewModel()
+        {
+        }
+
+        private void MappingDtoToEntity()
+        {
+            CreateMap<RegisterInputModel, AppUser>();
+        }
+    }
+}
