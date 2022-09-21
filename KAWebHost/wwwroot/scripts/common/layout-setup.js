@@ -1,0 +1,2 @@
+﻿KTToggle.createInstances();
+KTMenu.createInstances();

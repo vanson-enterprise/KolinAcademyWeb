@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32804.467
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KAWebHost", "KAWebHost\KAWebHost.csproj", "{4A2EBEA1-9C24-4243-9512-C14C0E9F0CDC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KAWebHost", "KAWebHost\KAWebHost.csproj", "{4A2EBEA1-9C24-4243-9512-C14C0E9F0CDC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0. Infrastructure", "0. Infrastructure", "{15E85CDD-647A-48E1-992D-B4D4AE42804B}"
 EndProject
@@ -11,15 +11,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Domain", "1. Domain", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Host", "2. Host", "{534EBA10-94DC-4F81-96F7-8212054DB047}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KA.DataProvider", "KA.DataProvider\KA.DataProvider.csproj", "{76AA3D8E-192D-48C8-AE81-635E71FEDC19}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KA.DataProvider", "KA.DataProvider\KA.DataProvider.csproj", "{76AA3D8E-192D-48C8-AE81-635E71FEDC19}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KA.Repository", "KA.Repository\KA.Repository.csproj", "{1ADC9A2A-27FC-4D66-A54C-DE1589A520CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KA.Repository", "KA.Repository\KA.Repository.csproj", "{1ADC9A2A-27FC-4D66-A54C-DE1589A520CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KA.Service", "KA.Service\KA.Service.csproj", "{D3567933-7D13-441B-A562-CD2760C82D9E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KA.Service", "KA.Service\KA.Service.csproj", "{D3567933-7D13-441B-A562-CD2760C82D9E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KA.Infrastructure", "KA.Infrastructure\KA.Infrastructure.csproj", "{274B612F-0AF2-433C-86D3-3BAA5050B032}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KA.Infrastructure", "KA.Infrastructure\KA.Infrastructure.csproj", "{274B612F-0AF2-433C-86D3-3BAA5050B032}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KA.ViewModels", "KA.ViewModels\KA.ViewModels.csproj", "{8883C7BF-5D02-40FC-8D26-EA63A4F95D83}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KA.ViewModels", "KA.ViewModels\KA.ViewModels.csproj", "{8883C7BF-5D02-40FC-8D26-EA63A4F95D83}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

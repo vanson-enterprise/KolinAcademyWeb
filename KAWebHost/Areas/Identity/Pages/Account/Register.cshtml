@@ -1,0 +1,142 @@
+﻿@page "/dang-ky"
+@model RegisterModel
+@{
+    ViewData["Title"] = "Đăng ký tài khoản";
+}
+<!--begin::Main-->
+<div class="d-flex flex-column flex-root">
+    <!--begin::Authentication - Sign-up -->
+    <div class="d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed" style="background-image: url(assets/media/illustrations/sketchy-1/14.png">
+        <!--begin::Content-->
+        <div class="d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20">
+            <!--begin::Logo-->
+            <a href="../../demo8/dist/index.html" class="mb-12">
+                <img alt="Logo" src="assets/media/logos/logo-1.svg" class="h-40px" />
+            </a>
+            <!--end::Logo-->
+            <!--begin::Wrapper-->
+            <div class="w-lg-600px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
+                <!--begin::Form-->
+                <form class="form w-100" novalidate="novalidate" id="kt_sign_up_form" method="post" asp-route-returnUrl="@Model.ReturnUrl">
+                    <!--begin::Heading-->
+                    <div class="mb-10 text-center">
+                        <!--begin::Title-->
+                        <h1 class="text-dark mb-3">Tạo mới tài khoản</h1>
+                        <!--end::Title-->
+                        <!--begin::Link-->
+                        <div class="text-gray-400 fw-bold fs-4">
+                            Bạn đã có tài khoản?
+                            <a href="/dang-nhap" class="link-primary fw-bolder">Đăng nhập tại đây</a>
+                        </div>
+                        <!--end::Link-->
+                    </div>
+                    <div class="error">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    </div>
+                    <!--end::Heading-->
+                    <!--begin::Input group-->
+                    <div class="row fv-row mb-7">
+                        <label class="form-label fw-bolder text-dark fs-6 required">Họ và tên </label>
+                        <input class="form-control form-control-lg form-control-solid" asp-for="Input.FullName"
+                               type="text"
+                               placeholder=""
+                               autocomplete="off" />
+                        <span asp-validation-for="Input.FullName" class="text-danger"></span>
+
+                    </div>
+                    <div class="row fv-row mb-7">
+                        <label class="form-label fw-bolder text-dark fs-6 required">Tên tài khoản (Viết liền không dấu)</label>
+                        <input class="form-control form-control-lg form-control-solid" asp-for="Input.UserName"
+                               type="text"
+                               placeholder=""
+                               autocomplete="off" />
+                        <span asp-validation-for="Input.UserName" class="text-danger"></span>
+
+                    </div>
+                    <div class="row fv-row mb-7">
+                        <label class="form-label fw-bolder text-dark fs-6 required">Số điện thoại</label>
+                        <input class="form-control form-control-lg form-control-solid" asp-for="Input.PhoneNumber"
+                               type="text"
+                               placeholder=""
+                               autocomplete="off" />
+                        <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+                    </div>
+                    <!--end::Input group-->
+                    <!--begin::Input group-->
+                    <div class="fv-row mb-7">
+                        <label class="form-label fw-bolder text-dark fs-6 required">Email</label>
+                        <input class="form-control form-control-lg form-control-solid" asp-for="Input.Email"
+                               type="text"
+                               placeholder=""
+                               autocomplete="off" />
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+                    <!--end::Input group-->
+                    <!--begin::Input group-->
+                    <div class="mb-10 fv-row" data-kt-password-meter="true">
+                        <!--begin::Wrapper-->
+                        <div class="mb-1">
+                            <!--begin::Label-->
+                            <label class="form-label fw-bolder text-dark fs-6 required">Mật khẩu</label>
+                            <!--end::Label-->
+                            <!--begin::Input wrapper-->
+                            <div class="position-relative mb-3">
+                                <input class="form-control form-control-lg form-control-solid" asp-for="Input.Password"
+                                       type="text"
+                                       placeholder=""
+                                       type="password"
+                                       autocomplete="off" />
+                                <span asp-validation-for="Input.Password" class="text-danger"></span>
+
+                            </div>
+                            <!--end::Input wrapper-->
+                            <!--begin::Meter-->
+                            <!--end::Meter-->
+                        </div>
+                        <!--end::Wrapper-->
+
+                    </div>
+                    <!--end::Input group=-->
+                    <!--begin::Input group-->
+                    <div class="fv-row mb-5">
+                        <label class="form-label fw-bolder text-dark fs-6 required">Nhập lại mật khẩu</label>
+                        <input class="form-control form-control-lg form-control-solid" asp-for="Input.ConfirmPassword"
+                               type="text"
+                               placeholder=""
+                               type="password"
+                               autocomplete="off" />
+                        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                    </div>
+                    <!--end::Input group-->
+                    <!--begin::Actions-->
+                    <div class="text-center">
+                        <button type="submit" id="kt_sign_up_submit" class="btn btn-lg btn-primary">
+                            <span class="indicator-label">Đăng ký</span>
+                            <span class="indicator-progress">
+                                Vui lòng đợi...
+                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                            </span>
+                        </button>
+                    </div>
+                    <!--end::Actions-->
+                </form>
+                <!--end::Form-->
+            </div>
+            <!--end::Wrapper-->
+        </div>
+        <!--end::Content-->
+        <!--begin::Footer-->
+        <div class="d-flex flex-center flex-column-auto p-10">
+            <!--begin::Links-->
+            <div class="d-flex align-items-center fw-bold fs-6">
+                <a href="https://keenthemes.com" class="text-muted text-hover-primary px-2">About</a>
+                <a href="mailto:support@keenthemes.com" class="text-muted text-hover-primary px-2">Contact</a>
+                <a href="https://1.envato.market/EA4JP" class="text-muted text-hover-primary px-2">Contact Us</a>
+            </div>
+            <!--end::Links-->
+        </div>
+        <!--end::Footer-->
+    </div>
+    <!--end::Authentication - Sign-up-->
+</div>
+<!--end::Main-->
