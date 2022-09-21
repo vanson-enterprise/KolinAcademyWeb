@@ -10,7 +10,7 @@ namespace KA.DataProvider.Entities
     public class UserLesson
     {
         public int Id { get; set; }
-        public Guid UserId { get; set; }
+        public string UserId { get; set; }
         public int LessonId { get; set; }
         public UserLessonStatus Status  { get; set; }
 

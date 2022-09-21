@@ -11,5 +11,6 @@ namespace KA.DataProvider.Entities
     {
         public string FullName { get; set; }
         public List<UserCourse> UserCourses { get; set; }
+        public virtual ICollection<Cart> Carts { get; set; }
     }
 }

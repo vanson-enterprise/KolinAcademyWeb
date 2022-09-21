@@ -27,7 +27,7 @@ namespace KA.DataProvider.Entities
         public string PreviewImageTitle { get; set; }
         public string IntroduceVideoLink { get; set; }
         public DateTime? CreatedDate { get; set; } = DateTime.Now;
-        public Guid? CreateUserId { get; set; }
+        public string? CreateUserId { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public int? UpdateUserId { get; set; }
         public List<UserCourse> UserCourses { get; set; }

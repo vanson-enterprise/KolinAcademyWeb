@@ -18,7 +18,7 @@ namespace KA.DataProvider.Entities
         public string MetaTitle { get; set; }
         public string MainImageFileName { get; set; }
         public DateTime? CreatedDate { get; set; } = DateTime.Now;
-        public Guid? CreateUserId { get; set; }
+        public string? CreateUserId { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public int? UpdateUserId { get; set; }
     }

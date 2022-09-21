@@ -9,7 +9,7 @@ namespace KA.DataProvider.Entities
     public class UserCourse
     {
         public int Id { get; set; }
-        public Guid UserId { get; set; }
+        public string UserId { get; set; }
         public int CourseId { get; set; }
         public float StudyProgress { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.Now;
