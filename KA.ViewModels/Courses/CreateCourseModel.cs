@@ -1,15 +1,13 @@
-﻿using KA.Infrastructure.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KA.DataProvider.Entities
+namespace KA.ViewModels.Courses
 {
-    public class Course
+    public class CreateCourseModel
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Code { get; set; }
         public CourseType Type { get; set; }
@@ -30,7 +28,5 @@ namespace KA.DataProvider.Entities
         public string? CreateUserId { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public int? UpdateUserId { get; set; }
-        public bool IsDeleted { get; set; } = false;
-        public List<UserCourse> UserCourses { get; set; }
     }
 }

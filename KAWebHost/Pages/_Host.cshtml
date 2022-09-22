@@ -2,7 +2,18 @@
 @namespace KAWebHost.Pages
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
-    Layout = "_Layout";
+    var path = ViewContext.RouteData.Values["Path"]?.ToString();
+    var adminPages = new List<string> { "manager", "Manager" };
+    //&& User.IsInRole("Admin")
+
+    if (path != null && adminPages.Any(path.Contains))
+    {
+        Layout = "_AdminLayout";
+    }
+    else
+    {
+        Layout = "_Layout";
+    }
 }
 
 <component type="typeof(App)" render-mode="ServerPrerendered" />

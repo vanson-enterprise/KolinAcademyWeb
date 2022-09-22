@@ -14,4 +14,8 @@
     <ProjectReference Include="..\KA.ViewModels\KA.ViewModels.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\Site\" />
+  </ItemGroup>
+
 </Project>

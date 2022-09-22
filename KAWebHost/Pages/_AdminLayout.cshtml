@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base href="~/" />
+
+    <!--begin::Global Stylesheets Bundle(used by all pages)-->
+    <link href="~/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/common/common.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
+
+    @* taskkill /F /PID 17820*@
+    <!--end::Global Stylesheets Bundle-->
+</head>
+<body id="kt_body" class="header-tablet-and-mobile-fixed aside-enabled">
+
+    <!--begin::Root-->
+    @RenderBody()
+    <!--end::Root-->
+    @*<script>
+    Blazor.start().then(function () {
+    var customScript1 = document.createElement('script');
+    var customScript2 = document.createElement('script');
+    var customScript3 = document.createElement('script');
+
+    customScript1.setAttribute('src', '/assets/plugins/global/plugins.bundle.js');
+    customScript2.setAttribute('src', '/assets/js/scripts.bundle.js');
+    customScript3.setAttribute('src', '/assets/js/common/common.js');
+    document.body.appendChild(customScript1);
+    document.body.appendChild(customScript2);
+    document.body.appendChild(customScript3);
+    });
+    </script>*@
+
+    <script src="~/assets/plugins/global/plugins.bundle.js"></script>
+    <script src="~/assets/js/scripts.bundle.js"></script>
+    @*<script src="~/assets/plugins/custom/datatables/datatables.bundle.js"></script>*@
+    <script src="_framework/blazor.server.js"></script>
+</body>
+</html>

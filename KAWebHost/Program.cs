@@ -4,6 +4,7 @@ using KA.DataProvider.Entities;
 using KA.Infrastructure.Authen;
 using KA.Repository.Base;
 using KA.Service.Address;
+using KA.Service.Courses;
 using KA.Service.Mapper;
 using KAWebHost.Data;
 using Microsoft.AspNetCore.Components;
@@ -16,7 +17,7 @@ var builder = WebApplication.CreateBuilder(args);
 // =========================== SERVICE ===============================
 // Blazor service
 builder.Services.AddRazorPages().AddViewLocalization();
-builder.Services.AddServerSideBlazor().AddCircuitOptions(options => { options.DetailedErrors = true; }); 
+builder.Services.AddServerSideBlazor().AddCircuitOptions(options => { options.DetailedErrors = true; });
 
 // DbContext
 var connectionString = builder.Configuration.GetConnectionString("Default");
@@ -73,8 +74,10 @@ builder.Services.AddTransient<IRepository<AppUser>, BaseRepository<AppUser>>();
 builder.Services.AddTransient<IRepository<Province>, BaseRepository<Province>>();
 builder.Services.AddTransient<IRepository<District>, BaseRepository<District>>();
 builder.Services.AddTransient<IRepository<Ward>, BaseRepository<Ward>>();
+builder.Services.AddTransient<IRepository<Course>, BaseRepository<Course>>();
 
 builder.Services.AddScoped<IAddressService, AddressService>();
+builder.Services.AddScoped<ICourseService, CourseService>();
 
 
 // ======================= MIDDLEWARE =============================

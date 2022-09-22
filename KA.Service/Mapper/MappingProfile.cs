@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using KA.ViewModels.Authen;
+using KA.ViewModels.Courses;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -22,11 +23,13 @@ namespace KA.Service.Mapper
 
         private void MappingEntityToViewModel()
         {
+
         }
 
         private void MappingDtoToEntity()
         {
             CreateMap<RegisterInputModel, AppUser>();
+            CreateMap<CreateCourseModel, Course>();
         }
     }
 }

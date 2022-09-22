@@ -1,0 +1,48 @@
+﻿@inherits ComponentBase
+
+<div class="modal fade show" tabindex="-1" style="display: block; background-color: rgba(10,10,10,0.8)" id="kt_modal_1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">@(Title)</h5>
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close" @onclick="Cancel">
+                    <span class="svg-icon svg-icon-2x"></span>
+                </div>
+                <!--end::Close-->
+            </div>
+
+            <div class="modal-body text-center">
+                <i class="bi bi-x-circle" style="font-size: 64px;color: red;"></i>
+                <p class="mt-10">@(Message)</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal" @onclick="Cancel">Hủy</button>
+                <button type="button" class="btn btn-primary" @onclick="Accept">Đồng ý</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public EventCallback<bool> OnClose { get; set; }
+    [Parameter]
+    public string Title { get; set; }
+    [Parameter]
+    public string Message { get; set; }
+    protected override Task OnInitializedAsync()
+    {
+        return base.OnInitializedAsync();
+    }
+
+    private async Task Cancel()
+    {
+        OnClose.InvokeAsync(false);
+    }
+    private async Task Accept()
+    {
+        OnClose.InvokeAsync(true);
+    }
+}
