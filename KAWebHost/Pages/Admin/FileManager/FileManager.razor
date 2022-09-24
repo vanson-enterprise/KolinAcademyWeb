@@ -1,0 +1,34 @@
+﻿@page "/manager/files"
+@using KAWebHost.Data.Models
+
+<h3>FileManager</h3>
+<AuthorizeView>
+    <Authorized>
+        @if(context.User.IsInRole(ADMINISTRATION_ROLE)){
+
+        }
+        else{
+            <p>Bạn không có quyền quản lý file</p>        
+        }
+    </Authorized>
+    <NotAuthorized>
+        <p>Bạn chưa đăng nhập</p>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+    string ADMINISTRATION_ROLE = "Administrators";
+    bool ShowPopup = false;
+    bool ShowFolderPopup = false;
+    int progress;
+    string info;
+    string CurrentDirectory = "";
+    string CurrentRoot = "";
+    string NewFolderName = "";
+    FileObject SelectedFile = new FileObject();
+    List<string> Directories = new List<string>();
+    List<FileObject> Files = new List<FileObject>();
+    Dictionary<DateTime, string> events = new Dictionary<DateTime, string>();
+}

@@ -1,0 +1,237 @@
+﻿@page "/manager/create-on-course"
+@using KAWebHost.Pages.Admin.Components
+@using Blazored.TextEditor
+@inherits OwningComponentBase
+
+<div class="d-flex flex-column-fluid">
+    <div class="container-fluid">
+        <div class="card card-flush">
+            <div class="card-header ">
+                <h3 class="card-title"> Tạo đơn hàng</h3>
+            </div>
+            <div class="card-body">
+                <!--begin::Stepper-->
+                <div class="stepper stepper-pills" id="kt_stepper_example_basic">
+                    <!--begin::Nav-->
+                    <div class="stepper-nav flex-center flex-wrap mb-10">
+                        <!--begin::Step 1-->
+                        <div class="stepper-item mx-2 my-4 current" data-kt-stepper-element="nav">
+                            <!--begin::Line-->
+                            <div class="stepper-line w-40px"></div>
+                            <!--end::Line-->
+                            <!--begin::Icon-->
+                            <div class="stepper-icon w-40px h-40px">
+                                <i class="stepper-check fas fa-check"></i>
+                                <span class="stepper-number">1</span>
+                            </div>
+                            <!--end::Icon-->
+                            <!--begin::Label-->
+                            <div class="stepper-label">
+                                <h3 class="stepper-title">
+                                    Thông tin chung
+                                </h3>
+
+                                <div class="stepper-desc">
+                                    Tạo mới khóa học
+                                </div>
+                            </div>
+                            <!--end::Label-->
+                        </div>
+                        <!--end::Step 1-->
+                        <!--begin::Step 2-->
+                        <div class="stepper-item mx-2 my-4 " data-kt-stepper-element="nav">
+                            <!--begin::Line-->
+                            <div class="stepper-line w-40px"></div>
+                            <!--end::Line-->
+                            <!--begin::Icon-->
+                            <div class="stepper-icon w-40px h-40px">
+                                <i class="stepper-check fas fa-check"></i>
+                                <span class="stepper-number">2</span>
+                            </div>
+                            <!--begin::Icon-->
+                            <!--begin::Label-->
+                            <div class="stepper-label">
+                                <h3 class="stepper-title">
+                                    Bài học
+                                </h3>
+
+                                <div class="stepper-desc">
+                                    Tạo bài học
+                                </div>
+                            </div>
+                            <!--end::Label-->
+                        </div>
+                        <!--end::Step 2-->
+                        <!--begin::Step 3-->
+                        <div class="stepper-item mx-2 my-4" data-kt-stepper-element="nav">
+                            <!--begin::Line-->
+                            <div class="stepper-line w-40px"></div>
+                            <!--end::Line-->
+                            <!--begin::Icon-->
+                            <div class="stepper-icon w-40px h-40px">
+                                <i class="stepper-check fas fa-check"></i>
+                                <span class="stepper-number">3</span>
+                            </div>
+                            <!--begin::Icon-->
+                            <!--begin::Label-->
+                            <div class="stepper-label">
+                                <h3 class="stepper-title">
+                                    Xác nhận
+                                </h3>
+
+                                <div class="stepper-desc">
+                                    Xác nhận tạo đơn
+                                </div>
+                            </div>
+                            <!--end::Label-->
+                        </div>
+                        <!--end::Step 3-->
+
+                    </div>
+                    <!--end::Nav-->
+                    <!--begin::Container-->
+                    <div id="kt_stepper_example_basic_form">
+                        <!--begin::Group-->
+                        <div class="mb-5">
+                            <!--begin::Step 1-->
+                            <div class="flex-column current" data-kt-stepper-element="content">
+                                <EditForm Model="@createCourseModel" Context="CreateCourseFormContext">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <label for="course_name" class="form-label">Tên khóa học</label>
+                                            <InputText id="course_name" @bind-Value="createCourseModel.Name" class="form-control" placeholder="Nhập tên khóa học" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <label for="course_code" class="form-label">Mã khóa học</label>
+                                            <InputText id="course_code" @bind-Value="createCourseModel.Code" class="form-control" placeholder="Nhập mã khóa học" />
+                                        </div>
+                                        <div class="col-3">
+                                            <label class="form-label required">Loại khóa học</label>
+                                            <Select2 @bind-Value="createCourseModel.Type"
+                                                     DataSource="courseTypes"
+                                                     Id="course_type"
+                                                     HideSearch="true"
+                                                     Size="form-select-sm"
+                                                     Placeholder="Chọn loại giao hàng" />
+                                            <ValidationMessage For="@(()=>createCourseModel.Type)"></ValidationMessage>
+                                        </div>
+                                        <div class="col-3">
+                                            <label class="form-label">Giá gốc</label>
+                                            <InputNumber @bind-Value="createCourseModel.Price"
+                                                         min="0" class="form-control"
+                                                         aria-label="Sizing example input"
+                                                         aria-describedby="inputGroup-sizing-sm" />
+                                        </div>
+                                        <div class="col-3">
+                                            <label class="form-label">Giá khuyến mãi</label>
+                                            <InputNumber @bind-Value="createCourseModel.DiscountPrice"
+                                                         min="0" class="form-control"
+                                                         aria-label="Sizing example input"
+                                                         aria-describedby="inputGroup-sizing-sm" />
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <label for="course_meta_keyword" class="form-label">Meta Keywords</label>
+                                                <InputText id="course_meta_keyword" @bind-Value="createCourseModel.MetaKeyWord" class="form-control" placeholder="Nhập meta keywords" />
+                                            </div>
+                                            <div class="col-12">
+                                                <label for="course_meta_title" class="form-label">Meta Title</label>
+                                                <InputText id="course_meta_title" @bind-Value="createCourseModel.MetaTitle" class="form-control" placeholder="Nhập meta title" />
+                                            </div>
+                                            <div class="col-12">
+                                                <label for="course_meta_description" class="form-label">Meta Description</label>
+                                                <InputText id="course_meta_description" @bind-Value="createCourseModel.MetaDescription" class="form-control" placeholder="Nhập meta description" />
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            @* <div class="col-12">
+                                            <label class="form-label required">Mô tả bưu kiện</label>
+                                            <InputTextArea @bind-Value="createCourseModel.ShortDescription"
+                                            class="form-control" ro="4"
+                                            aria-label="With textarea"
+                                            placeholder="Nhập mô tả">
+                                            </InputTextArea>
+                                            </div>*@
+                                            <div class="col-12">
+                                                <BlazoredTextEditor @ref="@QuillHtml">
+                                                    <ToolbarContent>
+                                                        <select class="ql-header">
+                                                            <option selected=""></option>
+                                                            <option value="1"></option>
+                                                            <option value="2"></option>
+                                                            <option value="3"></option>
+                                                            <option value="4"></option>
+                                                            <option value="5"></option>
+                                                        </select>
+                                                        <span class="ql-formats">
+                                                            <button class="ql-bold"></button>
+                                                            <button class="ql-italic"></button>
+                                                            <button class="ql-underline"></button>
+                                                            <button class="ql-strike"></button>
+                                                        </span>
+                                                        <span class="ql-formats">
+                                                            <select class="ql-color"></select>
+                                                            <select class="ql-background"></select>
+                                                        </span>
+                                                        <span class="ql-formats">
+                                                            <button class="ql-list" value="ordered"></button>
+                                                            <button class="ql-list" value="bullet"></button>
+                                                        </span>
+                                                        <span class="ql-formats">
+                                                            <button class="ql-link"></button>
+                                                        </span>
+                                                        @*<span class="ql-formats">
+                                                            <button class="ql-link"></button>
+                                                            <button class="btn btn-link" id="custom-button"
+                                                                    @onclick="InsertImageClick">
+                                                                <img src="imageIcon.png" style="border:hidden" />
+                                                            </button>
+                                                        </span>*@
+                                                    </ToolbarContent>
+                                                    <EditorContent>
+                                                       @((MarkupString)createCourseModel.Description)
+                                                    </EditorContent>
+                                                </BlazoredTextEditor>
+                                               
+                                            </div>
+                                        </div>
+                                        <div class="row"></div>
+                                    </div>
+                                </EditForm>
+                            </div>
+                            <!--begin::Step 1-->
+                            <!--begin::Step 2-->
+                            <!--begin::Step 2-->
+                            <!--begin::Step 3-->
+                            <!--begin::Step 3-->
+                        </div>
+                        <!--end::Group-->
+                        <!--begin::Actions-->
+                        <div class="d-flex flex-stack">
+                            <!--begin::Wrapper-->
+                            <div class="me-2">
+                                <button type="button" class="btn btn-light btn-active-light-primary" data-kt-stepper-action="previous">
+                                    TRỞ LẠI
+                                </button>
+                            </div>
+                            <!--end::Wrapper-->
+                            <!--begin::Wrapper-->
+                            <div>
+                                <button type="button" class="btn btn-primary" data-kt-stepper-action="next">
+                                    TIẾP TỤC
+                                </button>
+                            </div>
+                            <!--end::Wrapper-->
+                        </div>
+                        <!--end::Actions-->
+                    </div>
+                    <!--end::Container-->
+                </div>
+                <!--end::Stepper-->
+
+            </div>
+        </div>
+    </div>
+</div>
