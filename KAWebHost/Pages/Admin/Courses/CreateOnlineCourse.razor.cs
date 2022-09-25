@@ -3,6 +3,7 @@ using KA.Infrastructure.Enums;
 using KA.Infrastructure.Enums.Extension;
 using KA.ViewModels.Courses;
 using KA.ViewModels.Lessons;
+using KAWebHost.Pages.Admin.Components;
 using Microsoft.AspNetCore.Components;
 
 namespace KAWebHost.Pages.Admin.Courses
@@ -15,50 +16,24 @@ namespace KAWebHost.Pages.Admin.Courses
 
         // Properties
         private Dictionary<string, string> courseTypes = CourseType.ONLINE.ToDictionary();
-        
-       
+
+        private FileSelector FileSelectorControl;
         BlazoredTextEditor QuillHtml;
-        string QuillHTMLContent;
-
-        
-
-
-        //      public string Code { get; set; }             3
-        //      public CourseType Type { get; set; }        3
-        //      public decimal Price { get; set; }            3
-        //      public decimal DiscountPrice { get; set; }    3
-
-
-        //      public string PreviewImageFileName { get; set; }
-        //      public string PreviewImageTitle { get; set; }
-        //      public string IntroduceVideoLink { get; set; }
-
-        //      public string MetaKeyWord { get; set; }
-        //      public string MetaTitle { get; set; }
-        //      public string MetaDescription { get; set; }
-
-        //      public string ShortDescription { get; set; }
-        //      public string Description { get; set; }
-
-
-
-        //      public string Tag { get; set; }
-        //      public int Sort { get; set; }
-        //      public bool IsActive { get; set; }
-        // Consts
-
-        // Lifecircle methods
 
         protected override async Task OnInitializedAsync()
         {
-            createCourseModel = new CreateCourseModel();
+            createCourseModel = new CreateCourseModel()
+            {
+                IsActive = true,
+                Type = CourseType.ONLINE
+            };
         }
 
 
         // Methods
         public async void GetHTML()
         {
-            QuillHTMLContent = await this.QuillHtml.GetHTML();
+            var QuillHTMLContent = await this.QuillHtml.GetHTML();
             StateHasChanged();
         }
 
@@ -68,8 +43,20 @@ namespace KAWebHost.Pages.Admin.Courses
                 @"<a href='http://BlazorHelpWebsite.com/'>" +
                 "<img src='images/BlazorHelpWebsite.gif' /></a>";
 
-            await this.QuillHtml.LoadHTMLContent(QuillContent);
+            await QuillHtml.LoadHTMLContent(QuillContent);
             StateHasChanged();
+        }
+
+        private void InsertImageClick()
+        {
+            FileSelectorControl.SetShowFileManager(true);
+        }
+
+        async Task InsertImage(string paramImageURL)
+        {
+            await QuillHtml.InsertImage(paramImageURL);
+
+            FileSelectorControl.SetShowFileManager(false);
         }
     }
 }

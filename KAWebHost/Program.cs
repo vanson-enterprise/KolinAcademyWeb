@@ -4,12 +4,16 @@ using KA.DataProvider.Entities;
 using KA.Infrastructure.Authen;
 using KA.Repository.Base;
 using KA.Service.Address;
+using KA.Service.Base;
 using KA.Service.Courses;
 using KA.Service.Mapper;
+using KAWebHost.Areas.Identity;
 using KAWebHost.Data;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +22,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Blazor service
 builder.Services.AddRazorPages().AddViewLocalization();
 builder.Services.AddServerSideBlazor().AddCircuitOptions(options => { options.DetailedErrors = true; });
+builder.Services.AddMvc(options => options.EnableEndpointRouting = false).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
 // DbContext
 var connectionString = builder.Configuration.GetConnectionString("Default");
@@ -50,6 +55,8 @@ builder.Services.AddIdentity<AppUser, AppRole>(options =>
 .AddErrorDescriber<MultilanguageIdentityErrorDescriber>()
 .AddEntityFrameworkStores<ApplicationDbContext>()
 .AddDefaultTokenProviders();
+builder.Services.AddScoped<AuthenticationStateProvider,
+              RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
@@ -91,6 +98,13 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+//app.UseEndpoints(endpoints =>
+//{
+//    endpoints.MapControllers();
+//    endpoints.MapBlazorHub();
+//    endpoints.MapFallbackToPage("/_Host");
+//});
+
 //app.UseHttpsRedirection();
 app.UseRequestLocalization();
 app.UseStaticFiles();
@@ -99,8 +113,9 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.MapControllers();
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
+
 
 app.Run();

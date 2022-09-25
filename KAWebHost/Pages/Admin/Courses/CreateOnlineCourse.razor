@@ -7,7 +7,7 @@
     <div class="container-fluid">
         <div class="card card-flush">
             <div class="card-header ">
-                <h3 class="card-title"> Tạo đơn hàng</h3>
+                <h3 class="card-title"> Tạo khóa học online</h3>
             </div>
             <div class="card-body">
                 <!--begin::Stepper-->
@@ -96,26 +96,23 @@
                             <!--begin::Step 1-->
                             <div class="flex-column current" data-kt-stepper-element="content">
                                 <EditForm Model="@createCourseModel" Context="CreateCourseFormContext">
-                                    <div class="row">
+                                    <DataAnnotationsValidator/>
+                                    <div class="row mb-5">
                                         <div class="col-12">
-                                            <label for="course_name" class="form-label">Tên khóa học</label>
+                                            <label for="course_name" class="form-label required">Tên khóa học</label>
                                             <InputText id="course_name" @bind-Value="createCourseModel.Name" class="form-control" placeholder="Nhập tên khóa học" />
+                                            <ValidationMessage For="@(()=>createCourseModel.Name)"></ValidationMessage>
                                         </div>
-                                    </div>
-                                    <div class="row">
+                                    </div> 
+                                    <div class="row mb-5">
                                         <div class="col-3">
-                                            <label for="course_code" class="form-label">Mã khóa học</label>
+                                            <label for="course_code" class="form-label required">Mã khóa học</label>
                                             <InputText id="course_code" @bind-Value="createCourseModel.Code" class="form-control" placeholder="Nhập mã khóa học" />
+                                            <ValidationMessage For="@(()=>createCourseModel.Code)"></ValidationMessage>
                                         </div>
                                         <div class="col-3">
-                                            <label class="form-label required">Loại khóa học</label>
-                                            <Select2 @bind-Value="createCourseModel.Type"
-                                                     DataSource="courseTypes"
-                                                     Id="course_type"
-                                                     HideSearch="true"
-                                                     Size="form-select-sm"
-                                                     Placeholder="Chọn loại giao hàng" />
-                                            <ValidationMessage For="@(()=>createCourseModel.Type)"></ValidationMessage>
+                                            <label for="course_order" class="form-label">Thứ tự hiển thị (từ cao đến thấp)</label>
+                                            <InputNumber @bind-Value="createCourseModel.Sort" class="form-control" placeholder="Nhập tag"></InputNumber>
                                         </div>
                                         <div class="col-3">
                                             <label class="form-label">Giá gốc</label>
@@ -123,6 +120,8 @@
                                                          min="0" class="form-control"
                                                          aria-label="Sizing example input"
                                                          aria-describedby="inputGroup-sizing-sm" />
+
+                                            <ValidationMessage For="@(()=>createCourseModel.Price)"></ValidationMessage>
                                         </div>
                                         <div class="col-3">
                                             <label class="form-label">Giá khuyến mãi</label>
@@ -130,74 +129,89 @@
                                                          min="0" class="form-control"
                                                          aria-label="Sizing example input"
                                                          aria-describedby="inputGroup-sizing-sm" />
+
+                                            <ValidationMessage For="@(()=>createCourseModel.DiscountPrice)"></ValidationMessage>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <label for="course_meta_keyword" class="form-label">Meta Keywords</label>
-                                                <InputText id="course_meta_keyword" @bind-Value="createCourseModel.MetaKeyWord" class="form-control" placeholder="Nhập meta keywords" />
-                                            </div>
-                                            <div class="col-12">
-                                                <label for="course_meta_title" class="form-label">Meta Title</label>
-                                                <InputText id="course_meta_title" @bind-Value="createCourseModel.MetaTitle" class="form-control" placeholder="Nhập meta title" />
-                                            </div>
-                                            <div class="col-12">
-                                                <label for="course_meta_description" class="form-label">Meta Description</label>
-                                                <InputText id="course_meta_description" @bind-Value="createCourseModel.MetaDescription" class="form-control" placeholder="Nhập meta description" />
+                                       
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 mb-5">
+                                            <label for="course_meta_keyword" class="form-label">Meta Keywords</label>
+                                            <InputText id="course_meta_keyword" @bind-Value="createCourseModel.MetaKeyWord" class="form-control" placeholder="Nhập meta keywords" />
+                                        </div>
+                                        <div class="col-12 mb-5">
+                                            <label for="course_meta_title" class="form-label">Meta Title</label>
+                                            <InputText id="course_meta_title" @bind-Value="createCourseModel.MetaTitle" class="form-control" placeholder="Nhập meta title" />
+                                        </div>
+                                        <div class="col-12 mb-5">
+                                            <label for="course_meta_description" class="form-label">Meta Description</label>
+                                            <InputText id="course_meta_description" @bind-Value="createCourseModel.MetaDescription" class="form-control" placeholder="Nhập meta description" />
+                                        </div>
+                                    </div>
+                                    <div class="row mb-5">
+                                        @* <div class="col-12">
+                                        <label class="form-label required">Mô tả bưu kiện</label>
+                                        <InputTextArea @bind-Value="createCourseModel.ShortDescription"
+                                        class="form-control" ro="4"
+                                        aria-label="With textarea"
+                                        placeholder="Nhập mô tả">
+                                        </InputTextArea>
+                                        </div>*@
+                                        <div class="col-12">
+                                            <BlazoredTextEditor @ref="@QuillHtml">
+                                                <ToolbarContent>
+                                                    <select class="ql-header">
+                                                        <option selected=""></option>
+                                                        <option value="1"></option>
+                                                        <option value="2"></option>
+                                                        <option value="3"></option>
+                                                        <option value="4"></option>
+                                                        <option value="5"></option>
+                                                    </select>
+                                                    <span class="ql-formats">
+                                                        <button class="ql-bold"></button>
+                                                        <button class="ql-italic"></button>
+                                                        <button class="ql-underline"></button>
+                                                        <button class="ql-strike"></button>
+                                                    </span>
+                                                    <span class="ql-formats">
+                                                        <select class="ql-color"></select>
+                                                        <select class="ql-background"></select>
+                                                    </span>
+                                                    <span class="ql-formats">
+                                                        <button class="ql-list" value="ordered"></button>
+                                                        <button class="ql-list" value="bullet"></button>
+                                                    </span>
+                                                    <span class="ql-formats">
+                                                        <button class="ql-link"></button>
+                                                    </span>
+                                                    <span class="ql-formats">
+                                                        <button class="btn btn-link" id="custom-button" style="background-image: url('img/icon/imageicon.png')"
+                                                                @onclick="InsertImageClick">
+                                                        </button>
+                                                    </span>
+                                                </ToolbarContent>
+                                                <EditorContent>
+                                                        @((MarkupString)createCourseModel.Description)
+                                                </EditorContent>
+                                            </BlazoredTextEditor>
+
+                                        </div>
+                                    </div>
+                                    <div class="row mb-5">
+                                        <div class="col-10">
+                                            <label for="course_tag" class="form-label">Tags</label>
+                                            <InputText id="course-tag" @bind-Value="createCourseModel.Tag" class="form-control" placeholder="Nhập tag"></InputText>
+                                        </div>
+                                       
+                                        <div class="col-2">
+                                            <div class="form-check form-check-custom form-check-solid mt-10 ms-10">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" @bind="createCourseModel.IsActive" />
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                    Kích hoạt
+                                                </label>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            @* <div class="col-12">
-                                            <label class="form-label required">Mô tả bưu kiện</label>
-                                            <InputTextArea @bind-Value="createCourseModel.ShortDescription"
-                                            class="form-control" ro="4"
-                                            aria-label="With textarea"
-                                            placeholder="Nhập mô tả">
-                                            </InputTextArea>
-                                            </div>*@
-                                            <div class="col-12">
-                                                <BlazoredTextEditor @ref="@QuillHtml">
-                                                    <ToolbarContent>
-                                                        <select class="ql-header">
-                                                            <option selected=""></option>
-                                                            <option value="1"></option>
-                                                            <option value="2"></option>
-                                                            <option value="3"></option>
-                                                            <option value="4"></option>
-                                                            <option value="5"></option>
-                                                        </select>
-                                                        <span class="ql-formats">
-                                                            <button class="ql-bold"></button>
-                                                            <button class="ql-italic"></button>
-                                                            <button class="ql-underline"></button>
-                                                            <button class="ql-strike"></button>
-                                                        </span>
-                                                        <span class="ql-formats">
-                                                            <select class="ql-color"></select>
-                                                            <select class="ql-background"></select>
-                                                        </span>
-                                                        <span class="ql-formats">
-                                                            <button class="ql-list" value="ordered"></button>
-                                                            <button class="ql-list" value="bullet"></button>
-                                                        </span>
-                                                        <span class="ql-formats">
-                                                            <button class="ql-link"></button>
-                                                        </span>
-                                                        @*<span class="ql-formats">
-                                                            <button class="ql-link"></button>
-                                                            <button class="btn btn-link" id="custom-button"
-                                                                    @onclick="InsertImageClick">
-                                                                <img src="imageIcon.png" style="border:hidden" />
-                                                            </button>
-                                                        </span>*@
-                                                    </ToolbarContent>
-                                                    <EditorContent>
-                                                       @((MarkupString)createCourseModel.Description)
-                                                    </EditorContent>
-                                                </BlazoredTextEditor>
-                                               
-                                            </div>
-                                        </div>
-                                        <div class="row"></div>
                                     </div>
                                 </EditForm>
                             </div>
@@ -235,3 +249,6 @@
         </div>
     </div>
 </div>
+
+<FileSelector @ref="FileSelectorControl"
+              ImageSelected="InsertImage" />

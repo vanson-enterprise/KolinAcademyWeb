@@ -70,5 +70,11 @@ namespace KAWebHost.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
+        [HttpGet("[action]")]
+        public IActionResult GetData()
+        {
+            return Ok("123");
+        }
     }
 }

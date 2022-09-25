@@ -1,55 +1,84 @@
 ﻿@using System.IO
 @using System.Drawing;
+@using KAWebHost.Data.Models
+@using System.Web
 @inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment HostEnvironment
 
 @if (ShowFileManager)
 {
     <div class="modal" tabindex="-1" style="display:block" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
+
                 <div class="modal-header">
-                    <b class="modal-title">Insert Image</b>
-                    <!-- Close Button -->
-                    <button type="button" class="close"
-                            @onclick="() => { ShowFileManager = false; }">
-                        <span aria-hidden="true">X</span>
-                    </button>
+                    <h5 class="modal-title">Chọn ảnh</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @onclick="() => { ShowFileManager = false; }"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="row">
+                    <div class="d-flex">
                         <RadzenButton Disabled="@(SelectedFile.FileName == null)"
-                                      Text="Select"
-                                      Click="SelectFile"
-                                      ButtonStyle="ButtonStyle.Success"
-                                      Style="margin-bottom: 20px;height: 35px" />
+                                  Text="Select"
+                                  Click="SelectFile"
+                                  ButtonStyle="ButtonStyle.Success"
+                                  Style="margin-bottom: 20px" />
+                        
+
+                        <RadzenButton Disabled="@(SelectedFile.FileName == null)"
+                                  Text="Delete"
+                                  Click="DeleteSelectedFile"
+                                  ButtonStyle="ButtonStyle.Danger"
+                                  Style="margin-left: 20px; height:30px" />
+                        <RadzenUpload ChooseText="Upload Files" Multiple="true"
+                                  Accept="image/*"
+                                  Url=@($"/api/upload/multiple?CurrentDirectory={HttpUtility.UrlEncode(CurrentDirectory.ToLower().Replace(CurrentRoot.ToLower(), ""))}")
+                                  Style="margin-left: 20px;"
+                                  Progress="@((args) => OnProgress(args))" />
                     </div>
                     <div class="row">
-                        <div class="col-md-4" style="margin-bottom: 16px">
+                        <div class="col-md-3" style="margin-bottom: 16px">
                             <RadzenTree Change="@LogChange" Data="@Directories"
-                                        Expand="@LoadDirectory"
-                                        Style="width: 100%; height: 300px">
+                                    Expand="@LoadDirectory"
+                                    Style="width: 100%; height: 300px">
                                 <RadzenTreeLevel Text="@GetTextForNode"
-                                                 Template="@FileOrFolderTemplate" />
+                                             Template="@FileOrFolderTemplate" />
                             </RadzenTree>
                         </div>
-                        <div class="col-md-8" style="margin-bottom: 16px">
+                        <div class="col-md-9" style="margin-bottom: 16px">
                             <RadzenDataList @ref="FileDataList" Data="@Files"
-                                            AllowPaging="true" TItem="FileObject"
-                                            WrapItems="true" PageSize="6">
+                                        AllowPaging="true" TItem="FileObject"
+                                        WrapItems="true" PageSize="6">
                                 <Template Context="file">
                                     <RadzenImage Path="@file.FilePath"
-                                                 Style="@((file.FileName == SelectedFile.FileName)
+                                             Style="@((file.FileName == SelectedFile.FileName)
                                                           ? $"height:{file.ThumbnailHeight}px;" +
                                                           $"width:{file.ThumbnailWidth}px;" +
                                                           $"padding:10px;background-color:darkgrey;"
                                                           : $"height:{file.ThumbnailHeight}px;" +
                                                           $"width:{file.ThumbnailWidth}px;" +
                                                           $"padding:10px;background-color:white;")"
-                                                 Click="@((args) => SelectImage(file))" />
+                                             Click="@((args) => SelectImage(file))" />
                                 </Template>
                             </RadzenDataList>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@if (ShowPopup)
+{
+    <div class="modal" tabindex="-1" style="display:block" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Upload Status</h4>
+                </div>
+                <div align="center">
+                    <RadzenProgressBar Value="@progress"
+                                   Unit="@info"
+                                   Visible="@(progress > 0)"
+                                   Style="margin-bottom: 20px" />
                 </div>
             </div>
         </div>
@@ -63,7 +92,9 @@
 
     private RadzenDataList<FileObject> FileDataList;
     private bool ShowFileManager = false;
-
+    bool ShowPopup = false;
+    int progress;
+    string info;
     private string CurrentDirectory = "";
     private string CurrentRoot = "";
     private FileObject SelectedFile = new FileObject();
@@ -74,9 +105,8 @@
 
     protected override void OnInitialized()
     {
-        CurrentRoot =
-            Path.Combine(HostEnvironment.WebRootPath, "uploads");
-        CurrentDirectory = CurrentRoot;
+        CurrentRoot = HostEnvironment.WebRootPath;
+        CurrentDirectory = Path.Combine(CurrentRoot, "uploads");
         Directories.Add(CurrentDirectory);
         LoadFiles();
     }
@@ -183,17 +213,17 @@
                 }
 
                 Files.Add(new FileObject()
-                {
-                    FileName =
-                    Path.GetFileName(item),
-                    FilePath =
-                    item.Replace(HostEnvironment.WebRootPath, "")
-                    .Replace("\\uploads", "uploads"),
-                    Height = image.Height,
-                    Width = image.Width,
-                    ThumbnailHeight = Convert.ToInt32(thumbnailHeight),
-                    ThumbnailWidth = Convert.ToInt32(thumbnailWidth)
-                });
+                    {
+                        FileName =
+                        Path.GetFileName(item),
+                        FilePath =
+                        item.Replace(HostEnvironment.WebRootPath, "")
+                        .Replace("\\uploads", "uploads"),
+                        Height = image.Height,
+                        Width = image.Width,
+                        ThumbnailHeight = Convert.ToInt32(thumbnailHeight),
+                        ThumbnailWidth = Convert.ToInt32(thumbnailWidth)
+                    });
             }
         }
 
@@ -202,5 +232,51 @@
 
         // Update UI
         StateHasChanged();
+    }
+
+    async void OnProgress(UploadProgressArgs args)
+    {
+        ShowPopup = true;
+        this.info = $"{args.Loaded} of {args.Total} bytes.";
+        this.progress = args.Progress;
+        StateHasChanged();
+        if (args.Loaded == args.Total)
+        {
+            // Delay to give files time to be saved
+            // before reloading file view
+            await LoadFilesAsync();
+        }
+    }
+
+    public async Task LoadFilesAsync()
+    {
+        int Time = 1;
+        while (Time > 0)
+        {
+            Time--;
+            StateHasChanged();
+            await Task.Delay(1000);
+        }
+        ShowPopup = false;
+        LoadFiles();
+    }
+
+     private void DeleteSelectedFile()
+    {
+        string RequestedPath = SelectedFile.FilePath;
+
+        RequestedPath =
+            RequestedPath.Replace("\\uploads\\", "uploads\\");
+
+        string path = Path.Combine(
+            HostEnvironment.WebRootPath,
+            RequestedPath);
+
+        if (File.Exists(path))
+        {
+            File.Delete(path);
+
+            LoadFiles();
+        }
     }
 }
