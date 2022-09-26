@@ -45,7 +45,7 @@ namespace KAWebHost.Pages.Admin.Courses
         {
             if (firstRender)
             {
-                await jsr.InvokeVoidAsync("import", "/scripts/course/create-on-course.js");
+                await jsr.InvokeVoidAsync("import", "/scripts/courses/create-on-course.js");
                 await jsr.InvokeVoidAsync("createOnCoursePageJs.init");
             }
         }

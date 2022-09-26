@@ -1,0 +1,100 @@
+﻿@page "/manager/create-blog"
+@using Blazored.TextEditor
+@using KAWebHost.Pages.Admin.Components
+
+@inherits OwningComponentBase
+
+<div class="d-flex flex-column-fluid">
+    <div class="container-fluid">
+        <div class="card card-flush">
+            <div class="card-header ">
+                <h3 class="card-title">Tạo blog</h3>
+            </div>
+            <div class="card-body">
+                <EditForm Model="@createBlogModel">
+                    <DataAnnotationsValidator></DataAnnotationsValidator>
+                    <div class="row mb-5">
+                        <div class="col-12">
+                            <label for="blog_name" class="form-label required">Tiêu đề</label>
+                            <InputText id="blog_name" @bind-Value="createBlogModel.Title" class="form-control" placeholder="Nhập tiêu đề blog"></InputText>
+                            <ValidationMessage For="@(()=>createBlogModel.Title)"></ValidationMessage>
+                        </div>
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col-12">
+                            <label for="blog_metakeyword"</label>
+                            <InputText id="blog_metakeyword" @bind-Value="createBlogModel.MetaKeyWord" class="form-control" placeholder="Nhập Metakeyword"></InputText>
+                            <ValidationMessage For="@(()=>createBlogModel.MetaKeyWord)"></ValidationMessage>
+                        </div>
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col-12">
+                            <label for="blog_metadescription" </label>
+                            <InputText id="blog_metadescription" @bind-Value="createBlogModel.MetaDescription" class="form-control" placeholder="Nhập MetaDescription"></InputText>
+                            <ValidationMessage For="@(()=>createBlogModel.MetaDescription)"></ValidationMessage>
+                        </div>
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col-12">
+                            <label for="blog_metatitle" </label>
+                            <InputText id="blog_metatitle" @bind-Value="createBlogModel.MetaTitle" class="form-control" placeholder="Nhập MetaTitle"></InputText>
+                            <ValidationMessage For="@(()=>createBlogModel.MetaTitle)"></ValidationMessage>
+                        </div>
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col-12">
+                            <label for="blog_shortdescription"</label>
+                            <InputText id="blog_shortdescription" @bind-Value="createBlogModel.ShortDescription" class="form-control" placeholder="Nhập mô tả ngắn"></InputText>
+                            <ValidationMessage For="@(()=>createBlogModel.ShortDescription)"></ValidationMessage>
+                        </div>
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col-12">
+                            <BlazoredTextEditor @ref="@quillHtml">
+                                <ToolbarContent>
+                                    <select class="ql-header">
+                                        <option selected=""></option>
+                                        <option value="1"></option>
+                                        <option value="2"></option>
+                                        <option value="3"></option>
+                                        <option value="4"></option>
+                                        <option value="5"></option>
+                                    </select>
+                                    <span class="ql-formats">
+                                        <button class="ql-bold"></button>
+                                        <button class="ql-italic"></button>
+                                        <button class="ql-underline"></button>
+                                        <button class="ql-strike"></button>
+                                    </span>
+                                    <span class="ql-formats">
+                                        <select class="ql-color"></select>
+                                        <select class="ql-background"></select>
+                                    </span>
+                                    <span class="ql-formats">
+                                        <button class="ql-list" value="ordered"></button>
+                                        <button class="ql-list" value="bullet"></button>
+                                    </span>
+                                    <span class="ql-formats">
+                                        <button class="ql-link"></button>
+                                    </span>
+                                    <span class="ql-formats">
+                                        <button class="btn btn-link" id="custom-button" style="background-image: url('img/icon/imageicon.png')"
+                                                @onclick="InsertImageClick">
+                                        </button>
+                                    </span>
+                                </ToolbarContent>
+                                <EditorContent>
+                                    @((MarkupString)createBlogModel.Content)
+                                </EditorContent>
+                            </BlazoredTextEditor>
+
+                        </div>
+                    </div>
+
+                </EditForm>
+            </div>
+        </div>
+    </div>
+</div>
+<FileSelector @ref="fileSelectorControl"
+              ImageSelected="InsertImage" />
