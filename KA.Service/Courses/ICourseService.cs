@@ -1,5 +1,6 @@
 ﻿using KA.ViewModels.Common;
 using KA.ViewModels.Courses;
+using KA.ViewModels.Lessons;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace KA.Service.Courses
 {
     public interface ICourseService : IService<Course>
     {
-        Task Create(CreateCourseModel input);
+        Task CreateOnlineCourse(CreateCourseModel input, List<CreateLessonModel> lessons);
         Task<ResponseDto> Delete(int id);
         Task<ResponseDto> Edit(EditCourseModel input);
     }

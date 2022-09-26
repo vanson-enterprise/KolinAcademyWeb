@@ -82,6 +82,7 @@ builder.Services.AddTransient<IRepository<Province>, BaseRepository<Province>>()
 builder.Services.AddTransient<IRepository<District>, BaseRepository<District>>();
 builder.Services.AddTransient<IRepository<Ward>, BaseRepository<Ward>>();
 builder.Services.AddTransient<IRepository<Course>, BaseRepository<Course>>();
+builder.Services.AddTransient<IRepository<Lesson>, BaseRepository<Lesson>>();
 
 builder.Services.AddScoped<IAddressService, AddressService>();
 builder.Services.AddScoped<ICourseService, CourseService>();

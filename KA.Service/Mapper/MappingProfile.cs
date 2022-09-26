@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using KA.ViewModels.Authen;
 using KA.ViewModels.Courses;
+using KA.ViewModels.Lessons;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -30,6 +31,7 @@ namespace KA.Service.Mapper
         {
             CreateMap<RegisterInputModel, AppUser>();
             CreateMap<CreateCourseModel, Course>();
+            CreateMap<CreateLessonModel, Lesson>();
         }
     }
 }

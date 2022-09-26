@@ -11,7 +11,7 @@ namespace KA.DataProvider.Entities
         public int Id { get; set; }
         public string Name { get; set; }
         public string VideoLink { get; set; }
-        public string CourseId { get; set; }
+        public int CourseId { get; set; }
 
         [ForeignKey("CourseId")]
         public Course Course { get; set; }

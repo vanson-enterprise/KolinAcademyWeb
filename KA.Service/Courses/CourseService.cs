@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using KA.ViewModels.Common;
 using KA.ViewModels.Courses;
+using KA.ViewModels.Lessons;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,19 +13,29 @@ namespace KA.Service.Courses
     public class CourseService : BaseService<Course>, ICourseService
     {
         private IRepository<Course> _courseRepo;
+        private IRepository<Lesson> _lessonRepo;
         private IMapper _mapper;
-        public CourseService(IRepository<Course> baseReponsitory, IMapper mapper) : base(baseReponsitory)
+        public CourseService(IRepository<Course> baseReponsitory, IMapper mapper, IRepository<Lesson> lessonRepo) : base(baseReponsitory)
         {
             _courseRepo = baseReponsitory;
             _mapper = mapper;
+            _lessonRepo = lessonRepo;
         }
 
-        public async Task Create(CreateCourseModel input)
+        public async Task CreateOnlineCourse(CreateCourseModel input, List<CreateLessonModel> lessons)
         {
             var course = _mapper.Map<Course>(input);
-            await _courseRepo.AddAsync(course);
+            var newCourse = await _courseRepo.AddAsync(course);
+            if (newCourse.Id > 0)
+            {
+                foreach (var lessonModel in lessons)
+                {
+                    var lesson = _mapper.Map<Lesson>(lessonModel);
+                    lesson.CourseId = newCourse.Id;
+                    _lessonRepo.Add(lesson);
+                }
+            }
         }
-
 
         public async Task<ResponseDto> Edit(EditCourseModel input)
         {

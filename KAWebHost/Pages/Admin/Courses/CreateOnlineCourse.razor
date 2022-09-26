@@ -95,15 +95,15 @@
                         <div class="mb-5">
                             <!--begin::Step 1-->
                             <div class="flex-column current" data-kt-stepper-element="content">
-                                <EditForm Model="@createCourseModel" Context="CreateCourseFormContext">
-                                    <DataAnnotationsValidator/>
+                                <EditForm Model="@createCourseModel" OnValidSubmit="@GoToAddLessonStep">
+                                    <DataAnnotationsValidator />
                                     <div class="row mb-5">
                                         <div class="col-12">
                                             <label for="course_name" class="form-label required">Tên khóa học</label>
                                             <InputText id="course_name" @bind-Value="createCourseModel.Name" class="form-control" placeholder="Nhập tên khóa học" />
                                             <ValidationMessage For="@(()=>createCourseModel.Name)"></ValidationMessage>
                                         </div>
-                                    </div> 
+                                    </div>
                                     <div class="row mb-5">
                                         <div class="col-3">
                                             <label for="course_code" class="form-label required">Mã khóa học</label>
@@ -132,7 +132,7 @@
 
                                             <ValidationMessage For="@(()=>createCourseModel.DiscountPrice)"></ValidationMessage>
                                         </div>
-                                       
+
                                     </div>
                                     <div class="row">
                                         <div class="col-12 mb-5">
@@ -158,7 +158,7 @@
                                         </InputTextArea>
                                         </div>*@
                                         <div class="col-12">
-                                            <BlazoredTextEditor @ref="@QuillHtml">
+                                            <BlazoredTextEditor @ref="@quillHtml">
                                                 <ToolbarContent>
                                                     <select class="ql-header">
                                                         <option selected=""></option>
@@ -192,7 +192,7 @@
                                                     </span>
                                                 </ToolbarContent>
                                                 <EditorContent>
-                                                        @((MarkupString)createCourseModel.Description)
+                                                    @((MarkupString)createCourseModel.Description)
                                                 </EditorContent>
                                             </BlazoredTextEditor>
 
@@ -203,7 +203,7 @@
                                             <label for="course_tag" class="form-label">Tags</label>
                                             <InputText id="course-tag" @bind-Value="createCourseModel.Tag" class="form-control" placeholder="Nhập tag"></InputText>
                                         </div>
-                                       
+
                                         <div class="col-2">
                                             <div class="form-check form-check-custom form-check-solid mt-10 ms-10">
                                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" @bind="createCourseModel.IsActive" />
@@ -213,12 +213,129 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div>
+                                        <button type="submit" class="d-none" id="course_form_submit_btn"></button>
+                                    </div>
                                 </EditForm>
                             </div>
                             <!--begin::Step 1-->
                             <!--begin::Step 2-->
+                            <div class="flex-column " data-kt-stepper-element="content">
+                                <div class="row gy-5">
+                                    <div class="col-xl-7">
+                                        <EditForm Model="@lessonModel" OnValidSubmit="@SubmitLessonForm" id="lesson_form">
+                                            <DataAnnotationsValidator />
+                                            <div class="card shadow-sm">
+                                                <div class="card-header">
+                                                    @if (isEditingLesson)
+                                                    {
+                                                        <h3 class="card-title">Cập nhật bài giảng</h3>
+                                                    }
+                                                    else
+                                                    {
+                                                        <h3 class="card-title">Thêm bài giảng</h3>
+                                                    }
+
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="row mb-2">
+                                                        <div class="col-xl-12 col-md-12 col-12">
+                                                            <label class="form-label required">Tên bài giảng</label>
+                                                            <InputText @bind-Value="lessonModel.Name" placeholder="Nhập tên bài giảng" type="text" class="form-control " aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" />
+                                                            <ValidationMessage For="@(()=>lessonModel.Name)"></ValidationMessage>
+                                                        </div>
+                                                        <div class="col-xl-12 col-md-12 col-12 mt-10">
+                                                            <label class="form-label required">Video link</label>
+                                                            <InputText @bind-Value="lessonModel.VideoLink" placeholder="Nhập video link" type="tel" class="form-control " aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" />
+                                                            <ValidationMessage For="@(()=>lessonModel.VideoLink)"></ValidationMessage>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button type="submit" id="lesson_form_submit" style="display:none">Submit</button>
+                                        </EditForm>
+                                    </div>
+                                    <div class="col-xl-5">
+                                        <div class="row m-0">
+                                            <div class="card shadow-sm">
+                                                <div class="card-header">
+                                                    <h3 class="card-title">Tổng số bài giảng</h3>
+                                                    <div class="card-toolbar">
+                                                        <h3>@(s_lessons.Count)</h3>
+                                                    </div>
+                                                </div>
+                                                <div class="card-body">
+                                                    <table width="100%" class="">
+                                                        <thead>
+                                                            <tr>
+                                                                <td width="80%"></td>
+                                                                <td width="10%"></td>
+                                                                <td width="10%"></td>
+                                                            </tr>
+                                                        </thead>
+
+                                                        @for (int i = 1; i <= s_lessons.Count; i++)
+                                                        {
+                                                            int index = i - 1;
+                                                            <tr>
+                                                                <td class="p-2">@s_lessons[index].Name</td>
+                                                                <td class="p-2">
+                                                                    <button class="btn btn-icon btn-sm btn-light-primary" @onclick=@(e => TurnOnEditLessonForm(index))>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                                                                            <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
+                                                                        </svg>
+                                                                    </button>
+                                                                </td>
+                                                                <td class="p-2">
+                                                                    <button class="btn btn-icon  btn-sm btn-light-danger" @onclick=@(e => ShowConfirmDeleteModal(index))>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                                                            <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
+                                                                        </svg>
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        }
+
+
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                                            <div class="col" style="display: @(isEditingLesson ? "block" : "none")">
+                                                <button type="button" class="btn btn-secondary mt-6 w-100" @onclick="TurnOffEditLessonForm">
+                                                    HỦY
+                                                </button>
+                                            </div>
+
+                                            <div class="col" style="display: @(isEditingLesson ? "block" : "none")">
+                                                <button type="button" class="btn btn-success mt-6 w-100" id="update_lesson_btn">
+                                                    CẬP NHẬT
+                                                </button>
+                                            </div>
+
+                                            <button type="button" class="btn btn-light-primary mt-6" id="add_lesson_btn" style="display: @(isEditingLesson ? "none" : "block")">
+                                                <span class="svg-icon svg-icon-1">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                                                    </svg>
+                                                </span>
+                                                THÊM BÀI GIẢNG
+                                            </button>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <!--begin::Step 2-->
                             <!--begin::Step 3-->
+                            <div class="flex-column" data-kt-stepper-element="content">
+                                <div class="d-flex justify-content-center flex-column align-items-center" style="height: 300px">
+                                    <p>Kiểm tra xem tất cả các chi tiết có đúng không, sau đó nhấp vào 'Xác nhận'.</p>
+                                    <button type="button" class="btn btn-light-success" @onclick=(CreateNewCourse)> XÁC NHẬN</button>
+                                </div>
+                            </div>
                             <!--begin::Step 3-->
                         </div>
                         <!--end::Group-->
@@ -250,5 +367,9 @@
     </div>
 </div>
 
-<FileSelector @ref="FileSelectorControl"
+<FileSelector @ref="fileSelectorControl"
               ImageSelected="InsertImage" />
+@if (showConfirmDeleteLessonModal)
+{
+    <ConfirmModal Message="Bạn có chắc muốn xóa bài giảng này" Title="Xác nhận xóa đơn hàng" OnClose="DeleteLesson"></ConfirmModal>
+}

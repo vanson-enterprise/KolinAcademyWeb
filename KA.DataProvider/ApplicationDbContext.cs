@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace KA.DataProvider
 {
-    public  class ApplicationDbContext : IdentityDbContext<AppUser,AppRole,string>
+    public class ApplicationDbContext : IdentityDbContext<AppUser, AppRole, string>
     {
         public ApplicationDbContext(DbContextOptions option) : base(option)
         {
@@ -35,5 +35,19 @@ namespace KA.DataProvider
 
         public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<AppRole> AppRoles { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Province> Provinces { get; set; }
+        public DbSet<District> Districts { get; set; }
+        public DbSet<Ward> Wards { get; set; }
+        public DbSet<Blog> Blogs { get; set; }
+        public DbSet<Cart> Carts { get; set; }
+        public DbSet<CartProduct> CartProducts { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Course> Courses { get; set; }
+        public DbSet<Lesson> Lessons { get; set; }
+        public DbSet<Subscription> Subscriptions { get; set; }
+        public DbSet<UserCourse> UserCourses { get; set; }
+        public DbSet<UserLesson> UserLessons { get; set; }
+
     }
 }

@@ -113,6 +113,60 @@ namespace KA.DataProvider.Migrations
                     b.ToTable("appusers", (string)null);
                 });
 
+            modelBuilder.Entity("KA.DataProvider.Entities.Blog", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("CreateUserId")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("MainImageFileName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("MetaDescription")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("MetaKeyWord")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("MetaTitle")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("Published")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("ShortDescription")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int?>("UpdateUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("blogs");
+                });
+
             modelBuilder.Entity("KA.DataProvider.Entities.Cart", b =>
                 {
                     b.Property<int>("Id")
@@ -130,7 +184,7 @@ namespace KA.DataProvider.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("cart");
+                    b.ToTable("carts");
                 });
 
             modelBuilder.Entity("KA.DataProvider.Entities.CartProduct", b =>
@@ -161,7 +215,32 @@ namespace KA.DataProvider.Migrations
 
                     b.HasIndex("CourseId");
 
-                    b.ToTable("cartproduct");
+                    b.ToTable("cartproducts");
+                });
+
+            modelBuilder.Entity("KA.DataProvider.Entities.Comment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("ParentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("comments");
                 });
 
             modelBuilder.Entity("KA.DataProvider.Entities.Course", b =>
@@ -246,7 +325,69 @@ namespace KA.DataProvider.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("course");
+                    b.ToTable("courses");
+                });
+
+            modelBuilder.Entity("KA.DataProvider.Entities.District", b =>
+                {
+                    b.Property<string>("code")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("administrative_unit_id")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("code_name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("full_name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("full_name_en")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("name_en")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("province_code")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("code");
+
+                    b.ToTable("districts");
+                });
+
+            modelBuilder.Entity("KA.DataProvider.Entities.Lesson", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("VideoLink")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
+
+                    b.ToTable("lessons");
                 });
 
             modelBuilder.Entity("KA.DataProvider.Entities.Order", b =>
@@ -256,6 +397,7 @@ namespace KA.DataProvider.Migrations
                         .HasColumnType("int");
 
                     b.Property<int?>("CartId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("CreatedDate")
@@ -294,7 +436,82 @@ namespace KA.DataProvider.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("order");
+                    b.ToTable("orders");
+                });
+
+            modelBuilder.Entity("KA.DataProvider.Entities.Province", b =>
+                {
+                    b.Property<string>("code")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("administrative_region_id")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("administrative_unit_id")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("code_name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("full_name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("full_name_en")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("name_en")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("code");
+
+                    b.ToTable("provinces");
+                });
+
+            modelBuilder.Entity("KA.DataProvider.Entities.Subscription", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("CompanyName")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
+
+                    b.ToTable("subscriptions");
                 });
 
             modelBuilder.Entity("KA.DataProvider.Entities.UserCourse", b =>
@@ -310,6 +527,9 @@ namespace KA.DataProvider.Migrations
                         .HasColumnType("char(36)");
 
                     b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("ExpiredDate")
                         .HasColumnType("datetime(6)");
 
                     b.Property<float>("StudyProgress")
@@ -328,7 +548,70 @@ namespace KA.DataProvider.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("usercourse");
+                    b.ToTable("usercourses");
+                });
+
+            modelBuilder.Entity("KA.DataProvider.Entities.UserLesson", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("LessonId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LessonId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("userlessons");
+                });
+
+            modelBuilder.Entity("KA.DataProvider.Entities.Ward", b =>
+                {
+                    b.Property<string>("code")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("administrative_unit_id")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("code_name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("district_code")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("full_name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("full_name_en")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("name_en")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("code");
+
+                    b.ToTable("wards");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -463,11 +746,24 @@ namespace KA.DataProvider.Migrations
                     b.Navigation("Course");
                 });
 
+            modelBuilder.Entity("KA.DataProvider.Entities.Lesson", b =>
+                {
+                    b.HasOne("KA.DataProvider.Entities.Course", "Course")
+                        .WithMany()
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
+                });
+
             modelBuilder.Entity("KA.DataProvider.Entities.Order", b =>
                 {
                     b.HasOne("KA.DataProvider.Entities.Cart", "Cart")
                         .WithOne("Order")
-                        .HasForeignKey("KA.DataProvider.Entities.Order", "CartId");
+                        .HasForeignKey("KA.DataProvider.Entities.Order", "CartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("KA.DataProvider.Entities.AppUser", "User")
                         .WithMany()
@@ -478,6 +774,17 @@ namespace KA.DataProvider.Migrations
                     b.Navigation("Cart");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("KA.DataProvider.Entities.Subscription", b =>
+                {
+                    b.HasOne("KA.DataProvider.Entities.Course", "Course")
+                        .WithMany()
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
                 });
 
             modelBuilder.Entity("KA.DataProvider.Entities.UserCourse", b =>
@@ -497,6 +804,25 @@ namespace KA.DataProvider.Migrations
                     b.Navigation("AppUser");
 
                     b.Navigation("Course");
+                });
+
+            modelBuilder.Entity("KA.DataProvider.Entities.UserLesson", b =>
+                {
+                    b.HasOne("KA.DataProvider.Entities.Lesson", "Lesson")
+                        .WithMany("UserLessons")
+                        .HasForeignKey("LessonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("KA.DataProvider.Entities.AppUser", "AppUser")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+
+                    b.Navigation("Lesson");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -568,6 +894,11 @@ namespace KA.DataProvider.Migrations
             modelBuilder.Entity("KA.DataProvider.Entities.Course", b =>
                 {
                     b.Navigation("UserCourses");
+                });
+
+            modelBuilder.Entity("KA.DataProvider.Entities.Lesson", b =>
+                {
+                    b.Navigation("UserLessons");
                 });
 #pragma warning restore 612, 618
         }
