@@ -24,7 +24,8 @@ namespace KA.Service.Mapper
 
         private void MappingEntityToViewModel()
         {
-
+            CreateMap<Course, CourseItem>();
+            CreateMap<Course, EditCourseModel>();
         }
 
         private void MappingDtoToEntity()

@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Radzen;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -86,6 +87,7 @@ builder.Services.AddTransient<IRepository<Lesson>, BaseRepository<Lesson>>();
 
 builder.Services.AddScoped<IAddressService, AddressService>();
 builder.Services.AddScoped<ICourseService, CourseService>();
+builder.Services.AddTransient<ContextMenuService, ContextMenuService>();
 
 
 // ======================= MIDDLEWARE =============================

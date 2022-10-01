@@ -6,7 +6,7 @@
 
 @if (ShowFileManager)
 {
-    <div class="modal" tabindex="-1" style="display:block" role="dialog">
+    <div class="modal" tabindex="-1" style="display:block" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
 
@@ -21,7 +21,7 @@
                                   Click="SelectFile"
                                   ButtonStyle="ButtonStyle.Success"
                                   Style="margin-bottom: 20px" />
-                        
+
 
                         <RadzenButton Disabled="@(SelectedFile.FileName == null)"
                                   Text="Delete"
@@ -215,10 +215,10 @@
                 Files.Add(new FileObject()
                     {
                         FileName =
-                        Path.GetFileName(item),
+                            Path.GetFileName(item),
                         FilePath =
-                        item.Replace(HostEnvironment.WebRootPath, "")
-                        .Replace("\\uploads", "uploads"),
+                            item.Replace(HostEnvironment.WebRootPath, "")
+                            .Replace("\\uploads", "uploads"),
                         Height = image.Height,
                         Width = image.Width,
                         ThumbnailHeight = Convert.ToInt32(thumbnailHeight),
@@ -261,7 +261,7 @@
         LoadFiles();
     }
 
-     private void DeleteSelectedFile()
+    private void DeleteSelectedFile()
     {
         string RequestedPath = SelectedFile.FilePath;
 

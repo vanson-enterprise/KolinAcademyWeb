@@ -11,12 +11,16 @@ using Microsoft.JSInterop;
 
 namespace KAWebHost.Pages.Admin.Courses
 {
-    public partial class CreateOnlineCourse : OwningComponentBase
+    public partial class EditOnlineCourse : OwningComponentBase
     {
         // Models
-        private CreateLessonModel lessonModel { get; set; }
-        private CreateCourseModel createCourseModel { get; set; }
-        private static List<CreateLessonModel> s_lessons { get; set; }
+        private EditLessonModel lessonModel { get; set; }
+        private EditCourseModel courseModel { get; set; }
+        private static List<EditLessonModel> s_lessons { get; set; }
+
+        // Parameter
+        [Parameter]
+        public int Id { get; set; }
 
         // Properties
         private Dictionary<string, string> courseTypes = CourseType.ONLINE.ToDictionary();
@@ -59,23 +63,19 @@ namespace KAWebHost.Pages.Admin.Courses
         private void InitDataModel()
         {
 
-            createCourseModel = new CreateCourseModel()
-            {
-                IsActive = true,
-                Type = CourseType.ONLINE
-            };
+            courseModel = _courseService.GetCourseById(Id);
             lessonModel = new();
-            s_lessons = new List<CreateLessonModel>();
+            s_lessons = new List<EditLessonModel>();
         }
-        private void GoToAddLessonStep()
+        private void GoToEditLessonStep()
         {
             customFormValidator.ClearFormErrors();
             // check duplicate course code
-            if (_courseService.IsDuplicateCourseCode(createCourseModel.Code))
+            if (_courseService.IsDuplicateCourseCode(courseModel.Code))
             {
                 customFormValidator.DisplayFormErrors(new Dictionary<string, List<string>>()
                 {
-                    { nameof(createCourseModel.Code), new List<string>{ "Mã khóa học đã được sử dụng" } }
+                    { nameof(courseModel.Code), new List<string>{ "Mã khóa học đã được sử dụng" } }
                 });
             }
             else
@@ -138,24 +138,12 @@ namespace KAWebHost.Pages.Admin.Courses
             lessonModel = new();
         }
 
-        [JSInvokable]
-        public static string CheckCourseHaveAnyLesson()
-        {
-            if (s_lessons.Count > 0)
-            {
-                return "allows";
-            }
-            return "prevent";
-        }
 
         private async Task CreateNewCourse()
         {
-            createCourseModel.Description = await GetHTML();
-            await _courseService.CreateOnlineCourse(createCourseModel, s_lessons);
+
             jsr.InvokeVoidAsync("ShowAppAlert", "Tạo khóa học thành công", "success");
-            // reset data state
-            InitDataModel();
-            await jsr.InvokeVoidAsync("createOnCoursePageJs.goFirstStep");
+
         }
 
         public async Task<string> GetHTML()
@@ -184,7 +172,7 @@ namespace KAWebHost.Pages.Admin.Courses
         {
             if (isSelectThumbNailImage)
             {
-                createCourseModel.ThumbNailImageLink = paramImageURL;
+                courseModel.ThumbNailImageLink = paramImageURL;
             }
             else
             {
