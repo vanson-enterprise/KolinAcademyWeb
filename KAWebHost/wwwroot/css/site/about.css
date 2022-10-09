@@ -1,0 +1,784 @@
+﻿:root {
+    --primary-color: #00fbfb;
+    --secondary-color: #e300c8;
+    --white-color: #fff;
+    --black-color: #000;
+    --transition: 0.3s all linear;
+    --background-color: #0a0726;
+    --font-family: "HelveticaNeue";
+}
+
+* {
+    box-sizing: inherit;
+}
+
+@font-face {
+    font-weight: 400;
+    font-family: "HelveticaNeue";
+    src: url(../../font/HelveticaNeue-Medium.ttf);
+}
+
+@font-face {
+    font-weight: 600;
+    font-family: "HelveticaNeue";
+    src: url(../../font/helveticaneuebold.ttf);
+}
+
+@font-face {
+    font-weight: 300;
+    font-family: "HelveticaNeue";
+    src: url(../../font/HelveticaNeue-Thin.ttf);
+}
+
+html,
+body {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    color: var(--white-color);
+    font-family: var(--font-family);
+    font-size: 14px;
+}
+
+ul {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.container-app {
+    position: relative;
+    background-color: var(--background-color);
+    overflow-x: hidden;
+}
+
+.container-img {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-75%);
+    width: 100%;
+    pointer-events: none;
+}
+
+.decor {
+    position: absolute;
+    pointer-events: none;
+}
+
+/* ===== header ===== */
+
+.nav-center {
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem;
+}
+
+.links {
+    height: auto;
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    padding: 0 130px 0 20px;
+    gap: 3rem;
+}
+
+.nav-toggle {
+    display: none;
+}
+
+.links a {
+    padding: 0.5rem;
+    margin: 0 0.5rem;
+    text-transform: uppercase;
+    color: var(--primary-color);
+    transition: var(--transition);
+    font-size: 18px;
+    font-weight: 600;
+}
+
+    .links a:hover {
+        color: var(--secondary-color);
+    }
+
+/* ===== introduce ===== */
+
+.introduce-heading {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+}
+
+    .introduce-heading h2 {
+        padding: 6px 10px;
+        margin: 30px 0 40px;
+        border-radius: 50px;
+        display: inline-block;
+        text-transform: uppercase;
+        border: 1px solid var(--white-color);
+        background-image: linear-gradient( to right, var(--secondary-color), var(--primary-color) );
+    }
+
+    .introduce-heading::before {
+        position: absolute;
+        z-index: -1;
+        content: "";
+        color: transparent;
+        border-radius: 50px;
+        bottom: 35px;
+        width: 170px;
+        right: 50%;
+        transform: translateX(52%);
+        border: 1px solid var(--white-color);
+        height: 42px;
+    }
+
+/* ==== tabs ===== */
+
+.about {
+    display: block;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-bottom: 5rem;
+}
+
+.tab-btn {
+    color: var(--primary-color);
+    border: 1px solid var(--white-color);
+    background: transparent;
+    font-size: 16px;
+    padding: 3px 15px;
+    cursor: pointer;
+    transition: var(--transition);
+    border-radius: 20px;
+}
+
+    .tab-btn:hover:not(.active) {
+        color: var(--secondary-color);
+    }
+
+.about-content {
+    padding: 32px 24px;
+    line-height: 1.4;
+    letter-spacing: 0.1px;
+    color: white;
+}
+
+    .about-content h4 {
+        color: #102a42;
+        letter-spacing: 2px;
+        margin-bottom: 12px;
+        text-transform: capitalize;
+    }
+
+.active {
+    color: var(--secondary-color);
+}
+
+.about-content .content:not(:first-of-type) {
+    display: none;
+}
+
+.content_about-kolin {
+    position: relative;
+    padding: 40px;
+    border: 1px solid var(--primary-color);
+    border-top: none;
+    border-radius: 10px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+    .content_about-kolin ul {
+        margin: 0 30px;
+        padding-left: 28px;
+        border-left: 6px solid var(--primary-color);
+    }
+
+.content_about-kolin-img {
+    position: absolute;
+    top: -85px;
+    right: 50%;
+    display: block;
+    padding: 0 15px;
+    transform: translateX(50%) rotateZ(-4deg);
+}
+
+.content_about-kolin-img-wrap {
+    position: relative;
+    margin-bottom: 40px;
+}
+
+    .content_about-kolin-img-wrap::after {
+        content: "";
+        position: absolute;
+        top: -40px;
+        right: -35px;
+        height: 1px;
+        width: 40%;
+        background-color: var(--primary-color);
+    }
+
+    .content_about-kolin-img-wrap::before {
+        content: "";
+        position: absolute;
+        top: -40px;
+        left: -35px;
+        height: 1px;
+        width: 40%;
+        background-color: var(--primary-color);
+    }
+
+.content_slogan {
+    padding: 40px;
+    border: 1px solid var(--primary-color);
+    border-radius: 10px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+    .content_slogan p {
+        position: relative;
+    }
+
+.content_slogan-img {
+    display: block;
+    transform: rotateZ(-4deg);
+}
+
+.content_slogan p:nth-child(2) {
+    left: 20%;
+}
+
+.content_slogan p:nth-child(3) {
+    left: 40%;
+}
+
+.content_slogan p:nth-child(4) {
+    left: 60%;
+}
+
+.content_mission {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.content_mission-img {
+    transform: rotateZ(-4deg);
+    margin-bottom: 1rem;
+}
+
+.content_mission p {
+    color: var(--white-color);
+    margin-left: 90px;
+}
+
+.content_lecturer {
+    display: grid;
+    place-content: center;
+}
+
+.lecturer-item {
+    position: relative;
+    max-width: 800px;
+    height: 450px;
+    padding: 20px;
+    background-color: #000;
+    margin-bottom: 100px;
+}
+
+    .lecturer-item .info,
+    .lecturer-item .follow,
+    .lecturer-item .picture {
+        position: absolute;
+    }
+
+    .lecturer-item .follow {
+        text-align: center;
+        font-size: 18px;
+    }
+
+    .lecturer-item .follow-list {
+        display: flex;
+        gap: 2rem;
+        font-size: 18px;
+        font-weight: bold;
+        -webkit-text-stroke: 0.6px var(--secondary-color);
+    }
+
+.follow-list div {
+    display: flex;
+    gap: 1rem;
+}
+
+.lecturer-item h3 {
+    position: absolute;
+    text-transform: uppercase;
+    background: linear-gradient( to right, var(--secondary-color) 0%, var(--primary-color) 100% );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 2.8rem;
+    font-weight: 600;
+    -webkit-text-stroke: 0.5px #fff;
+}
+
+.lecturer-item_bg {
+    display: block;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.lecturer-item_decor {
+    position: absolute;
+    width: 50%;
+    pointer-events: none;
+}
+
+.lecturer-item_decor-left {
+    top: 0;
+    left: 0;
+}
+
+.lecturer-item_decor-right {
+    right: 28px;
+    top: 10%;
+}
+
+.lecturer-item1 h3 {
+    right: 100px;
+    top: 20%;
+}
+
+.lecturer-item1 .info {
+    right: 20%;
+    top: 38%;
+}
+
+.lecturer-item1 .follow {
+    right: 15%;
+    bottom: 15%;
+}
+
+.lecturer-item1 .picture {
+    bottom: 35px;
+    left: 10%;
+    width: 35%;
+}
+
+.lecturer-item2 h3 {
+    left: 60px;
+    top: 20%;
+}
+
+.lecturer-item2 .info {
+    left: 14%;
+    top: 35%;
+}
+
+.lecturer-item2 .follow {
+    left: 20%;
+    bottom: 15%;
+}
+
+.lecturer-item2 .picture {
+    bottom: 35px;
+    right: 11%;
+    width: 29%;
+}
+
+.lecturer-item3 h3 {
+    right: 110px;
+    top: 9%;
+    text-align: center;
+}
+
+.lecturer-item3 .info {
+    right: 9%;
+    width: 40%;
+    top: 31%;
+    line-height: 1;
+}
+
+.lecturer-item3 .follow {
+    right: 20%;
+    bottom: 11%;
+}
+
+.lecturer-item3 .picture {
+    bottom: 35px;
+    left: 11%;
+    width: 28%;
+}
+
+.lecturer-item4 h3 {
+    left: 100px;
+    top: 15%;
+}
+
+.lecturer-item4 .info {
+    left: 14%;
+    top: 32%;
+}
+
+.lecturer-item4 .follow {
+    left: 12%;
+    bottom: 18%;
+}
+
+.lecturer-item4 .picture {
+    bottom: 35px;
+    right: 5%;
+    width: 40%;
+}
+
+.lecturer-item5 h3 {
+    right: 94px;
+    top: 14%;
+}
+
+.lecturer-item5 .info {
+    right: 9%;
+    width: 40%;
+    top: 29%;
+}
+
+.lecturer-item5 .follow {
+    right: 20%;
+    bottom: 15%;
+}
+
+.lecturer-item5 .picture {
+    bottom: 35px;
+    left: 11%;
+    width: 36%;
+}
+
+.lecturer-item6 h3 {
+    left: 54px;
+    top: 19%;
+}
+
+.lecturer-item6 .info {
+    left: 14%;
+    top: 35%;
+}
+
+.lecturer-item6 .follow {
+    left: 25%;
+    bottom: 18%;
+}
+
+.lecturer-item6 .picture {
+    bottom: 35px;
+    right: 12%;
+    width: 32%;
+}
+
+/* ==== footer ===== */
+.footer {
+    position: relative;
+    margin-top: 8rem;
+}
+
+    .footer img {
+        width: 100%;
+    }
+
+.footer-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    font-weight: 300;
+}
+
+    .footer-content h2 {
+        font-weight: 600;
+        color: var(--primary-color);
+    }
+
+@media only screen and (max-width: 1160px) {
+    /* ------- header ------ */
+    nav {
+        box-shadow: 2px 2px 15px #333;
+    }
+
+    .nav-center {
+        display: block;
+        padding: 1rem;
+    }
+
+    .nav-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+    }
+
+    .nav-toggle {
+        font-size: 1.5rem;
+        background: transparent;
+        border-color: transparent;
+        cursor: pointer;
+        color: var(--primary-color);
+        transition: all 0.3s linear;
+    }
+
+    .nav-header img {
+        height: 40px;
+    }
+
+    .links a {
+        text-decoration: none;
+        color: var(--primary-color);
+        font-size: 1rem;
+        text-transform: capitalize;
+        display: block;
+        font-size: 18px;
+        padding: 1rem;
+    }
+
+    .links {
+        height: 0;
+        overflow: hidden;
+        transition: all 0.3s linear;
+        margin: 0;
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 0;
+    }
+
+    .nav-toggle {
+        display: block;
+    }
+
+    .show-links {
+        height: 20rem;
+    }
+
+    /* ----- trang giới thiệu ------ */
+
+    .introduce-heading h2 {
+        font-size: 22px;
+    }
+
+    .introduce-heading::before {
+        width: 142px;
+        height: 40px;
+        bottom: 34px;
+        transform: translateX(51%);
+    }
+
+    .btn-container {
+        margin-bottom: 60px;
+    }
+
+    .tab-btn {
+        font-size: 15px;
+    }
+
+    .content_about-kolin-img {
+        width: 225px;
+    }
+
+    .content_slogan p:nth-child(2) {
+        left: 15%;
+    }
+
+    .content_slogan p:nth-child(3) {
+        left: 35%;
+    }
+
+    .content_slogan p:nth-child(4) {
+        left: 55%;
+    }
+
+    .lecturer-item_bg {
+        height: 94%;
+    }
+
+    .lecturer-item1 .picture {
+        bottom: 58px;
+    }
+
+    .lecturer-item2 .picture,
+    .lecturer-item3 .picture,
+    .lecturer-item4 .picture,
+    .lecturer-item5 .picture,
+    .lecturer-item6 .picture {
+        bottom: 56px;
+    }
+
+    .lecturer-item3 .follow {
+        bottom: 14%;
+    }
+
+    /* ------- footer ------- */
+    .footer {
+        margin-top: 6rem;
+    }
+
+    .footer-content h2 {
+        font-size: 22px;
+    }
+
+    .footer-content {
+        padding: 0 10px;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .btn-container {
+        margin-bottom: 40px;
+        text-align: center;
+        display: inline-block;
+    }
+
+    .tab-btn {
+        font-size: 14px;
+        margin: 5px;
+    }
+
+    .content_about-kolin {
+        padding: 1.5rem;
+    }
+
+    .content_about-kolin-img {
+        width: 170px;
+        top: -55px;
+    }
+
+    .content_about-kolin-img-wrap::after {
+        top: -21px;
+        right: -15px;
+        width: 24%;
+    }
+
+    .content_about-kolin-img-wrap::before {
+        top: -21px;
+        left: -15px;
+        width: 32%;
+    }
+
+    .content_about-kolin ul {
+        padding-left: 23px;
+        list-style-type: disc;
+        margin: 0 0 0 10px;
+        border-left: 4px solid var(--primary-color);
+    }
+
+    .content_slogan {
+        padding: 20px;
+    }
+
+        .content_slogan p:nth-child(1) img {
+            width: 99%;
+        }
+
+        .content_slogan p:nth-child(2) img,
+        .content_slogan p:nth-child(3) img,
+        .content_slogan p:nth-child(4) img {
+            width: 89%;
+        }
+
+        .content_slogan p:nth-child(2),
+        .content_slogan p:nth-child(3),
+        .content_slogan p:nth-child(4) {
+            left: 0;
+        }
+
+    .about-content {
+        padding: 20px;
+    }
+
+    .content_mission p {
+        margin-left: 3rem;
+    }
+
+    .lecturer-item {
+        height: 200px;
+        padding: 0;
+        background: transparent;
+    }
+
+        .lecturer-item h3 {
+            font-size: 2rem;
+        }
+
+        .lecturer-item_decor-left,
+        .lecturer-item_decor-right,
+        .lecturer-item .info,
+        .lecturer-item .follow {
+            display: none;
+        }
+
+    .lecturer-item1 .picture {
+        bottom: 21px;
+    }
+
+    .lecturer-item1 h3 {
+        right: 15px;
+        top: 30%;
+    }
+
+    .lecturer-item1 .picture,
+    .lecturer-item2 .picture,
+    .lecturer-item3 .picture,
+    .lecturer-item4 .picture,
+    .lecturer-item5 .picture,
+    .lecturer-item6 .picture {
+        bottom: 18px;
+    }
+
+    .lecturer-item1 h3,
+    .lecturer-item2 h3,
+    .lecturer-item3 h3,
+    .lecturer-item4 h3,
+    .lecturer-item5 h3,
+    .lecturer-item6 h3 {
+        text-align: center;
+    }
+
+    .lecturer-item1 h3 {
+        max-width: 180px;
+    }
+
+    .lecturer-item2 h3 {
+        max-width: 180px;
+        left: 30px;
+    }
+
+    .lecturer-item3 h3 {
+        right: 15px;
+        top: 20%;
+    }
+
+    .lecturer-item4 h3 {
+        left: 45px;
+        top: 22%;
+    }
+
+    .lecturer-item5 h3 {
+        right: 19px;
+        top: 20%;
+        max-width: 180px;
+    }
+
+    .lecturer-item6 h3 {
+        left: 15px;
+        top: 24%;
+        max-width: 180px;
+    }
+
+    .footer {
+        margin-top: 0;
+    }
+}
