@@ -34,9 +34,9 @@ namespace KAWebHost.Pages.Admin.Courses
 
         private void EditRow(CourseItem course)
         {
-            if(course.Type == KA.Infrastructure.Enums.CourseType.OFFLINE)
+            if (course.Type == KA.Infrastructure.Enums.CourseType.OFFLINE)
             {
-                NavigationManager.NavigateTo($"vnexpress.vn");
+                NavigationManager.NavigateTo($"/manager/edit-off-course/{course.Id}");
             }
             else
             {

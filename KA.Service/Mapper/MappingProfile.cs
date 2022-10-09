@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using KA.DataProvider.Entities;
 using KA.ViewModels.Authen;
 using KA.ViewModels.Courses;
 using KA.ViewModels.Lessons;
@@ -25,7 +26,14 @@ namespace KA.Service.Mapper
         private void MappingEntityToViewModel()
         {
             CreateMap<Course, CourseItem>();
-            CreateMap<Course, EditCourseModel>();
+            CreateMap<Course, EditCourseModel>()
+            .ForMember(m => m.Price,
+                    cf => cf.MapFrom(c => decimal.Round(c.Price, 2, MidpointRounding.AwayFromZero))
+                 )
+            .ForMember(m => m.DiscountPrice,
+                    cf => cf.MapFrom(c => decimal.Round(c.DiscountPrice, 2, MidpointRounding.AwayFromZero))
+                 );
+            CreateMap<Lesson, EditLessonModel>();
         }
 
         private void MappingDtoToEntity()

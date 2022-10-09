@@ -36,7 +36,7 @@ namespace KA.Service.Courses
                 var ci = _mapper.Map<CourseItem>(c);
                 ci.Index = (i + 1) + skip;
                 ci.Price = string.Format("{0:0,0.00 vnđ}", c.Price);
-                ci.DiscountPrice = string.Format("{0:0,0.00 vnđ}", c.Price);
+                ci.DiscountPrice = string.Format("{0:0,0.00 vnđ}", c.DiscountPrice);
                 ci.CreatedDate = c.CreatedDate.Value.ToString("dd/MM/yyyy");
                 return ci;
             }).ToList();
@@ -64,40 +64,9 @@ namespace KA.Service.Courses
             await _courseRepo.AddAsync(course);
         }
 
-        public async Task<ResponseDto> Edit(EditCourseModel input)
+        public async Task Edit(Course input)
         {
-            var course = await _courseRepo.GetFirstOrDefaultAsync((c) => c.Id == input.Id);
-            if (course == null)
-            {
-                return new ResponseDto()
-                {
-                    Status = ResponseStatus.ERROR,
-                    Message = "Không tìm thấy khóa học"
-                };
-            }
-            else
-            {
-                course.Name = input.Name;
-                course.IsActive = input.IsActive;
-                course.Price = input.Price;
-                course.DiscountPrice = input.DiscountPrice;
-                course.Tag = input.Tag;
-                course.Description = input.Description;
-                course.MetaKeyWord = input.MetaKeyWord;
-                course.MetaDescription = input.MetaDescription;
-                course.MetaTitle = input.MetaTitle;
-                course.Sort = input.Sort;
-                course.ThumbNailImageLink = input.ThumbNailImageLink;
-                course.IntroduceVideoLink = input.IntroduceVideoLink;
-                course.UpdatedDate = DateTime.Now;
-                await _courseRepo.UpdateAsync(course);
-
-                return new ResponseDto()
-                {
-                    Status = ResponseStatus.SUCCESS,
-                    Message = "Cập nhật thành công"
-                };
-            }
+            await _courseRepo.UpdateAsync(input);
         }
 
         public async Task<ResponseDto> Delete(int id)
@@ -131,10 +100,52 @@ namespace KA.Service.Courses
 
         }
 
-        public EditCourseModel GetCourseById(int id)
+        public Course GetCourseById(int id)
         {
-            var course = _courseRepo.GetById(id);
-            return _mapper.Map<EditCourseModel>(course);
+            return _courseRepo.GetById(id);
         }
+
+        public List<Lesson> GetAllLessonInCourse(int courseId)
+        {
+            return _lessonRepo
+                .GetAll()
+                .Where(l => l.CourseId == courseId)
+                .ToList();
+        }
+
+        public Lesson AddLessonToCourse(Lesson input)
+        {
+            return _lessonRepo.Add(input);
+        }
+
+        public ResponseDto EditLesson(Lesson input)
+        {
+            var lesson = _lessonRepo.GetById(input.Id);
+            if (lesson != null)
+            {
+                lesson.Name = input.Name;
+                lesson.VideoLink = input.VideoLink;
+                _lessonRepo.Update(lesson);
+                return new ResponseDto()
+                {
+                    Message = "Cập nhật bài giảng thành công",
+                    Status = ResponseStatus.SUCCESS
+                };
+            }
+            else
+            {
+                return new ResponseDto()
+                {
+                    Message = "Cập nhật bài giảng thất bại",
+                    Status = ResponseStatus.ERROR
+                };
+            }
+        }
+
+        public void DeleteLesson(int id)
+        {
+            _lessonRepo.DeleteById(id);
+        }
+
     }
 }

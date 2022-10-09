@@ -3,6 +3,7 @@
 @using Blazored.TextEditor
 @using KAWebHost.Shared.Validator
 @inherits OwningComponentBase
+@inject NavigationManager NavigationManager
 
 <div class="d-flex flex-column-fluid">
     <div class="container-fluid">
@@ -96,9 +97,8 @@
                         <div class="mb-5">
                             <!--begin::Step 1-->
                             <div class="flex-column current" data-kt-stepper-element="content">
-                                <EditForm Model="@courseModel" OnValidSubmit="@GoToEditLessonStep">
+                                <EditForm Model="@courseModel" OnValidSubmit="@UpdateCourseAndGoToEditLessonStep">
                                     <DataAnnotationsValidator />
-                                    <CustomFormValidator @ref="customFormValidator" />
                                     <div class="row mb-5">
                                         <div class="col-12">
                                             <label for="course_name" class="form-label required">Tên khóa học</label>
@@ -107,9 +107,10 @@
                                         </div>
                                     </div>
                                     <div class="row mb-5">
+                                        q
                                         <div class="col-3">
                                             <label for="course_code" class="form-label required">Mã khóa học</label>
-                                            <InputText id="course_code" @bind-Value="courseModel.Code" class="form-control" placeholder="Nhập mã khóa học" />
+                                            <InputText id="course_code" @bind-Value="courseModel.Code" class="form-control" disabled placeholder="Nhập mã khóa học" />
                                             <ValidationMessage For="@(()=>courseModel.Code)"></ValidationMessage>
                                         </div>
                                         <div class="col-3">
@@ -163,7 +164,7 @@
                                         <div class="col-9">
                                             @if (courseModel.ThumbNailImageLink != null)
                                             {
-                                                    <img src="@courseModel.ThumbNailImageLink" alt="thumbnail-image" style="max-width: 150px" />
+                                                <img src="@courseModel.ThumbNailImageLink" alt="thumbnail-image" style="max-width: 150px" />
                                             }
                                         </div>
                                     </div>
@@ -248,11 +249,11 @@
                                                 <div class="card-header">
                                                     @if (isEditingLesson)
                                                     {
-                                                            <h3 class="card-title">Cập nhật bài giảng</h3>
+                                                        <h3 class="card-title">Cập nhật bài giảng</h3>
                                                     }
                                                     else
                                                     {
-                                                            <h3 class="card-title">Thêm bài giảng</h3>
+                                                        <h3 class="card-title">Thêm bài giảng</h3>
                                                     }
 
                                                 </div>
@@ -297,23 +298,23 @@
                                                         @for (int i = 1; i <= s_lessons.Count; i++)
                                                         {
                                                             int index = i - 1;
-                                                                <tr>
-                                                                    <td class="p-2">@s_lessons[index].Name</td>
-                                                                    <td class="p-2">
-                                                                        <button class="btn btn-icon btn-sm btn-light-primary" @onclick=@(e => TurnOnEditLessonForm(index))>
-                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
-                                                                                <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
-                                                                            </svg>
-                                                                        </button>
-                                                                    </td>
-                                                                    <td class="p-2">
-                                                                        <button class="btn btn-icon  btn-sm btn-light-danger" @onclick=@(e => ShowConfirmDeleteModal(index))>
-                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
-                                                                                <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
-                                                                            </svg>
-                                                                        </button>
-                                                                    </td>
-                                                                </tr>
+                                                            <tr>
+                                                                <td class="p-2">@s_lessons[index].Name</td>
+                                                                <td class="p-2">
+                                                                    <button class="btn btn-icon btn-sm btn-light-primary" @onclick=@(e => TurnOnEditLessonForm(index))>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                                                                            <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
+                                                                        </svg>
+                                                                    </button>
+                                                                </td>
+                                                                <td class="p-2">
+                                                                    <button class="btn btn-icon  btn-sm btn-light-danger" @onclick=@(e => ShowConfirmDeleteModal(@s_lessons[index].Id))>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                                                            <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
+                                                                        </svg>
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
                                                         }
 
 
@@ -351,8 +352,8 @@
                             <!--begin::Step 3-->
                             <div class="flex-column" data-kt-stepper-element="content">
                                 <div class="d-flex justify-content-center flex-column align-items-center" style="height: 300px">
-                                    <p>Kiểm tra xem tất cả các chi tiết có đúng không, sau đó nhấp vào 'Xác nhận'.</p>
-                                    <button type="button" class="btn btn-light-success" @onclick=(CreateNewCourse)> XÁC NHẬN</button>
+                                    <p>Nhấn hoàn thành để trở về danh sách khóa học</p>
+                                    <button type="button" class="btn btn-light-success" @onclick=(CompleteEdit)>HOÀN THÀNH</button>
                                 </div>
                             </div>
                             <!--begin::Step 3-->
@@ -370,7 +371,7 @@
                             <!--begin::Wrapper-->
                             <div>
                                 <button type="button" class="btn btn-primary" data-kt-stepper-action="next">
-                                    TIẾP TỤC
+                                    LƯU VÀ TIẾP TỤC
                                 </button>
                             </div>
                             <!--end::Wrapper-->
@@ -391,5 +392,5 @@
 
 @if (showConfirmDeleteLessonModal)
 {
-        <ConfirmModal Message="Bạn có chắc muốn xóa bài giảng này" Title="Xác nhận xóa đơn hàng" OnClose="DeleteLesson"></ConfirmModal>
+    <ConfirmModal Message="Bạn có chắc muốn xóa bài giảng này" Title="Xác nhận xóa đơn hàng" OnClose="DeleteLesson"></ConfirmModal>
 }

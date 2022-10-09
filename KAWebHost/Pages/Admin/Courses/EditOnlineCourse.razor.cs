@@ -1,4 +1,6 @@
-﻿using Blazored.TextEditor;
+﻿using AutoMapper;
+using Blazored.TextEditor;
+using KA.DataProvider.Entities;
 using KA.Infrastructure.Enums;
 using KA.Infrastructure.Enums.Extension;
 using KA.Service.Courses;
@@ -16,7 +18,8 @@ namespace KAWebHost.Pages.Admin.Courses
         // Models
         private EditLessonModel lessonModel { get; set; }
         private EditCourseModel courseModel { get; set; }
-        private static List<EditLessonModel> s_lessons { get; set; }
+        private Course course { get; set; }
+        private static List<Lesson> s_lessons { get; set; }
 
         // Parameter
         [Parameter]
@@ -27,16 +30,16 @@ namespace KAWebHost.Pages.Admin.Courses
         private FileSelector fileSelectorControl;
         private bool isEditingLesson;
         private int editLessonIndex;
-        private int deleteLessonIndex;
+        private int deleteLessonId;
         private bool showConfirmDeleteLessonModal = false;
         private bool isSelectThumbNailImage = false;
-        private CustomFormValidator customFormValidator;
 
         // Service
         BlazoredTextEditor quillHtml;
         [Inject]
         IJSRuntime jsr { get; set; }
         ICourseService _courseService { get; set; }
+        IMapper _mapper { get; set; }
 
 
         // ========================== Life circle methods =================================
@@ -44,6 +47,7 @@ namespace KAWebHost.Pages.Admin.Courses
         {
             // Inject Service
             _courseService = ScopedServices.GetRequiredService<ICourseService>();
+            _mapper = ScopedServices.GetRequiredService<IMapper>();
             // Init Model State
             InitDataModel();
         }
@@ -52,36 +56,53 @@ namespace KAWebHost.Pages.Admin.Courses
         {
             if (firstRender)
             {
-                await jsr.InvokeVoidAsync("import", "/scripts/courses/create-on-course.js");
-                await jsr.InvokeVoidAsync("createOnCoursePageJs.init");
+                await jsr.InvokeVoidAsync("import", "/scripts/courses/edit-on-course.js");
+                await jsr.InvokeVoidAsync("editOnCoursePageJs.init");
             }
         }
 
+        protected override async void Dispose(bool disposing)
+        {
+
+            base.Dispose(disposing);
+        }
 
         // ============================  Function Methods =============================
 
         private void InitDataModel()
         {
 
-            courseModel = _courseService.GetCourseById(Id);
+            course = _courseService.GetCourseById(Id);
+            courseModel = _mapper.Map<EditCourseModel>(course);
             lessonModel = new();
-            s_lessons = new List<EditLessonModel>();
+            GetAllLesson();
         }
-        private void GoToEditLessonStep()
+
+        private void GetAllLesson()
         {
-            customFormValidator.ClearFormErrors();
-            // check duplicate course code
-            if (_courseService.IsDuplicateCourseCode(courseModel.Code))
-            {
-                customFormValidator.DisplayFormErrors(new Dictionary<string, List<string>>()
-                {
-                    { nameof(courseModel.Code), new List<string>{ "Mã khóa học đã được sử dụng" } }
-                });
-            }
-            else
-            {
-                jsr.InvokeVoidAsync("createOnCoursePageJs.goNextStep");
-            }
+            s_lessons = _courseService.GetAllLessonInCourse(Id);
+        }
+
+        private async Task UpdateCourseAndGoToEditLessonStep()
+        {
+            courseModel.Description = await GetHTML();
+            course.Name = courseModel.Name;
+            course.IsActive = courseModel.IsActive;
+            course.Price = courseModel.Price;
+            course.DiscountPrice = courseModel.DiscountPrice;
+            course.Tag = courseModel.Tag;
+            course.Description = courseModel.Description;
+            course.MetaKeyWord = courseModel.MetaKeyWord;
+            course.MetaDescription = courseModel.MetaDescription;
+            course.MetaTitle = courseModel.MetaTitle;
+            course.Sort = courseModel.Sort;
+            course.ThumbNailImageLink = courseModel.ThumbNailImageLink;
+            course.IntroduceVideoLink = courseModel.IntroduceVideoLink;
+            course.UpdatedDate = DateTime.Now;
+            await _courseService.Edit(course);
+
+            jsr.InvokeVoidAsync("ShowAppAlert", "Đã cập nhật thông tin chung", "success");
+            jsr.InvokeVoidAsync("editOnCoursePageJs.goNextStep");
         }
 
 
@@ -89,16 +110,35 @@ namespace KAWebHost.Pages.Admin.Courses
         {
             if (!isEditingLesson)
             {
-                s_lessons.Add(lessonModel);
+                var newLesson = _courseService.AddLessonToCourse(new Lesson()
+                {
+                    Name = lessonModel.Name,
+                    CourseId = courseModel.Id,
+                    VideoLink = lessonModel.VideoLink
+                });
+                GetAllLesson();
                 lessonModel = new();
                 jsr.InvokeVoidAsync("ShowAppAlert", "Thêm bài giảng thành công", "success");
             }
             else
             {
-                s_lessons[editLessonIndex] = lessonModel;
-                lessonModel = new();
-                isEditingLesson = false;
-                jsr.InvokeVoidAsync("ShowAppAlert", "Cập nhật bài giảng thành công", "success");
+                var lesson = s_lessons[editLessonIndex];
+                lesson.Name = lessonModel.Name;
+                lesson.VideoLink = lessonModel.VideoLink;
+                var updateResult = _courseService.EditLesson(lesson);
+                if (updateResult.Status == ResponseStatus.SUCCESS)
+                {
+                    GetAllLesson();
+                    lessonModel = new();
+                    isEditingLesson = false;
+                    jsr.InvokeVoidAsync("ShowAppAlert", updateResult.Message, "success");
+                }
+                else
+                {
+                    lessonModel = new();
+                    isEditingLesson = false;
+                    jsr.InvokeVoidAsync("ShowAppAlert", updateResult.Message, "success");
+                }
             }
         }
 
@@ -106,6 +146,7 @@ namespace KAWebHost.Pages.Admin.Courses
         {
             isEditingLesson = true;
             editLessonIndex = index;
+            lessonModel.Id = s_lessons[index].Id;
             lessonModel.Name = s_lessons[index].Name;
             lessonModel.VideoLink = s_lessons[index].VideoLink;
         }
@@ -113,15 +154,16 @@ namespace KAWebHost.Pages.Admin.Courses
         private void ShowConfirmDeleteModal(int spOrderIndex)
         {
             showConfirmDeleteLessonModal = true;
-            deleteLessonIndex = spOrderIndex;
+            deleteLessonId = spOrderIndex;
         }
 
 
         private void DeleteLesson(bool accept)
         {
-            if (accept && deleteLessonIndex >= 0)
+            if (accept && deleteLessonId >= 0)
             {
-                s_lessons.RemoveAt(deleteLessonIndex);
+                _courseService.DeleteLesson(deleteLessonId);
+                GetAllLesson();
                 if (lessonModel.Name != null)
                 {
                     lessonModel = new();
@@ -139,10 +181,10 @@ namespace KAWebHost.Pages.Admin.Courses
         }
 
 
-        private async Task CreateNewCourse()
+        private async Task CompleteEdit()
         {
 
-            jsr.InvokeVoidAsync("ShowAppAlert", "Tạo khóa học thành công", "success");
+            NavigationManager.NavigateTo($"/manager/courses");
 
         }
 
@@ -150,16 +192,6 @@ namespace KAWebHost.Pages.Admin.Courses
         {
             return await quillHtml.GetHTML();
         }
-
-        //public async void SetHTML()
-        //{
-        //    string QuillContent =
-        //        @"<a href='http://BlazorHelpWebsite.com/'>" +
-        //        "<img src='images/BlazorHelpWebsite.gif' /></a>";
-
-        //    await quillHtml.LoadHTMLContent(QuillContent);
-        //    StateHasChanged();
-        //}
 
         private void OpenSelectImageModal(bool isFromTextEditor)
         {
@@ -182,5 +214,14 @@ namespace KAWebHost.Pages.Admin.Courses
             fileSelectorControl.SetShowFileManager(false);
         }
 
+        [JSInvokable]
+        public static string CheckCourseValid()
+        {
+            if (s_lessons.Count > 0)
+            {
+                return "allows";
+            }
+            return "prevent";
+        }
     }
 }

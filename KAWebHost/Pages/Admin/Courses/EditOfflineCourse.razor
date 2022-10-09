@@ -1,0 +1,132 @@
+﻿@page "/manager/edit-off-course/{id:int}"
+@using Blazored.TextEditor
+@using KAWebHost.Pages.Admin.Components
+@using KAWebHost.Shared.Validator
+@inherits OwningComponentBase
+@inject NavigationManager NavigationManager
+
+<div class="d-flex flex-column-fluid ">
+    <div class="container-fluid">
+        <div class="card-header ">
+            <h3 class="card-title">Tạo mới khóa học offline</h3>
+        </div>
+        <div class="card-body" style="background-color: #fff">
+            <EditForm Model="@courseModel" OnValidSubmit="SubmitForm">
+                <DataAnnotationsValidator />
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <label for="course-name" class="form-label required">Tên khóa học</label>
+                        <InputText @bind-Value="courseModel.Name" id="course-name" class="form-control"></InputText>
+                        <ValidationMessage For="@(()=>courseModel.Name)"></ValidationMessage>
+                    </div>
+                </div>
+                <div class="row mb-5">
+                    <div class="col-3">
+                        <label for="course_code" class="form-label required">Mã khóa học</label>
+                        <InputText id="course_code" @bind-Value="courseModel.Code" class="form-control" disabled placeholder="Nhập mã khóa học" />
+                        <ValidationMessage For="@(()=>courseModel.Code)"></ValidationMessage>
+                    </div>
+                    <div class="col-3">
+                        <label for="course_order" class="form-label">Thứ tự hiển thị (từ cao đến thấp)</label>
+                        <InputNumber @bind-Value="courseModel.Sort" class="form-control" placeholder="Nhập tag"></InputNumber>
+                    </div>
+                    <div class="col-3">
+                        <label class="form-label">Giá gốc</label>
+                        <InputNumber @bind-Value="courseModel.Price"
+                                     id="kt_inputmask_currency"
+                                     min="0" class="form-control"
+                                     aria-label="Sizing example input"
+                                     aria-describedby="inputGroup-sizing-sm" />
+
+                        <ValidationMessage For="@(()=>courseModel.Price)"></ValidationMessage>
+                    </div>
+                    <div class="col-3">
+                        <label class="form-label">Giá khuyến mãi</label>
+                        <InputNumber @bind-Value="courseModel.DiscountPrice"
+                                     min="0" class="form-control"
+                                     aria-label="Sizing example input"
+                                     aria-describedby="inputGroup-sizing-sm" />
+                        <ValidationMessage For="@(()=>courseModel.DiscountPrice)"></ValidationMessage>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-12 mb-5">
+                        <label for="course_meta_keyword" class="form-label">Meta Keywords</label>
+                        <InputText id="course_meta_keyword" @bind-Value="courseModel.MetaKeyWord" class="form-control" placeholder="Nhập meta keywords" />
+                    </div>
+                    <div class="col-12 mb-5">
+                        <label for="course_meta_title" class="form-label">Meta Title</label>
+                        <InputText id="course_meta_title" @bind-Value="courseModel.MetaTitle" class="form-control" placeholder="Nhập meta title" />
+                    </div>
+                    <div class="col-12 mb-5">
+                        <label for="course_meta_description" class="form-label">Meta Description</label>
+                        <InputText id="course_meta_description" @bind-Value="courseModel.MetaDescription" class="form-control" placeholder="Nhập meta description" />
+                    </div>
+                </div>
+                <div class="row mb-5">
+                    <div class="col-12">
+                        <BlazoredTextEditor @ref="@quillHtml">
+                            <ToolbarContent>
+                                <select class="ql-header">
+                                    <option selected=""></option>
+                                    <option value="1"></option>
+                                    <option value="2"></option>
+                                    <option value="3"></option>
+                                    <option value="4"></option>
+                                    <option value="5"></option>
+                                </select>
+                                <span class="ql-formats">
+                                    <button class="ql-bold"></button>
+                                    <button class="ql-italic"></button>
+                                    <button class="ql-underline"></button>
+                                    <button class="ql-strike"></button>
+                                </span>
+                                <span class="ql-formats">
+                                    <select class="ql-color"></select>
+                                    <select class="ql-background"></select>
+                                </span>
+                                <span class="ql-formats">
+                                    <button class="ql-list" value="ordered"></button>
+                                    <button class="ql-list" value="bullet"></button>
+                                </span>
+                                <span class="ql-formats">
+                                    <button class="ql-link"></button>
+                                </span>
+                                <span class="ql-formats">
+                                    <button type="button" class="btn btn-link" id="custom-button" style="background-image: url('img/icon/imageicon.png')"
+                                            @onclick="()=>OpenSelectImageModal(true)">
+                                    </button>
+                                </span>
+                            </ToolbarContent>
+                            <EditorContent>
+                                @((MarkupString)courseModel.Description)
+                            </EditorContent>
+                        </BlazoredTextEditor>
+                    </div>
+                </div>
+                <div class="row mb-5">
+                    <div class="col-10">
+                        <label for="course_tag" class="form-label">Tags</label>
+                        <InputText id="course-tag" @bind-Value="courseModel.Tag" class="form-control" placeholder="Nhập tag"></InputText>
+                    </div>
+
+                    <div class="col-2">
+                        <div class="form-check form-check-custom form-check-solid mt-10 ms-10">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" @bind="courseModel.IsActive" />
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Kích hoạt
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button type="button" @onclick="GoToCourseListPage" class="btn btn-secondary me-10">Hủy</button>
+                    <button type="submit" id="course_form_submit_btn" class="btn btn-primary">Cập nhật</button>
+                </div>
+            </EditForm>
+        </div>
+    </div>
+</div>
+
+<FileSelector @ref="fileSelectorControl" ImageSelected="InsertImage" />
