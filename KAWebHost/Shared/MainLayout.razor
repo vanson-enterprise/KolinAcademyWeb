@@ -1,19 +1,84 @@
 ﻿@inherits LayoutComponentBase
 
-<PageTitle>KAWebHost</PageTitle>
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
+<div class="container-app">
+    <!-- decor -->
+    <img src="./img/Frame.svg" alt="" class="container-img" />
+    <img src="./img/decor1.png"
+         alt=""
+         class="decor"
+         style="top: 44px; width: 12%; left: 26%" />
+    <img src="./img/decor2.png"
+         alt=""
+         class="decor"
+         style="top: 235px; width: 12%; right: 12%" />
+    <img src="./img/decor1.png"
+         alt=""
+         class="decor"
+         style="top: 450px; width: 12%; left: 0" />
+    <img src="./img/decor1.png"
+         alt=""
+         class="decor"
+         style="top: 670px; width: 20%; right: 10%" />
+    <img src="./img/decor1.png"
+         alt=""
+         class="decor"
+         style="top: 725px; width: 14%; left: 20%" />
 
-    <main>
-        <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+    <!------ header ------>
+    <NavMenu></NavMenu>
+
+    @Body
+
+
+    <!------ footer ------>
+    <div class="footer">
+        <div class="footer-content">
+            <div class="row g-2">
+                <div class="col-xl-4 col-md-12">
+                    <div class="p-3">
+                        <h2>KOLIN ACADEMY</h2>
+                        <br />
+                        <p>
+                            <strong>Địa chỉ: </strong> 110 Nguyễn Hy Quang, Ô Chợ Dừa,
+                            Đống Đa, Hà Nội'
+                        </p>
+                        <strong>Hotline: </strong>
+                        0961.866.955
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-12">
+                    <div class="p-3">
+                        <h2>KHÓA HỌC</h2>
+                        <br />
+                        <p>‣ Brand Master</p>
+                        <p>‣ Personal brand pro</p>
+                        <p>‣ Pose</p>
+                        <p>‣ Livestream Master</p>
+                        <p>‣ Thần Thái - Khí Chất</p>
+                        <p>‣ Tiktok idol</p>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-12">
+                    <div class="p-3">
+                        <h2>THÔNG TIN LIÊN HỆ</h2>
+                        <br />
+                        <p>‣ Về Kolin</p>
+                        <p>‣ Khóa học</p>
+                        <p>‣ Thư viện tài liệu</p>
+                        <p>‣ Kiến thức</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-2">
+                <div class="col-12">
+                    <div class="p-3">
+                        <p>© 2022KOLIN ACADEMY</p>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
+        <img src="./img/footer.png" alt="decor-footer" />
+    </div>
 </div>
+

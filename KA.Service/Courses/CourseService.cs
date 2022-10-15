@@ -147,5 +147,28 @@ namespace KA.Service.Courses
             _lessonRepo.DeleteById(id);
         }
 
+        public new ResponseDto DeleteById(object id)
+        {
+            var course = _courseRepo.GetById(id);
+            if (course != null)
+            {
+                course.IsDeleted = true;
+                _courseRepo.Update(course);
+                return new ResponseDto()
+                {
+                    Status = ResponseStatus.SUCCESS,
+                    Message = "Xóa khóa học thành công"
+                };
+            }
+            else
+            {
+                return new ResponseDto()
+                {
+                    Status = ResponseStatus.ERROR,
+                    Message = "Xóa khóa học thất bại"
+                };
+            }
+        }
+
     }
 }

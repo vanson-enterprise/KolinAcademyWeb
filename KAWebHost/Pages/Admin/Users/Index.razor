@@ -1,0 +1,97 @@
+﻿@attribute [Authorize]
+@page "/manager/users"
+@using KA.ViewModels.Users
+@inherits OwningComponentBase
+@inject NavigationManager NavigationManager
+
+<div class="d-flex flex-column-fluid">
+    <!--begin::Container-->
+    <div class="container-fluid">
+        <!--begin::Card-->
+        <div class="card card-flush">
+            <!--begin::Card header-->
+            <div class="card-header mt-6">
+                <h3 class="card-title">Danh sách người dùng</h3>
+                <div class="card-toolbar">
+                    <div class="d-flex align-items-center position-relative my-1 me-5">
+                        <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+                        <span class="svg-icon svg-icon-1 position-absolute ms-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="black" />
+                                <path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="black" />
+                            </svg>
+                        </span>
+                        <!--end::Svg Icon-->
+                        <input value="" type="text" data-search-table-filter="search" class="form-control form-control-solid w-250px ps-15 me-5" placeholder="Text Search" />
+
+                        <!--begin::Button-->
+                        <button type="button" class="btn btn-light-primary" id="create-product-btn" @onclick="CreateUser">
+                            <!--begin::Svg Icon | path: icons/duotune/general/gen035.svg-->
+                            <span class="svg-icon svg-icon-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="black" />
+                                    <rect x="10.8891" y="17.8033" width="12" height="2" rx="1" transform="rotate(-90 10.8891 17.8033)" fill="black" />
+                                    <rect x="6.01041" y="10.9247" width="12" height="2" rx="1" fill="black" />
+                                </svg>
+                            </span>
+                            <!--end::Svg Icon-->
+                            Thêm User
+                        </button>
+                        <!--end::Button-->
+                    </div>
+                </div>
+            </div>
+            <!--end::Card header-->
+            <!--begin::Card body-->
+            <div class="card-body pt-0">
+                @if (dataGrid != null)
+                {
+                    <RadzenDataGrid AllowFiltering="true"
+                                AllowColumnResize="false"
+                                AllowAlternatingRows="false"
+                                FilterMode="FilterMode.Simple"
+                                AllowSorting="true"
+                                AllowPaging="false"
+                                PagerHorizontalAlign="HorizontalAlign.Left"
+                                SelectionMode="DataGridSelectionMode.Single"
+                                Data="@dataGrid.Items"
+                                TItem="UserItem"
+                                LogicalFilterOperator="LogicalFilterOperator.And">
+                        <Columns>
+                            <RadzenDataGridColumn TItem="UserItem" Property="Index" Filterable="false" Title="STT" Width="60px" TextAlign="TextAlign.Center" />
+
+                            <RadzenDataGridColumn TItem="UserItem" Property="UserName" Title="Tài khoản" Width="150px" />
+                            <RadzenDataGridColumn TItem="UserItem" Property="FullName" Title="Họ và tên" Width="150px" />
+                            <RadzenDataGridColumn TItem="UserItem" Property="Email" Title="Email" Width="150px" />
+                            <RadzenDataGridColumn TItem="UserItem" Property="PhoneNumber" Title="Số điện thoại" Width="100px" />
+                            <RadzenDataGridColumn TItem="UserItem" Property="Roles" Title="Roles" Width="150px" />
+                            <RadzenDataGridColumn TItem="UserItem" Context="dataContext" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="50px">
+                                <Template Context="user">
+                                    <RadzenButton Icon="edit"
+                                              ButtonStyle="ButtonStyle.Light"
+                                              Class="m-1"
+                                              Click="@(args => EditUser(user.Id))"
+                                              @onclick:stopPropagation="true">
+                                    </RadzenButton>
+                                </Template>
+                            </RadzenDataGridColumn>
+                        </Columns>
+                    </RadzenDataGrid>
+                    <RadzenPager ShowPagingSummary="true" PagingSummaryFormat="@pagingSummaryFormat" HorizontalAlign="HorizontalAlign.Right" Count="dataGrid.TotalItem" PageSize="@pageSize" PageNumbersCount="5" PageChanged="@PageChanged" />
+                }
+            </div>
+            <!--end::Card body-->
+        </div>
+        <!--end::Card-->
+    </div>
+    <!--end::Container-->
+</div>
+
+@if (IsOpenCreateUserModal)
+{
+    <CreateUserModal OnClose="OnCreatedUserModalClose" />
+}
+@if (editUserId != null)
+{
+    <EditUserModal OnClose="OnEditedUserModalClose" UserId="@editUserId" />
+}

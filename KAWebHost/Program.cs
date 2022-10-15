@@ -7,6 +7,7 @@ using KA.Service.Address;
 using KA.Service.Base;
 using KA.Service.Courses;
 using KA.Service.Mapper;
+using KA.Service.Users;
 using KAWebHost.Areas.Identity;
 using KAWebHost.Data;
 using Microsoft.AspNetCore.Components;
@@ -22,7 +23,7 @@ var builder = WebApplication.CreateBuilder(args);
 // =========================== SERVICE ===============================
 // Blazor service
 builder.Services.AddRazorPages().AddViewLocalization();
-builder.Services.AddServerSideBlazor().AddCircuitOptions(options => { options.DetailedErrors = true; });
+builder.Services.AddServerSideBlazor();
 builder.Services.AddMvc(options => options.EnableEndpointRouting = false).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
 // DbContext
@@ -84,9 +85,13 @@ builder.Services.AddTransient<IRepository<District>, BaseRepository<District>>()
 builder.Services.AddTransient<IRepository<Ward>, BaseRepository<Ward>>();
 builder.Services.AddTransient<IRepository<Course>, BaseRepository<Course>>();
 builder.Services.AddTransient<IRepository<Lesson>, BaseRepository<Lesson>>();
+builder.Services.AddTransient<IRepository<AppUser>, BaseRepository<AppUser>>();
+builder.Services.AddTransient<IRepository<AppRole>, BaseRepository<AppRole>>();
+builder.Services.AddTransient<IRepository<IdentityUserRole<string>>, BaseRepository<IdentityUserRole<string>>>();
 
 builder.Services.AddScoped<IAddressService, AddressService>();
 builder.Services.AddScoped<ICourseService, CourseService>();
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddTransient<ContextMenuService, ContextMenuService>();
 
 

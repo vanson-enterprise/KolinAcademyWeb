@@ -1,0 +1,107 @@
+﻿@inherits OwningComponentBase
+
+<div class="modal fade show" tabindex="-1" style="display: block; background-color: rgba(10,10,10,0.8)" id="kt_modal_1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <h5 class="modal-title">Cập nhật người dùng</h5>
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close" @onclick="Cancel">
+                    <span class="svg-icon svg-icon-2x"></span>
+                </div>
+                <!--end::Close-->
+
+            </div>
+
+
+            <EditForm Model="@model" OnValidSubmit="@Submit">
+                <DataAnnotationsValidator />
+                <div class="modal-body" style="padding-top:0px">
+                    <ul class="nav nav-tabs nav-line-tabs nav-stretch fs-6 border-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-bs-toggle="tab" href="#kt_tab_pane_7">Thông tin chung</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_8">Quyền</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="kt_tab_pane_7" role="tabpanel">
+                            <div class="row mt-3 ">
+                                <div class="col-4">
+                                    <div class=" input-group-sm ">
+                                        <label class="form-label required">UserName</label>
+                                        <InputText class="form-control" @bind-Value="model.UserName" disabled></InputText>
+                                        <ValidationMessage For="@(()=>model.UserName)"></ValidationMessage>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="input-group-sm">
+                                        <label class="form-label required">Họ và tên</label>
+                                        <InputText class="form-control" @bind-Value="model.FullName"></InputText>
+                                        <ValidationMessage For="@(()=>model.FullName)"></ValidationMessage>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class=" input-group-sm">
+                                        <label class="form-label">Email</label>
+                                        <InputText class="form-control" @bind-Value="model.Email"></InputText>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3 ">
+                                <div class="col-4">
+                                    <div class=" input-group-sm">
+                                        <label class="form-label required">Số điện thoại</label>
+                                        <InputText class="form-control" @bind-Value="model.PhoneNumber"></InputText>
+                                        <ValidationMessage For="@(()=>model.PhoneNumber)"></ValidationMessage>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class=" input-group-sm ">
+                                        <label class="form-label">Mật khẩu</label>
+                                        <InputText type="password" class="form-control" @bind-Value="model.Password"></InputText>
+                                        <ValidationMessage For="@(()=>model.Password)"></ValidationMessage>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="input-group-sm">
+                                        <label class="form-label">Nhập lại mật khẩu</label>
+                                        <InputText type="password" class="form-control" @bind-Value="model.ConfirmPassword"></InputText>
+                                        <ValidationMessage For="@(()=>model.ConfirmPassword)"></ValidationMessage>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="kt_tab_pane_8" role="tabpanel">
+                            <div class="row mt-5">
+                                @foreach (var role in model.Roles)
+                                {
+                                    <div class="col-3">
+                                        <div class="form-check form-check-custom form-check-solid">
+                                            <InputCheckbox @bind-Value="role.IsSelected" type="checkbox" class="form-check-input"></InputCheckbox>
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                @role.RoleName
+                                            </label>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" @onclick="Cancel">Hủy</button>
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                </div>
+            </EditForm>
+
+
+
+        </div>
+    </div>
+</div>

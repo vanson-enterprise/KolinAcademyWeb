@@ -15,6 +15,7 @@ namespace KA.Service.Courses
         Task CreateOfflineCourse(CreateCourseModel input);
         Task CreateOnlineCourse(CreateCourseModel input, List<CreateLessonModel> lessons);
         Task<ResponseDto> Delete(int id);
+        ResponseDto DeleteById(object id);
         void DeleteLesson(int id);
         Task Edit(Course input);
         ResponseDto EditLesson(Lesson input);

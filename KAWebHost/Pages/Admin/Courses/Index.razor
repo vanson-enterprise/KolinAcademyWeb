@@ -1,4 +1,4 @@
-﻿@attribute [Authorize]
+﻿@attribute [Authorize(Roles = "Administrators")]
 @page "/manager/courses"
 @using KA.ViewModels.Courses
 @inherits OwningComponentBase
@@ -66,20 +66,18 @@
                 {
                     <RadzenDataGrid AllowFiltering="true"
                                 AllowColumnResize="false"
-                                AllowAlternatingRows="false" 
+                                AllowAlternatingRows="false"
                                 FilterMode="FilterMode.Simple"
                                 AllowSorting="true"
                                 AllowPaging="false"
-
                                 PagerHorizontalAlign="HorizontalAlign.Left"
                                 SelectionMode="DataGridSelectionMode.Single"
                                 Data="@dataGrid.Items"
                                 TItem="CourseItem"
-                                LogicalFilterOperator="LogicalFilterOperator.And"
-                                >
+                                LogicalFilterOperator="LogicalFilterOperator.And">
                         <Columns>
                             <RadzenDataGridColumn TItem="CourseItem" Property="Index" Filterable="false" Title="STT" Width="60px" TextAlign="TextAlign.Center" />
-                            
+
                             <RadzenDataGridColumn TItem="CourseItem" Property="Name" Title="Tên khóa học" MinWidth="200px" />
                             <RadzenDataGridColumn TItem="CourseItem" Property="Code" Title="Mã khóa học" Width="150px" />
                             <RadzenDataGridColumn TItem="CourseItem" Property="Price" Title="Giá" Width="150px" />
@@ -89,17 +87,24 @@
                             <RadzenDataGridColumn TItem="CourseItem" Property="CreatedDate" Title="Ngày tạo" Width="150px" />
                             <RadzenDataGridColumn TItem="CourseItem" Context="dataContext" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="50px">
                                 <Template Context="course">
-                                    <RadzenButton Icon="edit" ButtonStyle="ButtonStyle.Light" Class="m-1" Click="@(args => EditRow(course))" @onclick:stopPropagation="true">
+                                    <RadzenButton Icon="edit"
+                                              ButtonStyle="ButtonStyle.Light"
+                                              Class="m-1"
+                                              Click="@(args => EditRow(course))"
+                                              @onclick:stopPropagation="true">
                                     </RadzenButton>
                                 </Template>
-                               
                             </RadzenDataGridColumn>
                             <RadzenDataGridColumn TItem="CourseItem" Context="dataContext" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="60px">
                                 <Template Context="course">
-                                    <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Size="ButtonSize.Medium" Class="m-2" @onclick:stopPropagation="true">
+                                    <RadzenButton ButtonStyle="ButtonStyle.Danger"
+                                              Icon="delete"
+                                              Size="ButtonSize.Medium"
+                                              Class="m-2"
+                                              @onclick:stopPropagation="true"
+                                              Click="@(args =>DeleteCourse(course.Id))">
                                     </RadzenButton>
                                 </Template>
-                               
                             </RadzenDataGridColumn>
                         </Columns>
                     </RadzenDataGrid>

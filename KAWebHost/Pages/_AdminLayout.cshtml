@@ -22,20 +22,6 @@
     <!--begin::Root-->
     @RenderBody()
     <!--end::Root-->
-    @*<script>
-    Blazor.start().then(function () {
-    var customScript1 = document.createElement('script');
-    var customScript2 = document.createElement('script');
-    var customScript3 = document.createElement('script');
-
-    customScript1.setAttribute('src', '/assets/plugins/global/plugins.bundle.js');
-    customScript2.setAttribute('src', '/assets/js/scripts.bundle.js');
-    customScript3.setAttribute('src', '/assets/js/common/common.js');
-    document.body.appendChild(customScript1);
-    document.body.appendChild(customScript2);
-    document.body.appendChild(customScript3);
-    });
-    </script>*@
 
     <script src="~/assets/plugins/global/plugins.bundle.js"></script>
     <script src="~/assets/js/scripts.bundle.js"></script>
@@ -43,7 +29,6 @@
     <script src="_framework/blazor.server.js"></script>
 
     <script src="_content/Radzen.Blazor/Radzen.Blazor.js"></script>
-
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <script src="_content/Blazored.TextEditor/quill-blot-formatter.min.js"></script>
     <script src="_content/Blazored.TextEditor/Blazored-BlazorQuill.js"></script>

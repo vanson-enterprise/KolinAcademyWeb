@@ -1,16 +1,19 @@
-﻿using KA.DataProvider.Entities;
+﻿using KA.Infrastructure.Enums;
 using KA.Service.Courses;
 using KA.ViewModels.Common;
 using KA.ViewModels.Courses;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using Radzen;
-using System.Diagnostics;
 
 namespace KAWebHost.Pages.Admin.Courses
 {
     public partial class Index : OwningComponentBase
     {
         string pagingSummaryFormat = "Trang {0} trên {1} (tổng {2} bản ghi)";
+
+        [Inject]
+        private IJSRuntime jsr { get; set; }
 
         private DataGridResponse<CourseItem> dataGrid;
         private ICourseService _courseService;
@@ -34,13 +37,27 @@ namespace KAWebHost.Pages.Admin.Courses
 
         private void EditRow(CourseItem course)
         {
-            if (course.Type == KA.Infrastructure.Enums.CourseType.OFFLINE)
+            if (course.Type == CourseType.OFFLINE)
             {
                 NavigationManager.NavigateTo($"/manager/edit-off-course/{course.Id}");
             }
             else
             {
                 NavigationManager.NavigateTo($"/manager/edit-on-course/{course.Id}");
+            }
+        }
+
+        private void DeleteCourse(int id)
+        {
+            var result = _courseService.DeleteById(id);
+            if (result.Status == ResponseStatus.SUCCESS)
+            {
+                jsr.InvokeVoidAsync("ShowAppAlert", result.Message, "success");
+                GetAllCourse();
+            }
+            else
+            {
+                jsr.InvokeVoidAsync("ShowAppAlert", result.Message, "success");
             }
         }
 

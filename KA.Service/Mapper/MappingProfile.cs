@@ -3,6 +3,7 @@ using KA.DataProvider.Entities;
 using KA.ViewModels.Authen;
 using KA.ViewModels.Courses;
 using KA.ViewModels.Lessons;
+using KA.ViewModels.Users;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,7 @@ namespace KA.Service.Mapper
 
         private void MappingEntityToViewModel()
         {
+            CreateMap<AppUser, UserItem>();
             CreateMap<Course, CourseItem>();
             CreateMap<Course, EditCourseModel>()
             .ForMember(m => m.Price,
@@ -39,6 +41,7 @@ namespace KA.Service.Mapper
         private void MappingDtoToEntity()
         {
             CreateMap<RegisterInputModel, AppUser>();
+            CreateMap<CreateUserModel, AppUser>();
             CreateMap<CreateCourseModel, Course>();
             CreateMap<CreateLessonModel, Lesson>();
         }
