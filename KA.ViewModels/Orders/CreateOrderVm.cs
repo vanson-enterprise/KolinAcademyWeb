@@ -1,34 +1,30 @@
-﻿using KA.Infrastructure.Enums;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-using System.ComponentModel.DataAnnotations;
-
-
-namespace KA.DataProvider.Entities
+namespace KA.ViewModels.Orders
 {
-    public class Order
+    public class CreateOrderVm
     {
-
-        [Key]
-        public int Id { get; set; }
         public string? UserId { get; set; }
         public int? CartId { get; set; }
         public string Code { get; set; }
+        // Giá tạm tính
         public decimal Price { get; set; }
+        // Giá giảm (triết khấu)
         public decimal DiscountPrice { get; set; }
+        // Thành tiền 
         public decimal TotalPrice { get; set; }
+        // Phương thức thanh toán
         public PaymentMethod PaymentMethod { get; set; }
+        // Ghi chú
         public string Note { get; set; }
+        // Trạng thái order
         public OrderStatus OrderStatus { get; set; }
+        // Trạng thái thanh toán
         public PaymentStatus PaymentStatus { get; set; }
         public DateTime? CreatedDate { get; set; } = DateTime.Now;
-
-        #region Relationship
-
-        [ForeignKey("UserId")]
-        public virtual AppUser User { get; set; }
-
-        [ForeignKey("CartId")]
-        public virtual Cart Cart { get; set; }
-        #endregion
     }
 }

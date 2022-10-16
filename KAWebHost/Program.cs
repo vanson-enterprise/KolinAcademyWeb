@@ -36,7 +36,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(option =>
 // Mapper
 builder.Services.AddSingleton(provider => new MapperConfiguration(cfg =>
 {
-    cfg.AddProfile(new MappingProfile(provider.GetService<IConfiguration>()));
+    //cfg.AddProfile(new MappingProfile(provider.GetService<IConfiguration>()));
+    cfg.AddProfile(new MappingProfile());
 }).CreateMapper());
 
 // Identity

@@ -1,0 +1,250 @@
+﻿:root {
+    --primary-color: #00fbfb;
+    --secondary-color: #e300c8;
+    --white-color: #f1f1f1;
+    --black-color: #000;
+    --transition: 0.3s all linear;
+    --background-color: #0a0726;
+    --font-family: "HelveticaNeue";
+}
+
+* {
+    box-sizing: inherit;
+}
+
+@font-face {
+    font-weight: 400;
+    font-family: "HelveticaNeue";
+    src: url(./font/HelveticaNeue-Medium.ttf);
+}
+
+@font-face {
+    font-weight: 600;
+    font-family: "HelveticaNeue";
+    src: url(./font/helveticaneuebold.ttf);
+}
+
+@font-face {
+    font-weight: 300;
+    font-family: "HelveticaNeue";
+    src: url(./font/HelveticaNeue-Thin.ttf);
+}
+
+html,
+body {
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+    box-sizing: border-box;
+    color: var(--white-color);
+    font-family: var(--font-family);
+    background-color: var(--background-color);
+}
+
+ul {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+p {
+    margin: 0;
+}
+
+.line-height-normal {
+    line-height: 1.5;
+}
+
+.grid {
+    display: grid;
+}
+
+.block {
+    display: block;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.relative {
+    position: relative;
+}
+
+.absolute {
+    position: absolute;
+}
+
+.mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.w-full {
+    width: 100%;
+}
+
+.max-width {
+    max-width: 1440px;
+}
+
+.h-full {
+    height: 100%;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.place-center {
+    place-content: center;
+}
+
+.primary-color {
+    color: var(--primary-color);
+}
+
+.secondary-color {
+    color: var(--secondary-color);
+}
+
+/* ===== header ===== */
+
+.nav-center {
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem;
+}
+
+.links {
+    height: auto;
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    padding: 0 130px 0 20px;
+    gap: 3rem;
+    margin-bottom: 0;
+}
+
+.nav-toggle {
+    display: none;
+}
+
+.links a {
+    padding: 0.5rem;
+    margin: 0 0.5rem;
+    text-transform: uppercase;
+    color: var(--primary-color);
+    transition: var(--transition);
+    font-size: 18px;
+    font-weight: 600;
+}
+
+    .links a:hover {
+        color: var(--secondary-color);
+    }
+
+/* ==== footer ===== */
+.footer {
+    position: relative;
+    margin-top: 8rem;
+}
+
+    .footer img {
+        width: 100%;
+    }
+
+.footer-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    font-weight: 300;
+}
+
+    .footer-content h2 {
+        font-size: 24px;
+        font-weight: 600;
+        color: var(--primary-color);
+    }
+
+@media only screen and (max-width: 1160px) {
+    /* ------- header ------ */
+    nav {
+        box-shadow: 2px 2px 15px #333;
+    }
+
+    .nav-center {
+        display: block;
+        padding: 1rem;
+    }
+
+    .nav-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+    }
+
+    .nav-toggle {
+        font-size: 1.5rem;
+        background: transparent;
+        border-color: transparent;
+        cursor: pointer;
+        color: var(--primary-color);
+        transition: all 0.3s linear;
+    }
+
+    .nav-header img {
+        height: 40px;
+    }
+
+    .links a {
+        text-decoration: none;
+        color: var(--primary-color);
+        font-size: 1rem;
+        text-transform: capitalize;
+        display: block;
+        font-size: 18px;
+        padding: 1rem;
+    }
+
+    .links {
+        height: 0;
+        overflow: hidden;
+        transition: all 0.3s linear;
+        margin: 0;
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 0;
+    }
+
+    .nav-toggle {
+        display: block;
+    }
+
+    .show-links {
+        height: 20rem;
+    }
+
+    /* ------- footer ------- */
+    .footer {
+        margin-top: 6rem;
+    }
+
+    .footer-content h2 {
+        font-size: 20px;
+    }
+
+    .footer-content {
+        padding: 0 10px;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .footer {
+        margin-top: 0;
+    }
+}

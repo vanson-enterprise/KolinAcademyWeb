@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using KA.DataProvider.Entities;
 using KA.ViewModels.Authen;
+using KA.ViewModels.Carts;
 using KA.ViewModels.Courses;
 using KA.ViewModels.Lessons;
 using KA.ViewModels.Users;
@@ -17,7 +18,7 @@ namespace KA.Service.Mapper
     {
         private readonly IConfiguration _configuration;
 
-        public MappingProfile(IConfiguration configuration)
+        public MappingProfile()
         {
             MappingEntityToViewModel();
             MappingDtoToEntity();
@@ -44,6 +45,7 @@ namespace KA.Service.Mapper
             CreateMap<CreateUserModel, AppUser>();
             CreateMap<CreateCourseModel, Course>();
             CreateMap<CreateLessonModel, Lesson>();
+            CreateMap<CreateCartVm, Cart>();
         }
     }
 }
