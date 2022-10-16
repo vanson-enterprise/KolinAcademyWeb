@@ -1,7 +1,6 @@
 ﻿const orderPageJs = function () {
     this.init = () => {
         $.getScript("/assets/plugins/custom/datatables/datatables.bundle.js", function (data, textStatus, jqxhr) {
-            debugger
             if (jqxhr.status == 200) {
                 const dataTable = $("#orders_table").DataTable({
                     scrollX: true,

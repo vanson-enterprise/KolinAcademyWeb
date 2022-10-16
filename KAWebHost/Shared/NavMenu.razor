@@ -1,4 +1,8 @@
-﻿<nav>
+﻿@inherits ComponentBase;
+@inject IJSRuntime jsr;
+
+<!------ header ------>
+<nav>
     <div class="nav-center">
         <!-- nav header -->
         <div class="nav-header">
@@ -15,8 +19,8 @@
 
         <!-- links -->
         <ul class="links">
-            <li><NavLink href="counter">Trang chủ</NavLink></li>
-            <li><NavLink href="#">Về Kolin</NavLink></li>
+            <li><NavLink href="/">Trang chủ</NavLink></li>
+            <li><NavLink href="/gioi-thieu">Về Kolin</NavLink></li>
             <li><NavLink href="#">Khóa học</NavLink></li>
             <li><NavLink href="#">Thư viện tài liệu</NavLink></li>
             <li><NavLink href="#">Kiến thức</NavLink></li>
@@ -26,5 +30,8 @@
 </nav>
 
 @code {
-
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        var module = jsr.InvokeAsync<IJSObjectReference>("import", "./Shared/NavMenu.razor.js");
+    }
 }

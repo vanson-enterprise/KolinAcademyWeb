@@ -4,6 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+	  
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,6 +18,7 @@
   <ItemGroup>
     <Folder Include="wwwroot\font\" />
     <Folder Include="wwwroot\uploads\course-images\" />
+	  
   </ItemGroup>
 
   <ItemGroup>
