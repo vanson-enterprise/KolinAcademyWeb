@@ -29,13 +29,22 @@ namespace KA.Service.Mapper
         {
             CreateMap<AppUser, UserItem>();
             CreateMap<Course, CourseItem>();
-            CreateMap<Course, EditCourseModel>()
+            CreateMap<Course, EditOnlineCourseModel>()
             .ForMember(m => m.Price,
                     cf => cf.MapFrom(c => decimal.Round(c.Price, 2, MidpointRounding.AwayFromZero))
                  )
             .ForMember(m => m.DiscountPrice,
                     cf => cf.MapFrom(c => decimal.Round(c.DiscountPrice, 2, MidpointRounding.AwayFromZero))
                  );
+
+            CreateMap<Course, EditOfflineCourseModel>()
+            .ForMember(m => m.Price,
+                    cf => cf.MapFrom(c => decimal.Round(c.Price, 2, MidpointRounding.AwayFromZero))
+                 )
+            .ForMember(m => m.DiscountPrice,
+                    cf => cf.MapFrom(c => decimal.Round(c.DiscountPrice, 2, MidpointRounding.AwayFromZero))
+                 );
+
             CreateMap<Lesson, EditLessonModel>();
         }
 
@@ -43,7 +52,8 @@ namespace KA.Service.Mapper
         {
             CreateMap<RegisterInputModel, AppUser>();
             CreateMap<CreateUserModel, AppUser>();
-            CreateMap<CreateCourseModel, Course>();
+            CreateMap<CreateOnlineCourseModel, Course>();
+            CreateMap<CreateOfflineCourseModel, Course>();
             CreateMap<CreateLessonModel, Lesson>();
             CreateMap<CreateCartVm, Cart>();
         }

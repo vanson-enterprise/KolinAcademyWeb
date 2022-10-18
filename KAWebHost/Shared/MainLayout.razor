@@ -6,10 +6,10 @@
 @Body
 
 <!------ footer ------>
+<Footer></Footer>
 
 
-
-@code{
+@code {
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         jsr.InvokeVoidAsync("import", "MainLayout.razor.js");

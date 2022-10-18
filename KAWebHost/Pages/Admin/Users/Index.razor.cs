@@ -5,6 +5,7 @@ using KA.ViewModels.Common;
 using KA.ViewModels.Courses;
 using KA.ViewModels.Users;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.JSInterop;
 using Radzen;
@@ -14,19 +15,23 @@ namespace KAWebHost.Pages.Admin.Users
     public partial class Index : OwningComponentBase
     {
         string pagingSummaryFormat = "Trang {0} trên {1} (tổng {2} bản ghi)";
-
-        [Inject]
-        private IJSRuntime jsr { get; set; }
-
         private DataGridResponse<UserItem> dataGrid;
         private IUserService _userService;
         private int pageSize = 10;
         private bool IsOpenCreateUserModal = false;
         private string editUserId;
 
+        [Inject]
+        private IJSRuntime jsr { get; set; }
+        [CascadingParameter]
+        private Task<AuthenticationState> authenticationStateTask { get; set; }
+        private AuthenticationState _authenticationState;
+
+
         protected override async Task OnInitializedAsync()
         {
             _userService = ScopedServices.GetRequiredService<IUserService>();
+            _authenticationState = await authenticationStateTask;
             await GetAllUser();
         }
 

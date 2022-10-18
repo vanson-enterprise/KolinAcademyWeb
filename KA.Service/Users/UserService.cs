@@ -72,7 +72,7 @@ namespace KA.Service.Users
 
         public async Task<List<RoleModel>> GetAllRoleForSelect(string? userId)
         {
-            var result = await _roleRepo.GetAll().Select(r => new RoleModel()
+            var result = await _roleRepo.GetAll().Where(r => r.Name != "Administrators").Select(r => new RoleModel()
             {
                 Id = r.Id,
                 RoleName = r.Name,
@@ -95,12 +95,14 @@ namespace KA.Service.Users
                 UserName = user.UserName
             };
 
-            result.Roles = _roleManager.Roles.Select(r => new RoleModel()
-            {
-                Id = r.Id,
-                RoleName = r.Name,
-                IsSelected = false
-            }).ToList();
+            result.Roles = _roleManager.Roles
+                .Where(r => r.NormalizedName != "ADMINISTRATORS")
+                .Select(r => new RoleModel()
+                {
+                    Id = r.Id,
+                    RoleName = r.Name,
+                    IsSelected = false
+                }).ToList();
 
             foreach (var role in result.Roles)
             {

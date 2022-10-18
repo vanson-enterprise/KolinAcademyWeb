@@ -12,15 +12,15 @@ namespace KA.Service.Courses
     public interface ICourseService : IService<Course>
     {
         Lesson AddLessonToCourse(Lesson input);
-        Task CreateOfflineCourse(CreateCourseModel input);
-        Task CreateOnlineCourse(CreateCourseModel input, List<CreateLessonModel> lessons);
-        Task<ResponseDto> Delete(int id);
+        Task CreateOfflineCourse(CreateOfflineCourseModel input);
+        Task CreateOnlineCourse(CreateOnlineCourseModel input, List<CreateLessonModel> lessons);
         ResponseDto DeleteById(object id);
         void DeleteLesson(int id);
         Task Edit(Course input);
         ResponseDto EditLesson(Lesson input);
         Task<DataGridResponse<CourseItem>> GetAllCoursePaging(int skip, int top);
         List<Lesson> GetAllLessonInCourse(int courseId);
+        List<OfflineCourseViewModel> GetAllOpeningSoonOfflineCourse();
         Course GetCourseById(int id);
         bool IsDuplicateCourseCode(string code);
     }

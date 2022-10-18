@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace KA.ViewModels.Courses
 {
-    public class EditCourseModel
+    public class CreateOnlineCourseModel
     {
-        public int Id { get; set; }
-
         [Required(ErrorMessage = "Vui lòng nhập tên khóa học")]
         public string Name { get; set; }
 
@@ -26,6 +24,7 @@ namespace KA.ViewModels.Courses
         public decimal DiscountPrice { get; set; }
         public string? Tag { get; set; }
         public string? Description { get; set; }
+        public string? ShortDescription { get; set; }
         public string? MetaKeyWord { get; set; }
         public string? MetaTitle { get; set; }
         public string? MetaDescription { get; set; }
@@ -34,6 +33,9 @@ namespace KA.ViewModels.Courses
         public string? IntroduceVideoLink { get; set; }
         public DateTime? CreatedDate { get; set; } = DateTime.Now;
         public string? CreateUserId { get; set; }
-        public DateTime? UpdatedDate { get; set; }
+
+        [Required(ErrorMessage = "Vui lòng nhập trường này")]
+        [Range(1, int.MaxValue, ErrorMessage = "Thời gian khóa học phải lớn hơn 0")]
+        public int DurationTime { get; set; }
     }
 }

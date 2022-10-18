@@ -65,16 +65,19 @@
                             <RadzenDataGridColumn TItem="UserItem" Property="Email" Title="Email" Width="150px" />
                             <RadzenDataGridColumn TItem="UserItem" Property="PhoneNumber" Title="Số điện thoại" Width="100px" />
                             <RadzenDataGridColumn TItem="UserItem" Property="Roles" Title="Roles" Width="150px" />
-                            <RadzenDataGridColumn TItem="UserItem" Context="dataContext" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="50px">
-                                <Template Context="user">
-                                    <RadzenButton Icon="edit"
+                            @if (_authenticationState.User.IsInRole("Administrators"))
+                            {
+                                <RadzenDataGridColumn TItem="UserItem" Context="dataContext" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="50px">
+                                    <Template Context="user">
+                                        <RadzenButton Icon="edit"
                                               ButtonStyle="ButtonStyle.Light"
                                               Class="m-1"
                                               Click="@(args => EditUser(user.Id))"
                                               @onclick:stopPropagation="true">
-                                    </RadzenButton>
-                                </Template>
-                            </RadzenDataGridColumn>
+                                        </RadzenButton>
+                                    </Template>
+                                </RadzenDataGridColumn>
+                            }
                         </Columns>
                     </RadzenDataGrid>
                     <RadzenPager ShowPagingSummary="true" PagingSummaryFormat="@pagingSummaryFormat" HorizontalAlign="HorizontalAlign.Right" Count="dataGrid.TotalItem" PageSize="@pageSize" PageNumbersCount="5" PageChanged="@PageChanged" />

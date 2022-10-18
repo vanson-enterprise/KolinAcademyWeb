@@ -12,7 +12,7 @@ namespace KAWebHost.Pages.Admin.Courses
     public partial class EditOfflineCourse : OwningComponentBase
     {
         private Course course;
-        private EditCourseModel courseModel;
+        private EditOfflineCourseModel courseModel;
         private FileSelector fileSelectorControl;
         private BlazoredTextEditor quillHtml;
 
@@ -35,19 +35,12 @@ namespace KAWebHost.Pages.Admin.Courses
             InitDataModel();
         }
 
-        protected override async Task OnAfterRenderAsync(bool firstRender)
-        {
-            if (firstRender)
-            {
-                await jsr.InvokeVoidAsync("import", "/scripts/courses/edit-off-course.js");
-                await jsr.InvokeVoidAsync("editOffCoursePageJs.init");
-            }
-        }
+
 
         private void InitDataModel()
         {
             course = _courseService.GetCourseById(Id);
-            courseModel = _mapper.Map<EditCourseModel>(course);
+            courseModel = _mapper.Map<EditOfflineCourseModel>(course);
         }
 
         private async Task SubmitForm()
@@ -68,6 +61,8 @@ namespace KAWebHost.Pages.Admin.Courses
             course.ThumbNailImageLink = courseModel.ThumbNailImageLink;
             course.IntroduceVideoLink = courseModel.IntroduceVideoLink;
             course.UpdatedDate = DateTime.Now;
+            course.Place = courseModel.Place;
+            course.StartDate = courseModel.StartDate.Value;
             await _courseService.Edit(course);
 
             await jsr.InvokeVoidAsync("ShowAppAlert", "Đã cập nhật thành công", "success");

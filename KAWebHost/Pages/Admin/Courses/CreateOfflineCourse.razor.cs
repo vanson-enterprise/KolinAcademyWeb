@@ -12,7 +12,7 @@ namespace KAWebHost.Pages.Admin.Courses
 {
     public partial class CreateOfflineCourse : OwningComponentBase
     {
-        private CreateCourseModel model;
+        private CreateOfflineCourseModel model;
         private FileSelector fileSelectorControl;
         private BlazoredTextEditor quillHtml;
         private CustomFormValidator customFormValidator;
@@ -33,7 +33,7 @@ namespace KAWebHost.Pages.Admin.Courses
         private void InitDataModel()
         {
 
-            model = new CreateCourseModel()
+            model = new CreateOfflineCourseModel()
             {
                 IsActive = true,
                 Type = CourseType.OFFLINE

@@ -49,6 +49,22 @@
                     </div>
 
                 </div>
+                <div class="row mb-5">
+                    <div class="col-3">
+                        <label class="form-label required">Chọn ngày khai giảng</label>
+                        <RadzenDatePicker @bind-Value=@model.StartDate DateFormat="dd/MM/yyyy" Date Class="w-100 " />
+                        <ValidationMessage For="@(()=>model.StartDate)"></ValidationMessage>
+                    </div>
+                    <div class="col-3">
+                        <label for="course_place" class="form-label">Nơi diễn ra</label>
+                        <InputText id="course_meta_keyword" @bind-Value="model.Place" class="form-control" placeholder="Nhập nơi diễn ra" />
+
+                    </div>
+                    <div class="col-3">
+                        <label for="course_tag" class="form-label">Tags</label>
+                        <InputText id="course-tag" @bind-Value="model.Tag" class="form-control" placeholder="Nhập tag"></InputText>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-12 mb-5">
                         <label for="course_meta_keyword" class="form-label">Meta Keywords</label>
@@ -105,12 +121,9 @@
                     </div>
                 </div>
                 <div class="row mb-5">
-                    <div class="col-10">
-                        <label for="course_tag" class="form-label">Tags</label>
-                        <InputText id="course-tag" @bind-Value="model.Tag" class="form-control" placeholder="Nhập tag"></InputText>
-                    </div>
 
-                    <div class="col-2">
+
+                    <div class="col-12">
                         <div class="form-check form-check-custom form-check-solid mt-10 ms-10">
                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" @bind="model.IsActive" />
                             <label class="form-check-label" for="flexCheckDefault">

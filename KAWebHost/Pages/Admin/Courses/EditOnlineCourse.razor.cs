@@ -17,7 +17,7 @@ namespace KAWebHost.Pages.Admin.Courses
     {
         // Models
         private EditLessonModel lessonModel { get; set; }
-        private EditCourseModel courseModel { get; set; }
+        private EditOnlineCourseModel courseModel { get; set; }
         private Course course { get; set; }
         private static List<Lesson> s_lessons { get; set; }
 
@@ -73,7 +73,7 @@ namespace KAWebHost.Pages.Admin.Courses
         {
 
             course = _courseService.GetCourseById(Id);
-            courseModel = _mapper.Map<EditCourseModel>(course);
+            courseModel = _mapper.Map<EditOnlineCourseModel>(course);
             lessonModel = new();
             GetAllLesson();
         }

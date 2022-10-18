@@ -15,7 +15,7 @@ namespace KAWebHost.Pages.Admin.Courses
     {
         // Models
         private CreateLessonModel lessonModel { get; set; }
-        private CreateCourseModel createCourseModel { get; set; }
+        private CreateOnlineCourseModel createCourseModel { get; set; }
         private static List<CreateLessonModel> s_lessons { get; set; }
 
         // Properties
@@ -59,7 +59,7 @@ namespace KAWebHost.Pages.Admin.Courses
         private void InitDataModel()
         {
 
-            createCourseModel = new CreateCourseModel()
+            createCourseModel = new CreateOnlineCourseModel()
             {
                 IsActive = true,
                 Type = CourseType.ONLINE
