@@ -1,0 +1,133 @@
+﻿/* avatar */
+.profile-pic {
+    width: 200px;
+    max-height: 200px;
+    display: inline-block;
+}
+
+.file-upload {
+    display: none;
+}
+
+.circle {
+    width: 128px;
+    height: 128px;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 100% !important;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+img {
+    height: auto;
+    max-width: 100%;
+}
+
+.p-image {
+    top: 95px;
+    right: 38%;
+    color: #666666;
+    position: absolute;
+}
+
+.upload-button:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+/* tabs */
+.about {
+    display: block;
+}
+
+.tab-btn {
+    border: none;
+    font-size: 18px;
+    text-align: left;
+    padding: 3px 15px;
+    background: transparent;
+    color: var(--primary-color);
+    transition: var(--transition);
+    border-bottom: 1px solid var(--white-color);
+}
+
+    .tab-btn:hover:not(.active) {
+        color: var(--secondary-color);
+    }
+
+.active {
+    color: var(--secondary-color);
+}
+
+.about-content .content:not(:first-of-type) {
+    display: none;
+}
+
+.profile-container {
+    padding: 100px;
+}
+
+.btn-container,
+.about-content {
+    padding: 0 20px;
+}
+
+/* form */
+.btn-primary {
+    padding: 6px 20px;
+    border-radius: 20px;
+    border-color: var(--secondary-color);
+    background-color: var(--secondary-color);
+}
+
+.form-control {
+    border-radius: 0.5rem;
+}
+
+.info .btn-primary:hover {
+    opacity: 0.8;
+    border-color: var(--secondary-color);
+    background-color: var(--secondary-color);
+}
+
+/* course */
+.course-item {
+    margin-bottom: 2rem;
+}
+
+    .course-item .content {
+        padding: 10px;
+    }
+
+    .course-item h3 {
+        font-size: 18px;
+        text-transform: uppercase;
+    }
+
+    .course-item .content .text {
+        margin-top: 10px;
+    }
+
+    .course-item .text .name,
+    .course-item .text .link {
+        font-size: 17px;
+    }
+
+        .course-item .text .link:hover {
+            cursor: pointer;
+            color: var(--secondary-color);
+        }
+
+/* history */
+.history h3 {
+    font-size: 18px;
+}
+
+.history ul {
+    padding-left: 10px;
+}
+
+    .history ul li {
+        border-bottom: 1px solid #fff;
+        padding: 6px 0;
+    }

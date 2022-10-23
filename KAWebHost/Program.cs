@@ -85,8 +85,10 @@ builder.Services.AddTransient<IRepository<Province>, BaseRepository<Province>>()
 builder.Services.AddTransient<IRepository<District>, BaseRepository<District>>();
 builder.Services.AddTransient<IRepository<Ward>, BaseRepository<Ward>>();
 builder.Services.AddTransient<IRepository<Course>, BaseRepository<Course>>();
+builder.Services.AddTransient<IRepository<OfflineCourseStartDate>, BaseRepository<OfflineCourseStartDate>>();
 builder.Services.AddTransient<IRepository<Lesson>, BaseRepository<Lesson>>();
 builder.Services.AddTransient<IRepository<AppUser>, BaseRepository<AppUser>>();
+builder.Services.AddTransient<IRepository<AppRole>, BaseRepository<AppRole>>();
 builder.Services.AddTransient<IRepository<AppRole>, BaseRepository<AppRole>>();
 builder.Services.AddTransient<IRepository<IdentityUserRole<string>>, BaseRepository<IdentityUserRole<string>>>();
 
@@ -113,18 +115,14 @@ if (!app.Environment.IsDevelopment())
 //    endpoints.MapBlazorHub();
 //    endpoints.MapFallbackToPage("/_Host");
 //});
-
 //app.UseHttpsRedirection();
+
 app.UseRequestLocalization();
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
-
-
 app.Run();

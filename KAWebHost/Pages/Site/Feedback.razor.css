@@ -1,0 +1,163 @@
+﻿iframe {
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
+}
+
+.video-feedback {
+    z-index: 1;
+}
+
+    .video-feedback .decor img {
+        z-index: -1;
+        bottom: -40%;
+        pointer-events: none;
+        width: 100%;
+    }
+
+    .video-feedback .heading {
+        font-size: 28px;
+        max-width: 1150px;
+        margin-bottom: 3rem;
+        padding: 20px;
+    }
+
+.video-topic {
+    max-width: 1060px;
+    margin-bottom: 4rem;
+    padding: 20px;
+}
+
+    .video-topic .title {
+        font-size: 24px;
+        margin-bottom: 2rem;
+    }
+
+    .video-topic .title {
+        display: inline-block;
+        position: relative;
+        cursor: pointer;
+    }
+
+        .video-topic .title::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            height: 3px;
+            width: 30%;
+            background-color: #ed262c;
+            transition: width linear 0.3s;
+        }
+
+        .video-topic .title:hover {
+            color: var(--primary-color);
+        }
+
+            .video-topic .title:hover::after {
+                width: 100%;
+            }
+
+    .video-topic .video {
+        height: 300px;
+    }
+
+    .video-topic .name {
+        font-size: 20px;
+        margin-top: 16px;
+    }
+
+.student-feedback {
+    z-index: 1;
+}
+
+    .student-feedback .decor img {
+        bottom: 55px;
+        right: 0;
+        width: 20%;
+        z-index: -1;
+    }
+
+.student-content {
+    max-width: 1150px;
+    padding: 4rem 0;
+    padding: 20px;
+}
+
+.student-feedback .title {
+    font-size: 24px;
+    margin-bottom: 3rem;
+}
+
+.student-img {
+    max-width: 40%;
+    width: 100%;
+}
+
+    .student-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+.student-info {
+    max-width: 60%;
+    width: 100%;
+    margin: 10px 20px;
+}
+
+    .student-info h4 {
+        margin-bottom: 1rem;
+    }
+
+    .student-info ul {
+        padding-left: 18px;
+    }
+
+        .student-info ul li {
+            list-style: disc;
+        }
+
+@media only screen and (max-width: 1160px) {
+}
+
+@media only screen and (max-width: 767px) {
+    .video-feedback .decor img {
+        display: none;
+    }
+
+    .video-feedback .heading {
+        font-size: 26px;
+        margin-bottom: 1rem;
+    }
+
+    .video-topic .title {
+        font-size: 22px;
+    }
+
+    .video-topic .video {
+        height: 220px;
+    }
+
+    .video-topic .name {
+        font-size: 18px;
+    }
+
+    .student-feedback .decor img {
+        display: none;
+    }
+
+    .student-feedback .student {
+        flex-direction: column !important;
+    }
+
+    .student-img,
+    .student-info {
+        max-width: 100%;
+    }
+
+    .student-info {
+        padding: 10px;
+        margin: 0;
+    }
+}

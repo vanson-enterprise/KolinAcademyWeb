@@ -30,96 +30,44 @@
             </div>
         </div>
     </section>
-
-    <section class="coming-soon relative">
-        <img src="./img/coming-soon-decor.png"
+    @if (offlineCourseViewModels.Count > 0)
+    {
+        <section class="coming-soon relative">
+            <img src="./img/coming-soon-decor.png"
              alt=""
              class="absolute coming-soon-decor" />
-        <div class="max-width mx-auto">
-            <div class="title text-center line-height-normal">
-                <p class="primary-color inline-block">KHÓA HỌC</p>
-                <p class="secondary-color inline-block">SẮP KHAI GIẢNG</p>
-            </div>
+            <div class="max-width mx-auto">
+                <div class="title text-center line-height-normal">
+                    <p class="primary-color inline-block">KHÓA HỌC</p>
+                    <p class="secondary-color inline-block">SẮP KHAI GIẢNG</p>
+                </div>
 
-            <div class="coming-soon_course">
-                <div class="coming-content">
-                    <div>
-                        <div class="course">
-                            <a href="#" class="name line-height-normal primary-color">
-                                PERSONAL BRAND PRO
-                            </a>
-                            <a href="#"
-                               class="course-item d-flex justify-content-between">
-                                <p>08/06/2022</p>
-                                <p>Ha Noi</p>
-                                <p>Xem chi tiet</p>
-                            </a>
-                        </div>
-
-                        <div class="course">
-                            <a href="#" class="name line-height-normal primary-color">
-                                TIKTOK IDOL
-                            </a>
-                            <br />
-                            <a href="#"
-                               class="course-item d-flex justify-content-between">
-                                <p>08/06/2022</p>
-                                <p>Ha Noi</p>
-                                <p>Xem chi tiet</p>
-                            </a>
-                        </div>
-
-                        <div class="course">
-                            <a href="#" class="name line-height-normal primary-color">
-                                PERSONAL BRAND PRO
-                            </a>
-                            <a href="#"
-                               class="course-item d-flex justify-content-between">
-                                <p>08/06/2022</p>
-                                <p>Ha Noi</p>
-                                <p>Xem chi tiet</p>
-                            </a>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="course">
-                            <a href="#" class="name line-height-normal primary-color">
-                                PERSONAL BRAND PRO
-                            </a>
-                            <a href="#"
-                               class="course-item d-flex justify-content-between">
-                                <p>08/06/2022</p>
-                                <p>Ha Noi</p>
-                                <p>Xem chi tiet</p>
-                            </a>
-                            <br />
-                            <a href="#"
-                               class="course-item d-flex justify-content-between">
-                                <p>08/06/2022</p>
-                                <p>Ha Noi</p>
-                                <p>Xem chi tiet</p>
-                            </a>
-                        </div>
-
-                        <div class="course">
-                            <a href="#" class="name line-height-normal primary-color">
-                                TIKTOK IDOL
-                            </a>
-                            <a href="#"
-                               class="course-item d-flex justify-content-between">
-                                <p>08/06/2022</p>
-                                <p>Ha Noi</p>
-                                <p>Xem chi tiet</p>
-                            </a>
-                        </div>
+                <div class="coming-soon_course">
+                    <div class="coming-content">
+                        @foreach (var course in offlineCourseViewModels)
+                        {
+                            <div class="course">
+                                <a href="@course.DetailCourseLink" class="name line-height-normal primary-color text-uppercase">
+                                    @course.Name
+                                </a>
+                                @foreach (var startDate in course.StartDates)
+                                {
+                                    <div class="course-item d-flex justify-content-between mb-3">
+                                        <p>@startDate.StartTime.Value.ToString("dd/MM/yyyy")</p>
+                                        <p>@startDate.Place</p>
+                                        <a href="@course.DetailCourseLink">Xem chi tiết</a>
+                                    </div>
+                                }
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    }
 
     <section class="home-about relative">
-        <img src="./img/Frame.svg" alt="" class="home-about-decor1" />
+       @* <img src="./img/Frame.svg" alt="" class="home-about-decor1" />*@
         <div class="max-width mx-auto">
             <div class="title text-center primary-color">VỀ CHÚNG TÔI</div>
             <div class="home-about_wrapper">

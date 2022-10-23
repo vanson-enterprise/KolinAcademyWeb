@@ -1,4 +1,5 @@
-﻿using KA.ViewModels.Common;
+﻿using KA.DataProvider.Entities;
+using KA.ViewModels.Common;
 using KA.ViewModels.Courses;
 using KA.ViewModels.Lessons;
 using System;
@@ -12,16 +13,20 @@ namespace KA.Service.Courses
     public interface ICourseService : IService<Course>
     {
         Lesson AddLessonToCourse(Lesson input);
-        Task CreateOfflineCourse(CreateOfflineCourseModel input);
+        Task CreateOfflineCourse(CreateOfflineCourseModel input, List<OfflineCourseStartDateVm> startDates);
         Task CreateOnlineCourse(CreateOnlineCourseModel input, List<CreateLessonModel> lessons);
+        Task CreateStartDate(OfflineCourseStartDate input);
         ResponseDto DeleteById(object id);
         void DeleteLesson(int id);
+        void DeleteStartDate(int id);
         Task Edit(Course input);
         ResponseDto EditLesson(Lesson input);
         Task<DataGridResponse<CourseItem>> GetAllCoursePaging(int skip, int top);
         List<Lesson> GetAllLessonInCourse(int courseId);
         List<OfflineCourseViewModel> GetAllOpeningSoonOfflineCourse();
+        List<OfflineCourseStartDate> GetAllStartDatesOfCourse(int courseId);
         Course GetCourseById(int id);
         bool IsDuplicateCourseCode(string code);
+        ResponseDto UpdateStartDate(OfflineCourseStartDate input);
     }
 }

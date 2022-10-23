@@ -44,6 +44,7 @@ namespace KA.DataProvider
         public DbSet<CartProduct> CartProducts { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Course> Courses { get; set; }
+        public DbSet<OfflineCourseStartDate> OfflineCourseStartDates { get; set; }
         public DbSet<Lesson> Lessons { get; set; }
         public DbSet<Subscription> Subscriptions { get; set; }
         public DbSet<UserCourse> UserCourses { get; set; }

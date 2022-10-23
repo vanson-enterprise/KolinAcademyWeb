@@ -32,10 +32,5 @@ namespace KA.ViewModels.Courses
         public int Sort { get; set; }
         public string? ThumbNailImageLink { get; set; }
         public string? IntroduceVideoLink { get; set; }
-
-        [Required(ErrorMessage = "Vui lòng chọn ngày khai giảng")]
-        public DateTime? StartDate { get; set; }
-
-        public string? Place { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using KA.DataProvider.Entities;
 using KA.Infrastructure.Util;
 using KA.ViewModels.Common;
 using KA.ViewModels.Courses;
@@ -10,12 +11,14 @@ namespace KA.Service.Courses
     {
         private IRepository<Course> _courseRepo;
         private IRepository<Lesson> _lessonRepo;
+        private IRepository<OfflineCourseStartDate> _startDateOfflineCourseRepo;
         private IMapper _mapper;
-        public CourseService(IRepository<Course> baseReponsitory, IMapper mapper, IRepository<Lesson> lessonRepo) : base(baseReponsitory)
+        public CourseService(IRepository<Course> baseReponsitory, IMapper mapper, IRepository<Lesson> lessonRepo, IRepository<OfflineCourseStartDate> startDateOfflineCourseRepo) : base(baseReponsitory)
         {
             _courseRepo = baseReponsitory;
             _mapper = mapper;
             _lessonRepo = lessonRepo;
+            _startDateOfflineCourseRepo = startDateOfflineCourseRepo;
         }
 
         #region Admin
@@ -53,10 +56,28 @@ namespace KA.Service.Courses
             }
         }
 
-        public async Task CreateOfflineCourse(CreateOfflineCourseModel input)
+        public async Task CreateOfflineCourse(CreateOfflineCourseModel input, List<OfflineCourseStartDateVm> startDates)
         {
             var course = _mapper.Map<Course>(input);
             await _courseRepo.AddAsync(course);
+            if (course.Id > 0)
+            {
+                foreach (var startDate in startDates)
+                {
+                    var newStartDate = new OfflineCourseStartDate()
+                    {
+                        OfflineCourseId = course.Id,
+                        Place = startDate.Place,
+                        StartTime = startDate.StartTime.Value
+                    };
+                    _startDateOfflineCourseRepo.Add(newStartDate);
+                }
+            }
+        }
+
+        public async Task CreateStartDate(OfflineCourseStartDate input)
+        {
+            _startDateOfflineCourseRepo.Add(input);
         }
 
         public async Task Edit(Course input)
@@ -92,12 +113,9 @@ namespace KA.Service.Courses
 
         public ResponseDto EditLesson(Lesson input)
         {
-            var lesson = _lessonRepo.GetById(input.Id);
-            if (lesson != null)
+            if (input != null)
             {
-                lesson.Name = input.Name;
-                lesson.VideoLink = input.VideoLink;
-                _lessonRepo.Update(lesson);
+                _lessonRepo.Update(input);
                 return new ResponseDto()
                 {
                     Message = "Cập nhật bài giảng thành công",
@@ -114,9 +132,36 @@ namespace KA.Service.Courses
             }
         }
 
+        public ResponseDto UpdateStartDate(OfflineCourseStartDate input)
+        {
+            var updateResult = _startDateOfflineCourseRepo.Update(input);
+            if (updateResult > 0)
+            {
+                return new ResponseDto()
+                {
+                    Message = "Cập nhật ngày khai giảng thành công",
+                    Status = ResponseStatus.SUCCESS
+                };
+            }
+            else
+            {
+                return new ResponseDto()
+                {
+                    Message = "Cập nhật ngày khai giảng thất bại",
+                    Status = ResponseStatus.ERROR
+                };
+            }
+        }
+
+
         public void DeleteLesson(int id)
         {
             _lessonRepo.DeleteById(id);
+        }
+
+        public void DeleteStartDate(int id)
+        {
+            _startDateOfflineCourseRepo.DeleteById(id);
         }
 
         public new ResponseDto DeleteById(object id)
@@ -141,20 +186,41 @@ namespace KA.Service.Courses
                 };
             }
         }
+
+        public List<OfflineCourseStartDate> GetAllStartDatesOfCourse(int courseId)
+        {
+            return _startDateOfflineCourseRepo.GetAll().Where(i => i.OfflineCourseId == courseId).ToList();
+        }
         #endregion
 
         #region Site
         public List<OfflineCourseViewModel> GetAllOpeningSoonOfflineCourse()
         {
-            return _courseRepo.GetAll()
-                .Where(c => c.StartDate > DateTime.Now && c.Type == CourseType.OFFLINE)
-                .Select(c => new OfflineCourseViewModel
+            var result = new List<OfflineCourseViewModel>();
+            var datas = (from c in _courseRepo.GetAll()
+                         join csd in _startDateOfflineCourseRepo.GetAll() on c.Id equals csd.OfflineCourseId
+                         where csd.StartTime > DateTime.Now
+                         select new { c, csd }).AsEnumerable();
+            var groups = from i in datas
+                         group i by i.c into gc
+                         select gc;
+
+            foreach (var groupCourse in groups)
+            {
+                var offlineCourseVm = new OfflineCourseViewModel()
                 {
-                    Place = c.Place,
-                    StartDate = c.StartDate.Value.ToString("dd/MM/yyy"),
-                    Name = c.Name,
-                    DetailCourseLink = c.Name.GetSeoName() + "-" + c.Code
-                }).ToList();
+                    Name = groupCourse.Key.Name,
+                    DetailCourseLink = "/" + groupCourse.Key.Name.GetSeoName() + "-" + groupCourse.Key.Code,
+                    StartDates = groupCourse.Select(i => new OfflineCourseStartDateVm()
+                    {
+                        Place = i.csd.Place,
+                        StartTime = i.csd.StartTime,
+                    }).ToList()
+                };
+                result.Add(offlineCourseVm);
+            };
+
+            return result;
         }
         #endregion
     }

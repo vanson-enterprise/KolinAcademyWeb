@@ -34,12 +34,7 @@ namespace KA.ViewModels.Courses
         public DateTime? CreatedDate { get; set; } = DateTime.Now;
         public string? CreateUserId { get; set; }
 
-        [Required(ErrorMessage = "Vui lòng chọn ngày khai giảng")]
-        public DateTime? StartDate { get; set; }
 
-        [Required(ErrorMessage = "Vui lòng nhập trường này")]
-        [Range(1, 100, ErrorMessage = "Thời gian khóa học phải lớn hơn 0 và nhỏ hơn 100")]
-        public int DurationTime { get; set; }
-        public string? Place { get; set; }
+
     }
 }

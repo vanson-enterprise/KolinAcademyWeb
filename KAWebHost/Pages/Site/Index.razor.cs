@@ -9,6 +9,7 @@ namespace KAWebHost.Pages.Site
     {
         private ICourseService _courseService;
         private List<OfflineCourseViewModel> offlineCourseViewModels;
+
         protected override async Task OnInitializedAsync()
         {
             _courseService = ScopedServices.GetRequiredService<ICourseService>();
@@ -24,7 +25,5 @@ namespace KAWebHost.Pages.Site
                 await module.InvokeVoidAsync("indexPageModule.init");
             }
         }
-
-
     }
 }

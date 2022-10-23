@@ -1,0 +1,125 @@
+﻿.store-page {
+    z-index: 1;
+}
+
+    .store-page .decor1 {
+        right: 0;
+        bottom: 0;
+        width: 20%;
+        z-index: -1;
+    }
+
+    .store-page .decor2 {
+        bottom: -38%;
+        width: 100%;
+        z-index: -1;
+        pointer-events: none;
+    }
+
+.list-products {
+    max-width: 1440px;
+    padding: 50px 50px 0;
+}
+
+.store-course .thumb {
+    margin-bottom: 10px;
+}
+
+    .store-course .thumb img {
+        width: 100%;
+        border-radius: 20px;
+    }
+
+        .store-course .thumb img:hover {
+            opacity: 0.8;
+            transition: var(--transition);
+        }
+
+.list-products .title {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    font-size: 28px;
+    margin-bottom: 4rem;
+}
+
+    .list-products .title::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        height: 3px;
+        width: 30%;
+        background-color: #ef532b;
+        transition: width linear 0.3s;
+    }
+
+    .list-products .title:hover {
+        color: var(--secondary-color);
+        transition: var(--transition);
+    }
+
+        .list-products .title:hover::after {
+            width: 100%;
+        }
+
+.store-course {
+    padding: 20px;
+}
+
+    .store-course .price {
+        color: #d71a24;
+    }
+
+    .store-course button {
+        color: #fff;
+        border: none;
+        padding: 4px 12px 5px;
+        border-radius: 20px;
+        background-color: #ef532b;
+    }
+
+    .store-course .name {
+        font-size: 18px;
+    }
+
+        .store-course .name:hover {
+            opacity: 0.8;
+            color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+    .store-course .price {
+        font-size: 16px;
+    }
+
+    .store-course button:hover {
+        opacity: 0.8;
+        background-color: #ef532b;
+        transition: var(--transition);
+    }
+
+@media only screen and (max-width: 1160px) {
+    .list-products {
+        padding: 20px;
+    }
+
+        .list-products .title {
+            margin-bottom: 2rem;
+        }
+}
+
+@media only screen and (max-width: 767px) {
+    .store-page .decor1,
+    .store-page .decor2 {
+        display: none;
+    }
+
+    .list-products .title {
+        font-size: 24px;
+    }
+
+    .store-course {
+        padding: 20px 0;
+    }
+}

@@ -31,20 +31,9 @@ namespace KA.DataProvider.Entities
         public bool IsDeleted { get; set; } = false;
 
         /// <summary>
-        /// For offline course
-        /// </summary>
-        public DateTime? StartDate { get; set; }
-
-        /// <summary>
-        /// For offline course take place
-        /// </summary>
-        public string Place { get; set; }
-
-        /// <summary>
         /// For online course - thời gian giới hạn
         /// </summary>
         public int? DurationTime { get; set; }
-
 
         public List<UserCourse>? UserCourses { get; set; }
     }

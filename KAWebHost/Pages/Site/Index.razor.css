@@ -14,8 +14,11 @@
 
 .home-page {
     overflow: hidden;
+    
 }
-
+.home-about {
+    background-image: url("~/img/Frame.svg")
+}
 /* banner */
 .banner-container {
     top: 50%;
@@ -103,7 +106,6 @@
 }
 
 .coming-content .course {
-    margin-bottom: 2rem;
 }
 
     .coming-content .course .name {

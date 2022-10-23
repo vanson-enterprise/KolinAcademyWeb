@@ -1,0 +1,193 @@
+﻿@page "/profile"
+@inherits OwningComponentBase
+
+<div class="profile-page">
+    <div class="max-width mx-auto">
+        <div class="profile-container">
+            <div class="row">
+                <div class="col-4 text-center">
+                    <div class="relative">
+                        <div class="circle">
+                            <img class="profile-pic"
+                                 src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg" />
+                        </div>
+                        <div class="p-image">
+                            <div class="upload-button">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     viewBox="0 0 512 512"
+                                     width="20px"
+                                     height="20px">
+                                    <path fill="#b9b9b9"
+                                          d="M149.1 64.8L138.7 96H64C28.7 96 0 124.7 0 160V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V160c0-35.3-28.7-64-64-64H373.3L362.9 64.8C356.4 45.2 338.1 32 317.4 32H194.6c-20.7 0-39 13.2-45.5 32.8zM256 384c-53 0-96-43-96-96s43-96 96-96s96 43 96 96s-43 96-96 96z" />
+                                </svg>
+                            </div>
+                            <input class="file-upload" type="file" accept="image/*" />
+                        </div>
+                    </div>
+
+                    <h2 class="name-account my-4 secondary-color">Vũ Diệu Thúy</h2>
+
+                    <div class="btn-container d-flex flex-column">
+                        <button class="tab-btn active" data-value=".info">
+                            Thông tin tài khoản
+                        </button>
+                        <button class="tab-btn" data-value=".course">
+                            Khóa học của tôi
+                        </button>
+                        <button class="tab-btn" data-value=".history">
+                            Lịch sử giao dịch
+                        </button>
+                        <button class="tab-btn" data-value=".logout">Đăng xuất</button>
+                    </div>
+                </div>
+                <div class="col-8">
+                    <!-- content container -->
+                    <div class="about-content">
+                        <div class="content info">
+                            <h2 class="secondary-color">HỒ SƠ CÁ NHÂN</h2>
+                            <br />
+                            <form action="">
+                                <div class="mb-3">
+                                    <label for="inputEmail" class="form-label">Email</label>
+                                    <input type="email"
+                                           class="form-control"
+                                           id="inputEmail"
+                                           aria-describedby="emailHelp"
+                                           placeholder="dieuthuy@gmail.com" />
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="inputPassword" class="form-label">Password</label>
+                                    <input type="password"
+                                           class="form-control"
+                                           id="inputPassword"
+                                           placeholder="*******" />
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="inputName" class="form-label">Tên</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="inputName"
+                                           placeholder="Vũ Diệu Thúy" />
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="inputPhone" class="form-label">Số điện thoại</label>
+                                    <input type="phone"
+                                           class="form-control"
+                                           id="inputPhone"
+                                           placeholder="0987767895" />
+                                </div>
+                                <br />
+                                <button type="submit" class="btn btn-primary">
+                                    Cập nhập
+                                </button>
+                            </form>
+                        </div>
+                        <div class="content course">
+                            <div class="course-item">
+                                <h3 class="primary-color">Khóa học trực tuyến</h3>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="content">
+                                            <div class="thumb">
+                                                <img src="./img/knowledge.png"
+                                                     alt=""
+                                                     class="w-full" />
+                                            </div>
+                                            <div class="text d-flex justify-content-between">
+                                                <p class="name">Livestream Master Online</p>
+                                                <a href="#" class="link secondary-color">Vào học</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="content">
+                                            <div class="thumb">
+                                                <img src="./img/knowledge.png"
+                                                     alt=""
+                                                     class="w-full" />
+                                            </div>
+                                            <div class="text d-flex justify-content-between">
+                                                <p class="name">Livestream Master Online</p>
+                                                <a href="#" class="link secondary-color">Vào học</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="course-item">
+                                <h3 class="primary-color">Khóa học trực tuyến</h3>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="content">
+                                            <div class="thumb">
+                                                <img src="./img/knowledge.png"
+                                                     alt=""
+                                                     class="w-full" />
+                                            </div>
+                                            <div class="text d-flex justify-content-between">
+                                                <p class="name">Livestream Master Online</p>
+                                                <a href="#" class="link secondary-color">Hoàn thành</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="content">
+                                            <div class="thumb">
+                                                <img src="./img/knowledge.png"
+                                                     alt=""
+                                                     class="w-full" />
+                                            </div>
+                                            <div class="text d-flex justify-content-between">
+                                                <p class="name">Livestream Master Online</p>
+                                                <a href="#" class="link secondary-color">Sắp tới 08.08.2020</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="content">
+                                            <div class="thumb">
+                                                <img src="./img/knowledge.png"
+                                                     alt=""
+                                                     class="w-full" />
+                                            </div>
+                                            <div class="text d-flex justify-content-between">
+                                                <p class="name">Livestream Master Online</p>
+                                                <a href="#" class="link secondary-color">Liên hệ xếp lớp</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content history">
+                            <h3 class="primary-color">Khóa học</h3>
+
+                            <ul>
+                                <li class="d-flex justify-content-between">
+                                    <p>Livestream Master Online</p>
+                                    <p class="secondary-color">Đã mua</p>
+                                    <p>01/06/2022</p>
+                                </li>
+                                <li class="d-flex justify-content-between">
+                                    <p>Livestream Master Online</p>
+                                    <p class="secondary-color">Đã mua</p>
+                                    <p>01/06/2022</p>
+                                </li>
+                                <li class="d-flex justify-content-between">
+                                    <p>Livestream Master Online</p>
+                                    <p class="secondary-color">Đã mua</p>
+                                    <p>01/06/2022</p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="content logout">Đăng xuất</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
