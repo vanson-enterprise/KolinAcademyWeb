@@ -16,9 +16,9 @@
     overflow: hidden;
     
 }
-.home-about {
+/*.home-about {
     background-image: url("~/img/Frame.svg")
-}
+}*/
 /* banner */
 .banner-container {
     top: 50%;
@@ -52,10 +52,15 @@
     font-size: 32px;
 }
 
+.coming-soon {
+    z-index: 1;
+}
+
 .coming-soon-decor {
     right: 0;
     bottom: -14%;
     pointer-events: none;
+    z-index: -1;
 }
 
 .coming-soon_course {
@@ -113,6 +118,15 @@
         margin-bottom: 1.5rem;
     }
 
+.coming-content .course-item a {
+    color: #fff;
+}
+
+.coming-content .course-item a:hover {
+    transition: var(--transition);
+    color: var(--secondary-color);
+}
+
 /* About us*/
 
 .home-about {
@@ -125,6 +139,7 @@
     width: 100%;
     object-fit: cover;
     bottom: -54%;
+    pointer-events: none;
 }
 
 .home-about_wrapper {
