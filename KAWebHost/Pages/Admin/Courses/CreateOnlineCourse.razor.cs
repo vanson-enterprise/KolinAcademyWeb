@@ -48,8 +48,8 @@ namespace KAWebHost.Pages.Admin.Courses
         {
             if (firstRender)
             {
-                await jsr.InvokeVoidAsync("import", "/scripts/courses/create-on-course.js");
-                await jsr.InvokeVoidAsync("createOnCoursePageJs.init");
+                await jsr.InvokeVoidAsync("import", "./Pages/Admin/Courses/CreateOnlineCourse.razor.js");
+                await jsr.InvokeVoidAsync("createOnCourseJsModule.init");
             }
         }
 
@@ -80,7 +80,7 @@ namespace KAWebHost.Pages.Admin.Courses
             }
             else
             {
-                jsr.InvokeVoidAsync("createOnCoursePageJs.goNextStep");
+                jsr.InvokeVoidAsync("createOnCourseJsModule.goNextStep");
             }
         }
 
@@ -155,7 +155,7 @@ namespace KAWebHost.Pages.Admin.Courses
             jsr.InvokeVoidAsync("ShowAppAlert", "Tạo khóa học thành công", "success");
             // reset data state
             InitDataModel();
-            await jsr.InvokeVoidAsync("createOnCoursePageJs.goFirstStep");
+            await jsr.InvokeVoidAsync("createOnCourseJsModule.goFirstStep");
         }
 
         public async Task<string> GetHTML()

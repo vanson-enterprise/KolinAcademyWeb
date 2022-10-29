@@ -4,13 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KA.ViewModels.Carts
+namespace KA.ViewModels.Courses
 {
-    public class CartProductVm
+    public class OnlineCourseViewModel
     {
         public int Id { get; set; }
-        public string CourseName { get; set; }
+        public string DetailLink { get; set; }
+        public string Name { get; set; }
         public string Price { get; set; }
         public string DiscountPrice { get; set; }
+        public string ThumbNailImageLink { get; set; }
     }
 }

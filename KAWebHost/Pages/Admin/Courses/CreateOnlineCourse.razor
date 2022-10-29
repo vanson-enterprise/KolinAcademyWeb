@@ -218,9 +218,14 @@
                                         </div>
                                     </div>
                                     <div class="row mb-5">
-                                        <div class="col-10">
+                                        <div class="col-7">
                                             <label for="course_tag" class="form-label">Tags</label>
                                             <InputText id="course-tag" @bind-Value="createCourseModel.Tag" class="form-control" placeholder="Nhập tag"></InputText>
+                                        </div>
+                                        <div class="col-3">
+                                            <label for="course_time" class="form-label">Thời hạn (Tháng)</label>
+                                            <InputNumber id="course-time" @bind-Value="createCourseModel.DurationTime" class="form-control" placeholder="Nhập thời hạn"></InputNumber>
+                                            <ValidationMessage For="@(()=>createCourseModel.DurationTime)"></ValidationMessage>
                                         </div>
 
                                         <div class="col-2">
@@ -272,7 +277,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <button type="submit" id="lesson_form_submit" style="display:none">Submit</button>
+                                            <button type="submit" id="lesson_form_submit" class="d-none">Submit</button>
                                         </EditForm>
                                     </div>
                                     <div class="col-xl-5">

@@ -1,5 +1,6 @@
 ﻿@page "/gio-hang"
-
+@attribute [Authorize]
+@inherits OwningComponentBase
 <div class="cart-page">
     <section class="cart-container">
         <div class="max-width mx-auto">
@@ -16,26 +17,20 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Livestream Master Online</td>
-                            <td>01 Khoá</td>
-                            <td>999.999 vnd</td>
-                        </tr>
-                        <tr>
-                            <td>Change 2 Shine Online</td>
-                            <td>01 Khoá</td>
-                            <td>999.999 vnd</td>
-                        </tr>
-                        <tr>
-                            <td>Personal brand Online</td>
-                            <td>01 Khoá</td>
-                            <td>999.999 vnd</td>
-                        </tr>
+                        @foreach (var cartProduct in cartVm.CartProductVms)
+                        {
+                            <tr>
+                                <td>@cartProduct.CourseName</td>
+                                <td>01 khóa</td>
+                                <td>@cartProduct.DiscountPrice</td>
+                            </tr>
+                        }
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th colspan="2">Tổng</th>
-                            <th class="secondary-color">2.999.997 vnd</th>
+                            <th>Tổng</th>
+                            <th>@(cartVm.Amount) khóa</th>
+                            <th class="secondary-color">@cartVm.Total</th>
                         </tr>
                     </tfoot>
                 </table>

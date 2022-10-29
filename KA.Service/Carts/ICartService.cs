@@ -9,6 +9,7 @@ namespace KA.Service.Carts
 {
     public interface ICartService : IService<Cart>
     {
-        Task<Cart> CreateNewCart(CreateCartVm input);
+        Task AddCourseToCart(AddCourseToCartDto input);
+        Task<CartVm> GetAllCartProduct(string userId);
     }
 }

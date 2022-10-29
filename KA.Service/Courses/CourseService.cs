@@ -4,6 +4,7 @@ using KA.Infrastructure.Util;
 using KA.ViewModels.Common;
 using KA.ViewModels.Courses;
 using KA.ViewModels.Lessons;
+using Microsoft.EntityFrameworkCore;
 
 namespace KA.Service.Courses
 {
@@ -221,6 +222,21 @@ namespace KA.Service.Courses
             };
 
             return result;
+        }
+        public List<OnlineCourseViewModel> GetAllOnlineCourse()
+        {
+            return _courseRepo
+                .GetAll()
+                .Where(c => !c.IsDeleted && c.IsActive && c.Type == CourseType.ONLINE)
+                .Select(c => new OnlineCourseViewModel()
+                {
+                    Id = c.Id,
+                    DetailLink = "/" + c.Name.GetSeoName() + "-" + c.Code,
+                    Name = c.Name,
+                    Price = string.Format("{0:0,0.00 vnđ}", c.Price),
+                    DiscountPrice = string.Format("{0:0,0.00 vnđ}", c.DiscountPrice),
+                    ThumbNailImageLink = c.ThumbNailImageLink
+                }).ToList();
         }
         #endregion
     }

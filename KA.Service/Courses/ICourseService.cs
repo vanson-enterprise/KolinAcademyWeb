@@ -23,6 +23,7 @@ namespace KA.Service.Courses
         ResponseDto EditLesson(Lesson input);
         Task<DataGridResponse<CourseItem>> GetAllCoursePaging(int skip, int top);
         List<Lesson> GetAllLessonInCourse(int courseId);
+        List<OnlineCourseViewModel> GetAllOnlineCourse();
         List<OfflineCourseViewModel> GetAllOpeningSoonOfflineCourse();
         List<OfflineCourseStartDate> GetAllStartDatesOfCourse(int courseId);
         Course GetCourseById(int id);

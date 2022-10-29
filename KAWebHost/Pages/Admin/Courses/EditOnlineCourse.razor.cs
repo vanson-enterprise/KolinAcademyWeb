@@ -56,8 +56,8 @@ namespace KAWebHost.Pages.Admin.Courses
         {
             if (firstRender)
             {
-                await jsr.InvokeVoidAsync("import", "/scripts/courses/edit-on-course.js");
-                await jsr.InvokeVoidAsync("editOnCoursePageJs.init");
+                await jsr.InvokeVoidAsync("import", "./Pages/Admin/Courses/EditOnlineCourse.razor.js");
+                await jsr.InvokeVoidAsync("editOnCourseJsModule.init");
             }
         }
 
@@ -102,7 +102,7 @@ namespace KAWebHost.Pages.Admin.Courses
             await _courseService.Edit(course);
 
             jsr.InvokeVoidAsync("ShowAppAlert", "Đã cập nhật thông tin chung", "success");
-            jsr.InvokeVoidAsync("editOnCoursePageJs.goNextStep");
+            jsr.InvokeVoidAsync("editOnCourseJsModule.goNextStep");
         }
 
 

@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace KA.ViewModels.Carts
 {
-    public class CartProductVm
+    public class CartVm
     {
         public int Id { get; set; }
-        public string CourseName { get; set; }
-        public string Price { get; set; }
-        public string DiscountPrice { get; set; }
+        public List<CartProductVm> CartProductVms { get; set; }
+        public string Total { get; set; }
+        public int Amount { get; set; }
     }
 }

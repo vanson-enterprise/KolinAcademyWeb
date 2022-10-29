@@ -5,6 +5,7 @@ using KA.Infrastructure.Authen;
 using KA.Repository.Base;
 using KA.Service.Address;
 using KA.Service.Base;
+using KA.Service.Carts;
 using KA.Service.Courses;
 using KA.Service.Mapper;
 using KA.Service.Users;
@@ -90,10 +91,13 @@ builder.Services.AddTransient<IRepository<Lesson>, BaseRepository<Lesson>>();
 builder.Services.AddTransient<IRepository<AppUser>, BaseRepository<AppUser>>();
 builder.Services.AddTransient<IRepository<AppRole>, BaseRepository<AppRole>>();
 builder.Services.AddTransient<IRepository<AppRole>, BaseRepository<AppRole>>();
+builder.Services.AddTransient<IRepository<Cart>, BaseRepository<Cart>>();
+builder.Services.AddTransient<IRepository<CartProduct>, BaseRepository<CartProduct>>();
 builder.Services.AddTransient<IRepository<IdentityUserRole<string>>, BaseRepository<IdentityUserRole<string>>>();
 
 builder.Services.AddScoped<IAddressService, AddressService>();
 builder.Services.AddScoped<ICourseService, CourseService>();
+builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddTransient<ContextMenuService, ContextMenuService>();
 
