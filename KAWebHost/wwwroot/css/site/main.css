@@ -123,9 +123,7 @@ p {
 .links {
     height: auto;
     display: flex;
-    flex: 1;
     justify-content: center;
-    padding: 0 130px 0 20px;
     gap: 3rem;
     margin-bottom: 0;
 }
@@ -148,27 +146,55 @@ p {
         color: var(--secondary-color);
     }
 
-/* ==== footer ===== */
-.footer {
-    position: relative;
-    margin-top: 8rem;
+.login a {
+    font-size: 18px;
+    font-weight: 400;
+    text-transform: uppercase;
+    color: var(--white-color);
+    transition: var(--transition);
+    padding: 0.5rem;
+    margin: 0 0.5rem;
+    padding: 8px 20px;
+    background-color: #1a02a6;
+    border-radius: 20px;
 }
 
-    .footer img {
-        width: 100%;
+    .login a:hover {
+        color: var(--secondary-color);
     }
 
-.footer-content {
-    max-width: 1000px;
-    margin: 0 auto;
-    font-weight: 300;
+.cart {
+    padding: 1rem;
 }
 
-    .footer-content h2 {
-        font-size: 24px;
-        font-weight: 600;
-        color: var(--primary-color);
+    .cart:hover svg path {
+        cursor: pointer;
+        transition: var(--transition);
+        fill: var(--secondary-color);
     }
+
+.user a {
+    transition: var(--transition);
+    color: var(--white-color);
+}
+
+    .user a:hover {
+        color: var(--secondary-color);
+    }
+
+.name-user {
+    font-size: 18px;
+    margin-left: 1rem;
+}
+
+.name-page {
+    display: none;
+}
+
+.cart-mobile,
+.user-mobile {
+    display: none;
+}
 
 @media only screen and (max-width: 1160px) {
     /* ------- header ------ */
@@ -189,7 +215,6 @@ p {
     }
 
     .nav-toggle {
-        font-size: 1.5rem;
         background: transparent;
         border-color: transparent;
         cursor: pointer;
@@ -204,11 +229,9 @@ p {
     .links a {
         text-decoration: none;
         color: var(--primary-color);
-        font-size: 1rem;
-        text-transform: capitalize;
         display: block;
-        font-size: 18px;
-        padding: 1rem;
+        font-size: 17px;
+        padding: 1rem 0;
     }
 
     .links {
@@ -226,25 +249,46 @@ p {
     }
 
     .show-links {
-        height: 20rem;
+        height: 25rem;
     }
 
-    /* ------- footer ------- */
-    .footer {
-        margin-top: 6rem;
+    .login,
+    .user {
+        display: none !important;
     }
 
-    .footer-content h2 {
-        font-size: 20px;
+    .login-mobile {
+        padding: 0.5rem;
+        background-color: #9e005d;
     }
 
-    .footer-content {
-        padding: 0 10px;
-    }
-}
+        .login-mobile a {
+            color: var(--white-color);
+            text-transform: uppercase;
+        }
 
-@media only screen and (max-width: 767px) {
-    .footer {
-        margin-top: 0;
+    .name-wrapper {
+        border-radius: 20px;
+        padding: 2px 4px 3px 12px;
+        border: 1px solid var(--primary-color);
+    }
+
+    .name-page {
+        display: block;
+        font-size: 16px;
+        text-transform: uppercase;
+    }
+
+    .name-user {
+        font-size: 16px;
+    }
+
+    .cart {
+        display: none;
+    }
+
+    .cart-mobile,
+    .user-mobile {
+        display: block;
     }
 }
