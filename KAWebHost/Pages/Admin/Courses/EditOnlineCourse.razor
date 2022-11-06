@@ -168,15 +168,20 @@
                                         </div>
                                     </div>
                                     <div class="row mb-5">
-                                        @* <div class="col-12">
-                                        <label class="form-label required">Mô tả bưu kiện</label>
-                                        <InputTextArea @bind-Value="courseModel.ShortDescription"
-                                        class="form-control" ro="4"
-                                        aria-label="With textarea"
-                                        placeholder="Nhập mô tả">
-                                        </InputTextArea>
-                                        </div>*@
                                         <div class="col-12">
+                                            <label class="form-label">Mô tả ngắn</label>
+                                            <InputTextArea @bind-Value="courseModel.ShortDescription"
+                                                           class="form-control"
+                                                           style="height:100px"
+                                                           aria-label="With textarea"
+                                                           
+                                                           placeholder="Nhập mô tả">
+                                            </InputTextArea>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-5">
+                                        <div class="col-12">
+                                            <label class="form-label required">Mô tả khóa học</label>
                                             <BlazoredTextEditor @ref="@quillHtml">
                                                 <ToolbarContent>
                                                     <select class="ql-header">

@@ -99,6 +99,8 @@ namespace KAWebHost.Pages.Admin.Courses
             course.ThumbNailImageLink = courseModel.ThumbNailImageLink;
             course.IntroduceVideoLink = courseModel.IntroduceVideoLink;
             course.UpdatedDate = DateTime.Now;
+            course.ShortDescription = courseModel.ShortDescription;
+            course.DurationTime = courseModel.DurationTime;
             await _courseService.Edit(course);
 
             jsr.InvokeVoidAsync("ShowAppAlert", "Đã cập nhật thông tin chung", "success");

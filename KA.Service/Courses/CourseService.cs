@@ -223,6 +223,28 @@ namespace KA.Service.Courses
 
             return result;
         }
+        public async Task<OnlineCourseViewModel?> GetTopOneCourseForIndexPage()
+        {
+            var course =  await _courseRepo.GetFirstOrDefaultAsync(
+                c => !c.IsDeleted && c.Type == CourseType.ONLINE, 
+                (query) => query.OrderBy(c => c.Sort)
+             );
+            if(course != null)
+            {
+                return new OnlineCourseViewModel()
+                {
+                    Id = course.Id,
+                    DetailLink = "/" + course.Name.GetSeoName() + "-" + course.Code,
+                    Name = course.Name,
+                    Price = string.Format("{0:0,0.00 vnđ}", course.Price),
+                    DiscountPrice = string.Format("{0:0,0.00 vnđ}", course.DiscountPrice),
+                    ThumbNailImageLink = course.ThumbNailImageLink,
+                    IntroVideoLink = course.IntroduceVideoLink,
+                    ShortDescription = course.ShortDescription
+                };
+            }
+            return null;
+        }
         public List<OnlineCourseViewModel> GetAllOnlineCourse()
         {
             return _courseRepo

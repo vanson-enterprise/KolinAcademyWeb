@@ -26,6 +26,7 @@ namespace KA.ViewModels.Courses
         public decimal DiscountPrice { get; set; }
         public string? Tag { get; set; }
         public string? Description { get; set; }
+        public string? ShortDescription { get; set; }
         public string? MetaKeyWord { get; set; }
         public string? MetaTitle { get; set; }
         public string? MetaDescription { get; set; }

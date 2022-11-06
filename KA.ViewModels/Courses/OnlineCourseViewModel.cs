@@ -14,5 +14,7 @@ namespace KA.ViewModels.Courses
         public string Price { get; set; }
         public string DiscountPrice { get; set; }
         public string ThumbNailImageLink { get; set; }
+        public string IntroVideoLink { get; set; }
+        public string? ShortDescription { get; set; }
     }
 }

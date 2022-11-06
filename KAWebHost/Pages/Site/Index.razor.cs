@@ -9,11 +9,13 @@ namespace KAWebHost.Pages.Site
     {
         private ICourseService _courseService;
         private List<OfflineCourseViewModel> offlineCourseViewModels;
+        private OnlineCourseViewModel onlineCourse = new();
 
         protected override async Task OnInitializedAsync()
         {
             _courseService = ScopedServices.GetRequiredService<ICourseService>();
             offlineCourseViewModels = _courseService.GetAllOpeningSoonOfflineCourse();
+            onlineCourse = await _courseService.GetTopOneCourseForIndexPage();
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
