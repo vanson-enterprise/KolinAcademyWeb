@@ -10,5 +10,6 @@ namespace KA.Infrastructure.Enums
     {
         WAITING = 1,
         PAID = 2,
+        CANCEL = 3
     }
 }

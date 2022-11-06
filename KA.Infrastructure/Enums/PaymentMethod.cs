@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KA.Infrastructure.Enums.Extension;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,7 @@ namespace KA.Infrastructure.Enums
     public enum PaymentMethod
     {
         CK = 1,
-        MOMO = 2,
+        VNPAY = 2,
         VISA = 3
     }
 }

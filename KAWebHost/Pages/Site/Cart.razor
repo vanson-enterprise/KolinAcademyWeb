@@ -7,38 +7,51 @@
             <div class="secondary-color title">
                 <p class="">GIỎ HÀNG</p>
             </div>
-            <div class="list-products">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Khóa học</th>
-                            <th scope="col">Số lượng</th>
-                            <th scope="col">Thành tiền</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var cartProduct in cartVm.CartProductVms)
-                        {
+            @if (cartVm != null && cartVm.CartProductVms != null && cartVm.CartProductVms.Count > 0)
+            {
+                <div class="list-products">
+                    <table class="table">
+                        <thead>
                             <tr>
-                                <td>@cartProduct.CourseName</td>
-                                <td>01 khóa</td>
-                                <td>@cartProduct.DiscountPrice</td>
+                                <th scope="col">Khóa học</th>
+                                <th scope="col">Số lượng</th>
+                                <th scope="col">Thành tiền</th>
                             </tr>
-                        }
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <th>Tổng</th>
-                            <th>@(cartVm.Amount) khóa</th>
-                            <th class="secondary-color">@cartVm.Total</th>
-                        </tr>
-                    </tfoot>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach (var cartProduct in cartVm.CartProductVms)
+                            {
+                                <tr>
+                                    <td>@cartProduct.CourseName</td>
+                                    <td>01 khóa</td>
+                                    <td>@cartProduct.DiscountPrice</td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Tổng</th>
+                                <th>@(cartVm.Amount) khóa</th>
+                                <th class="secondary-color">@cartVm.StringTotal</th>
+                            </tr>
+                        </tfoot>
+                    </table>
 
-                <div class="d-flex justify-content-end">
-                    <button class="btn-pay">Thanh toán</button>
+                    <div class="d-flex justify-content-end">
+                        <button class="btn-pay" @onclick="InitOrder">Thanh toán</button>
+                    </div>
                 </div>
-            </div>
+            }
+            else
+            {
+                <div class="d-flex justify-content-center">
+                    <div>Bạn chưa có sản phầm nảo trong giỏ hàng</div>
+                    <br>
+                    <NavLink href="/khoa-hoc-truc-tuyen">
+                        Tiếp tục mua hàng
+                    </NavLink>
+                </div>
+            }
         </div>
     </section>
 </div>

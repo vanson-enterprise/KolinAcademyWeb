@@ -1,4 +1,5 @@
-﻿@page "/profile"
+﻿@page "/ca-nhan"
+@attribute [Authorize]
 @inherits OwningComponentBase
 
 <div class="profile-page">
@@ -25,7 +26,7 @@
                         </div>
                     </div>
 
-                    <h2 class="name-account my-4 secondary-color">Vũ Diệu Thúy</h2>
+                    <h2 class="name-account my-4 secondary-color"></h2>
 
                     <div class="btn-container d-flex flex-column">
                         <button class="tab-btn active" data-value=".info">
@@ -191,3 +192,4 @@
         </div>
     </div>
 </div>
+

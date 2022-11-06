@@ -110,43 +110,6 @@ p {
     color: var(--secondary-color);
 }
 
-/* ===== header ===== */
-
-.nav-center {
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 2rem;
-}
-
-.links {
-    height: auto;
-    display: flex;
-    flex: 1;
-    justify-content: center;
-    padding: 0 130px 0 20px;
-    gap: 3rem;
-    margin-bottom: 0;
-}
-
-.nav-toggle {
-    display: none;
-}
-
-.links a {
-    padding: 0.5rem;
-    margin: 0 0.5rem;
-    text-transform: uppercase;
-    color: var(--primary-color);
-    transition: var(--transition);
-    font-size: 18px;
-    font-weight: 600;
-}
-
-    .links a:hover {
-        color: var(--secondary-color);
-    }
 
 /* ==== footer ===== */
 .footer {

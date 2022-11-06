@@ -12,6 +12,9 @@
 @code {
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        jsr.InvokeVoidAsync("import", "MainLayout.razor.js");
+        if (firstRender)
+        {
+            await jsr.InvokeVoidAsync("import", "/scripts/common/common.js");
+        }
     }
 }

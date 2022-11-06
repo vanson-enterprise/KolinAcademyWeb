@@ -8,7 +8,8 @@ namespace KA.Infrastructure.Enums
 {
     public enum OrderStatus
     {
-        INCOMPLETE = 1,
-        COMPLETED = 2
+        INIT = 1,
+        COMPLETED = 2,
+        CANCEL = 3
     }
 }

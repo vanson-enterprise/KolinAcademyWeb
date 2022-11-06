@@ -1,0 +1,125 @@
+﻿@*@attribute [Authorize(Roles = "Manager")]*@
+@page "/manager/orders"
+@using KA.Infrastructure.Enums
+@using KA.ViewModels.Courses
+@using KA.ViewModels.Orders
+@inherits OwningComponentBase
+@inject NavigationManager NavigationManager
+
+<div class="d-flex flex-column-fluid">
+    <!--begin::Container-->
+    <div class="container-fluid">
+        <!--begin::Card-->
+        <div class="card card-flush">
+            <!--begin::Card header-->
+            <div class="card-header mt-6">
+                <h3 class="card-title">Danh sách đơn hàng</h3>
+                <div class="card-toolbar">
+                    <div class="d-flex align-items-center position-relative my-1 me-5">
+                        <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+                        <span class="svg-icon svg-icon-1 position-absolute ms-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="black" />
+                                <path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="black" />
+                            </svg>
+                        </span>
+                        <!--end::Svg Icon-->
+                    </div>
+                </div>
+            </div>
+            <!--end::Card header-->
+            <!--begin::Card body-->
+            <div class="card-body pt-0">
+                @if (dataGrid != null)
+                {
+                    <RadzenDataGrid AllowFiltering="true"
+                                AllowColumnResize="false"
+                                AllowAlternatingRows="false"
+                                FilterMode="FilterMode.Simple"
+                                AllowSorting="true"
+                                AllowPaging="false"
+                                PagerHorizontalAlign="HorizontalAlign.Left"
+                                SelectionMode="DataGridSelectionMode.Single"
+                                Data="@dataGrid.Items"
+                                TItem="OrderViewModel"
+                                LogicalFilterOperator="LogicalFilterOperator.And">
+                        <Columns>
+                            <RadzenDataGridColumn TItem="OrderViewModel" Property="Index" Filterable="false" Title="STT" Width="60px" TextAlign="TextAlign.Center" />
+                            <RadzenDataGridColumn TItem="OrderViewModel" Property="Code" Title="Mã đơn" Width="100px" />
+                            <RadzenDataGridColumn TItem="OrderViewModel" Property="CustomerName" Title="Tên khách hàng" Width="150px" />
+                            <RadzenDataGridColumn TItem="OrderViewModel" Property="Price" Title="Giá" Width="150px" />
+                            <RadzenDataGridColumn TItem="OrderViewModel" Property="DiscountPrice" Title="Chiết khấu" Width="100px" />
+                            <RadzenDataGridColumn TItem="OrderViewModel" Property="TotalPrice" Title="Tổng tiền" Width="150px" />
+                            <RadzenDataGridColumn TItem="OrderViewModel" Context="dataContext" Title="Trạng thái" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="90px">
+                                <Template Context="order">
+                                    @if (order.OrderStatus == OrderStatus.COMPLETED)
+                                    {
+                                        <RadzenBadge BadgeStyle="BadgeStyle.Success" Text="HOÀN THÀNH" />
+                                    }
+                                    else if (order.OrderStatus == OrderStatus.INIT)
+                                    {
+                                        <RadzenBadge BadgeStyle="BadgeStyle.Primary" Text="KHỞI TẠO" />
+                                    }
+                                    else
+                                    {
+                                        <RadzenBadge BadgeStyle="BadgeStyle.Danger" Text="ĐÃ HỦY" />
+                                    }
+                                </Template>
+                            </RadzenDataGridColumn>
+                            <RadzenDataGridColumn TItem="OrderViewModel" Context="dataContext" Title="TT Thanh toán" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="150px">
+                                <Template Context="order">
+                                    @if (order.PaymentStatus == PaymentStatus.PAID)
+                                    {
+                                        <RadzenBadge BadgeStyle="BadgeStyle.Success" Text="ĐÃ THANH TOÁN" />
+                                    }
+                                    else if (order.PaymentStatus == PaymentStatus.WAITING)
+                                    {
+                                        <RadzenBadge BadgeStyle="BadgeStyle.Primary" Text="ĐỢI THANH TOÁN" />
+                                    }
+                                    else
+                                    {
+                                        <RadzenBadge BadgeStyle="BadgeStyle.Danger" Text="HỦY THANH TOÁN" />
+                                    }
+                                </Template>
+                            </RadzenDataGridColumn>
+                            <RadzenDataGridColumn TItem="OrderViewModel" Context="dataContext" Title="Phương thức TT" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="120px">
+                                <Template Context="order">
+                                    @if (order.PaymentMethod == PaymentMethod.CK)
+                                    {
+                                        <RadzenBadge BadgeStyle="BadgeStyle.Success" Text="CHUYỂN KHOẢN" />
+                                    }
+                                    else if (order.PaymentMethod == PaymentMethod.VNPAY)
+                                    {
+                                        <RadzenBadge BadgeStyle="BadgeStyle.Secondary" Text="VNPAY" />
+                                    }
+                                    else
+                                    {
+                                        <RadzenBadge BadgeStyle="BadgeStyle.Info" Text="VISA" />
+                                    }
+                                </Template>
+                            </RadzenDataGridColumn>
+                            <RadzenDataGridColumn TItem="OrderViewModel" Property="CreatedDate" Title="Ngày tạo" Width="90px" />
+
+                            <RadzenDataGridColumn TItem="OrderViewModel" Context="dataContext" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="50px">
+                                <Template Context="order">
+                                    <RadzenButton ButtonStyle="ButtonStyle.Primary"
+                                              Icon="info"
+                                              Size="ButtonSize.Medium"
+                                              Class="m-2"
+                                              @onclick:stopPropagation="true"
+                                              Click="@(args =>ShowDetailOrder(order.Id))">
+                                    </RadzenButton>
+                                </Template>
+                            </RadzenDataGridColumn>
+
+                        </Columns>
+                    </RadzenDataGrid>
+                    <RadzenPager ShowPagingSummary="true" PagingSummaryFormat="@pagingSummaryFormat" HorizontalAlign="HorizontalAlign.Right" Count="dataGrid.TotalItem" PageSize="@pageSize" PageNumbersCount="5" PageChanged="@PageChanged" />
+                }
+            </div>
+            <!--end::Card body-->
+        </div>
+        <!--end::Card-->
+    </div>
+    <!--end::Container-->
+</div>

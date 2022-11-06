@@ -19,8 +19,7 @@ namespace KA.ViewModels.Orders
         public decimal TotalPrice { get; set; }
         // Phương thức thanh toán
         public PaymentMethod PaymentMethod { get; set; }
-        // Ghi chú
-        public string Note { get; set; }
+
         // Trạng thái order
         public OrderStatus OrderStatus { get; set; }
         // Trạng thái thanh toán

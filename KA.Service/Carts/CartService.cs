@@ -63,23 +63,40 @@ namespace KA.Service.Carts
 
         }
 
-        public async Task<CartVm> GetAllCartProduct(string userId)
+        public async Task<CartVm> GetCartByUserId(string userId)
         {
             var result = new CartVm();
-            var cartProducts = await (from c in _cartRepo.GetAll()
-                                      join cp in _cartProductRepo.GetAll() on c.Id equals cp.CartId
-                                      where c.CartStatus == CartStatus.PreOrder && c.UserId == userId
-                                      select cp).ToListAsync();
-            result.CartProductVms = cartProducts.Select(cp => new CartProductVm()
+            var cart = _cartRepo.GetAll().Where(c => c.UserId == userId
+                            && c.CartStatus == CartStatus.PreOrder
+                            && c.UserId == userId).FirstOrDefault();
+            if (cart != null)
             {
-                Id = cp.Id,
-                CourseName = cp.CourseName,
-                DiscountPrice = string.Format("{0:0,0.00 vnđ}", cp.DiscountPrice),
-                Price = string.Format("{0:0,0.00 vnđ}", cp.Price)
-            }).ToList();
-            result.Total = string.Format("{0:0,0.00 vnđ}", cartProducts.Select(cp => cp.DiscountPrice).Sum());
-            result.Amount = cartProducts.Count;
+                var cartProducts = await (from cp in _cartProductRepo.GetAll()
+                                          where cp.CartId == cart.Id
+                                          select cp).ToListAsync();
+                result.CartProductVms = cartProducts.Select(cp => new CartProductVm()
+                {
+                    Id = cp.Id,
+                    CourseName = cp.CourseName,
+                    DiscountPrice = string.Format("{0:0,0.00 vnđ}", cp.DiscountPrice),
+                    Price = string.Format("{0:0,0.00 vnđ}", cp.Price)
+                }).ToList();
+                result.Total = cartProducts.Select(cp => cp.DiscountPrice).Sum();
+                result.StringTotal = string.Format("{0:0,0.00 vnđ}", result.Total);
+                result.Amount = cartProducts.Count;
+                result.Id = cart.Id;
+
+            }
+
             return result;
+
+        }
+
+        public async Task UpdateCartStatus(int cartId, CartStatus cartStatus)
+        {
+            var cart = _cartRepo.GetById(cartId);
+            cart.CartStatus = cartStatus;
+            _cartRepo.Update(cart);
         }
     }
 }

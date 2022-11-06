@@ -17,7 +17,7 @@ namespace KA.DataProvider.Entities
         public decimal DiscountPrice { get; set; }
         public decimal TotalPrice { get; set; }
         public PaymentMethod PaymentMethod { get; set; }
-        public string Note { get; set; }
+        public string? Note { get; set; }
         public OrderStatus OrderStatus { get; set; }
         public PaymentStatus PaymentStatus { get; set; }
         public DateTime? CreatedDate { get; set; } = DateTime.Now;

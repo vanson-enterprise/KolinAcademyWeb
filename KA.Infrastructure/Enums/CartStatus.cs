@@ -8,7 +8,7 @@ namespace KA.Infrastructure.Enums
 {
     public enum CartStatus
     {
-        Ordered = 1,
-        PreOrder = 0
+        PreOrder = 0,
+        Ordered = 1
     }
 }

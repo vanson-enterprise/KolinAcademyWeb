@@ -4,6 +4,7 @@ using KA.ViewModels.Authen;
 using KA.ViewModels.Carts;
 using KA.ViewModels.Courses;
 using KA.ViewModels.Lessons;
+using KA.ViewModels.Orders;
 using KA.ViewModels.Users;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -46,6 +47,7 @@ namespace KA.Service.Mapper
                  );
 
             CreateMap<Lesson, EditLessonModel>();
+            CreateMap<Order, OrderViewModel>();
         }
 
         private void MappingDtoToEntity()
@@ -56,6 +58,7 @@ namespace KA.Service.Mapper
             CreateMap<CreateOfflineCourseModel, Course>();
             CreateMap<CreateLessonModel, Lesson>();
             CreateMap<CreateCartVm, Cart>();
+            CreateMap<CreateOrderVm, Order>();
         }
     }
 }

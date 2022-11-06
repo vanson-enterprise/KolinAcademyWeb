@@ -1,24 +1,36 @@
 ﻿using KA.DataProvider.Entities;
+using KA.Infrastructure.Enums;
 using KA.Service.Carts;
+using KA.Service.Orders;
 using KA.ViewModels.Carts;
+using KA.ViewModels.Orders;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.JSInterop;
 using System.Security.Claims;
 
 namespace KAWebHost.Pages.Site
 {
     public partial class Cart : OwningComponentBase
     {
-        private ICartService _cartService;
         private CartVm cartVm;
+        private string userId;
 
+        private ICartService _cartService;
+        private IOrderService _orderService;
         [CascadingParameter]
         private Task<AuthenticationState> authenticationStateTask { get; set; }
         private AuthenticationState authState;
-        private string userId;
+
+        [Inject]
+        NavigationManager navigationManager { get; set; }
+        [Inject]
+        IJSRuntime jsr { get; set; }
+
         protected override async Task OnInitializedAsync()
         {
             _cartService = ScopedServices.GetRequiredService<ICartService>();
+            _orderService = ScopedServices.GetRequiredService<IOrderService>();
             authState = await authenticationStateTask;
             await InitData();
         }
@@ -30,7 +42,36 @@ namespace KAWebHost.Pages.Site
                 CartProductVms = new()
             };
             userId = authState.User.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).Select(c => c.Value).SingleOrDefault();
-            cartVm = await _cartService.GetAllCartProduct(userId);
+            cartVm = await _cartService.GetCartByUserId(userId);
+        }
+
+        private async Task InitOrder()
+        {
+            var newOrder = new CreateOrderVm()
+            {
+                CartId = cartVm.Id,
+                Code = "temp",
+                CreatedDate = DateTime.Now,
+                DiscountPrice = 0,
+                OrderStatus = OrderStatus.INIT,
+                PaymentMethod = PaymentMethod.CK,
+                PaymentStatus = PaymentStatus.WAITING,
+                Price = cartVm.Total,
+                TotalPrice = cartVm.Total,
+                UserId = userId,
+            };
+            var order = _orderService.CreateNewOrder(newOrder);
+            if (order.Id > 0)
+            {
+                await _cartService.UpdateCartStatus(cartVm.Id, CartStatus.Ordered);
+                await jsr.InvokeVoidAsync("ShowAlert", "Tạo đơn thành công");
+                //navigationManager.NavigateTo("/don-hang/" + userId);
+            }
+            else
+            {
+                jsr.InvokeVoidAsync("ShowAlert", "Đã có lỗi xảy ra");
+            }
+
         }
     }
 }

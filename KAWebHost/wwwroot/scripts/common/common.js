@@ -10,3 +10,6 @@
     }
 }
 
+window.ShowAlert = function (message, mode) {
+    alert(message);
+}
