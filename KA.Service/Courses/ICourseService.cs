@@ -27,6 +27,7 @@ namespace KA.Service.Courses
         List<OfflineCourseViewModel> GetAllOpeningSoonOfflineCourse();
         List<OfflineCourseStartDate> GetAllStartDatesOfCourse(int courseId);
         Course GetCourseById(int id);
+        Task<List<OfflineCourseViewModel>> GetTopOffCourseForIndexPage(int offCourseNumber);
         Task<OnlineCourseViewModel?> GetTopOneCourseForIndexPage();
         bool IsDuplicateCourseCode(string code);
         ResponseDto UpdateStartDate(OfflineCourseStartDate input);

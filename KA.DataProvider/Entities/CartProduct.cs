@@ -11,7 +11,6 @@ namespace KA.DataProvider.Entities
         public int Id { get; set; }
         public int CartId { get; set; }
         public int CourseId { get; set; }
-        public string CourseName { get; set; }
         public decimal Price { get; set; }
         public decimal DiscountPrice { get; set; }
 

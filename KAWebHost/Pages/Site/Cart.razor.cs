@@ -1,5 +1,5 @@
-﻿using KA.DataProvider.Entities;
-using KA.Infrastructure.Enums;
+﻿using KA.Infrastructure.Enums;
+using KA.PaymentAPI.CyberSource;
 using KA.Service.Carts;
 using KA.Service.Orders;
 using KA.ViewModels.Carts;
@@ -18,6 +18,8 @@ namespace KAWebHost.Pages.Site
 
         private ICartService _cartService;
         private IOrderService _orderService;
+        private CyberSourceService _cyberSourceService;
+
         [CascadingParameter]
         private Task<AuthenticationState> authenticationStateTask { get; set; }
         private AuthenticationState authState;
@@ -31,6 +33,7 @@ namespace KAWebHost.Pages.Site
         {
             _cartService = ScopedServices.GetRequiredService<ICartService>();
             _orderService = ScopedServices.GetRequiredService<IOrderService>();
+            _cyberSourceService = ScopedServices.GetRequiredService<CyberSourceService>();
             authState = await authenticationStateTask;
             await InitData();
         }
@@ -54,7 +57,7 @@ namespace KAWebHost.Pages.Site
                 CreatedDate = DateTime.Now,
                 DiscountPrice = 0,
                 OrderStatus = OrderStatus.INIT,
-                PaymentMethod = PaymentMethod.CK,
+                PaymentMethod = PaymentMethod.VNPAY,
                 PaymentStatus = PaymentStatus.WAITING,
                 Price = cartVm.Total,
                 TotalPrice = cartVm.Total,
@@ -65,7 +68,7 @@ namespace KAWebHost.Pages.Site
             {
                 await _cartService.UpdateCartStatus(cartVm.Id, CartStatus.Ordered);
                 await jsr.InvokeVoidAsync("ShowAlert", "Tạo đơn thành công");
-                //navigationManager.NavigateTo("/don-hang/" + userId);
+                navigationManager.NavigateTo("/don-hang/" + order.Id);
             }
             else
             {

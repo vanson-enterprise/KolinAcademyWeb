@@ -8,14 +8,18 @@ namespace KAWebHost.Pages.Site
     public partial class Index : OwningComponentBase
     {
         private ICourseService _courseService;
+        [Inject]
+        private NavigationManager NavigationManager { get; set; }
+
         private List<OfflineCourseViewModel> offlineCourseViewModels;
         private OnlineCourseViewModel onlineCourse = new();
-
+        private List<OfflineCourseViewModel> offlineCourses = new();
         protected override async Task OnInitializedAsync()
         {
             _courseService = ScopedServices.GetRequiredService<ICourseService>();
             offlineCourseViewModels = _courseService.GetAllOpeningSoonOfflineCourse();
             onlineCourse = await _courseService.GetTopOneCourseForIndexPage();
+            offlineCourses = await _courseService.GetTopOffCourseForIndexPage(6);
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -27,5 +31,11 @@ namespace KAWebHost.Pages.Site
                 await module.InvokeVoidAsync("indexPageModule.init");
             }
         }
+
+        private void GoToDetailCoursePage(string detailCourseLink)
+        {
+            NavigationManager.NavigateTo(detailCourseLink);
+        }
+
     }
 }

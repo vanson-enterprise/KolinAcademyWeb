@@ -9,7 +9,6 @@
         stepper = new KTStepper(stepperElement);
         // Handle next step
         stepper.on("kt.stepper.next", function () {
-            debugger
             let currentStepIndex = stepper.getCurrentStepIndex();
             if (currentStepIndex == 1) {
                 $("#course_form_submit_btn").trigger("click");

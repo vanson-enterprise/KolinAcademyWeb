@@ -225,11 +225,11 @@ namespace KA.Service.Courses
         }
         public async Task<OnlineCourseViewModel?> GetTopOneCourseForIndexPage()
         {
-            var course =  await _courseRepo.GetFirstOrDefaultAsync(
-                c => !c.IsDeleted && c.Type == CourseType.ONLINE, 
+            var course = await _courseRepo.GetFirstOrDefaultAsync(
+                c => !c.IsDeleted && c.Type == CourseType.ONLINE,
                 (query) => query.OrderBy(c => c.Sort)
              );
-            if(course != null)
+            if (course != null)
             {
                 return new OnlineCourseViewModel()
                 {
@@ -245,6 +245,22 @@ namespace KA.Service.Courses
             }
             return null;
         }
+
+        public async Task<List<OfflineCourseViewModel>> GetTopOffCourseForIndexPage(int offCourseNumber)
+        {
+            return await _courseRepo.GetAll()
+                            .Where(c => !c.IsDeleted && c.Type == CourseType.OFFLINE)
+                            .OrderBy(c => c.Sort)
+                            .Take(offCourseNumber)
+                            .Select(c => new OfflineCourseViewModel()
+                            {
+                                DetailCourseLink = "/" + c.Name.GetSeoName() + "-" + c.Code,
+                                IntroVideoLink = c.IntroduceVideoLink,
+                                Name = c.Name,
+                            })
+                            .ToListAsync();
+        }
+
         public List<OnlineCourseViewModel> GetAllOnlineCourse()
         {
             return _courseRepo

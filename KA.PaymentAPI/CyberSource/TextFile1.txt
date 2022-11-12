@@ -1,0 +1,19 @@
+﻿Key:a450966c-db47-4ed4-80ea-57b60c789915
+Shared Secret Key: 
+Ms06+ltqDxD4iD8wdnibejJ4ziuUzdPhqh0cb/lmW1A=
+
+
+AccessKey
+466af6d7995631b183cf123401d6742d
+SecretKey
+abf79e530c8b41f6925b8e461dceb96e7d5ed11dba1949dea353ff32358f5efd3fcc3ae1d02240d4b314efd54ac4027b12c52de3c6aa44d59b908233ac3be646a30f0f6c619e43bf8d2067480e768191e10370d46b89433ab37479cdf31b5dd8f882de952b674eaa92f307ebf273a17570d5117e77ba4af6b5c5f50bdf3ec13b
+
+https://testsecureacceptance.cybersource.com/pay
+
+https://developer.cybersource.com/library/documentation/dev_guides/Secure_Acceptance_Checkout_API/Secure_Acceptance_Checkout_API.pdf
+https://ebc2test.cybersource.com/ebc2/
+https://www.youtube.com/watch?v=RVYsfHjaHU8&t=58s
+
+
+klacb1
+https://medium.com/@niteshsinghal85/handling-database-password-change-at-runtime-with-entity-framework-in-asp-net-core-9caa81827cef

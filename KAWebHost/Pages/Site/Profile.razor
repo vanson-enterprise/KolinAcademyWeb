@@ -26,7 +26,7 @@
                         </div>
                     </div>
 
-                    <h2 class="name-account my-4 secondary-color"></h2>
+                    <h2 class="name-account my-4 secondary-color">@FullName</h2>
 
                     <div class="btn-container d-flex flex-column">
                         <button class="tab-btn active" data-value=".info">
@@ -47,120 +47,109 @@
                         <div class="content info">
                             <h2 class="secondary-color">HỒ SƠ CÁ NHÂN</h2>
                             <br />
-                            <form action="">
+                            <EditForm OnValidSubmit="UpdateUserInfo" Model="userProfileVm.UserProfileInfo">
+                                <DataAnnotationsValidator />
                                 <div class="mb-3">
                                     <label for="inputEmail" class="form-label">Email</label>
-                                    <input type="email"
-                                           class="form-control"
-                                           id="inputEmail"
-                                           aria-describedby="emailHelp"
-                                           placeholder="dieuthuy@gmail.com" />
+                                    <InputText type="email"
+                                               class="form-control"
+                                               id="inputEmail"
+                                               aria-describedby="emailHelp"
+                                               @bind-Value="userProfileVm.UserProfileInfo.Email"
+                                               disabled
+                                               placeholder="Nhập email" />
+
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="inputPassword" class="form-label">Password</label>
-                                    <input type="password"
-                                           class="form-control"
-                                           id="inputPassword"
-                                           placeholder="*******" />
+                                    <InputText type="password"
+                                               class="form-control"
+                                               id="inputPassword"
+                                               autocomplete="off"
+                                               @bind-Value="userProfileVm.UserProfileInfo.Password"
+                                               placeholder="Nhập mật khẩu mới" />
+                                    <ValidationMessage For="()=>userProfileVm.UserProfileInfo.Password"></ValidationMessage>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="inputPassword" class="form-label">Nhập lại password</label>
+                                    <InputText type="password"
+                                               class="form-control"
+                                               id="inputPassword"
+                                               autocomplete="off"
+                                               @bind-Value="userProfileVm.UserProfileInfo.ConfirmPassword"
+                                               placeholder="Nhập lại mật khẩu mới" />
+                                    <ValidationMessage For="()=>userProfileVm.UserProfileInfo.ConfirmPassword"></ValidationMessage>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="inputName" class="form-label">Tên</label>
-                                    <input type="text"
-                                           class="form-control"
-                                           id="inputName"
-                                           placeholder="Vũ Diệu Thúy" />
+                                    <InputText type="text"
+                                               class="form-control"
+                                               id="inputName"
+                                               @bind-Value="userProfileVm.UserProfileInfo.Name"
+                                               placeholder="Nhập họ và tên" />
+                                    <ValidationMessage For="()=>userProfileVm.UserProfileInfo.Name"></ValidationMessage>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="inputPhone" class="form-label">Số điện thoại</label>
-                                    <input type="phone"
-                                           class="form-control"
-                                           id="inputPhone"
-                                           placeholder="0987767895" />
+                                    <InputText type="phone"
+                                               class="form-control"
+                                               id="inputPhone"
+                                               @bind-Value="userProfileVm.UserProfileInfo.PhoneNumber"
+                                               placeholder="Nhập số điện thoại" />
+                                    <ValidationMessage For="()=>userProfileVm.UserProfileInfo.PhoneNumber"></ValidationMessage>
                                 </div>
                                 <br />
                                 <button type="submit" class="btn btn-primary">
                                     Cập nhập
                                 </button>
-                            </form>
+                            </EditForm>
                         </div>
                         <div class="content course">
                             <div class="course-item">
                                 <h3 class="primary-color">Khóa học trực tuyến</h3>
                                 <div class="row">
-                                    <div class="col-6">
-                                        <div class="content">
-                                            <div class="thumb">
-                                                <img src="./img/knowledge.png"
-                                                     alt=""
+                                    @foreach (var course in userProfileVm.OwningOnlineCourseVm)
+                                    {
+                                        <div class="col-6">
+                                            <div class="content">
+                                                <div class="thumb">
+                                                    <img src="@course.ThumbnailImageLink"
+                                                     alt="@course.Name"
                                                      class="w-full" />
-                                            </div>
-                                            <div class="text d-flex justify-content-between">
-                                                <p class="name">Livestream Master Online</p>
-                                                <a href="#" class="link secondary-color">Vào học</a>
+                                                </div>
+                                                <div class="text d-flex justify-content-between">
+                                                    <p class="name">@course.Name</p>
+                                                    <a href="@course.DetailCourceLink" class="link secondary-color">Vào học</a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="content">
-                                            <div class="thumb">
-                                                <img src="./img/knowledge.png"
-                                                     alt=""
-                                                     class="w-full" />
-                                            </div>
-                                            <div class="text d-flex justify-content-between">
-                                                <p class="name">Livestream Master Online</p>
-                                                <a href="#" class="link secondary-color">Vào học</a>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    }
                                 </div>
                             </div>
 
                             <div class="course-item">
-                                <h3 class="primary-color">Khóa học trực tuyến</h3>
+                                <h3 class="primary-color">Khóa học trực tiếp</h3>
                                 <div class="row">
-                                    <div class="col-6">
-                                        <div class="content">
-                                            <div class="thumb">
-                                                <img src="./img/knowledge.png"
-                                                     alt=""
+                                    @foreach (var course in userProfileVm.OwningOfflineCourseVm)
+                                    {
+                                        <div class="col-6">
+                                            <div class="content">
+                                                <div class="thumb">
+                                                    <img src="@course.ThumbnailImageLink"
+                                                     alt="@course.Name"
                                                      class="w-full" />
-                                            </div>
-                                            <div class="text d-flex justify-content-between">
-                                                <p class="name">Livestream Master Online</p>
-                                                <a href="#" class="link secondary-color">Hoàn thành</a>
+                                                </div>
+                                                <div class="text d-flex justify-content-between">
+                                                    <p class="name">@course.Name</p>
+                                                    <a href="@course.DetailCourceLink" class="link secondary-color">Vào học</a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="content">
-                                            <div class="thumb">
-                                                <img src="./img/knowledge.png"
-                                                     alt=""
-                                                     class="w-full" />
-                                            </div>
-                                            <div class="text d-flex justify-content-between">
-                                                <p class="name">Livestream Master Online</p>
-                                                <a href="#" class="link secondary-color">Sắp tới 08.08.2020</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="content">
-                                            <div class="thumb">
-                                                <img src="./img/knowledge.png"
-                                                     alt=""
-                                                     class="w-full" />
-                                            </div>
-                                            <div class="text d-flex justify-content-between">
-                                                <p class="name">Livestream Master Online</p>
-                                                <a href="#" class="link secondary-color">Liên hệ xếp lớp</a>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -168,28 +157,22 @@
                             <h3 class="primary-color">Khóa học</h3>
 
                             <ul>
-                                <li class="d-flex justify-content-between">
-                                    <p>Livestream Master Online</p>
-                                    <p class="secondary-color">Đã mua</p>
-                                    <p>01/06/2022</p>
-                                </li>
-                                <li class="d-flex justify-content-between">
-                                    <p>Livestream Master Online</p>
-                                    <p class="secondary-color">Đã mua</p>
-                                    <p>01/06/2022</p>
-                                </li>
-                                <li class="d-flex justify-content-between">
-                                    <p>Livestream Master Online</p>
-                                    <p class="secondary-color">Đã mua</p>
-                                    <p>01/06/2022</p>
-                                </li>
+                                @foreach (var trans in userProfileVm.CourseTransactionVms)
+                                {
+                                    <li class="d-flex justify-content-between">
+                                        <p>@trans.CourseName</p>
+                                        <p class="secondary-color">Đã mua</p>
+                                        <p>@trans.TransactionDate</p>
+                                    </li>
+                                }
+
+
                             </ul>
                         </div>
-                        <div class="content logout">Đăng xuất</div>
+                        <div class="content logout"><a href="/dang-xuat">Đăng xuất</a></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-

@@ -84,17 +84,13 @@
                             </RadzenDataGridColumn>
                             <RadzenDataGridColumn TItem="OrderViewModel" Context="dataContext" Title="Phương thức TT" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="120px">
                                 <Template Context="order">
-                                    @if (order.PaymentMethod == PaymentMethod.CK)
+                                    if (order.PaymentMethod == PaymentMethod.VNPAY)
                                     {
-                                        <RadzenBadge BadgeStyle="BadgeStyle.Success" Text="CHUYỂN KHOẢN" />
-                                    }
-                                    else if (order.PaymentMethod == PaymentMethod.VNPAY)
-                                    {
-                                        <RadzenBadge BadgeStyle="BadgeStyle.Secondary" Text="VNPAY" />
+                                    <RadzenBadge BadgeStyle="BadgeStyle.Secondary" Text="VNPAY" />
                                     }
                                     else
                                     {
-                                        <RadzenBadge BadgeStyle="BadgeStyle.Info" Text="VISA" />
+                                    <RadzenBadge BadgeStyle="BadgeStyle.Info" Text="VISA" />
                                     }
                                 </Template>
                             </RadzenDataGridColumn>

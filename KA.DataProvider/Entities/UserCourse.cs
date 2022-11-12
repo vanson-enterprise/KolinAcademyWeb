@@ -13,9 +13,9 @@ namespace KA.DataProvider.Entities
         public int CourseId { get; set; }
         public float StudyProgress { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.Now;
-        public Guid? CreateUserId { get; set; }
+        public string? CreateUserId { get; set; }
         public DateTime? UpdatedDate { get; set; }
-        public DateTime ExpiredDate { get; set; }
+        public DateTime? ExpiredDate { get; set; }
 
         [ForeignKey("UserId")]
         public AppUser AppUser { get; set; }

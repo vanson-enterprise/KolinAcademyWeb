@@ -1,0 +1,22 @@
+﻿@page "/don-hang/{Id:int}"
+@using KA.Infrastructure.Enums
+@using KA.Infrastructure.Enums.Extension
+@inherits OwningComponentBase
+
+<EditForm Model="model" OnValidSubmit="CheckOut">
+    <div>
+        <div>Order Id: @(model.Id)</div>
+        <div>Price: @(model.Price)</div>
+        <div>TotalPrice: @(model.TotalPrice)</div>
+    </div>
+    <div>
+        <InputRadioGroup @bind-Value="model.PaymentMethod" TValue="PaymentMethod">
+            <InputRadio Value="PaymentMethod.VNPAY" />@PaymentMethod.VNPAY.DisplayName()
+            <InputRadio Value="PaymentMethod.VISA" />@PaymentMethod.VISA.DisplayName()
+        </InputRadioGroup>
+    </div>
+    <div>
+        <button type="submit">Check Out</button>
+    </div>
+</EditForm>
+

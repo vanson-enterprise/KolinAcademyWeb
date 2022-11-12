@@ -79,13 +79,13 @@ namespace KAWebHost.Pages.Admin.Courses
             course.MetaDescription = courseModel.MetaDescription;
             course.MetaTitle = courseModel.MetaTitle;
             course.Sort = courseModel.Sort;
-            course.ThumbNailImageLink = courseModel.ThumbNailImageLink;
+            //course.ThumbNailImageLink = courseModel.ThumbNailImageLink;
             course.IntroduceVideoLink = courseModel.IntroduceVideoLink;
             course.UpdatedDate = DateTime.Now;
             await _courseService.Edit(course);
 
-            jsr.InvokeVoidAsync("ShowAppAlert", "Đã cập nhật thông tin chung", "success");
-            jsr.InvokeVoidAsync("editOffCoursePageJs.goNextStep");
+            await jsr.InvokeVoidAsync("ShowAppAlert", "Đã cập nhật thông tin chung", "success");
+            await jsr.InvokeVoidAsync("editOffCoursePageJs.goNextStep");
             //GoToCourseListPage();
 
         }
@@ -104,11 +104,6 @@ namespace KAWebHost.Pages.Admin.Courses
         private async Task<string> GetHTML()
         {
             return await quillHtml.GetHTML();
-        }
-
-        private void GoToCourseListPage()
-        {
-            NavigationManager.NavigateTo($"/manager/courses");
         }
 
         private async Task CompleteEdit()

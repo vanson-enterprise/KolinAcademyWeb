@@ -1,17 +1,11 @@
 ﻿using AutoMapper;
 using Castle.Core.Logging;
+using KA.Infrastructure.Util;
 using KA.ViewModels.Common;
 using KA.ViewModels.Courses;
 using KA.ViewModels.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.WebSockets;
-using System.Runtime.Intrinsics.X86;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KA.Service.Users
 {
@@ -19,6 +13,8 @@ namespace KA.Service.Users
     {
         private readonly IRepository<AppUser> _userRepo;
         private readonly IRepository<AppRole> _roleRepo;
+        private readonly IRepository<UserCourse> _userCourseRepo;
+        private readonly IRepository<Course> _courseRepo;
         private readonly IRepository<IdentityUserRole<string>> _userRoleRepo;
         private IMapper _mapper;
         private readonly UserManager<AppUser> _userManager;
@@ -29,7 +25,9 @@ namespace KA.Service.Users
             IRepository<AppRole> roleRepo,
             IRepository<IdentityUserRole<string>> userRoleRepo,
             UserManager<AppUser> userManager,
-            RoleManager<AppRole> roleManager) : base(baseReponsitory)
+            RoleManager<AppRole> roleManager,
+            IRepository<UserCourse> userCourseRepo,
+            IRepository<Course> courseRepo) : base(baseReponsitory)
         {
             _userRepo = baseReponsitory;
             _mapper = mapper;
@@ -37,8 +35,10 @@ namespace KA.Service.Users
             _userRoleRepo = userRoleRepo;
             _userManager = userManager;
             _roleManager = roleManager;
+            _userCourseRepo = userCourseRepo;
+            _courseRepo = courseRepo;
         }
-
+        #region Admin
         public async Task<DataGridResponse<UserItem>> GetAllUserPaging(int skip, int top)
         {
             var result = new DataGridResponse<UserItem>();
@@ -235,5 +235,64 @@ namespace KA.Service.Users
 
             return true;
         }
+        #endregion
+
+        #region Site
+        public async Task<UserProfileVm> GetUserProfile(string userId)
+        {
+            var user = _userRepo.GetById(userId);
+            var userCourses = (from uc in _userCourseRepo.GetAll()
+                               join c in _courseRepo.GetAll() on uc.CourseId equals c.Id
+                               where uc.UserId == userId
+                               select new { c, uc }
+                              ).ToList();
+            return new UserProfileVm()
+            {
+                UserProfileInfo = new()
+                {
+                    UserId = userId,
+                    Email = user.Email,
+                    Name = user.FullName,
+                    PhoneNumber = user.PhoneNumber,
+                },
+                OwningOfflineCourseVm = userCourses
+                    .Where(i => i.c.Type == CourseType.OFFLINE)
+                    .Select(i => new OwningCourseVm()
+                    {
+                        Name = i.c.Name,
+                        DetailCourceLink = "/" + i.c.Name.GetSeoName() + "-" + i.c.Code,
+                        ThumbnailImageLink = i.c.ThumbNailImageLink
+                    }).ToList(),
+                OwningOnlineCourseVm = userCourses
+                    .Where(i => i.c.Type == CourseType.ONLINE)
+                    .Select(i => new OwningCourseVm()
+                    {
+                        Name = i.c.Name,
+                        DetailCourceLink = "/" + i.c.Name.GetSeoName() + "-" + i.c.Code,
+                        ThumbnailImageLink = i.c.ThumbNailImageLink
+                    }).ToList(),
+                CourseTransactionVms = userCourses.Select(i => new CourseTransactionVm()
+                {
+                    CourseName = i.c.Name,
+                    TransactionDate = i.uc.CreatedDate.ToString("dd/MM/yyyy")
+                }).ToList()
+            };
+        }
+
+        public async Task UpdateUserInfo(UserProfileInfo input)
+        {
+            var user = _userRepo.GetById(input.UserId);
+            user.FullName = input.Name;
+            user.PhoneNumber = input.PhoneNumber;
+            user.Email = input.Email;
+            if (input.Password != null)
+            {
+                var resetPasswordToken = await _userManager.GeneratePasswordResetTokenAsync(user);
+                await _userManager.ResetPasswordAsync(user, resetPasswordToken, input.Password);
+            }
+            _userRepo.Update(user);
+        }
+        #endregion
+
     }
 }

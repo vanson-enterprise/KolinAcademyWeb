@@ -9,8 +9,11 @@ namespace KA.Infrastructure.Enums
 {
     public enum PaymentMethod
     {
-        CK = 1,
-        VNPAY = 2,
-        VISA = 3
+        [EnumDisplayName(DisplayName = "Chuyển khoản qua VNPAY")]
+
+        VNPAY = 1,
+        [EnumDisplayName(DisplayName = "VISA / MASTERCARD")]
+
+        VISA = 2
     }
 }

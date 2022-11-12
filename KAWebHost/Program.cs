@@ -2,6 +2,7 @@
 using KA.DataProvider;
 using KA.DataProvider.Entities;
 using KA.Infrastructure.Authen;
+using KA.PaymentAPI.CyberSource;
 using KA.Repository.Base;
 using KA.Service.Address;
 using KA.Service.Base;
@@ -81,6 +82,7 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
     options.AddSupportedCultures("en-US", "vi-VN");
 
 });
+builder.Services.AddHttpClient();
 // DI
 builder.Services.AddTransient<IRepository<AppUser>, BaseRepository<AppUser>>();
 builder.Services.AddTransient<IRepository<Province>, BaseRepository<Province>>();
@@ -95,6 +97,7 @@ builder.Services.AddTransient<IRepository<AppRole>, BaseRepository<AppRole>>();
 builder.Services.AddTransient<IRepository<Cart>, BaseRepository<Cart>>();
 builder.Services.AddTransient<IRepository<Order>, BaseRepository<Order>>();
 builder.Services.AddTransient<IRepository<CartProduct>, BaseRepository<CartProduct>>();
+builder.Services.AddTransient<IRepository<UserCourse>, BaseRepository<UserCourse>>();
 builder.Services.AddTransient<IRepository<IdentityUserRole<string>>, BaseRepository<IdentityUserRole<string>>>();
 
 builder.Services.AddScoped<IAddressService, AddressService>();
@@ -102,8 +105,7 @@ builder.Services.AddScoped<ICourseService, CourseService>();
 builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
-builder.Services.AddTransient<ContextMenuService, ContextMenuService>();
-
+builder.Services.AddScoped<CyberSourceService>();
 
 // ======================= MIDDLEWARE =============================
 var app = builder.Build();

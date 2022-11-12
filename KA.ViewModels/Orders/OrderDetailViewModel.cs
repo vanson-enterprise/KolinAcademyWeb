@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KA.ViewModels.Carts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,13 @@ using System.Threading.Tasks;
 
 namespace KA.ViewModels.Orders
 {
-    internal class OrderDetailViewModel
+    public class OrderDetailViewModel
     {
+        public int Id { get; set; }
+        public decimal Price { get; set; }
+        public decimal DiscountPrice { get; set; }
+        public decimal TotalPrice { get; set; }
+        public PaymentMethod PaymentMethod { get; set; }
+        public List<CartProductVm> CartProductVms { get; set; }
     }
 }

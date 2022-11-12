@@ -15,5 +15,7 @@ namespace KA.Service.Users
         Task<List<RoleModel>> GetAllRoleForSelect(string? userId);
         Task<DataGridResponse<UserItem>> GetAllUserPaging(int skip, int top);
         Task<EditUserModel> GetUserForEdit(string userId);
+        Task<UserProfileVm> GetUserProfile(string userId);
+        Task UpdateUserInfo(UserProfileInfo input);
     }
 }

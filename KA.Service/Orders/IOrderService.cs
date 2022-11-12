@@ -12,5 +12,7 @@ namespace KA.Service.Orders
     {
         Order CreateNewOrder(CreateOrderVm input);
         Task<DataGridResponse<OrderViewModel>> GetAllOrderPaging(int skip, int top);
+        Task<OrderDetailViewModel> GetDetailOrder(int orderId);
+        void UpdateOrderInfo(OrderDetailViewModel input);
     }
 }

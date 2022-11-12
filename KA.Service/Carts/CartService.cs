@@ -54,7 +54,6 @@ namespace KA.Service.Carts
                 _cartProductRepo.Add(new CartProduct()
                 {
                     CartId = cart.Id,
-                    CourseName = course.Name,
                     CourseId = input.CourseId,
                     Price = course.Price,
                     DiscountPrice = course.DiscountPrice,
@@ -72,16 +71,17 @@ namespace KA.Service.Carts
             if (cart != null)
             {
                 var cartProducts = await (from cp in _cartProductRepo.GetAll()
+                                          join c in _courseRepo.GetAll() on cp.CourseId equals c.Id
                                           where cp.CartId == cart.Id
-                                          select cp).ToListAsync();
-                result.CartProductVms = cartProducts.Select(cp => new CartProductVm()
+                                          select new { c, cp }).ToListAsync();
+                result.CartProductVms = cartProducts.Select(i => new CartProductVm()
                 {
-                    Id = cp.Id,
-                    CourseName = cp.CourseName,
-                    DiscountPrice = string.Format("{0:0,0.00 vnđ}", cp.DiscountPrice),
-                    Price = string.Format("{0:0,0.00 vnđ}", cp.Price)
+                    Id = i.cp.Id,
+                    CourseName = i.c.Name,
+                    DiscountPrice = string.Format("{0:0,0.00 vnđ}", i.cp.DiscountPrice),
+                    Price = string.Format("{0:0,0.00 vnđ}", i.cp.Price)
                 }).ToList();
-                result.Total = cartProducts.Select(cp => cp.DiscountPrice).Sum();
+                result.Total = cartProducts.Select(i => i.cp.DiscountPrice).Sum();
                 result.StringTotal = string.Format("{0:0,0.00 vnđ}", result.Total);
                 result.Amount = cartProducts.Count;
                 result.Id = cart.Id;
