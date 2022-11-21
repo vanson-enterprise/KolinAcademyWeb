@@ -152,47 +152,85 @@
                                         <InputText id="course_intro_video" @bind-Value="courseModel.IntroduceVideoLink" class="form-control" placeholder="Nhập đường dẫn video giới thiệu" />
                                     </div>
                                 </div>
-                                <div class="row mb-5">
-                                    <div class="col-12">
-                                        <BlazoredTextEditor @ref="@quillHtml">
-                                            <ToolbarContent>
-                                                <select class="ql-header">
-                                                    <option selected=""></option>
-                                                    <option value="1"></option>
-                                                    <option value="2"></option>
-                                                    <option value="3"></option>
-                                                    <option value="4"></option>
-                                                    <option value="5"></option>
-                                                </select>
-                                                <span class="ql-formats">
-                                                    <button class="ql-bold"></button>
-                                                    <button class="ql-italic"></button>
-                                                    <button class="ql-underline"></button>
-                                                    <button class="ql-strike"></button>
-                                                </span>
-                                                <span class="ql-formats">
-                                                    <select class="ql-color"></select>
-                                                    <select class="ql-background"></select>
-                                                </span>
-                                                <span class="ql-formats">
-                                                    <button class="ql-list" value="ordered"></button>
-                                                    <button class="ql-list" value="bullet"></button>
-                                                </span>
-                                                <span class="ql-formats">
-                                                    <button class="ql-link"></button>
-                                                </span>
-                                                <span class="ql-formats">
-                                                    <button type="button" class="btn btn-link" id="custom-button" style="background-image: url('img/icon/imageicon.png')"
+                                 <AuthorizeView Roles="SuperAdmin">
+                                    <ChildContent Context="another_context">
+                                        <div class="row">
+                                            <div class="col-12 mb-5">
+                                                <div class="form-check form-check-custom form-check-solid">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" @bind="courseModel.IsUseExternalHtml" />
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        External Html
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            @if (courseModel.IsUseExternalHtml)
+                                            {
+                                                <div class="col-12 mb-5">
+                                                    <label for="course_html" class="form-label">HTML Code</label>
+                                                    <InputTextArea @bind-Value="courseModel.Description"
+                                                               class="form-control" style="height:100px"
+                                                               aria-label="With textarea"
+                                                               placeholder="Nhập html source">
+                                                    </InputTextArea>
+                                                </div>
+                                                <div class="col-12 mb-5">
+                                                    <label class="form-label">CSS Link</label>
+                                                    <InputText @bind-Value="courseModel.ExternalCssLink" class="form-control" placeholder="Nhập css link" />
+                                                </div>
+                                                 <div class="col-12 mb-5">
+                                                    <label class="form-label">Script Link</label>
+                                                    <InputText @bind-Value="courseModel.ExternalScriptLink" class="form-control" placeholder="Nhập script link" />
+                                                </div>
+                                            }
+                                        </div>
+                                    </ChildContent>
+                                </AuthorizeView>
+                                @if (!courseModel.IsUseExternalHtml)
+                                {
+                                    <div class="row mb-5">
+                                        <div class="col-12">
+                                            <BlazoredTextEditor @ref="@quillHtml">
+                                                <ToolbarContent>
+                                                    <select class="ql-header">
+                                                        <option selected=""></option>
+                                                        <option value="1"></option>
+                                                        <option value="2"></option>
+                                                        <option value="3"></option>
+                                                        <option value="4"></option>
+                                                        <option value="5"></option>
+                                                    </select>
+                                                    <span class="ql-formats">
+                                                        <button class="ql-bold"></button>
+                                                        <button class="ql-italic"></button>
+                                                        <button class="ql-underline"></button>
+                                                        <button class="ql-strike"></button>
+                                                    </span>
+                                                    <span class="ql-formats">
+                                                        <select class="ql-color"></select>
+                                                        <select class="ql-background"></select>
+                                                    </span>
+                                                    <span class="ql-formats">
+                                                        <button class="ql-list" value="ordered"></button>
+                                                        <button class="ql-list" value="bullet"></button>
+                                                    </span>
+                                                    <span class="ql-formats">
+                                                        <button class="ql-link"></button>
+                                                    </span>
+                                                    <span class="ql-formats">
+                                                        <button type="button" class="btn btn-link" id="custom-button" style="background-image: url('img/icon/imageicon.png')"
                                                             @onclick="()=>OpenSelectImageModal(true)">
-                                                    </button>
-                                                </span>
-                                            </ToolbarContent>
-                                            <EditorContent>
-                                                @((MarkupString)courseModel.Description)
-                                            </EditorContent>
-                                        </BlazoredTextEditor>
+                                                        </button>
+                                                    </span>
+                                                </ToolbarContent>
+                                                <EditorContent>
+                                                    @(
+                                                        (MarkupString)courseModel.Description
+                                                        )
+                                                </EditorContent>
+                                            </BlazoredTextEditor>
+                                        </div>
                                     </div>
-                                </div>
+                                }
                                 <div class="row mb-5">
                                     <div class="col-9">
                                         <label for="course_tag" class="form-label">Tags</label>

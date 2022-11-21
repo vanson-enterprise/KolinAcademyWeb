@@ -32,5 +32,8 @@ namespace KA.ViewModels.Courses
         public int Sort { get; set; }
         public string? ThumbNailImageLink { get; set; }
         public string? IntroduceVideoLink { get; set; }
+        public string? ExternalCssLink { get; set; }
+        public string? ExternalScriptLink { get; set; }
+        public bool IsUseExternalHtml { get; set; }
     }
 }

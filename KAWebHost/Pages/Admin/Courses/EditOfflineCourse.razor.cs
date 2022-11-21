@@ -67,8 +67,10 @@ namespace KAWebHost.Pages.Admin.Courses
 
         private async Task UpdateCourse()
         {
-
-            courseModel.Description = await GetHTML();
+            if (!courseModel.IsUseExternalHtml)
+            {
+                courseModel.Description = await GetHTML();
+            }
             course.Name = courseModel.Name;
             course.IsActive = courseModel.IsActive;
             course.Price = courseModel.Price;
@@ -82,6 +84,9 @@ namespace KAWebHost.Pages.Admin.Courses
             //course.ThumbNailImageLink = courseModel.ThumbNailImageLink;
             course.IntroduceVideoLink = courseModel.IntroduceVideoLink;
             course.UpdatedDate = DateTime.Now;
+            course.IsUseExternalHtml = courseModel.IsUseExternalHtml;
+            course.ExternalCssLink = courseModel.ExternalCssLink;
+            course.ExternalScriptLink = courseModel.ExternalScriptLink;
             await _courseService.Edit(course);
 
             await jsr.InvokeVoidAsync("ShowAppAlert", "Đã cập nhật thông tin chung", "success");

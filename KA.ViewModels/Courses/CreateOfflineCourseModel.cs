@@ -33,8 +33,9 @@ namespace KA.ViewModels.Courses
         public string? IntroduceVideoLink { get; set; }
         public DateTime? CreatedDate { get; set; } = DateTime.Now;
         public string? CreateUserId { get; set; }
-
-
+        public string? ExternalCssLink { get; set; }
+        public string? ExternalScriptLink { get; set; }
+        public bool IsUseExternalHtml { get; set; }
 
     }
 }

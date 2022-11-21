@@ -1,0 +1,16 @@
+﻿@inherits OwningComponentBase
+@page "/khoa-hoc/{CourseSeoName}"
+
+
+
+@if (model.IsUseExternalHtml)
+{
+    <HeadContent>
+        <link href="@model.ExternalCssLink" rel="stylesheet" />
+    </HeadContent>
+}
+
+
+<div>
+    @((MarkupString)model.Description)
+</div>

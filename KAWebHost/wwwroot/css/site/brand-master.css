@@ -1,0 +1,109 @@
+﻿
+.brand-page section {
+    margin: 5rem;
+}
+
+.brand-page .title {
+    font-size: 28px;
+    margin-bottom: 2rem;
+}
+
+.brand-page .box {
+    padding: 15px;
+    border-radius: 20px;
+    border: 1px solid var(--primary-color);
+}
+
+    .brand-page .box .day {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    .brand-page .box ul {
+        padding-left: 10px;
+    }
+
+        .brand-page .box ul li {
+            list-style: disc;
+        }
+
+/* benefit */
+
+.brand-page .benefit-item {
+    max-width: 410px;
+    /* min-height: 70px; */
+    width: 100%;
+    margin: 0 5px 15px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 15px;
+    border: 1px solid var(--primary-color);
+}
+
+/* lecture */
+.brand-page .lecture img {
+    width: 700px;
+}
+
+/* course-for */
+.brand-page .course-for .box {
+    min-height: 120px;
+    padding: 25px 20px;
+    border-radius: 20px;
+    border: 1px solid var(--primary-color);
+}
+
+/* feedback */
+
+.feedback .name-student {
+    text-transform: uppercase;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.feedback .video {
+    border-radius: 30px;
+    overflow: hidden;
+    border: 1px solid #fff;
+}
+
+    .feedback .video iframe {
+        width: 100%;
+        display: block;
+    }
+
+/* infor */
+
+.infor .details p {
+    font-size: 24px;
+}
+
+.infor .price {
+    margin-top: 15px;
+}
+
+    .infor .price strong {
+        font-size: 28px;
+    }
+
+/* form */
+
+.form button {
+    padding: 10px;
+    border-radius: 30px;
+    font-size: 24px;
+    min-width: 450px;
+    margin-right: 2rem;
+}
+
+.form .btn-left {
+    background-color: var(--primary-color);
+}
+
+.form .btn-right {
+    color: var(--white-color);
+    background-color: var(--secondary-color);
+}
+

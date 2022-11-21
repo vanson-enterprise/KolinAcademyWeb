@@ -1,0 +1,124 @@
+﻿@page "/manager/create-blog"
+@using KAWebHost.Pages.Admin.Components
+@using Blazored.TextEditor
+@using KAWebHost.Shared.Validator
+@inherits OwningComponentBase
+
+<div class="d-flex flex-column-fluid">
+    <div class="container-fluid">
+        <div class="card card-flush">
+            <div class="card-header ">
+                <h3 class="card-title">Tạo blog</h3>
+            </div>
+            <div class="card-body">
+                <EditForm Model="@model" OnValidSubmit="@SubmitForm">
+                    <DataAnnotationsValidator />
+                    <div class="row mb-5">
+                        <div class="col-12">
+                            <label for="course_name" class="form-label required">Tiêu đề</label>
+                            <InputText @bind-Value="model.Title" class="form-control" placeholder="Nhập tiêu đề" />
+                            <ValidationMessage For="@(()=>model.Title)"></ValidationMessage>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 mb-5">
+                            <label for="course_meta_keyword" class="form-label">Meta Keywords</label>
+                            <InputText id="course_meta_keyword" @bind-Value="model.MetaKeyWord" class="form-control" placeholder="Nhập meta keywords" />
+                        </div>
+                        <div class="col-12 mb-5">
+                            <label for="course_meta_title" class="form-label">Meta Title</label>
+                            <InputText id="course_meta_title" @bind-Value="model.MetaTitle" class="form-control" placeholder="Nhập meta title" />
+                        </div>
+                        <div class="col-12 mb-5">
+                            <label for="course_meta_description" class="form-label">Meta Description</label>
+                            <InputText id="course_meta_description" @bind-Value="model.MetaDescription" class="form-control" placeholder="Nhập meta description" />
+                        </div>
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col-3">
+                            <button type="button" class="btn btn-primary" @onclick="()=>OpenSelectImageModal(false)">
+                                THÊM ẢNH BÌA
+                            </button>
+                        </div>
+                        <div class="col-9">
+                            @if (model.ThumbNailImageLink != null)
+                            {
+                                <img src="@model.ThumbNailImageLink" alt="thumbnail-image" style="max-width: 150px" />
+                            }
+                        </div>
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col-12">
+                            <label class="form-label">Mô tả ngắn</label>
+                            <InputTextArea @bind-Value="model.ShortDescription"
+                                           class="form-control" style="height:100px"
+                                           aria-label="With textarea"
+                                           placeholder="Nhập mô tả ngắn">
+                            </InputTextArea>
+                        </div>
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col-12">
+                            <label class="form-label required">Nội dung bài viết</label>
+                            <BlazoredTextEditor @ref="@quillHtml">
+                                <ToolbarContent>
+                                    <select class="ql-header">
+                                        <option selected=""></option>
+                                        <option value="1"></option>
+                                        <option value="2"></option>
+                                        <option value="3"></option>
+                                        <option value="4"></option>
+                                        <option value="5"></option>
+                                    </select>
+                                    <span class="ql-formats">
+                                        <button class="ql-bold"></button>
+                                        <button class="ql-italic"></button>
+                                        <button class="ql-underline"></button>
+                                        <button class="ql-strike"></button>
+                                    </span>
+                                    <span class="ql-formats">
+                                        <select class="ql-color"></select>
+                                        <select class="ql-background"></select>
+                                    </span>
+                                    <span class="ql-formats">
+                                        <button class="ql-list" value="ordered"></button>
+                                        <button class="ql-list" value="bullet"></button>
+                                    </span>
+                                    <span class="ql-formats">
+                                        <button class="ql-link"></button>
+                                    </span>
+                                    <span class="ql-formats">
+                                        <button type="button" class="btn btn-link" id="custom-button" style="background-image: url('img/icon/imageicon.png')"
+                                                @onclick="()=>OpenSelectImageModal(true)">
+                                        </button>
+                                    </span>
+                                </ToolbarContent>
+                                <EditorContent>
+                                    @((MarkupString)model.Content)
+                                </EditorContent>
+                            </BlazoredTextEditor>
+
+                        </div>
+                    </div>
+                    <div class="row mb-5">
+
+                        <div class="col-2">
+                            <div class="form-check form-check-custom form-check-solid mt-10 ms-10">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" @bind="model.Published" />
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Xuất bản
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="float-end">
+                        <button type="submit" class="btn btn-primary" id="course_form_submit_btn">Tạo mới</button>
+                    </div>
+                </EditForm>
+            </div>
+        </div>
+    </div>
+</div>
+
+<FileSelector @ref="fileSelectorControl"
+              ImageSelected="InsertImage" />

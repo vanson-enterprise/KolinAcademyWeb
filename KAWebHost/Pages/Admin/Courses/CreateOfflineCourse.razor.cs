@@ -128,7 +128,10 @@ namespace KAWebHost.Pages.Admin.Courses
 
         private async Task CreateNewCourse()
         {
-            model.Description = await quillHtml.GetHTML();
+            if (!model.IsUseExternalHtml)
+            {
+                model.Description = await quillHtml.GetHTML();
+            }
             await _courseService.CreateOfflineCourse(model, s_startDates);
             jsr.InvokeVoidAsync("ShowAppAlert", "Thêm khóa học thành công", "success");
 

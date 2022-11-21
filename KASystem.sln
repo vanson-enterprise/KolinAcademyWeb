@@ -25,7 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.Test", "3.Test", "{148A07
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KA.UnitTests", "KA.UnitTests\KA.UnitTests.csproj", "{13003560-8857-40F9-8156-3A14F21F1388}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KA.PaymentAPI", "KA.PaymentAPI\KA.PaymentAPI.csproj", "{569236AD-F9BD-4A0B-A552-82A16752B7D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KA.PaymentAPI", "KA.PaymentAPI\KA.PaymentAPI.csproj", "{569236AD-F9BD-4A0B-A552-82A16752B7D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

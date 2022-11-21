@@ -211,7 +211,7 @@ namespace KA.Service.Courses
                 var offlineCourseVm = new OfflineCourseViewModel()
                 {
                     Name = groupCourse.Key.Name,
-                    DetailCourseLink = "/" + groupCourse.Key.Name.GetSeoName() + "-" + groupCourse.Key.Code,
+                    DetailCourseLink = "/khoa-hoc/" + groupCourse.Key.Name.GetSeoName() + "-" + groupCourse.Key.Id,
                     StartDates = groupCourse.Select(i => new OfflineCourseStartDateVm()
                     {
                         Place = i.csd.Place,

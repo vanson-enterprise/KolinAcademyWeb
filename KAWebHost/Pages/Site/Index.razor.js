@@ -1,5 +1,5 @@
 ﻿function pageJs() {
-
+    debugger
     this.init = () => {
         $(".owl-carousel.owl-carousel").owlCarousel({
             loop: true,

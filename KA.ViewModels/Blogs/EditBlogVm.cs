@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KA.DataProvider.Entities
+namespace KA.ViewModels.Blogs
 {
-    public class Blog
+    public class EditBlogVm
     {
         public int Id { get; set; }
         public string Title { get; set; }
@@ -17,8 +17,6 @@ namespace KA.DataProvider.Entities
         public string? MetaDescription { get; set; }
         public string? MetaTitle { get; set; }
         public string? ThumbNailImageLink { get; set; }
-        public DateTime? CreatedDate { get; set; } = DateTime.Now;
-        public string? CreateUserId { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public int? UpdateUserId { get; set; }
     }

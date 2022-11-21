@@ -1,0 +1,160 @@
+﻿@import url("https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css");
+
+.charisma-page section {
+    margin: 5rem;
+}
+
+.charisma-page .title {
+    font-size: 28px;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+    .charisma-page .title::before {
+        content: "";
+        height: 3px;
+        width: 175px;
+        top: -14px;
+        left: 50%;
+        position: absolute;
+        transform: translateX(-50%);
+        background-color: var(--secondary-color);
+    }
+
+/* banner */
+.charisma-page .banner img {
+    width: 100%;
+}
+
+/* benefit */
+.charisma-page .benefit-item {
+    width: 100%;
+    padding: 15px;
+    max-width: 410px;
+    min-height: 100px;
+    margin: 0 5px 15px;
+    border-radius: 15px;
+    align-items: center;
+    display: inline-table;
+    justify-content: center;
+    border: 1px solid var(--primary-color);
+}
+
+/* course-for */
+.charisma-page .course-for .box {
+    min-height: 140px;
+    padding: 25px 20px;
+    border-radius: 20px;
+    border: 1px solid var(--primary-color);
+}
+
+/* guide */
+.charisma-page .guide .box {
+    padding: 25px;
+    display: flex;
+    min-height: 140px;
+    border-radius: 20px;
+    margin-bottom: 25px;
+    align-items: center;
+    border: 1px solid var(--primary-color);
+}
+
+    .charisma-page .guide .box .day {
+        top: -16px;
+        font-size: 18px;
+        padding: 2px 16px;
+        border-radius: 12px;
+        margin-bottom: 10px;
+        color: var(--white-color);
+        background: var(--secondary-color);
+        border: 1px solid var(--primary-color);
+    }
+
+    .charisma-page .guide .box ul {
+        padding-left: 10px;
+        margin-bottom: 0;
+    }
+
+        .charisma-page .guide .box ul li {
+            list-style: disc;
+        }
+
+/* lecture */
+.charisma-page .lecture img {
+    width: 700px;
+}
+
+/* students kolin */
+.charisma-page .student-info {
+    border-radius: 20px;
+    margin: 15px 10px;
+    border: 1px solid var(--white-color);
+}
+
+    .charisma-page .student-info .img {
+        padding: 10px;
+        max-width: 40%;
+        width: 100%;
+        border-radius: 20px;
+    }
+
+    .charisma-page .student-info .info {
+        padding: 10px;
+        max-width: 60%;
+        width: 100%;
+    }
+
+.charisma-page .info .name {
+    margin-bottom: 0.5rem;
+}
+
+.charisma-page .students-kolin ul {
+    padding-left: 20px;
+}
+
+    .charisma-page .students-kolin ul li {
+        list-style: disc;
+    }
+
+.owl-theme .owl-nav {
+    display: none;
+}
+
+/* infor */
+
+.charisma-page .infor {
+    font-size: 18px;
+}
+
+    .charisma-page .infor .details p {
+        margin-bottom: 0.5rem;
+    }
+
+    .charisma-page .infor .box {
+        padding: 20px;
+        min-height: 190px;
+        border-radius: 60px;
+        align-items: center;
+        text-align: center;
+        justify-content: space-between;
+        border: 1px solid var(--primary-color);
+    }
+
+        .charisma-page .infor .box strong {
+            font-size: 20px;
+            margin: 0 4px;
+        }
+
+    .charisma-page .infor .price {
+        font-size: 24px;
+        margin-bottom: 1rem;
+    }
+
+    .charisma-page .infor button {
+        padding: 8px 30px;
+        border-radius: 30px;
+        color: var(--white-color);
+        background-image: linear-gradient( to right, var(--secondary-color), var(--primary-color) );
+        border: 1px solid var(--primary-color);
+    }

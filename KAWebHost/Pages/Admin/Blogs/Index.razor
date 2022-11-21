@@ -1,0 +1,103 @@
+﻿@*@attribute [Authorize(Roles = "Manager")]*@
+@page "/manager/blogs"
+@using KA.ViewModels.Blogs
+@inherits OwningComponentBase
+@inject NavigationManager NavigationManager
+
+<div class="d-flex flex-column-fluid">
+    <!--begin::Container-->
+    <div class="container-fluid">
+        <!--begin::Card-->
+        <div class="card card-flush">
+            <!--begin::Card header-->
+            <div class="card-header mt-6">
+                <h3 class="card-title">Danh sách bài viết</h3>
+                <div class="card-toolbar">
+                    <div class="d-flex align-items-center position-relative my-1 me-5">
+
+
+                        <NavLink href="/manager/create-blog">
+                            <!--begin::Button-->
+                            <button type="button" class="btn btn-light-warning mr-5" id="create-product-btn">
+                                <!--begin::Svg Icon | path: icons/duotune/general/gen035.svg-->
+                                <span class="svg-icon svg-icon-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="black" />
+                                        <rect x="10.8891" y="17.8033" width="12" height="2" rx="1" transform="rotate(-90 10.8891 17.8033)" fill="black" />
+                                        <rect x="6.01041" y="10.9247" width="12" height="2" rx="1" fill="black" />
+                                    </svg>
+                                </span>
+                                <!--end::Svg Icon-->
+                                Tạo mới blog
+                            </button>
+                            <!--end::Button-->
+                        </NavLink>
+                    </div>
+                </div>
+            </div>
+            <!--end::Card header-->
+            <!--begin::Card body-->
+            <div class="card-body pt-0">
+                @if (dataGrid != null)
+                {
+                    <RadzenDataGrid AllowFiltering="true"
+                                AllowColumnResize="false"
+                                AllowAlternatingRows="false"
+                                FilterMode="FilterMode.Simple"
+                                AllowSorting="true"
+                                AllowPaging="false"
+                                PagerHorizontalAlign="HorizontalAlign.Left"
+                                SelectionMode="DataGridSelectionMode.Single"
+                                Data="@dataGrid.Items"
+                                TItem="BlogItem"
+                                LogicalFilterOperator="LogicalFilterOperator.And">
+                        <Columns>
+                            <RadzenDataGridColumn TItem="BlogItem" Property="Index" Filterable="false" Title="STT" Width="60px" TextAlign="TextAlign.Center" />
+
+                            <RadzenDataGridColumn TItem="BlogItem" Property="Title" Title="Tên bài viết" MinWidth="300px" />
+                            <RadzenDataGridColumn TItem="BlogItem" Property="CreateUser" Title="Người tạo" Width="150px" />
+                            <RadzenDataGridColumn TItem="BlogItem" Property="CreatedDate" Title="Ngày tạo" Width="150px" />
+                            <RadzenDataGridColumn Context="dataContext" TItem="BlogItem" Property="Published" Title="Kích hoạt" Width="100px" TextAlign="TextAlign.Center">
+                                <Template Context="blog">
+                                    @if (blog.Published)
+                                    {
+                                        <RadzenBadge BadgeStyle="BadgeStyle.Success" Text="XUẤT BẢN" />
+                                    }
+                                    else
+                                    {
+                                        <RadzenBadge BadgeStyle="BadgeStyle.Primary" Text="ĐÓNG" />
+                                    }
+                                </Template>
+                            </RadzenDataGridColumn>
+                            <RadzenDataGridColumn TItem="BlogItem" Context="dataContext" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="50px">
+                                <Template Context="blog">
+                                    <RadzenButton Icon="edit"
+                                              ButtonStyle="ButtonStyle.Light"
+                                              Class="m-1"
+                                              Click="@(args => EditRow(blog.Id))"
+                                              @onclick:stopPropagation="true">
+                                    </RadzenButton>
+                                </Template>
+                            </RadzenDataGridColumn>
+                            <RadzenDataGridColumn TItem="BlogItem" Context="dataContext" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="60px">
+                                <Template Context="blog">
+                                    <RadzenButton ButtonStyle="ButtonStyle.Danger"
+                                              Icon="delete"
+                                              Size="ButtonSize.Medium"
+                                              Class="m-2"
+                                              @onclick:stopPropagation="true"
+                                              Click="@(args =>DeleteBlog(blog.Id))">
+                                    </RadzenButton>
+                                </Template>
+                            </RadzenDataGridColumn>
+                        </Columns>
+                    </RadzenDataGrid>
+                    <RadzenPager ShowPagingSummary="true" PagingSummaryFormat="@pagingSummaryFormat" HorizontalAlign="HorizontalAlign.Right" Count="dataGrid.TotalItem" PageSize="@pageSize" PageNumbersCount="5" PageChanged="@PageChanged" />
+                }
+            </div>
+            <!--end::Card body-->
+        </div>
+        <!--end::Card-->
+    </div>
+    <!--end::Container-->
+</div>

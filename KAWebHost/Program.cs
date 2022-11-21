@@ -6,6 +6,7 @@ using KA.PaymentAPI.CyberSource;
 using KA.Repository.Base;
 using KA.Service.Address;
 using KA.Service.Base;
+using KA.Service.Blogs;
 using KA.Service.Carts;
 using KA.Service.Courses;
 using KA.Service.Mapper;
@@ -98,6 +99,7 @@ builder.Services.AddTransient<IRepository<Cart>, BaseRepository<Cart>>();
 builder.Services.AddTransient<IRepository<Order>, BaseRepository<Order>>();
 builder.Services.AddTransient<IRepository<CartProduct>, BaseRepository<CartProduct>>();
 builder.Services.AddTransient<IRepository<UserCourse>, BaseRepository<UserCourse>>();
+builder.Services.AddTransient<IRepository<Blog>, BaseRepository<Blog>>();
 builder.Services.AddTransient<IRepository<IdentityUserRole<string>>, BaseRepository<IdentityUserRole<string>>>();
 
 builder.Services.AddScoped<IAddressService, AddressService>();
@@ -105,6 +107,7 @@ builder.Services.AddScoped<ICourseService, CourseService>();
 builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IBlogService, BlogService>();
 builder.Services.AddScoped<CyberSourceService>();
 
 // ======================= MIDDLEWARE =============================

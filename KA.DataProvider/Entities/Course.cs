@@ -30,6 +30,9 @@ namespace KA.DataProvider.Entities
         public DateTime? UpdatedDate { get; set; }
         public int? UpdateUserId { get; set; }
         public bool IsDeleted { get; set; } = false;
+        public string? ExternalCssLink { get; set; }
+        public string? ExternalScriptLink { get; set; }
+        public bool IsUseExternalHtml { get; set; }
 
         /// <summary>
         /// For online course - thời gian giới hạn
