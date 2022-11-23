@@ -13,6 +13,7 @@ namespace KA.Service.Blogs
         Task CreateBlog(CreateBlogVm input);
         ResponseDto DeleteById(object id);
         Task<DataGridResponse<BlogItem>> GetAllBlogPaging(int skip, int top);
+        Task<BlogSitePageVm> GetAllBlogPagingForSite(int skip, int top);
         EditBlogVm GetBlogForEdit(int blogId);
     }
 }

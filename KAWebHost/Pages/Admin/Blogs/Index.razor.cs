@@ -51,7 +51,7 @@ namespace KAWebHost.Pages.Admin.Blogs
             }
             else
             {
-                jsr.InvokeVoidAsync("ShowAppAlert", result.Message, "success");
+                jsr.InvokeVoidAsync("ShowAppAlert", result.Message, "error");
             }
         }
 

@@ -42,7 +42,7 @@ namespace KAWebHost.Pages.Admin.Blogs
             model.Content = await quillHtml.GetHTML();
             model.CreateUserId = userId;
             await _blogService.CreateBlog(model);
-            await jsr.InvokeVoidAsync("ShowAppAlert", "Tạo khóa học thành công", "success");
+            await jsr.InvokeVoidAsync("ShowAppAlert", "Tạo bài viết thành công", "success");
             model = new();
         }
 

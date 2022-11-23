@@ -1,188 +1,129 @@
-﻿@page "/kien-thuc"
+﻿@inherits OwningComponentBase
+@page "/kien-thuc"
 
 <div class="knowledge-page">
     <div class="max-width mx-auto knowledge-wrapper">
         <div class="title secondary-color">KIẾN THỨC</div>
         <div class="row">
             <div class="col-12 col-md-12 col-lg-9">
-                <div class="knowledge-banner">
-                    <div class="thumb">
-                        <img src="./img/knowledge.png" alt="" />
-                    </div>
-                    <div class="text d-flex flex-column justify-content-between">
-                        <div>
-                            <p class="heading primary-color">
-                                Làm thế nào để tạo sự khác biệt cho bản thân từ con số 0
-                            </p>
-                            <p class="disc">
-                                Chắc hẳn, chẳng ai muốn bản thân mình trở lên tầm thường so
-                                với người khác...
+                @if (blogsNumber > 0)
+                {
+                    <div class="knowledge-banner">
+                        <div class="thumb">
+                            <img src="@model.Blogs[0].ThumbNailImageLink" alt="@model.Blogs[0].Title" />
+                        </div>
+                        <div class="text d-flex flex-column justify-content-between">
+                            <div>
+                                <p class="heading primary-color">
+                                    @model.Blogs[0].Title
+                                </p>
+                                <p class="disc">
+                                    @model.Blogs[0].ShortDescription
+                                </p>
+                            </div>
+                            <p class="relative d-flex justify-content-end knowledge-btn">
+                                <a class="" href="@model.Blogs[0].DetailBlogLink">
+                                    <img src="./img/btn.png" alt="" />
+                                </a>
                             </p>
                         </div>
-                        <p class="relative d-flex justify-content-end knowledge-btn">
-                            <a class="" href="">
-                                <img src="./img/btn.png" alt="" />
-                            </a>
-                        </p>
                     </div>
-                </div>
+                }
             </div>
             <div class="col-12 col-md-12 col-lg-3">
-                <div class="knowledge-sub-banner">
-                    <div class="thumb">
-                        <img src="./img/knowledge.png" alt="" />
-                    </div>
-                    <div class="text d-flex flex-column justify-content-between">
-                        <div>
-                            <p class="heading primary-color">
-                                Làm thế nào để tạo sự khác biệt cho bản thân từ con số 0
-                            </p>
-                            <p class="disc">
-                                Chắc hẳn, chẳng ai muốn bản thân mình trở lên tầm thường so
-                                với người khác...
+                @if (blogsNumber >= 2)
+                {
+                    <div class="knowledge-sub-banner">
+                        <div class="thumb">
+                            <img src="@model.Blogs[1].ThumbNailImageLink" alt="@model.Blogs[1].Title" />
+                        </div>
+                        <div class="text d-flex flex-column justify-content-between">
+                            <div>
+                                <p class="heading primary-color">
+                                    @model.Blogs[1].Title
+                                </p>
+                                <p class="disc">
+                                    @model.Blogs[1].ShortDescription
+                                </p>
+                            </div>
+                            <p class="relative d-flex justify-content-end knowledge-btn">
+                                <a class="" href="@model.Blogs[1].DetailBlogLink">
+                                    <img src="./img/btn.png" alt="" />
+                                </a>
                             </p>
                         </div>
-                        <p class="relative d-flex justify-content-end knowledge-btn">
-                            <a class="" href="">
-                                <img src="./img/btn.png" alt="" />
-                            </a>
-                        </p>
                     </div>
-                </div>
-
-                <div class="knowledge-sub-banner">
-                    <div class="thumb">
-                        <img src="./img/knowledge.png" alt="" />
-                    </div>
-                    <div class="text d-flex flex-column justify-content-between">
-                        <div>
-                            <p class="heading primary-color">
-                                Làm thế nào để tạo sự khác biệt cho bản thân từ con số 0
-                            </p>
-                            <p class="disc">
-                                Chắc hẳn, chẳng ai muốn bản thân mình trở lên tầm thường so
-                                với người khác...
+                }
+                @if (blogsNumber >= 3)
+                {
+                    <div class="knowledge-sub-banner">
+                        <div class="thumb">
+                            <img src="@model.Blogs[2].ThumbNailImageLink" alt="@model.Blogs[2].Title" />
+                        </div>
+                        <div class="text d-flex flex-column justify-content-between">
+                            <div>
+                                <p class="heading primary-color">
+                                    @model.Blogs[2].Title
+                                </p>
+                                <p class="disc">
+                                    @model.Blogs[2].ShortDescription
+                                </p>
+                            </div>
+                            <p class="relative d-flex justify-content-end knowledge-btn">
+                                <a class="" href="@model.Blogs[2].DetailBlogLink">
+                                    <img src="./img/btn.png" alt="" />
+                                </a>
                             </p>
                         </div>
-                        <p class="relative d-flex justify-content-end knowledge-btn">
-                            <a class="" href="">
-                                <img src="./img/btn.png" alt="" />
-                            </a>
-                        </p>
                     </div>
-                </div>
+                }
             </div>
         </div>
 
         <br />
 
         <div class="row">
-            <div class="col-12 col-md-6 col-lg-6">
-                <div class="knowledge-item d-flex">
-                    <div class="thumb">
-                        <img src="./img/knowledge.png" alt="" />
-                    </div>
-                    <div class="text d-flex flex-column justify-content-between">
-                        <div>
-                            <p class="heading primary-color">
-                                Làm thế nào để tạo sự khác biệt cho bản thân từ con số 0
-                            </p>
-                            <p class="disc">
-                                Chắc hẳn, chẳng ai muốn bản thân mình trở lên tầm thường so
-                                với người khác...
+            @for (int i = 3; i < blogsNumber; i++)
+            {
+                <div class="col-12 col-md-6 col-lg-6">
+                    <div class="knowledge-item d-flex">
+                        <div class="thumb">
+                            <img src="@model.Blogs[i].ThumbNailImageLink" alt="@model.Blogs[i].Title" />
+                        </div>
+                        <div class="text d-flex flex-column justify-content-between">
+                            <div>
+                                <p class="heading primary-color">
+                                    @model.Blogs[i].Title
+                                </p>
+                                <p class="disc">
+                                    @model.Blogs[i].ShortDescription
+                                </p>
+                            </div>
+                            <p class="relative d-flex justify-content-end knowledge-btn">
+                                <a class="" href="@model.Blogs[i].DetailBlogLink">
+                                    <img src="./img/btn.png" alt="" />
+                                </a>
                             </p>
                         </div>
-                        <p class="relative d-flex justify-content-end knowledge-btn">
-                            <a class="" href="">
-                                <img src="./img/btn.png" alt="" />
-                            </a>
-                        </p>
                     </div>
                 </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-6">
-                <div class="knowledge-item d-flex">
-                    <div class="thumb">
-                        <img src="./img/knowledge.png" alt="" />
-                    </div>
-                    <div class="text d-flex flex-column justify-content-between">
-                        <div>
-                            <p class="heading primary-color">
-                                Làm thế nào để tạo sự khác biệt cho bản thân từ con số 0
-                            </p>
-                            <p class="disc">
-                                Chắc hẳn, chẳng ai muốn bản thân mình trở lên tầm thường so
-                                với người khác...
-                            </p>
-                        </div>
-                        <p class="relative d-flex justify-content-end knowledge-btn">
-                            <a class="" href="">
-                                <img src="./img/btn.png" alt="" />
-                            </a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-6">
-                <div class="knowledge-item d-flex">
-                    <div class="thumb">
-                        <img src="./img/knowledge.png" alt="" />
-                    </div>
-                    <div class="text d-flex flex-column justify-content-between">
-                        <div>
-                            <p class="heading primary-color">
-                                Làm thế nào để tạo sự khác biệt cho bản thân từ con số 0
-                            </p>
-                            <p class="disc">
-                                Chắc hẳn, chẳng ai muốn bản thân mình trở lên tầm thường so
-                                với người khác...
-                            </p>
-                        </div>
-                        <p class="relative d-flex justify-content-end knowledge-btn">
-                            <a class="" href="">
-                                <img src="./img/btn.png" alt="" />
-                            </a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-6">
-                <div class="knowledge-item d-flex">
-                    <div class="thumb">
-                        <img src="./img/knowledge.png" alt="" />
-                    </div>
-                    <div class="text d-flex flex-column justify-content-between">
-                        <div>
-                            <p class="heading primary-color">
-                                Làm thế nào để tạo sự khác biệt cho bản thân từ con số 0
-                            </p>
-                            <p class="disc">
-                                Chắc hẳn, chẳng ai muốn bản thân mình trở lên tầm thường so
-                                với người khác...
-                            </p>
-                        </div>
-                        <p class="relative d-flex justify-content-end knowledge-btn">
-                            <a class="" href="">
-                                <img src="./img/btn.png" alt="" />
-                            </a>
-                        </p>
-                    </div>
-                </div>
-            </div>
+            }
         </div>
 
         <nav aria-label="Page navigation">
             <ul class="pagination justify-content-end">
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
+                <li class="page-item" @onclick="()=>OnPageChange(-1)">
+                    <a class="page-link" href="#" style="pointer-events: none;cursor:default" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
+                @for (int i = 1; i <= model.TotalPage; i++)
+                {
+                    var index = i;
+                    <li class="page-item" @onclick="() => OnPageChange(index)"><a class="page-link" style="pointer-events: none;cursor:default" href="#">@i</a></li>
+                }
+                <li class="page-item" @onclick="()=>OnPageChange(0)">
+                    <a class="page-link" href="#" style="pointer-events: none;cursor:default" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>

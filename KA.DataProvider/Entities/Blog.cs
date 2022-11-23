@@ -20,6 +20,6 @@ namespace KA.DataProvider.Entities
         public DateTime? CreatedDate { get; set; } = DateTime.Now;
         public string? CreateUserId { get; set; }
         public DateTime? UpdatedDate { get; set; }
-        public int? UpdateUserId { get; set; }
+        public string? UpdateUserId { get; set; }
     }
 }

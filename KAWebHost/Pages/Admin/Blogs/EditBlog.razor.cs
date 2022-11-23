@@ -29,7 +29,8 @@ namespace KAWebHost.Pages.Admin.Blogs
         IBlogService _blogService;
         [Inject]
         IJSRuntime jsr { get; set; }
-
+        [Inject]
+        NavigationManager navigationManager { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -42,21 +43,27 @@ namespace KAWebHost.Pages.Admin.Blogs
         private async Task SubmitForm()
         {
             var blog = _blogService.GetById(BlogId);
-            if (blog == null)
+            if (blog != null)
             {
                 blog.Title = model.Title;
                 blog.UpdatedDate = DateTime.Now;
-                blog.UpdateUserId = int.Parse(userId);
+                blog.UpdateUserId = userId;
                 blog.ShortDescription = model.ShortDescription;
-                blog.Content = model.Content;
                 blog.MetaDescription = model.MetaDescription;
                 blog.MetaKeyWord = model.MetaKeyWord;
                 blog.MetaTitle = model.MetaTitle;
                 blog.Published = model.Published;
+                blog.ThumbNailImageLink = model.ThumbNailImageLink;
+                blog.Content = await quillHtml.GetHTML();
+
+                await _blogService.UpdateAsync(blog);
+                await jsr.InvokeVoidAsync("ShowAppAlert", "Cập nhật bài viết thành công", "success");
+                navigationManager.NavigateTo("/manager/blogs");
             }
-            await _blogService.UpdateAsync(blog);
-            await jsr.InvokeVoidAsync("ShowAppAlert", "Cập nhật khóa học thành công", "success");
-            model = new();
+            else
+            {
+                await jsr.InvokeVoidAsync("ShowAppAlert", "Cập nhật bài viết thất bại", "error");
+            }
         }
 
         private void OpenSelectImageModal(bool isFromTextEditor)

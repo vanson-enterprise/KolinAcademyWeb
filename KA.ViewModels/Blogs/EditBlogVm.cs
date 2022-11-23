@@ -17,7 +17,5 @@ namespace KA.ViewModels.Blogs
         public string? MetaDescription { get; set; }
         public string? MetaTitle { get; set; }
         public string? ThumbNailImageLink { get; set; }
-        public DateTime? UpdatedDate { get; set; }
-        public int? UpdateUserId { get; set; }
     }
 }

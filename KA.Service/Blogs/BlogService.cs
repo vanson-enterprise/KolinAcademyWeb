@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using KA.Infrastructure.Util;
 using KA.ViewModels.Blogs;
 using KA.ViewModels.Common;
 using KA.ViewModels.Courses;
@@ -36,7 +37,7 @@ namespace KA.Service.Blogs
                              b.CreatedDate,
                              u.FullName,
                              b.Published
-                         }).ToList();
+                         });
 
             result.TotalItem = blogs.Count();
             result.Items = blogs.Skip(skip).Take(top).ToList().Select((c, i) =>
@@ -78,6 +79,24 @@ namespace KA.Service.Blogs
         {
             return _blogRepo.GetAll().Where(b => b.Id == blogId).Select(b => _mapper.Map<EditBlogVm>(b)).First();
         }
+
+        #region Site
+        public async Task<BlogSitePageVm> GetAllBlogPagingForSite(int skip, int top)
+        {
+            BlogSitePageVm result = new();
+            var blogs = _blogRepo.GetAll();
+            result.TotalPage = (int)Math.Ceiling((decimal)blogs.Count() / top);
+            result.Blogs = blogs.Skip(skip).Take(top).Select(b => new BlogViewModel()
+            {
+                Title = b.Title,
+                DetailBlogLink = "/bai-viet/" + b.Title.GetSeoName() + "-" + b.Id,
+                ShortDescription = b.ShortDescription,
+                ThumbNailImageLink = b.ThumbNailImageLink
+            }).ToList();
+            return result;
+
+        }
+        #endregion
     }
 }
 
