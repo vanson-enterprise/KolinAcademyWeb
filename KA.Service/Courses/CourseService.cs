@@ -269,12 +269,37 @@ namespace KA.Service.Courses
                 .Select(c => new OnlineCourseViewModel()
                 {
                     Id = c.Id,
-                    DetailLink = "/" + c.Name.GetSeoName() + "-" + c.Code,
+                    DetailLink = "/khoa-hoc-online/" + c.Name.GetSeoName() + "-" + c.Id,
                     Name = c.Name,
                     Price = string.Format("{0:0,0.00 vnđ}", c.Price),
                     DiscountPrice = string.Format("{0:0,0.00 vnđ}", c.DiscountPrice),
                     ThumbNailImageLink = c.ThumbNailImageLink
                 }).ToList();
+        }
+        public async Task<DetailOnlineCourseModel> GetDetailOnlineCourse(int courseId)
+        {
+            
+            var course = await _courseRepo.GetAll().Where(c => c.Id == courseId).FirstOrDefaultAsync();
+            if (course == null)
+                return null;
+            var result = new DetailOnlineCourseModel()
+            {
+                Id = course.Id,
+                Name = course.Name,
+                DiscountPrice = course.DiscountPrice,
+                Price = course.Price,
+                IntroduceVideoLink = course.IntroduceVideoLink,
+                MetaDescription = course.MetaDescription,
+                MetaKeyWord = course.MetaKeyWord,
+                MetaTitle = course.MetaTitle,
+                Lessons = new()
+            };
+            result.Lessons = _lessonRepo.GetAll().Where(l => l.CourseId == courseId).Select(l => new LessonViewModel()
+            {
+                Name = l.Name,
+                VideoLink = l.VideoLink,
+            }).ToList();
+            return result;
         }
         #endregion
     }

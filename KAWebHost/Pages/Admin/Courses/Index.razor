@@ -1,4 +1,4 @@
-﻿@*@attribute [Authorize(Roles = "Manager")]*@
+﻿@attribute [Authorize(Roles = "Manager")]
 @page "/manager/courses"
 @using KA.ViewModels.Courses
 @inherits OwningComponentBase
@@ -23,23 +23,27 @@
                         </span>
                         <!--end::Svg Icon-->
                         <input value="" type="text" data-search-table-filter="search" class="form-control form-control-solid w-250px ps-15 me-5" placeholder="Text Search" />
+                        <AuthorizeView Roles="SuperAdmin">
+                            <ChildContent Context="another_context">
+                                <NavLink href="/manager/create-offline-course">
+                                    <!--begin::Button-->
+                                    <button type="button" class="btn btn-light-warning mr-5" id="create-product-btn">
+                                        <!--begin::Svg Icon | path: icons/duotune/general/gen035.svg-->
+                                        <span class="svg-icon svg-icon-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="black" />
+                                                <rect x="10.8891" y="17.8033" width="12" height="2" rx="1" transform="rotate(-90 10.8891 17.8033)" fill="black" />
+                                                <rect x="6.01041" y="10.9247" width="12" height="2" rx="1" fill="black" />
+                                            </svg>
+                                        </span>
+                                        <!--end::Svg Icon-->
+                                        Tạo khóa học Offline
+                                    </button>
+                                    <!--end::Button-->
+                                </NavLink>
+                            </ChildContent>
+                        </AuthorizeView>
 
-                        <NavLink href="/manager/create-offline-course">
-                            <!--begin::Button-->
-                            <button type="button" class="btn btn-light-warning mr-5" id="create-product-btn">
-                                <!--begin::Svg Icon | path: icons/duotune/general/gen035.svg-->
-                                <span class="svg-icon svg-icon-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="black" />
-                                        <rect x="10.8891" y="17.8033" width="12" height="2" rx="1" transform="rotate(-90 10.8891 17.8033)" fill="black" />
-                                        <rect x="6.01041" y="10.9247" width="12" height="2" rx="1" fill="black" />
-                                    </svg>
-                                </span>
-                                <!--end::Svg Icon-->
-                                Tạo khóa học Offline
-                            </button>
-                            <!--end::Button-->
-                        </NavLink>
                         <NavLink href="/manager/create-on-course" class="ml-5">
                             <!--begin::Button-->
                             <button type="button" class="btn btn-light-primary" id="create-product-btn">

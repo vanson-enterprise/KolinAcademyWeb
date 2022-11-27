@@ -26,10 +26,13 @@ namespace KAWebHost.Pages.Admin.Courses
         private int deleteLessonIndex;
         private bool showConfirmDeleteLessonModal = false;
         private bool isSelectThumbNailImage = false;
+        private bool isSelectVideo = false;
         private CustomFormValidator customFormValidator;
 
         // Service
         BlazoredTextEditor quillHtml;
+        private bool isSelectIntroduceVideo;
+
         [Inject]
         IJSRuntime jsr { get; set; }
         ICourseService _courseService { get; set; }
@@ -180,19 +183,69 @@ namespace KAWebHost.Pages.Admin.Courses
             fileSelectorControl.SetShowFileManager(true);
         }
 
-        async Task InsertImage(string paramImageURL)
+        async Task GetFileUrl(string paramImageURL)
         {
-            if (isSelectThumbNailImage)
+            if (isSelectVideo)
             {
-                createCourseModel.ThumbNailImageLink = paramImageURL;
+                if (paramImageURL.Contains(".mp4"))
+                {
+                    lessonModel.VideoLink = paramImageURL;
+                    isSelectVideo = false;
+                }
+                else
+                {
+                    jsr.InvokeVoidAsync("ShowAppAlert", "Bạn chỉ được phép chọn video", "error");
+                }
+            }
+            else if (isSelectIntroduceVideo)
+            {
+                if (paramImageURL.Contains(".mp4"))
+                {
+                    createCourseModel.IntroduceVideoLink = paramImageURL;
+                    isSelectIntroduceVideo = false;
+                }
+                else
+                {
+                    jsr.InvokeVoidAsync("ShowAppAlert", "Bạn chỉ được phép chọn video", "error");
+                }
+            }
+            else if (isSelectThumbNailImage)
+            {
+                if (!paramImageURL.Contains(".mp4"))
+                {
+                    createCourseModel.ThumbNailImageLink = paramImageURL;
+                }
+                else
+                {
+                    jsr.InvokeVoidAsync("ShowAppAlert", "Bạn chỉ được phép chọn ảnh", "error");
+                }
+                
             }
             else
             {
-                await quillHtml.InsertImage(paramImageURL);
+                if (!paramImageURL.Contains(".mp4"))
+                {
+                    await quillHtml.InsertImage(paramImageURL);
+                }
+                else
+                {
+                    jsr.InvokeVoidAsync("ShowAppAlert", "Bạn chỉ được phép chọn ảnh", "error");
+                }
 
             }
             fileSelectorControl.SetShowFileManager(false);
         }
 
+        private void SelectLessonVideo()
+        {
+            isSelectVideo = true;
+            fileSelectorControl.SetShowFileManager(true);
+        }
+
+        private void SelectIntroVideo()
+        {
+            isSelectIntroduceVideo = true;
+            fileSelectorControl.SetShowFileManager(true);
+        }
     }
 }

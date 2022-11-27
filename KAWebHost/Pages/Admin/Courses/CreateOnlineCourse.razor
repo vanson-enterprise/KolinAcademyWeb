@@ -1,4 +1,5 @@
-﻿@page "/manager/create-on-course"
+﻿@attribute [Authorize(Roles = "Manager")]
+@page "/manager/create-on-course"
 @using KAWebHost.Pages.Admin.Components
 @using Blazored.TextEditor
 @using KAWebHost.Shared.Validator
@@ -149,9 +150,12 @@
                                             <label for="course_meta_description" class="form-label">Meta Description</label>
                                             <InputText id="course_meta_description" @bind-Value="createCourseModel.MetaDescription" class="form-control" placeholder="Nhập meta description" />
                                         </div>
-                                        <div class="col-12 mb-5">
+                                        <div class="col-10 mb-5">
                                             <label for="course_intro_video" class="form-label">Đường dẫn video giới thiệu</label>
-                                            <InputText id="course_intro_video" @bind-Value="createCourseModel.IntroduceVideoLink" class="form-control" placeholder="Nhập đường dẫn video giới thiệu" />
+                                            <InputText disabled id="course_intro_video" @bind-Value="createCourseModel.IntroduceVideoLink" class="form-control" placeholder="Chọn video giới thiệu" />
+                                        </div>
+                                        <div class="col-2 mt-8">
+                                            <button type="button" class="btn btn-primary" @onclick="(()=>SelectIntroVideo())">Chọn video</button>
                                         </div>
                                     </div>
                                     <div class="row mb-5">
@@ -167,7 +171,7 @@
                                             }
                                         </div>
                                     </div>
-                                     <div class="row mb-5">
+                                    <div class="row mb-5">
                                         <div class="col-12">
                                             <label class="form-label">Mô tả ngắn</label>
                                             <InputTextArea @bind-Value="createCourseModel.ShortDescription"
@@ -271,11 +275,13 @@
                                                             <InputText @bind-Value="lessonModel.Name" placeholder="Nhập tên bài giảng" type="text" class="form-control " aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" />
                                                             <ValidationMessage For="@(()=>lessonModel.Name)"></ValidationMessage>
                                                         </div>
-                                                        <div class="col-xl-12 col-md-12 col-12 mt-10">
+                                                        <div class="col-xl-10 col-md-10 col-10 mt-10">
                                                             <label class="form-label required">Video link</label>
-                                                            <InputText @bind-Value="lessonModel.VideoLink" placeholder="Nhập video link" type="tel" class="form-control " aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" />
+                                                            <InputText disabled @bind-Value="lessonModel.VideoLink" placeholder="Video link" type="tel" class="form-control " aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" />
                                                             <ValidationMessage For="@(()=>lessonModel.VideoLink)"></ValidationMessage>
-
+                                                        </div>
+                                                        <div class="col-xl-2 col-md-2 col-2 mt-18">
+                                                            <button type="button" class="btn btn-primary" @onclick="(()=>SelectLessonVideo())">Chọn video</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -395,7 +401,7 @@
 </div>
 
 <FileSelector @ref="fileSelectorControl"
-              ImageSelected="InsertImage" />
+              OnFileSelected="GetFileUrl" />
 
 @if (showConfirmDeleteLessonModal)
 {

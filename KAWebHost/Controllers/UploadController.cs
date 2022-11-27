@@ -38,26 +38,18 @@ namespace KAWebHost.Controllers
                     {
                         // reconstruct the path to ensure everything 
                         // goes to uploads directory
-                        string RequestedPath =
-                            CurrentDirectory.ToLower()
-                            .Replace(environment.WebRootPath.ToLower(), "");
-                        if (RequestedPath.Contains("\\uploads\\"))
+                        string RequestedPath = CurrentDirectory.ToLower().Replace(environment.WebRootPath.ToLower(), "");
+                        if (RequestedPath.Contains("\\uploads"))
                         {
-                            RequestedPath =
-                                RequestedPath.Replace("\\uploads\\", "");
+                            RequestedPath = RequestedPath.Replace("\\uploads\\", "");
+                            RequestedPath = RequestedPath.Replace("\\uploads", "");
                         }
                         else
                         {
                             RequestedPath = "";
                         }
-                        string path =
-                            Path.Combine(
-                                environment.WebRootPath,
-                                "uploads",
-                                RequestedPath,
-                                file.FileName);
-                        using (var stream =
-                            new FileStream(path, FileMode.Create))
+                        string path = Path.Combine( environment.WebRootPath,"uploads",RequestedPath,file.FileName);
+                        using (var stream =new FileStream(path, FileMode.Create))
                         {
                             await file.CopyToAsync(stream);
                         }

@@ -10,6 +10,7 @@ namespace KA.Service.Users
 {
     public interface IUserService : IService<AppUser>
     {
+        Task<UserCourse> GetPurchasedCourse(string userId, int courseId);
         Task<ResponseDto> CreateNewUser(CreateUserModel input);
         Task<ResponseDto> EditUser(EditUserModel input);
         Task<List<RoleModel>> GetAllRoleForSelect(string? userId);

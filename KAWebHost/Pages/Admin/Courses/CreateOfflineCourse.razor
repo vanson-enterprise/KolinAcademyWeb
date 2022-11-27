@@ -1,4 +1,5 @@
-﻿@page "/manager/create-offline-course"
+﻿@attribute [Authorize(Roles = "Manager, SuperAdmin")]
+@page "/manager/create-offline-course"
 @using Blazored.TextEditor
 @using KAWebHost.Pages.Admin.Components
 @using KAWebHost.Shared.Validator
@@ -400,4 +401,4 @@
     </div>
 </div>
 
-<FileSelector @ref="fileSelectorControl" ImageSelected="InsertImage" />
+<FileSelector @ref="fileSelectorControl" OnFileSelected="InsertImage" />

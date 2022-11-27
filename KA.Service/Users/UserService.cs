@@ -292,6 +292,13 @@ namespace KA.Service.Users
             }
             _userRepo.Update(user);
         }
+
+        public async Task<UserCourse> GetPurchasedCourse(string userId, int courseId)
+        {
+            return await _userCourseRepo.GetAll().OrderByDescending(uc=>uc.CreatedDate).Where(uc =>
+                uc.CourseId == courseId && uc.UserId == userId
+            ).FirstOrDefaultAsync();
+        }
         #endregion
 
     }

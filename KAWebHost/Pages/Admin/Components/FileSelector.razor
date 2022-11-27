@@ -2,7 +2,9 @@
 @using System.Drawing;
 @using KAWebHost.Data.Models
 @using System.Web
+@inherits ComponentBase
 @inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment HostEnvironment
+
 
 @if (ShowFileManager)
 {
@@ -11,7 +13,7 @@
             <div class="modal-content">
 
                 <div class="modal-header">
-                    <h5 class="modal-title">Chọn ảnh</h5>
+                    <h5 class="modal-title">Chọn file</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @onclick="() => { ShowFileManager = false; }"></button>
                 </div>
                 <div class="modal-body">
@@ -29,7 +31,6 @@
                                   ButtonStyle="ButtonStyle.Danger"
                                   Style="margin-left: 20px; height:30px" />
                         <RadzenUpload ChooseText="Upload Files" Multiple="true"
-                                  Accept="image/*"
                                   Url=@($"/api/upload/multiple?CurrentDirectory={HttpUtility.UrlEncode(CurrentDirectory.ToLower().Replace(CurrentRoot.ToLower(), ""))}")
                                   Style="margin-left: 20px;"
                                   Progress="@((args) => OnProgress(args))" />
@@ -48,15 +49,11 @@
                                         AllowPaging="true" TItem="FileObject"
                                         WrapItems="true" PageSize="6">
                                 <Template Context="file">
-                                    <RadzenImage Path="@file.FilePath"
-                                             Style="@((file.FileName == SelectedFile.FileName)
-                                                          ? $"height:{file.ThumbnailHeight}px;" +
-                                                          $"width:{file.ThumbnailWidth}px;" +
-                                                          $"padding:10px;background-color:darkgrey;"
-                                                          : $"height:{file.ThumbnailHeight}px;" +
-                                                          $"width:{file.ThumbnailWidth}px;" +
-                                                          $"padding:10px;background-color:white;")"
-                                             Click="@((args) => SelectImage(file))" />
+                                    <div style="@StyleForFile(file.FileName)" @onclick="@((args) => SelectImage(file))" class="d-flex flex-column align-items-center justify-content-end">
+                                        <RadzenImage Path="@(file.FileName.Contains(".mp4") ? "./img/icon/icon_video.png" : file.FilePath)"
+                                                 Style="width:100px;padding:10px;" />
+                                        <span style="width:100%" class="disc1">@file.FileName</span>
+                                    </div>
                                 </Template>
                             </RadzenDataList>
                         </div>
@@ -85,198 +82,5 @@
     </div>
 }
 @code {
-    // ImageSelected is an EventCallback that will
-    // notify the parent component when an image is selected
-    // passing the url of the image to the parent component
-    [Parameter] public EventCallback<string> ImageSelected { get; set; }
-
-    private RadzenDataList<FileObject> FileDataList;
-    private bool ShowFileManager = false;
-    bool ShowPopup = false;
-    int progress;
-    string info;
-    private string CurrentDirectory = "";
-    private string CurrentRoot = "";
-    private FileObject SelectedFile = new FileObject();
-    private List<string> Directories = new List<string>();
-    private List<FileObject> Files = new List<FileObject>();
-    private Dictionary<DateTime, string> events =
-        new Dictionary<DateTime, string>();
-
-    protected override void OnInitialized()
-    {
-        CurrentRoot = HostEnvironment.WebRootPath;
-        CurrentDirectory = Path.Combine(CurrentRoot, "uploads");
-        Directories.Add(CurrentDirectory);
-        LoadFiles();
-    }
-
-    public void SetShowFileManager(bool paramSetting)
-    {
-        ShowFileManager = paramSetting;
-    }
-
-    //SelectFile
-
-    private async Task SelectFile()
-    {
-        await ImageSelected.InvokeAsync(SelectedFile.FilePath);
-    }
-
-    // Files
-
-    private void SelectImage(FileObject file)
-    {
-        if (SelectedFile.FileName == file.FileName)
-        {
-            SelectedFile = new FileObject();
-        }
-        else
-        {
-            SelectedFile = file;
-        }
-    }
-
-    private void LogChange(TreeEventArgs args)
-    {
-        // Get the current directory from the
-        // argument passed to the method
-        CurrentDirectory = args.Value as string;
-
-        // Set the RadzenDataList to page 1
-        FileDataList.FirstPage();
-
-        // Reload the FileDataList
-        LoadFiles();
-    }
-
-    private string GetTextForNode(object data)
-    {
-        return Path.GetFileName((string)data);
-    }
-
-    private RenderFragment<RadzenTreeItem>
-        FileOrFolderTemplate = (context) => builder =>
-        {
-            string path = context.Value as string;
-            bool isDirectory = Directory.Exists(path);
-
-            builder.OpenComponent<RadzenIcon>(0);
-            builder.AddAttribute(1,
-                "Icon", isDirectory ? "folder" :
-                "insert_drive_file");
-
-            if (!isDirectory)
-            {
-                builder.AddAttribute(2,
-                    "Style",
-                    "margin-left: 24px");
-            }
-            builder.CloseComponent();
-            builder.AddContent(3, context.Text);
-        };
-
-    private void LoadDirectory(TreeExpandEventArgs args)
-    {
-        CurrentDirectory = args.Value as string;
-
-        // Only get the folders not the files
-        args.Children.Data =
-            Directory.EnumerateFileSystemEntries(CurrentDirectory)
-            .Where(x => !x.Contains("."));
-
-        args.Children.Text = GetTextForNode;
-        args.Children.HasChildren =
-            (path) => Directory.Exists((string)path);
-        args.Children.Template = FileOrFolderTemplate;
-    }
-
-    private void LoadFiles()
-    {
-        Files = new List<FileObject>();
-        var FileNames =
-            Directory.EnumerateFileSystemEntries(CurrentDirectory)
-            .Where(x => x.Contains("."));
-
-        foreach (var item in FileNames)
-        {
-            using (var image = Image.FromFile(item))
-            {
-                // Calculate Thumbnail
-                int thumbnailHeight = 100;
-                int thumbnailWidth = 100;
-                double x = image.Height / 100;
-                if (x > 0)
-                {
-                    thumbnailHeight = Convert.ToInt32(image.Height / x);
-                    thumbnailWidth = Convert.ToInt32(image.Width / x);
-                }
-
-                Files.Add(new FileObject()
-                    {
-                        FileName =
-                            Path.GetFileName(item),
-                        FilePath =
-                            item.Replace(HostEnvironment.WebRootPath, "")
-                            .Replace("\\uploads", "uploads"),
-                        Height = image.Height,
-                        Width = image.Width,
-                        ThumbnailHeight = Convert.ToInt32(thumbnailHeight),
-                        ThumbnailWidth = Convert.ToInt32(thumbnailWidth)
-                    });
-            }
-        }
-
-        // Reset selected file
-        SelectedFile = new FileObject();
-
-        // Update UI
-        StateHasChanged();
-    }
-
-    async void OnProgress(UploadProgressArgs args)
-    {
-        ShowPopup = true;
-        this.info = $"{args.Loaded} of {args.Total} bytes.";
-        this.progress = args.Progress;
-        StateHasChanged();
-        if (args.Loaded == args.Total)
-        {
-            // Delay to give files time to be saved
-            // before reloading file view
-            await LoadFilesAsync();
-        }
-    }
-
-    public async Task LoadFilesAsync()
-    {
-        int Time = 1;
-        while (Time > 0)
-        {
-            Time--;
-            StateHasChanged();
-            await Task.Delay(1000);
-        }
-        ShowPopup = false;
-        LoadFiles();
-    }
-
-    private void DeleteSelectedFile()
-    {
-        string RequestedPath = SelectedFile.FilePath;
-
-        RequestedPath =
-            RequestedPath.Replace("\\uploads\\", "uploads\\");
-
-        string path = Path.Combine(
-            HostEnvironment.WebRootPath,
-            RequestedPath);
-
-        if (File.Exists(path))
-        {
-            File.Delete(path);
-
-            LoadFiles();
-        }
-    }
+    
 }

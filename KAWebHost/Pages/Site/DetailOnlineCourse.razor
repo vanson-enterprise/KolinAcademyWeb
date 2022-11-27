@@ -1,0 +1,81 @@
+﻿@page "/khoa-hoc-online/{CourseSeoName}"
+@inherits OwningComponentBase
+
+<!-- course free -->
+<div class="course-free max-width mx-auto">
+    <div class="d-flex justify-content-end">
+        <div class="left-course">
+            <div class="heading">Danh sách bài học</div>
+            <div class="list-lesson">
+                @for (var i = 0; i < model.Lessons.Count; i++)
+                {
+                    <div class="lesson-item">
+                        <div class="title-lesson">@(model.Name + " Buổi " + (i + 1) + ":")</div>
+                        <div class="name-lesson">
+                            @model.Lessons[i].Name
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="right-course">
+            <div class="name-course text-center secondary-color">
+                @model.Name
+            </div>
+            <div class="video">
+                <video style="width:100%" contextmenu="" class="web-video"
+                        controls controlsList="nodownload">
+                    <source type="video/mp4" src="./uploads/y2mate.com - All over in 10 seconds_1080p.mp4"/>
+                </video>
+              
+            </div>
+            <div class="status">
+                <div class="d-flex justify-content-around">
+                    <div class="box text-center">
+                        <div>Trạng thái</div>
+                        <div class="btn-status">@state</div>
+                    </div>
+                    <div class="box text-center d-flex flex-column justify-content-between">
+                        <div>Giá khóa học</div>
+                        @if(model.DiscountPrice == 0){
+                            <div class="secondary-color">Miễn phí</div>
+                        }else{
+                                <div class="secondary-color">@(string.Format("{0:0,0 vnđ}", model.DiscountPrice))</div>
+                        }
+                        
+                    </div>
+                    <div class="box text-center">
+                        <div>Bắt đầu học</div>
+                            @if (state == "Chưa đăng nhập")
+                            {
+                                <a class="btn-login" href="/dang-nhap">Đăng nhập</a>
+                            }
+                            else if (state == "Đã hết hạn" || state == "Chưa mua")
+                            {
+                                <button class="btn-login" >Mua mới</button>
+                            }
+                            else
+                            {
+                                <a class="btn-login" href="#">Học bài tiếp</a>
+                            }
+                    </div>
+                </div>
+            </div>
+
+            <div class="list-content">
+                <button>
+                    Speed Up To Win Buổi 1: Khởi Đầu Kinh Doanh Online Chuyên Nghiệp
+                </button>
+                <button>
+                    Speed Up To Win Buổi 1: Khởi Đầu Kinh Doanh Online Chuyên Nghiệp
+                </button>
+                <button>
+                    Speed Up To Win Buổi 1: Khởi Đầu Kinh Doanh Online Chuyên Nghiệp
+                </button>
+                <button>
+                    Speed Up To Win Buổi 1: Khởi Đầu Kinh Doanh Online Chuyên Nghiệp
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

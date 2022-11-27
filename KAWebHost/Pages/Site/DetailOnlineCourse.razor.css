@@ -1,0 +1,118 @@
+﻿
+.course-free {
+    padding: 50px 100px 0;
+}
+
+.course-free .left-course {
+    width: 100%;
+    max-width: 30%;
+    padding-right: 2rem;
+    border-right: 1px solid var(--white-color);
+}
+
+    .course-free .left-course .heading {
+        font-size: 34px;
+        margin-bottom: 2rem;
+    }
+
+.course-free .lesson-item {
+    font-size: 16px;
+    margin-bottom: 1.5rem;
+}
+
+    .course-free .lesson-item .title-lesson {
+        font-size: 18px;
+    }
+
+.course-free .right-course {
+    width: 100%;
+    max-width: 70%;
+    padding-left: 3rem;
+}
+
+.course-free .name-course {
+    font-size: 30px;
+    margin-bottom: 2rem;
+}
+
+.course-free .video iframe {
+    width: 100%;
+    height: 450px;
+}
+
+.course-free .status {
+    padding: 20px;
+    margin: 2rem 0;
+    font-size: 20px;
+    border-radius: 30px;
+    background-image: linear-gradient(to right, #340a65, #000260);
+}
+
+    .course-free .status .box div:nth-child(1) {
+        margin-bottom: 1rem;
+    }
+
+    .course-free .status .box:nth-child(2) {
+        padding: 0 3rem;
+        border-left: 1px solid var(--white-color);
+        border-right: 1px solid var(--white-color);
+    }
+
+.course-free .btn-status {
+    padding: 8px 15px;
+    border-radius: 30px;
+    text-transform: uppercase;
+    color: var(--secondary-color);
+    background-color: var(--white-color);
+}
+
+.course-free .btn-login {
+    display: block;
+    min-width: 200px;
+    padding: 8px 15px;
+    border-radius: 30px;
+    text-transform: uppercase;
+    color: var(--white-color);
+    transition: var(--transition);
+    background-color: var(--secondary-color);
+}
+
+    .course-free .btn-login:hover {
+        opacity: 0.7;
+        color: var(--white-color);
+    }
+
+.course-free .list-content button::before {
+    content: "";
+    position: relative;
+    width: 16px;
+    height: 16px;
+    margin-right: 0.8rem;
+    border-radius: 50%;
+    display: inline-block;
+    background-color: var(--white-color);
+}
+
+.course-free .list-content button {
+    position: relative;
+    width: 100%;
+    padding: 15px 25px;
+    font-size: 16px;
+    text-align: left;
+    margin-bottom: 1rem;
+    border-radius: 50px;
+    background: transparent;
+    color: var(--white-color);
+    border: 1px solid var(--white-color);
+    line-height: 140%;
+    max-height: 5rem;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    transition: var(--transition);
+}
+
+    .course-free .list-content button:hover {
+        opacity: 0.7;
+    }
