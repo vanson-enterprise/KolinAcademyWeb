@@ -200,7 +200,7 @@ namespace KA.Service.Courses
             var result = new List<OfflineCourseViewModel>();
             var datas = (from c in _courseRepo.GetAll()
                          join csd in _startDateOfflineCourseRepo.GetAll() on c.Id equals csd.OfflineCourseId
-                         where csd.StartTime > DateTime.Now
+                         where csd.StartTime > DateTime.Now && c.IsActive == true && c.IsDeleted == false
                          select new { c, csd }).AsEnumerable();
             var groups = from i in datas
                          group i by i.c into gc
@@ -211,7 +211,7 @@ namespace KA.Service.Courses
                 var offlineCourseVm = new OfflineCourseViewModel()
                 {
                     Name = groupCourse.Key.Name,
-                    DetailCourseLink = "/khoa-hoc/" + groupCourse.Key.Name.GetSeoName() + "-" + groupCourse.Key.Id,
+                    DetailCourseLink = "/khoa-hoc-offline/" + groupCourse.Key.Name.GetSeoName() + "-" + groupCourse.Key.Id,
                     StartDates = groupCourse.Select(i => new OfflineCourseStartDateVm()
                     {
                         Place = i.csd.Place,
