@@ -26,6 +26,7 @@ namespace KAWebHost.Pages.Site
             offlineCourseViewModels = _courseService.GetAllOpeningSoonOfflineCourse();
             onlineCourse = await _courseService.GetTopOneCourseForIndexPage();
             offlineCourses = await _courseService.GetTopOffCourseForIndexPage(6);
+            StateHasChanged();
         }
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {

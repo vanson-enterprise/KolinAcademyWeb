@@ -1,0 +1,41 @@
+﻿.checkout-page {
+    padding: 60px 140px;
+}
+
+    .checkout-page .title {
+        font-size: 28px;
+        margin-bottom: 2rem;
+    }
+
+.form-wrapper {
+    padding: 6px;
+    border-radius: 8px;
+    border: 1px solid #c9c8c8;
+    margin-bottom: 10px;
+}
+
+.form-check-label {
+    font-weight: 300;
+}
+
+.form-check-input {
+    border: 1px solid #c9c8c8;
+    background-color: transparent;
+}
+
+.checkout-page .text {
+    margin-bottom: 15px;
+}
+
+.checkout-page button {
+    border-radius: 8px;
+    padding: 3px 14px;
+    color: var(--white-color);
+    background-color: var(--secondary-color);
+}
+
+.divider {
+    height: 1px;
+    width: 100%;
+    background-color: var(--white-color);
+}

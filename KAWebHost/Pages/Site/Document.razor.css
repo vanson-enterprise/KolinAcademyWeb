@@ -1,0 +1,67 @@
+﻿.document-page {
+    padding: 60px 140px;
+}
+
+    .document-page .title {
+        font-size: 28px;
+        position: relative;
+        margin-bottom: 2rem;
+    }
+
+        .document-page .title::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 2px;
+            bottom: 0;
+            width: 60px;
+            background-color: var(--secondary-color);
+        }
+
+    .document-page .box-item {
+        padding: 2rem;
+        border-radius: 30px;
+        background-image: linear-gradient(to right, #340a65, #000260);
+    }
+
+        .document-page .box-item p {
+            text-align: right;
+            font-size: 25px;
+        }
+
+        .document-page .box-item .heading {
+            position: relative;
+            font-size: 28px;
+            line-height: 140%;
+            max-height: 5rem;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            margin-bottom: 2rem;
+        }
+
+        .document-page .box-item .line::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -18px;
+            height: 3px;
+            width: 60px;
+            background-color: var(--secondary-color);
+        }
+
+@media only screen and (max-width: 767px) {
+    .document-page {
+        padding: 40px 20px;
+    }
+
+        .document-page .box-item .heading {
+            font-size: 22px;
+        }
+
+        .document-page .box-item p {
+            font-size: 18px;
+        }
+}

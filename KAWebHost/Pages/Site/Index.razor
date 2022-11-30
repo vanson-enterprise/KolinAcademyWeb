@@ -13,7 +13,6 @@
           integrity="sha512-OTcub78R3msOCtY3Tc6FzeDJ8N9qvQn1Ph49ou13xgA9VsH9+LRxoFU6EqLhW4+PKRfU+/HReXmSZXHEkpYoOA=="
           crossorigin="anonymous"
           referrerpolicy="no-referrer" />
-    <PageTitle>Kolin - Trang chủ</PageTitle>
 </HeaderContent>
 
 <div class="home-page">
@@ -91,16 +90,17 @@
                 </div>
                 <div class="content">
                     <div class="row mt-4">
-                        <div class="col-6">
+                        <div class="col-lg-6 col-md-6 col-12">
                             <div class="video">
                                 <iframe width="420"
                                     height="345"
+                                    sandbox
                                     src="@onlineCourse.IntroVideoLink">
                                 </iframe>
 
                             </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-lg-6 col-md-6 col-12">
                             <div class="text">
                                 <p class="primary-color name-course">@onlineCourse.Name</p>
 
@@ -116,6 +116,7 @@
             </div>
         </section>
     }
+
     @if (offlineCourses != null)
     {
         <section class="course-offline relative">
@@ -159,8 +160,6 @@
             </div>
         </section>
     }
-
-
     <section class="feedback">
         <div class="max-width mx-auto">
             <div class="title text-center">

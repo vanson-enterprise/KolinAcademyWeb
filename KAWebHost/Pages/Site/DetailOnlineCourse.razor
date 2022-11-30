@@ -81,8 +81,9 @@
                 <div class="list-content">
                     @for (var i = 0; i < userLessonVms.Count; i++)
                     {
-                        <div @onclick="()=>StudyLesson(userLessonVms[i],i)">
-                            @if (userLessonVms[i].UserLessonStatus == UserLessonStatus.BLOCK)
+                        var index = i;
+                        <div @onclick="()=>StudyLesson(userLessonVms[index],index)">
+                            @if (userLessonVms[index].UserLessonStatus == UserLessonStatus.BLOCK)
                             {
                                 <img class="lesson-status-icon" src="./img/icon/lock.png" />
                             }
@@ -90,7 +91,7 @@
                             {
                                 <img class="lesson-status-icon" src="./img/icon/check.png" />
                             }
-                            @userLessonVms[i].LessonName
+                            @userLessonVms[index].LessonName
                         </div>
                     }
                 </div>

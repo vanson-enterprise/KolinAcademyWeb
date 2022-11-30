@@ -18,7 +18,7 @@ namespace KAWebHost.Controllers
     [Route("api/[controller]")]
     [ApiController]
     // Must be in the Administrator Role
-    [Authorize(Roles = "Administrators")]
+    [Authorize(Roles = "Manager")]
     public class UploadController : Controller
     {
         private readonly IWebHostEnvironment environment;
@@ -27,6 +27,8 @@ namespace KAWebHost.Controllers
             this.environment = environment;
         }
         [HttpPost("[action]")]
+        [DisableRequestSizeLimit]
+        [RequestFormLimits(MultipartBodyLengthLimit = Int32.MaxValue, ValueLengthLimit = Int32.MaxValue)]
         public async Task<IActionResult> MultipleAsync(
             IFormFile[] files, string CurrentDirectory)
         {
