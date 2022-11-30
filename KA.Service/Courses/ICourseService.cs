@@ -30,7 +30,9 @@ namespace KA.Service.Courses
         Task<DetailOnlineCourseModel> GetDetailOnlineCourse(int courseId);
         Task<List<OfflineCourseViewModel>> GetTopOffCourseForIndexPage(int offCourseNumber);
         Task<OnlineCourseViewModel?> GetTopOneCourseForIndexPage();
+        Task<List<UserLessonViewModel>> GetUserLessons(string userId, int courseId);
         bool IsDuplicateCourseCode(string code);
         ResponseDto UpdateStartDate(OfflineCourseStartDate input);
+        Task UpdateUserLessonStatus(int userLessonId, UserLessonStatus status);
     }
 }

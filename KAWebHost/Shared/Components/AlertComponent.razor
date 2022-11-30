@@ -1,0 +1,52 @@
+﻿@inherits ComponentBase
+@inject NavigationManager _navigationManager;
+
+<div class="modal fade show" data-bs-backdrop="static" tabindex="-1" style="display: block; background-color: rgba(10,10,10,0.8)">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" style="color:#000">@AlertTitle</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @onclick="()=>OnModalCloseBtnClick()"></button>
+            </div>
+            <div class="modal-body" style="color:#000">
+                <p>@AlertMessage</p>
+            </div>
+            <div class="modal-footer">
+                @if (IsForceAuthenAlert)
+                {
+                    <button type="button" class="btn btn-info " @onclick="GoToSignInPage">Đăng kí</button>
+                    <button type="button" class="btn btn-primary" @onclick="GoToLoginPage">Đăng nhập</button>
+                }
+                else
+                {
+                    <button type="button" class="btn btn-primary" @onclick="()=>OnModalCloseBtnClick()">Ok</button>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string AlertTitle { get; set; }
+
+    [Parameter]
+    public string AlertMessage { get; set; }
+
+    [Parameter]
+    public bool IsForceAuthenAlert { get; set; } = false;
+
+    [Parameter]
+    public Action OnModalCloseBtnClick { get; set; }
+
+    public void GoToLoginPage()
+    {
+        _navigationManager.NavigateTo("/dang-nhap", true);
+    }
+
+    public void GoToSignInPage()
+    {
+        _navigationManager.NavigateTo("/dang-ky", true);
+    }
+}

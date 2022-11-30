@@ -7,10 +7,9 @@ namespace KA.DataProvider.Entities
 {
     public class Order
     {
-
         [Key]
         public int Id { get; set; }
-        public string? UserId { get; set; }
+        public string UserId { get; set; }
         public int? CartId { get; set; }
         public string Code { get; set; }
         public decimal Price { get; set; }
@@ -28,7 +27,9 @@ namespace KA.DataProvider.Entities
         public virtual AppUser User { get; set; }
 
         [ForeignKey("CartId")]
-        public virtual Cart Cart { get; set; }
+        public virtual Cart? Cart { get; set; }
+
+        public virtual List<OrderDetail> OrderDetails { get; set; }
         #endregion
     }
 }

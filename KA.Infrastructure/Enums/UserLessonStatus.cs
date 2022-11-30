@@ -8,7 +8,7 @@ namespace KA.Infrastructure.Enums
 {
     public enum UserLessonStatus
     {
-        NEW,
+        BLOCK,
         PROCESSING,
         DONE
     }

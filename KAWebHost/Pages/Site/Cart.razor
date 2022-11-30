@@ -1,5 +1,4 @@
 ﻿@page "/gio-hang"
-@attribute [Authorize]
 @inherits OwningComponentBase
 <div class="cart-page">
     <section class="cart-container">
@@ -24,7 +23,7 @@
                                 <tr>
                                     <td>@cartProduct.CourseName</td>
                                     <td>01 khóa</td>
-                                    <td>@cartProduct.DiscountPrice</td>
+                                    <td>@cartProduct.DiscountPrice.ToVietNameseCurrency()</td>
                                 </tr>
                             }
                         </tbody>
@@ -44,10 +43,10 @@
             }
             else
             {
-                <div class="d-flex justify-content-center">
+                <div class="d-flex align-items-center flex-column">
                     <div>Bạn chưa có sản phầm nảo trong giỏ hàng</div>
                     <br>
-                    <NavLink href="/khoa-hoc-truc-tuyen">
+                    <NavLink href="/khoa-hoc-truc-tuyen" class="btn btn-info">
                         Tiếp tục mua hàng
                     </NavLink>
                 </div>

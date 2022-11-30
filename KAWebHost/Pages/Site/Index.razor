@@ -13,6 +13,7 @@
           integrity="sha512-OTcub78R3msOCtY3Tc6FzeDJ8N9qvQn1Ph49ou13xgA9VsH9+LRxoFU6EqLhW4+PKRfU+/HReXmSZXHEkpYoOA=="
           crossorigin="anonymous"
           referrerpolicy="no-referrer" />
+    <PageTitle>Kolin - Trang chủ</PageTitle>
 </HeaderContent>
 
 <div class="home-page">
@@ -73,86 +74,92 @@
             <div class="home-about_wrapper">
                 <iframe width="420"
                         height="345"
-                        src="@onlineCourse.IntroVideoLink">
+                        src="https://www.youtube.com/embed/UjIn0xT9_p8">
                 </iframe>
                 <div class="detail secondary-color">Xem chi tiết >></div>
             </div>
         </div>
     </section>
 
-    <section class="course-online">
-        <div class="max-width mx-auto">
-            <div class="title text-center">
-                <p class="primary-color inline-block">KHÓA HỌC</p>
-                <p class="secondary-color inline-block">ONLINE</p>
-            </div>
-            <div class="content">
-                <div class="row mt-4">
-                    <div class="col-6">
-                        <div class="video">
-                            <iframe width="420"
+    @if (onlineCourse != null)
+    {
+        <section class="course-online">
+            <div class="max-width mx-auto">
+                <div class="title text-center">
+                    <p class="primary-color inline-block">KHÓA HỌC</p>
+                    <p class="secondary-color inline-block">ONLINE</p>
+                </div>
+                <div class="content">
+                    <div class="row mt-4">
+                        <div class="col-6">
+                            <div class="video">
+                                <iframe width="420"
                                     height="345"
                                     src="@onlineCourse.IntroVideoLink">
-                            </iframe>
+                                </iframe>
 
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="text">
-                            <p class="primary-color name-course">@onlineCourse.Name</p>
-                           
-                            <p> @(onlineCourse.ShortDescription)</p>
-                            <button class="btn-register inline-block secondary-color mt-3" @onclick="()=>GoToDetailCoursePage(onlineCourse.DetailLink)">
-                                Đăng ký học online
-                            </button>
+                        <div class="col-6">
+                            <div class="text">
+                                <p class="primary-color name-course">@onlineCourse.Name</p>
+
+                                <p> @(onlineCourse.ShortDescription)</p>
+                                <button class="btn-register inline-block secondary-color mt-3" @onclick="()=>GoToDetailCoursePage(onlineCourse.DetailLink)">
+                                    Đăng ký học online
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-           
-        </div>
-    </section>
 
-    <section class="course-offline relative">
-        <img src="./img/offline_decor.png"
+            </div>
+        </section>
+    }
+    @if (offlineCourses != null)
+    {
+        <section class="course-offline relative">
+            <img src="./img/offline_decor.png"
              alt=""
              class="course-offline-decor absolute" />
-        <div class="max-width mx-auto">
-            <div class="title text-center">
-                <p class="primary-color inline-block">KHÓA HỌC</p>
-                <p class="secondary-color inline-block">OFFLINE</p>
-            </div>
+            <div class="max-width mx-auto">
+                <div class="title text-center">
+                    <p class="primary-color inline-block">KHÓA HỌC</p>
+                    <p class="secondary-color inline-block">OFFLINE</p>
+                </div>
 
-            <div class="content">
-                <div class="row">
-                    @foreach (var offCourse in offlineCourses)
-                    {
-                        <div class="col-lg-6 col-md-6 col-12">
-                            <div class="course">
-                                <div class="video">
-                                    <iframe width="420"
+                <div class="content">
+                    <div class="row">
+                        @foreach (var offCourse in offlineCourses)
+                        {
+                            <div class="col-lg-6 col-md-6 col-12">
+                                <div class="course">
+                                    <div class="video">
+                                        <iframe width="420"
                                         height="345"
                                         src="@offCourse.IntroVideoLink">
-                                    </iframe>
-                                </div>
-                                <div class="text d-flex justify-content-between align-items-end">
-                                    <div style="flex: 1">
-                                        <p class="heading">KHÓA HỌC</p>
-                                        <p class="name primary-color">
-                                            @offCourse.Name
-                                        </p>
+                                        </iframe>
                                     </div>
-                                    <div style="flex: 1" class="d-flex justify-content-end">
-                                        <button class="secondary-color" @onclick="()=>GoToDetailCoursePage(offCourse.DetailCourseLink)">Đăng ký >></button>
+                                    <div class="text d-flex justify-content-between align-items-end">
+                                        <div style="flex: 1">
+                                            <p class="heading">KHÓA HỌC</p>
+                                            <p class="name primary-color">
+                                                @offCourse.Name
+                                            </p>
+                                        </div>
+                                        <div style="flex: 1" class="d-flex justify-content-end">
+                                            <button class="secondary-color" @onclick="()=>GoToDetailCoursePage(offCourse.DetailCourseLink)">Đăng ký >></button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    }
+                        }
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    }
+
 
     <section class="feedback">
         <div class="max-width mx-auto">
@@ -171,7 +178,7 @@
                         <div class="video">
                             <iframe width="420"
                                     height="345"
-                                    src="@onlineCourse.IntroVideoLink">
+                                    src="https://www.youtube.com/embed/UjIn0xT9_p8">
                             </iframe>
                         </div>
                     </div>
@@ -180,7 +187,7 @@
                         <div class="video">
                             <iframe width="420"
                                     height="345"
-                                    src="@onlineCourse.IntroVideoLink">
+                                    src="https://www.youtube.com/embed/UjIn0xT9_p8">
                             </iframe>
                         </div>
                     </div>

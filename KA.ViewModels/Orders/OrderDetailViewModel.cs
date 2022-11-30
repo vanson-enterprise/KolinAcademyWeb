@@ -10,10 +10,9 @@ namespace KA.ViewModels.Orders
     public class OrderDetailViewModel
     {
         public int Id { get; set; }
+        public string CourseName { get; set; }
         public decimal Price { get; set; }
         public decimal DiscountPrice { get; set; }
-        public decimal TotalPrice { get; set; }
-        public PaymentMethod PaymentMethod { get; set; }
-        public List<CartProductVm> CartProductVms { get; set; }
+
     }
 }

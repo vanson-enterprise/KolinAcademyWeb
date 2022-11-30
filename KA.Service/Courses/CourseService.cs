@@ -12,14 +12,18 @@ namespace KA.Service.Courses
     {
         private IRepository<Course> _courseRepo;
         private IRepository<Lesson> _lessonRepo;
+        private IRepository<UserLesson> _userLessonRepo;
+        private IRepository<UserCourse> _userCourseRepo;
         private IRepository<OfflineCourseStartDate> _startDateOfflineCourseRepo;
         private IMapper _mapper;
-        public CourseService(IRepository<Course> baseReponsitory, IMapper mapper, IRepository<Lesson> lessonRepo, IRepository<OfflineCourseStartDate> startDateOfflineCourseRepo) : base(baseReponsitory)
+        public CourseService(IRepository<Course> baseReponsitory, IMapper mapper, IRepository<Lesson> lessonRepo, IRepository<OfflineCourseStartDate> startDateOfflineCourseRepo, IRepository<UserLesson> userLessonRepo, IRepository<UserCourse> userCourseRepo) : base(baseReponsitory)
         {
             _courseRepo = baseReponsitory;
             _mapper = mapper;
             _lessonRepo = lessonRepo;
             _startDateOfflineCourseRepo = startDateOfflineCourseRepo;
+            _userLessonRepo = userLessonRepo;
+            _userCourseRepo = userCourseRepo;
         }
 
         #region Admin
@@ -34,8 +38,8 @@ namespace KA.Service.Courses
             {
                 var ci = _mapper.Map<CourseItem>(c);
                 ci.Index = (i + 1) + skip;
-                ci.Price = string.Format("{0:0,0.00 vnđ}", c.Price);
-                ci.DiscountPrice = string.Format("{0:0,0.00 vnđ}", c.DiscountPrice);
+                ci.Price = string.Format("{0:0,0 vnđ}", c.Price);
+                ci.DiscountPrice = string.Format("{0:0,0 vnđ}", c.DiscountPrice);
                 ci.CreatedDate = c.CreatedDate.Value.ToString("dd/MM/yyyy");
                 return ci;
             }).ToList();
@@ -88,7 +92,7 @@ namespace KA.Service.Courses
 
         public bool IsDuplicateCourseCode(string code)
         {
-            if (_courseRepo.GetAll().Any(c => c.Code.ToLower().Contains(code)))
+            if (_courseRepo.GetAll().Any(c => c.Code.ToLower() == code))
                 return true;
             return false;
 
@@ -200,7 +204,7 @@ namespace KA.Service.Courses
             var result = new List<OfflineCourseViewModel>();
             var datas = (from c in _courseRepo.GetAll()
                          join csd in _startDateOfflineCourseRepo.GetAll() on c.Id equals csd.OfflineCourseId
-                         where csd.StartTime > DateTime.Now && c.IsActive == true && c.IsDeleted == false
+                         where csd.StartTime > DateTime.Now
                          select new { c, csd }).AsEnumerable();
             var groups = from i in datas
                          group i by i.c into gc
@@ -211,7 +215,7 @@ namespace KA.Service.Courses
                 var offlineCourseVm = new OfflineCourseViewModel()
                 {
                     Name = groupCourse.Key.Name,
-                    DetailCourseLink = "/khoa-hoc-offline/" + groupCourse.Key.Name.GetSeoName() + "-" + groupCourse.Key.Id,
+                    DetailCourseLink = "/khoa-hoc/" + groupCourse.Key.Name.GetSeoName() + "-" + groupCourse.Key.Id,
                     StartDates = groupCourse.Select(i => new OfflineCourseStartDateVm()
                     {
                         Place = i.csd.Place,
@@ -236,8 +240,8 @@ namespace KA.Service.Courses
                     Id = course.Id,
                     DetailLink = "/" + course.Name.GetSeoName() + "-" + course.Code,
                     Name = course.Name,
-                    Price = string.Format("{0:0,0.00 vnđ}", course.Price),
-                    DiscountPrice = string.Format("{0:0,0.00 vnđ}", course.DiscountPrice),
+                    Price = string.Format("{0:0,0 vnđ}", course.Price),
+                    DiscountPrice = string.Format("{0:0,0 vnđ}", course.DiscountPrice),
                     ThumbNailImageLink = course.ThumbNailImageLink,
                     IntroVideoLink = course.IntroduceVideoLink,
                     ShortDescription = course.ShortDescription
@@ -271,14 +275,14 @@ namespace KA.Service.Courses
                     Id = c.Id,
                     DetailLink = "/khoa-hoc-online/" + c.Name.GetSeoName() + "-" + c.Id,
                     Name = c.Name,
-                    Price = string.Format("{0:0,0.00 vnđ}", c.Price),
-                    DiscountPrice = string.Format("{0:0,0.00 vnđ}", c.DiscountPrice),
+                    Price = string.Format("{0:0,0 vnđ}", c.Price),
+                    DiscountPrice = string.Format("{0:0,0 vnđ}", c.DiscountPrice),
                     ThumbNailImageLink = c.ThumbNailImageLink
                 }).ToList();
         }
         public async Task<DetailOnlineCourseModel> GetDetailOnlineCourse(int courseId)
         {
-            
+
             var course = await _courseRepo.GetAll().Where(c => c.Id == courseId).FirstOrDefaultAsync();
             if (course == null)
                 return null;
@@ -294,12 +298,45 @@ namespace KA.Service.Courses
                 MetaTitle = course.MetaTitle,
                 Lessons = new()
             };
+
             result.Lessons = _lessonRepo.GetAll().Where(l => l.CourseId == courseId).Select(l => new LessonViewModel()
             {
+                Id = l.Id,
                 Name = l.Name,
-                VideoLink = l.VideoLink,
             }).ToList();
             return result;
+        }
+
+        public async Task<List<UserLessonViewModel>> GetUserLessons(string userId, int courseId)
+        {
+            var userLessons = (from ul in _userLessonRepo.GetAll()
+                               join l in _lessonRepo.GetAll() on ul.LessonId equals l.Id
+                               where l.CourseId == courseId && ul.UserId == userId
+                               orderby l.Id
+                               select new UserLessonViewModel()
+                               {
+                                   UserLessonId = ul.Id,
+                                   LessonId = l.Id,
+                                   LessonName = l.Name,
+                                   UserLessonStatus = ul.Status,
+                                   VideoLink = l.VideoLink
+                               }).ToList();
+            return userLessons;
+        }
+
+        public async Task UpdateUserLessonStatus(int userLessonId, UserLessonStatus status)
+        {
+            var userLesson = await _userLessonRepo.GetFirstOrDefaultAsync(ul => ul.Id == userLessonId);
+            if (userLesson != null)
+            {
+                userLesson.Status = status;
+                await _userLessonRepo.UpdateAsync(userLesson);
+            }
+        }
+        public async Task UpdateUserCourseProgress(int userCourseId)
+        {
+            var userCourse = await _userCourseRepo.GetFirstOrDefaultAsync(uc => uc.Id == userCourseId);
+
         }
         #endregion
     }

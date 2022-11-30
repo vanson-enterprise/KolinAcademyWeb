@@ -17,7 +17,7 @@ namespace KAWebHost.Pages.Admin.Orders
         [Inject]
         private IJSRuntime jsr { get; set; }
 
-        private DataGridResponse<OrderViewModel> dataGrid;
+        private DataGridResponse<OrderItemVm> dataGrid;
         private IOrderService _orderService;
         private int pageSize = 10;
 

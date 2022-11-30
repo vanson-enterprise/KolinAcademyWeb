@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using KA.DataProvider.Entities;
 using KA.Service.Base;
 using KA.ViewModels.Carts;
 using Microsoft.EntityFrameworkCore;
@@ -28,7 +29,7 @@ namespace KA.Service.Carts
         public async Task AddCourseToCart(AddCourseToCartDto input)
         {
             Cart? cart = _cartRepo.GetAll().Where(c => c.UserId == input.UserId && c.CartStatus == CartStatus.PreOrder).FirstOrDefault();
-            if (cart == null)
+            if (cart == null && input.UserId != null)
             {
                 cart = _cartRepo.Add(new Cart()
                 {
@@ -76,10 +77,10 @@ namespace KA.Service.Carts
                                           select new { c, cp }).ToListAsync();
                 result.CartProductVms = cartProducts.Select(i => new CartProductVm()
                 {
-                    Id = i.cp.Id,
+                    CourseId = i.cp.CourseId,
                     CourseName = i.c.Name,
-                    DiscountPrice = string.Format("{0:0,0.00 vnđ}", i.cp.DiscountPrice),
-                    Price = string.Format("{0:0,0.00 vnđ}", i.cp.Price)
+                    DiscountPrice = i.cp.DiscountPrice,
+                    Price = i.cp.Price
                 }).ToList();
                 result.Total = cartProducts.Select(i => i.cp.DiscountPrice).Sum();
                 result.StringTotal = string.Format("{0:0,0.00 vnđ}", result.Total);
@@ -97,6 +98,23 @@ namespace KA.Service.Carts
             var cart = _cartRepo.GetById(cartId);
             cart.CartStatus = cartStatus;
             _cartRepo.Update(cart);
+        }
+
+        public CartVm GetTempCart(int[] courseIds)
+        {
+            var result = new CartVm();
+            var courses = _courseRepo.GetAll().Where(c => courseIds.Contains(c.Id));
+            result.CartProductVms = courses.Select(i => new CartProductVm()
+            {
+                CourseId = i.Id,
+                CourseName = i.Name,
+                DiscountPrice = i.DiscountPrice,
+                Price = i.Price
+            }).ToList();
+            result.Amount = courseIds.Count();
+            result.Total = courses.Select(c => c.DiscountPrice).Sum();
+            result.StringTotal = string.Format("{0:0,0 vnđ}", result.Total);
+            return result;
         }
     }
 }

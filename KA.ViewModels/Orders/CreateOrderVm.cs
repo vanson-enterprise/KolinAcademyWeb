@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KA.ViewModels.Carts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,5 +26,6 @@ namespace KA.ViewModels.Orders
         // Trạng thái thanh toán
         public PaymentStatus PaymentStatus { get; set; }
         public DateTime? CreatedDate { get; set; } = DateTime.Now;
+        public List<CartProductVm> CartProducts { get; set; }
     }
 }

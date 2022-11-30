@@ -41,16 +41,16 @@
                                 PagerHorizontalAlign="HorizontalAlign.Left"
                                 SelectionMode="DataGridSelectionMode.Single"
                                 Data="@dataGrid.Items"
-                                TItem="OrderViewModel"
+                                TItem="OrderItemVm"
                                 LogicalFilterOperator="LogicalFilterOperator.And">
                         <Columns>
-                            <RadzenDataGridColumn TItem="OrderViewModel" Property="Index" Filterable="false" Title="STT" Width="60px" TextAlign="TextAlign.Center" />
-                            <RadzenDataGridColumn TItem="OrderViewModel" Property="Code" Title="Mã đơn" Width="100px" />
-                            <RadzenDataGridColumn TItem="OrderViewModel" Property="CustomerName" Title="Tên khách hàng" Width="150px" />
-                            <RadzenDataGridColumn TItem="OrderViewModel" Property="Price" Title="Giá" Width="150px" />
-                            <RadzenDataGridColumn TItem="OrderViewModel" Property="DiscountPrice" Title="Chiết khấu" Width="100px" />
-                            <RadzenDataGridColumn TItem="OrderViewModel" Property="TotalPrice" Title="Tổng tiền" Width="150px" />
-                            <RadzenDataGridColumn TItem="OrderViewModel" Context="dataContext" Title="Trạng thái" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="90px">
+                            <RadzenDataGridColumn TItem="OrderItemVm" Property="Index" Filterable="false" Title="STT" Width="60px" TextAlign="TextAlign.Center" />
+                            <RadzenDataGridColumn TItem="OrderItemVm" Property="Code" Title="Mã đơn" Width="100px" />
+                            <RadzenDataGridColumn TItem="OrderItemVm" Property="CustomerName" Title="Tên khách hàng" Width="150px" />
+                            <RadzenDataGridColumn TItem="OrderItemVm" Property="Price" Title="Giá" Width="150px" />
+                            <RadzenDataGridColumn TItem="OrderItemVm" Property="DiscountPrice" Title="Chiết khấu" Width="100px" />
+                            <RadzenDataGridColumn TItem="OrderItemVm" Property="TotalPrice" Title="Tổng tiền" Width="150px" />
+                            <RadzenDataGridColumn TItem="OrderItemVm" Context="dataContext" Title="Trạng thái" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="90px">
                                 <Template Context="order">
                                     @if (order.OrderStatus == OrderStatus.COMPLETED)
                                     {
@@ -66,7 +66,7 @@
                                     }
                                 </Template>
                             </RadzenDataGridColumn>
-                            <RadzenDataGridColumn TItem="OrderViewModel" Context="dataContext" Title="TT Thanh toán" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="150px">
+                            <RadzenDataGridColumn TItem="OrderItemVm" Context="dataContext" Title="TT Thanh toán" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="150px">
                                 <Template Context="order">
                                     @if (order.PaymentStatus == PaymentStatus.PAID)
                                     {
@@ -82,7 +82,7 @@
                                     }
                                 </Template>
                             </RadzenDataGridColumn>
-                            <RadzenDataGridColumn TItem="OrderViewModel" Context="dataContext" Title="Phương thức TT" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="120px">
+                            <RadzenDataGridColumn TItem="OrderItemVm" Context="dataContext" Title="Phương thức TT" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="120px">
                                 <Template Context="order">
                                     @if (order.PaymentMethod == PaymentMethod.VNPAY)
                                     {
@@ -94,9 +94,9 @@
                                     }
                                 </Template>
                             </RadzenDataGridColumn>
-                            <RadzenDataGridColumn TItem="OrderViewModel" Property="CreatedDate" Title="Ngày tạo" Width="90px" />
+                            <RadzenDataGridColumn TItem="OrderItemVm" Property="CreatedDate" Title="Ngày tạo" Width="90px" />
 
-                            <RadzenDataGridColumn TItem="OrderViewModel" Context="dataContext" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="50px">
+                            <RadzenDataGridColumn TItem="OrderItemVm" Context="dataContext" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="50px">
                                 <Template Context="order">
                                     <RadzenButton ButtonStyle="ButtonStyle.Primary"
                                               Icon="info"

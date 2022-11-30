@@ -48,7 +48,7 @@ namespace KA.Service.Mapper
                  );
 
             CreateMap<Lesson, EditLessonModel>();
-            CreateMap<Order, OrderViewModel>();
+            CreateMap<Order, OrderItemVm>();
             CreateMap<Blog, EditBlogVm>();
         }
 

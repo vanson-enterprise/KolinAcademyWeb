@@ -9,7 +9,7 @@ namespace KA.ViewModels.Lessons
 {
     public class LessonViewModel
     {
+        public int Id { get; set; }
         public string Name { get; set; }
-        public string VideoLink { get; set; }
     }
 }

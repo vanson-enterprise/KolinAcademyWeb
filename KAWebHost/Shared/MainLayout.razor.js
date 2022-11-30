@@ -1,0 +1,21 @@
+﻿const mainLayoutPageJs = function () {
+    this.addCourseToTempCart = function (courseId) {
+        var tempCart = JSON.parse(localStorage.getItem("temp-cart"));
+        if (tempCart == null) {
+            tempCart = [courseId]
+        } else if (Array.isArray(tempCart) && tempCart.some(item => item == courseId)) {
+            return;
+        } else if (Array.isArray(tempCart)) {
+            tempCart.push(courseId);
+        }
+        localStorage.setItem("temp-cart", JSON.stringify(tempCart));
+    }
+
+
+
+    this.removeTempCart = function () {
+        localStorage.removeItem("temp-cart");
+    }
+}
+
+window.mainLayoutPageJs = new mainLayoutPageJs();

@@ -92,6 +92,7 @@ builder.Services.AddTransient<IRepository<Ward>, BaseRepository<Ward>>();
 builder.Services.AddTransient<IRepository<Course>, BaseRepository<Course>>();
 builder.Services.AddTransient<IRepository<OfflineCourseStartDate>, BaseRepository<OfflineCourseStartDate>>();
 builder.Services.AddTransient<IRepository<Lesson>, BaseRepository<Lesson>>();
+builder.Services.AddTransient<IRepository<UserLesson>, BaseRepository<UserLesson>>();
 builder.Services.AddTransient<IRepository<AppUser>, BaseRepository<AppUser>>();
 builder.Services.AddTransient<IRepository<AppRole>, BaseRepository<AppRole>>();
 builder.Services.AddTransient<IRepository<AppRole>, BaseRepository<AppRole>>();
@@ -100,6 +101,7 @@ builder.Services.AddTransient<IRepository<Order>, BaseRepository<Order>>();
 builder.Services.AddTransient<IRepository<CartProduct>, BaseRepository<CartProduct>>();
 builder.Services.AddTransient<IRepository<UserCourse>, BaseRepository<UserCourse>>();
 builder.Services.AddTransient<IRepository<Blog>, BaseRepository<Blog>>();
+builder.Services.AddTransient<IRepository<OrderDetail>, BaseRepository<OrderDetail>>();
 builder.Services.AddTransient<IRepository<IdentityUserRole<string>>, BaseRepository<IdentityUserRole<string>>>();
 
 builder.Services.AddScoped<IAddressService, AddressService>();

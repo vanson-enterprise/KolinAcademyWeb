@@ -1,8 +1,19 @@
 ﻿@inject NavigationManager UriHelper
 
 @code {
-    protected override void OnInitialized()
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+
+    protected override async Task OnInitializedAsync()
     {
-        UriHelper.NavigateTo("/dang-nhap", true);
+        var user = (await authenticationStateTask).User;
+        if (user.Identity.IsAuthenticated)
+        {
+            UriHelper.NavigateTo("/", true);
+        }
+        else
+        {
+            UriHelper.NavigateTo("/dang-nhap", true);
+        }
     }
 }

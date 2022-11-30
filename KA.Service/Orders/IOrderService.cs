@@ -11,8 +11,9 @@ namespace KA.Service.Orders
     public interface IOrderService : IService<Order>
     {
         Order CreateNewOrder(CreateOrderVm input);
-        Task<DataGridResponse<OrderViewModel>> GetAllOrderPaging(int skip, int top);
-        Task<OrderDetailViewModel> GetDetailOrder(int orderId);
-        void UpdateOrderInfo(OrderDetailViewModel input);
+        Task<DataGridResponse<OrderItemVm>> GetAllOrderPaging(int skip, int top);
+        Task<OrderViewModel> GetDetailOrder(int orderId);
+        void UpdateOrderInfo(OrderViewModel input);
+        void UpdateOrderStatus(int orderId, OrderStatus orderStatus);
     }
 }

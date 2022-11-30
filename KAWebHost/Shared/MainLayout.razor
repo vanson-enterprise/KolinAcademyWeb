@@ -1,20 +1,21 @@
-﻿@inherits LayoutComponentBase
-@inject IJSRuntime jsr;
+﻿@using KAWebHost.Shared.Components
+@inherits LayoutComponentBase
+
 <!------ header ------>
 <NavMenu></NavMenu>
+<CascadingValue Value="this" IsFixed="true">
+    @Body
+</CascadingValue>
 
-@Body
 
 <!------ footer ------>
 <Footer></Footer>
 
-
-@code {
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            await jsr.InvokeVoidAsync("import", "/scripts/common/common.js");
-        }
-    }
+@if (isShowAlert)
+{
+    <AlertComponent AlertTitle="@alertTitle" AlertMessage="@alertMessage" IsForceAuthenAlert="false" OnModalCloseBtnClick="HideAlert" />
+}
+@if (isShowForceAuthenAlert)
+{
+    <AlertComponent AlertTitle="@alertTitle" AlertMessage="@alertMessage" IsForceAuthenAlert="true" OnModalCloseBtnClick="HideAuthenAlert" />
 }

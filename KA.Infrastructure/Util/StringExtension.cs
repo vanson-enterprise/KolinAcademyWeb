@@ -133,5 +133,10 @@ namespace KA.Infrastructure.Util
             return string.Join(" ", newTextArray);
         }
 
+        public static string ConvertToVietNameseCurrentcy(this string input)
+        {
+            return string.Format("{0:0,0 vnđ}", input);
+        }
+
     }
 }

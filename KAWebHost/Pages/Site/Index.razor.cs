@@ -12,16 +12,21 @@ namespace KAWebHost.Pages.Site
         private NavigationManager NavigationManager { get; set; }
 
         private List<OfflineCourseViewModel> offlineCourseViewModels;
-        private OnlineCourseViewModel onlineCourse = new();
-        private List<OfflineCourseViewModel> offlineCourses = new();
+        private OnlineCourseViewModel onlineCourse;
+        private List<OfflineCourseViewModel> offlineCourses;
         protected override async Task OnInitializedAsync()
         {
             _courseService = ScopedServices.GetRequiredService<ICourseService>();
+            InitData();
+        }
+
+        private async Task InitData()
+        {
+
             offlineCourseViewModels = _courseService.GetAllOpeningSoonOfflineCourse();
             onlineCourse = await _courseService.GetTopOneCourseForIndexPage();
             offlineCourses = await _courseService.GetTopOffCourseForIndexPage(6);
         }
-
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)

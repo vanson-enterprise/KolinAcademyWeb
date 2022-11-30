@@ -1,4 +1,6 @@
 ﻿@page "/khoa-hoc-online/{CourseSeoName}"
+@using KA.Infrastructure.Enums
+@using KA.Infrastructure.Enums.Extension
 @inherits OwningComponentBase
 
 <!-- course free -->
@@ -23,59 +25,77 @@
                 @model.Name
             </div>
             <div class="video">
-                <video style="width:100%" contextmenu="" class="web-video"
-                        controls controlsList="nodownload">
-                    <source type="video/mp4" src="./uploads/y2mate.com - All over in 10 seconds_1080p.mp4"/>
+                <video style="width:100%" contextmenu="" class="web-video" id="main-video"
+                       controls controlsList="nodownload">
+                    <source type="video/mp4" src="@currentVideoLink" />
                 </video>
-              
+
             </div>
             <div class="status">
                 <div class="d-flex justify-content-around">
                     <div class="box text-center">
-                        <div>Trạng thái</div>
-                        <div class="btn-status">@state</div>
+                        <div>Tiến độ học</div>
+                        <div class="btn-status">
+                        </div>
                     </div>
                     <div class="box text-center d-flex flex-column justify-content-between">
                         <div>Giá khóa học</div>
-                        @if(model.DiscountPrice == 0){
+                        @if (model.DiscountPrice == 0)
+                        {
                             <div class="secondary-color">Miễn phí</div>
-                        }else{
-                                <div class="secondary-color">@(string.Format("{0:0,0 vnđ}", model.DiscountPrice))</div>
                         }
-                        
+                        else
+                        {
+                            <div class="secondary-color">@model.DiscountPrice.ToVietNameseCurrency()</div>
+                        }
+
                     </div>
                     <div class="box text-center">
-                        <div>Bắt đầu học</div>
-                            @if (state == "Chưa đăng nhập")
-                            {
-                                <a class="btn-login" href="/dang-nhap">Đăng nhập</a>
-                            }
-                            else if (state == "Đã hết hạn" || state == "Chưa mua")
-                            {
-                                <button class="btn-login" >Mua mới</button>
-                            }
-                            else
-                            {
-                                <a class="btn-login" href="#">Học bài tiếp</a>
-                            }
+
+                        <div>@state.DisplayName()</div>
+                        @if (state == OnlineCourseState.UNAUTHEN)
+                        {
+                            <a class="btn-login" href="/dang-nhap">Đăng nhập</a>
+                        }
+                        else if (state == OnlineCourseState.NOT_PURCHASED)
+                        {
+                            <button class="btn-login" @onclick="()=>AddToCart(model.Id)">Mua mới</button>
+                        }
+                        else if (state == OnlineCourseState.EXPIRED)
+                        {
+                            <button class="btn-login" @onclick="()=>AddToCart(model.Id)">Gia hạn</button>
+                        }
+                        else if (state == OnlineCourseState.STUDYING)
+                        {
+                            <button class="btn-login">Học bài tiếp</button>
+                        }
+                        else if (state == OnlineCourseState.DONE)
+                        {
+                            <button class="btn-login">Học lại</button>
+                        }
                     </div>
                 </div>
             </div>
+            @if (userLessonVms.Count > 0)
+            {
+                <div class="list-content">
+                    @for (var i = 0; i < userLessonVms.Count; i++)
+                    {
+                        <div @onclick="()=>StudyLesson(userLessonVms[i],i)">
+                            @if (userLessonVms[i].UserLessonStatus == UserLessonStatus.BLOCK)
+                            {
+                                <img class="lesson-status-icon" src="./img/icon/lock.png" />
+                            }
+                            else
+                            {
+                                <img class="lesson-status-icon" src="./img/icon/check.png" />
+                            }
+                            @userLessonVms[i].LessonName
+                        </div>
+                    }
+                </div>
+            }
 
-            <div class="list-content">
-                <button>
-                    Speed Up To Win Buổi 1: Khởi Đầu Kinh Doanh Online Chuyên Nghiệp
-                </button>
-                <button>
-                    Speed Up To Win Buổi 1: Khởi Đầu Kinh Doanh Online Chuyên Nghiệp
-                </button>
-                <button>
-                    Speed Up To Win Buổi 1: Khởi Đầu Kinh Doanh Online Chuyên Nghiệp
-                </button>
-                <button>
-                    Speed Up To Win Buổi 1: Khởi Đầu Kinh Doanh Online Chuyên Nghiệp
-                </button>
-            </div>
         </div>
     </div>
 </div>

@@ -8,9 +8,9 @@ namespace KA.ViewModels.Carts
 {
     public class CartProductVm
     {
-        public int Id { get; set; }
+        public int CourseId { get; set; }
         public string CourseName { get; set; }
-        public string Price { get; set; }
-        public string DiscountPrice { get; set; }
+        public decimal Price { get; set; }
+        public decimal DiscountPrice { get; set; }
     }
 }

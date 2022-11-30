@@ -2,6 +2,7 @@
 using KA.Service.Courses;
 using KA.ViewModels.Carts;
 using KA.ViewModels.Courses;
+using KAWebHost.Shared;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using System.Security.Claims;
@@ -10,13 +11,23 @@ namespace KAWebHost.Pages.Site
 {
     public partial class Product : OwningComponentBase
     {
+        // service
         private ICourseService _courseService;
         private ICartService _cartService;
+
+        // model
         private List<OnlineCourseViewModel> onlineCourseViewModels;
+
+        // parameters
         [CascadingParameter]
         private Task<AuthenticationState> authenticationStateTask { get; set; }
-        private AuthenticationState authState;
+        [CascadingParameter]
+        private MainLayout mainLayout { get; set; }
+
+
+        // properties
         private string userId;
+        private AuthenticationState authState;
 
         protected override async void OnInitialized()
         {
@@ -35,11 +46,20 @@ namespace KAWebHost.Pages.Site
 
         private void AddToCart(int courseId)
         {
-            _cartService.AddCourseToCart(new AddCourseToCartDto()
+            if (userId != null)
             {
-                CourseId = courseId,
-                UserId = userId
-            });
+                _cartService.AddCourseToCart(new AddCourseToCartDto()
+                {
+                    CourseId = courseId,
+                    UserId = userId
+                });
+            }
+            else
+            {
+                mainLayout.AddCourseToTempCart(courseId);
+            }
+            // Show alert
+            mainLayout.ShowAlert("Thêm khóa học vào giỏ hàng thành công", "Thông báo");
         }
     }
 }

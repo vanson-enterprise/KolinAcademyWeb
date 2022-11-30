@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using KA.DataProvider.Entities;
 using KA.ViewModels.Carts;
 using KA.ViewModels.Common;
 using KA.ViewModels.Courses;
@@ -17,8 +18,11 @@ namespace KA.Service.Orders
         private readonly IRepository<AppUser> _userRepo;
         private readonly IRepository<CartProduct> _cartProductRepo;
         private readonly IRepository<Cart> _cartRepo;
+        private readonly IRepository<OrderDetail> _orderDetailRepo;
         private readonly IRepository<UserCourse> _userCourseRepo;
         private readonly IRepository<Course> _courseRepo;
+        private readonly IRepository<Lesson> _lessonRepo;
+        private readonly IRepository<UserLesson> _userLessonRepo;
         private readonly IMapper _mapper;
         public OrderService(IRepository<Order> baseReponsitory,
             IMapper mapper,
@@ -26,7 +30,10 @@ namespace KA.Service.Orders
             IRepository<CartProduct> cartProductRepo,
             IRepository<Cart> cartRepo,
             IRepository<UserCourse> userCourseRepo,
-            IRepository<Course> courseRepo) :
+            IRepository<Course> courseRepo,
+            IRepository<OrderDetail> orderDetailRepo,
+            IRepository<Lesson> lessonRepo,
+            IRepository<UserLesson> userLessonRepo) :
         base(baseReponsitory)
         {
             _orderRepo = baseReponsitory;
@@ -36,6 +43,9 @@ namespace KA.Service.Orders
             _cartRepo = cartRepo;
             _userCourseRepo = userCourseRepo;
             _courseRepo = courseRepo;
+            _orderDetailRepo = orderDetailRepo;
+            _lessonRepo = lessonRepo;
+            _userLessonRepo = userLessonRepo;
         }
 
         public Order CreateNewOrder(CreateOrderVm input)
@@ -43,6 +53,14 @@ namespace KA.Service.Orders
             var nOrder = _mapper.Map<Order>(input);
             var order = _orderRepo.Add(nOrder);
             order.Code = CreateOrderCode(order.Id);
+            var orderDetails = input.CartProducts.Select(cp => new OrderDetail()
+            {
+                CourseId = cp.CourseId,
+                DiscountPrice = cp.DiscountPrice,
+                Price = cp.Price,
+                OrderId = order.Id,
+            });
+            _orderDetailRepo.AddMany(orderDetails);
             _orderRepo.Update(order);
             return order;
         }
@@ -61,9 +79,9 @@ namespace KA.Service.Orders
             return stringId;
         }
 
-        public async Task<DataGridResponse<OrderViewModel>> GetAllOrderPaging(int skip, int top)
+        public async Task<DataGridResponse<OrderItemVm>> GetAllOrderPaging(int skip, int top)
         {
-            var result = new DataGridResponse<OrderViewModel>();
+            var result = new DataGridResponse<OrderItemVm>();
 
             var orders = from o in _orderRepo.GetAll()
                          join u in _userRepo.GetAll() on o.UserId equals u.Id
@@ -72,11 +90,11 @@ namespace KA.Service.Orders
             result.TotalItem = orders.Count();
             result.Items = orders.Skip(skip).Take(top).ToList().Select((ou, i) =>
             {
-                var ov = _mapper.Map<OrderViewModel>(ou.o);
+                var ov = _mapper.Map<OrderItemVm>(ou.o);
                 ov.Index = (i + 1) + skip;
-                ov.Price = string.Format("{0:0,0.00 vnđ}", ou.o.Price);
-                ov.DiscountPrice = string.Format("{0:0,0.00 vnđ}", ou.o.DiscountPrice);
-                ov.TotalPrice = string.Format("{0:0,0.00 vnđ}", ou.o.TotalPrice);
+                ov.Price = string.Format("{0:0,0 vnđ}", ou.o.Price);
+                ov.DiscountPrice = string.Format("{0:0,0 vnđ}", ou.o.DiscountPrice);
+                ov.TotalPrice = string.Format("{0:0,0 vnđ}", ou.o.TotalPrice);
                 ov.CreatedDate = ou.o.CreatedDate.Value.ToString("dd/MM/yyyy");
                 ov.CustomerName = ou.u.FullName;
                 ov.PaymentMethod = ou.o.PaymentMethod;
@@ -87,31 +105,32 @@ namespace KA.Service.Orders
             return result;
         }
 
-        public async Task<OrderDetailViewModel> GetDetailOrder(int orderId)
+        public async Task<OrderViewModel> GetDetailOrder(int orderId)
         {
             var orderProducts = (from o in _orderRepo.GetAll()
-                                 join c in _cartRepo.GetAll() on o.CartId equals c.Id
-                                 join cp in _cartProductRepo.GetAll() on c.Id equals cp.CartId
-                                 join co in _courseRepo.GetAll() on cp.CourseId equals co.Id
+                                 join od in _orderDetailRepo.GetAll() on o.Id equals od.OrderId
+                                 join co in _courseRepo.GetAll() on od.CourseId equals co.Id
                                  where o.OrderStatus == OrderStatus.INIT && o.Id == orderId
-                                 select new { o, cp, co }).ToList();
+                                 select new { o, od, co }).ToList();
             if (orderProducts.Count > 0)
             {
                 var groupOrderProduct = (from op in orderProducts
                                          group op by op.o into gop
                                          select gop).FirstOrDefault();
-                var result = new OrderDetailViewModel()
+                var result = new OrderViewModel()
                 {
                     Id = groupOrderProduct.Key.Id,
                     Price = groupOrderProduct.Key.Price,
                     DiscountPrice = groupOrderProduct.Key.DiscountPrice,
                     TotalPrice = groupOrderProduct.Key.TotalPrice,
                     PaymentMethod = groupOrderProduct.Key.PaymentMethod,
-                    CartProductVms = groupOrderProduct.Select(i => new CartProductVm()
+                    Code = groupOrderProduct.Key.Code,
+                    OrderDetailViewModels = groupOrderProduct.Select(i => new OrderDetailViewModel()
                     {
-                        Id = i.cp.Id,
+                        Id = i.od.Id,
                         CourseName = i.co.Name,
-                        DiscountPrice = string.Format("{0:0,0.00 vnđ}", i.cp.DiscountPrice),
+                        DiscountPrice = i.co.DiscountPrice,
+                        Price = i.co.Price
                     }).ToList()
                 };
                 return result;
@@ -122,7 +141,7 @@ namespace KA.Service.Orders
             }
         }
 
-        public void UpdateOrderInfo(OrderDetailViewModel input)
+        public void UpdateOrderInfo(OrderViewModel input)
         {
             var order = _orderRepo.GetById(input.Id);
             order.PaymentMethod = input.PaymentMethod;
@@ -134,31 +153,72 @@ namespace KA.Service.Orders
         public void UpdateOrderStatus(int orderId, OrderStatus orderStatus)
         {
             var order = _orderRepo.GetById(orderId);
-
-            order.OrderStatus = orderStatus;
-            if (orderStatus == OrderStatus.COMPLETED)
+            if (order != null && order.OrderStatus == OrderStatus.INIT)
             {
-                // get all courses
-                var courses = (from c in _cartRepo.GetAll()
-                               join cp in _cartProductRepo.GetAll() on c.Id equals cp.CartId
-                               join co in _courseRepo.GetAll() on cp.CourseId equals co.Id
-                               where order.CartId == c.Id
-                               select co).AsEnumerable();
-
-                // add user course
-                foreach (var course in courses)
+                order.OrderStatus = orderStatus;
+                if (orderStatus == OrderStatus.COMPLETED)
                 {
-                    _userCourseRepo.Add(new UserCourse()
+                    // get all courses
+                    var courses = (from od in _orderDetailRepo.GetAll()
+                                   join co in _courseRepo.GetAll() on od.CourseId equals co.Id
+                                   where od.OrderId == orderId
+                                   select co).ToList();
+
+                    // add user course
+                    foreach (var c in courses)
                     {
-                        CourseId = course.Id,
-                        CreatedDate = DateTime.UtcNow,
-                        ExpiredDate = DateTime.UtcNow.AddMonths(course.DurationTime.Value),
-                        StudyProgress = 0,
-                        UserId = order.UserId,
-                        CreateUserId = order.UserId,
-                    });
+                        InitUserCourse(order, c);
+                    }
+                    _orderRepo.Update(order);
                 }
             }
+
+        }
+
+        private void InitUserCourse(Order order, Course c)
+        {
+            var existUc = _userCourseRepo.GetAll().Where((uc) => uc.UserId == order.UserId && uc.CourseId == c.Id).FirstOrDefault();
+            if (existUc == null)
+            {
+                var newUserCourse = new UserCourse()
+                {
+                    CourseId = c.Id,
+                    CreatedDate = DateTime.UtcNow,
+                    ExpiredDate = DateTime.UtcNow.AddMonths(c.DurationTime.Value),
+                    StudyProgress = 0,
+                    UserId = order.UserId,
+                    CreateUserId = order.UserId,
+                };
+                InitUserLesson(order.UserId, c.Id);
+                _userCourseRepo.Add(newUserCourse);
+            }
+            else
+            {
+                if (existUc.ExpiredDate > DateTime.UtcNow)
+                {
+                    existUc.ExpiredDate = existUc.ExpiredDate.Value.AddMonths(c.DurationTime.Value);
+                }
+                else
+                {
+                    existUc.ExpiredDate = DateTime.UtcNow.AddMonths(c.DurationTime.Value);
+                }
+                existUc.UpdatedDate = DateTime.UtcNow;
+                _userCourseRepo.Update(existUc);
+            }
+        }
+
+        private void InitUserLesson(string userId, int courseId)
+        {
+            var userLessons = _lessonRepo.GetAll()
+                .Where(l => l.CourseId == courseId)
+                .Select(l => new UserLesson()
+                {
+                    LessonId = l.Id,
+                    UserId = userId,
+                    Status = UserLessonStatus.BLOCK
+                }).ToList();
+            userLessons[0].Status = UserLessonStatus.PROCESSING;
+            _userLessonRepo.AddMany(userLessons);
         }
     }
 }

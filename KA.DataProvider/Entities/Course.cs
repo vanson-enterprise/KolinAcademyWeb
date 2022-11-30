@@ -40,5 +40,6 @@ namespace KA.DataProvider.Entities
         public int? DurationTime { get; set; }
 
         public List<UserCourse>? UserCourses { get; set; }
+        public List<OrderDetail> OrderDetails { get; set; }
     }
 }
