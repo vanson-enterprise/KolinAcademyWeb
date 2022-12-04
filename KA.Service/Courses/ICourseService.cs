@@ -33,6 +33,7 @@ namespace KA.Service.Courses
         Task<List<UserLessonViewModel>> GetUserLessons(string userId, int courseId);
         bool IsDuplicateCourseCode(string code);
         ResponseDto UpdateStartDate(OfflineCourseStartDate input);
+        Task<float> UpdateUserCourseProgress(string userId, int courseId);
         Task UpdateUserLessonStatus(int userLessonId, UserLessonStatus status);
     }
 }

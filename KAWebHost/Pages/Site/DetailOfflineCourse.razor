@@ -2,11 +2,11 @@
 @page "/khoa-hoc-offline/{CourseSeoName}"
 
 
-
 @if (model.IsUseExternalHtml)
 {
     <HeadContent>
         <link href="@model.ExternalCssLink" rel="stylesheet" />
+        <PageTitle>@(model?.Name + "- Kolin")</PageTitle>
     </HeadContent>
 }
 

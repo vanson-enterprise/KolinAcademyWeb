@@ -1,4 +1,6 @@
-﻿using KA.Service.Courses;
+﻿using KA.Service.Blogs;
+using KA.Service.Courses;
+using KA.ViewModels.Blogs;
 using KA.ViewModels.Courses;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
@@ -8,15 +10,18 @@ namespace KAWebHost.Pages.Site
     public partial class Index : OwningComponentBase
     {
         private ICourseService _courseService;
+        private IBlogService _blogService;
         [Inject]
         private NavigationManager NavigationManager { get; set; }
 
         private List<OfflineCourseViewModel> offlineCourseViewModels;
         private OnlineCourseViewModel onlineCourse;
         private List<OfflineCourseViewModel> offlineCourses;
+        private List<BlogViewModel> blogViewModels;
         protected override async Task OnInitializedAsync()
         {
             _courseService = ScopedServices.GetRequiredService<ICourseService>();
+            _blogService = ScopedServices.GetRequiredService<IBlogService>();
             InitData();
         }
 
@@ -26,6 +31,7 @@ namespace KAWebHost.Pages.Site
             offlineCourseViewModels = _courseService.GetAllOpeningSoonOfflineCourse();
             onlineCourse = await _courseService.GetTopOneCourseForIndexPage();
             offlineCourses = await _courseService.GetTopOffCourseForIndexPage(6);
+            blogViewModels = await _blogService.GetTopFourBlogForHomePage();
             StateHasChanged();
         }
         protected override async Task OnAfterRenderAsync(bool firstRender)

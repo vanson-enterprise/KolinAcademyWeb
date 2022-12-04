@@ -11,7 +11,28 @@
         localStorage.setItem("temp-cart", JSON.stringify(tempCart));
     }
 
+    this.getTempCart = function () {
+        var tempCart = JSON.parse(localStorage.getItem("temp-cart"));
+        if (Array.isArray(tempCart)) {
+            return tempCart;
+        }
+        return [];
+    }
 
+    this.removeTempCart = function () {
+        localStorage.removeItem("temp-cart");
+    }
+
+    this.countCartProductAmount = function () {
+        var tempCart = JSON.parse(localStorage.getItem("temp-cart"));
+        if (tempCart == null) {
+            return 0;
+        } else if (Array.isArray(tempCart)) {
+            return tempCart.length;
+        } else {
+            return 0;
+        }
+    }
 
     this.removeTempCart = function () {
         localStorage.removeItem("temp-cart");

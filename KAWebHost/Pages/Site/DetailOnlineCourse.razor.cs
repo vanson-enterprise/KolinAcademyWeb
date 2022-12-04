@@ -91,7 +91,7 @@ namespace KAWebHost.Pages.Site
             else
             {
                 // check course status
-                var userCourseSubcription = await _userService.GetPurchasedCourse(userId, model.Id);
+                var userCourseSubcription = await _userService.GetPurchasedCourse(userId, model.CourseId);
                 if (userCourseSubcription != null)
                 {
                     if (userCourseSubcription.ExpiredDate < DateTime.Now)
@@ -157,6 +157,7 @@ namespace KAWebHost.Pages.Site
                 nextLesson.UserLessonStatus = UserLessonStatus.PROCESSING;
                 _courseService.UpdateUserLessonStatus(userLessonVms[currentLessonIndex].UserLessonId, UserLessonStatus.DONE);
                 _courseService.UpdateUserLessonStatus(nextLesson.UserLessonId, UserLessonStatus.PROCESSING);
+
                 currentVideoLink = nextLesson.VideoLink;
                 currentLessonIndex++;
                 StateHasChanged();

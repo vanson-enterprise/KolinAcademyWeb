@@ -11,7 +11,9 @@ namespace KA.Service.Carts
     {
         Task AddCourseToCart(AddCourseToCartDto input);
         Task<CartVm> GetCartByUserId(string userId);
+        Task<int> GetCartProductAmount(string userId);
         CartVm GetTempCart(int[] courseIds);
+        Task RemoveCourseFromCart(int cartPorductId);
         Task UpdateCartStatus(int cartId, CartStatus cartStatus);
     }
 }

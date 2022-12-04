@@ -45,9 +45,9 @@ namespace KAWebHost.Pages.Site
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            await jsr.InvokeVoidAsync("import", "./Pages/Site/Cart.razor.js");
             if (firstRender)
             {
+                await jsr.InvokeVoidAsync("import", "./Pages/Site/Cart.razor.js");
                 InitData();
             }
         }
@@ -65,32 +65,14 @@ namespace KAWebHost.Pages.Site
 
             if (userId != null)
             {
-                if (tempCourseCarts != null && tempCourseCarts.Length > 0)
-                {
-                    await AddTempCartIntoDb();
-                }
                 cartVm = await _cartService.GetCartByUserId(userId);
-                StateHasChanged();
-                jsr.InvokeVoidAsync("cartPageJs.removeTempCart");
             }
             else if (tempCourseCarts != null && tempCourseCarts.Length > 0)
             {
                 cartVm = _cartService.GetTempCart(tempCourseCarts);
                 cartVm.Id = null;
-                StateHasChanged();
             }
-        }
-
-        private async Task AddTempCartIntoDb()
-        {
-            foreach (var item in tempCourseCarts)
-            {
-                await _cartService.AddCourseToCart(new AddCourseToCartDto()
-                {
-                    CourseId = item,
-                    UserId = userId
-                });
-            }
+            StateHasChanged();
         }
 
         private async Task InitOrder()
@@ -119,6 +101,7 @@ namespace KAWebHost.Pages.Site
                 if (order.Id > 0)
                 {
                     await _cartService.UpdateCartStatus(cartVm.Id.Value, CartStatus.Ordered);
+                    mainLayout.GetCartProductAmount();
                     navigationManager.NavigateTo("/don-hang/" + order.Id);
                 }
                 else
@@ -126,6 +109,20 @@ namespace KAWebHost.Pages.Site
                     mainLayout.ShowAlert("Đã có lỗi xảy ra, vui lòng thử lại!", "Lỗi!!");
                 }
             }
+        }
+
+        private async Task RemoveCourseFromCart(CartProductVm item)
+        {
+            if (userId == null)
+            {
+                await jsr.InvokeVoidAsync("cartPageJs.removeCourseFromCart", item.CourseId);
+            }
+            else
+            {
+                await _cartService.RemoveCourseFromCart(item.Id);
+            }
+            mainLayout.GetCartProductAmount();
+            InitData();
         }
     }
 }

@@ -1,0 +1,17 @@
+﻿@page "/bai-viet/{BlogSeoName}"
+@inherits OwningComponentBase
+<HeadContent>
+    <link href="/css/site/quill.snow.css" rel="stylesheet" />
+    <link href="/css/site/detail-blog.css" rel="stylesheet" />
+    <PageTitle>@(model?.Title) - Kolin</PageTitle>
+</HeadContent>
+@if (model != null)
+{
+
+    <div class="blog-container ql-editor">
+        <h1 style="text-align: center">@model.Title</h1>
+        <p>@model.ShortDescription</p>
+        @((MarkupString)model.Content)
+    </div>
+}
+

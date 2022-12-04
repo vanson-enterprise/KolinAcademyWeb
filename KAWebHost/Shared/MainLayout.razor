@@ -1,15 +1,17 @@
 ﻿@using KAWebHost.Shared.Components
 @inherits LayoutComponentBase
 
-<!------ header ------>
-<NavMenu></NavMenu>
+
 <CascadingValue Value="this" IsFixed="true">
+    <!------ header ------>
+    <NavMenu CartProductAmount="cartProductAmount"></NavMenu>
     @Body
+    <!------ footer ------>
+    <Footer></Footer>
 </CascadingValue>
 
 
-<!------ footer ------>
-<Footer></Footer>
+
 
 @if (isShowAlert)
 {

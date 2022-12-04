@@ -1,23 +1,24 @@
 ﻿@page "/dang-nhap"
 @model KAWebHost.Areas.Identity.Pages.Account.LoginModel
 @{
+    ViewData["Title"] = "Đăng nhập - Kolin";
 }
 <!--begin::Main-->
 <div class="d-flex flex-column flex-root">
     <!--begin::Authentication - Sign-in -->
-    <div class="d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed" style="background-image: url(assets/media/illustrations/sketchy-1/14.png">
+    <div class="d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed" style="background-color: #2c359d">
         <!--begin::Content-->
         <div class="d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20">
             <!--begin::Logo-->
             <a href="../../demo8/dist/index.html" class="mb-12">
-                <img alt="Logo" src="assets/media/logos/logo-1.svg" class="h-40px" />
+                <img alt="Logo" src="~/img/logo.png" class="h-40px" />
             </a>
             <!--end::Logo-->
             <!--begin::Wrapper-->
             <div class="w-lg-500px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
                 <!--begin::Form-->
                 <form class="form w-100" id="kt_sign_in_form" method="post">
-                   
+
                     <!--begin::Heading-->
                     <div class="text-center mb-10">
                         <!--begin::Title-->
@@ -28,10 +29,11 @@
                             Bạn là người mới?
                             <a href="/dang-ky" class="link-primary fw-bolder">Tạo tài khoản</a>
                         </div>
+
                         <!--end::Link-->
                     </div>
                     <div>
-                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     </div>
                     <!--begin::Heading-->
                     <!--begin::Input group-->
@@ -48,7 +50,7 @@
                             <!--begin::Label-->
                             <label class="form-label fw-bolder text-dark fs-6 mb-0" required>Mật khẩu</label>
                             <!--end::Label-->
-                          
+
                         </div>
                         <!--end::Wrapper-->
                         <!--begin::Input-->
@@ -65,17 +67,20 @@
                             <span class="indicator-label">Đăng nhập</span>
                         </button>
                         <!--end::Submit button-->
-
                     </div>
                     <!--end::Actions-->
                 </form>
                 <!--end::Form-->
+                <div class="text-gray-400 fw-bold fs-4 d-flex justify-content-between w-50" style="margin: 50px auto 0;">
+                    <a href="/" class="link-primary fw-bolder">Trang chủ</a>
+                    |
+                    <a href="/gioi-thieu" class="link-primary fw-bolder">Về chúng tôi</a>
+                </div>
             </div>
             <!--end::Wrapper-->
         </div>
         <!--end::Content-->
         <!--begin::Footer-->
-      
         <!--end::Footer-->
     </div>
     <!--end::Authentication - Sign-in-->

@@ -3,6 +3,7 @@ using KA.Infrastructure.Util;
 using KA.ViewModels.Blogs;
 using KA.ViewModels.Common;
 using KA.ViewModels.Courses;
+using Microsoft.EntityFrameworkCore;
 
 namespace KA.Service.Blogs
 {
@@ -21,6 +22,7 @@ namespace KA.Service.Blogs
         public async Task CreateBlog(CreateBlogVm input)
         {
             var blog = _mapper.Map<Blog>(input);
+
             await _blogRepo.AddAsync(blog);
         }
 
@@ -84,7 +86,7 @@ namespace KA.Service.Blogs
         public async Task<BlogSitePageVm> GetAllBlogPagingForSite(int skip, int top)
         {
             BlogSitePageVm result = new();
-            var blogs = _blogRepo.GetAll();
+            var blogs = _blogRepo.GetAll().Where(b => b.Published).OrderByDescending(b => b.CreatedDate);
             result.TotalPage = (int)Math.Ceiling((decimal)blogs.Count() / top);
             result.Blogs = blogs.Skip(skip).Take(top).Select(b => new BlogViewModel()
             {
@@ -96,7 +98,28 @@ namespace KA.Service.Blogs
             return result;
 
         }
+
+        public async Task<DetailBlogVm> GetDetailBlog(int blogId)
+        {
+            return await _blogRepo.GetAll().Where(b => b.Id == blogId).Select(b => new DetailBlogVm()
+            {
+                Content = b.Content,
+                CreatedDate = b.CreatedDate.Value,
+                ShortDescription = b.ShortDescription,
+                Title = b.Title,
+            }).FirstOrDefaultAsync();
+        }
+
+        public async Task<List<BlogViewModel>> GetTopFourBlogForHomePage()
+        {
+            return await _blogRepo.GetAll().Where(b => b.Published).OrderByDescending(b => b.CreatedDate).Take(4).Select(b => new BlogViewModel()
+            {
+                Title = b.Title,
+                DetailBlogLink = "/bai-viet/" + b.Title.GetSeoFriendlyString() + "-" + b.Id,
+                ShortDescription = b.ShortDescription,
+                ThumbNailImageLink = b.ThumbNailImageLink
+            }).ToListAsync();
+        }
         #endregion
     }
 }
-

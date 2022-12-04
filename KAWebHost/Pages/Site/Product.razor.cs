@@ -60,6 +60,7 @@ namespace KAWebHost.Pages.Site
             }
             // Show alert
             mainLayout.ShowAlert("Thêm khóa học vào giỏ hàng thành công", "Thông báo");
+            mainLayout.GetCartProductAmount();
         }
     }
 }

@@ -9,7 +9,7 @@ namespace KA.ViewModels.Courses
 {
     public class DetailOnlineCourseModel
     {
-        public int Id { get; set; }
+        public int CourseId { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
         public decimal DiscountPrice { get; set; }

@@ -45,6 +45,7 @@ namespace KAWebHost.Pages.Site
             if (firstRender)
             {
                 await jsr.InvokeVoidAsync("import", "./Pages/Site/Profile.razor.js");
+                await jsr.InvokeVoidAsync("profilePageJs.init");
             }
         }
 

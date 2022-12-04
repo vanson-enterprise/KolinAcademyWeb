@@ -67,8 +67,7 @@ namespace KA.Service.Carts
         {
             var result = new CartVm();
             var cart = _cartRepo.GetAll().Where(c => c.UserId == userId
-                            && c.CartStatus == CartStatus.PreOrder
-                            && c.UserId == userId).FirstOrDefault();
+                            && c.CartStatus == CartStatus.PreOrder).FirstOrDefault();
             if (cart != null)
             {
                 var cartProducts = await (from cp in _cartProductRepo.GetAll()
@@ -77,6 +76,7 @@ namespace KA.Service.Carts
                                           select new { c, cp }).ToListAsync();
                 result.CartProductVms = cartProducts.Select(i => new CartProductVm()
                 {
+                    Id = i.cp.Id,
                     CourseId = i.cp.CourseId,
                     CourseName = i.c.Name,
                     DiscountPrice = i.cp.DiscountPrice,
@@ -116,5 +116,20 @@ namespace KA.Service.Carts
             result.StringTotal = string.Format("{0:0,0 vnđ}", result.Total);
             return result;
         }
+
+        public async Task<int> GetCartProductAmount(string userId)
+        {
+            var cart = _cartRepo.GetAll().Where(c => c.UserId == userId
+                            && c.CartStatus == CartStatus.PreOrder).FirstOrDefault();
+            if (cart == null)
+                return 0;
+            return await _cartProductRepo.GetAll().Where(cp => cp.CartId == cart.Id).CountAsync();
+        }
+
+        public async Task RemoveCourseFromCart(int cartPorductId)
+        {
+            _cartProductRepo.DeleteById(cartPorductId);
+        }
     }
+
 }

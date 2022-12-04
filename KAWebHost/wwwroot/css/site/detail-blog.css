@@ -1,0 +1,9 @@
+﻿.blog-container {
+    max-width: 850px;
+    margin: auto;
+    margin-top: 50px;
+}
+
+    .blog-container img {
+        max-width: 100% !important;
+    }

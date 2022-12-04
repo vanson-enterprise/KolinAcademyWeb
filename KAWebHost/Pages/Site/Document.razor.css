@@ -25,16 +25,15 @@
         background-image: linear-gradient(to right, #340a65, #000260);
     }
 
-        .document-page .box-item p {
-            text-align: right;
+        .document-page .box-item span {
             font-size: 25px;
+            cursor: pointer;
         }
 
         .document-page .box-item .heading {
             position: relative;
             font-size: 28px;
             line-height: 140%;
-            max-height: 5rem;
             overflow: hidden;
             display: -webkit-box;
             -webkit-box-orient: vertical;

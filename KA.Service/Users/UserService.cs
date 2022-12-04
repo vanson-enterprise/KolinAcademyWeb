@@ -48,7 +48,7 @@ namespace KA.Service.Users
                              from ur in jur.DefaultIfEmpty()
                              join r in _roleRepo.GetAll() on ur.RoleId equals r.Id into jr
                              from r in jr.DefaultIfEmpty()
-                             where u.IsDeleted == false
+                             where u.IsDeleted == false && u.UserName != "superadmin"
                              orderby u.Id descending
                              select new { u, r }).AsEnumerable();
 
@@ -72,7 +72,7 @@ namespace KA.Service.Users
 
         public async Task<List<RoleModel>> GetAllRoleForSelect(string? userId)
         {
-            var result = await _roleRepo.GetAll().Where(r => r.Name != "Administrators").Select(r => new RoleModel()
+            var result = await _roleRepo.GetAll().Where(r => r.Name != "SuperAdmin").Select(r => new RoleModel()
             {
                 Id = r.Id,
                 RoleName = r.Name,
@@ -96,7 +96,7 @@ namespace KA.Service.Users
             };
 
             result.Roles = _roleManager.Roles
-                .Where(r => r.NormalizedName != "ADMINISTRATORS")
+                .Where(r => r.Name != "SuperAdmin")
                 .Select(r => new RoleModel()
                 {
                     Id = r.Id,
@@ -260,7 +260,7 @@ namespace KA.Service.Users
                     .Select(i => new OwningCourseVm()
                     {
                         Name = i.c.Name,
-                        DetailCourceLink = "/" + i.c.Name.GetSeoName() + "-" + i.c.Code,
+                        DetailCourceLink = "/khoa-hoc-offline/" + i.c.Name.GetSeoName() + "-" + i.c.Id,
                         ThumbnailImageLink = i.c.ThumbNailImageLink
                     }).ToList(),
                 OwningOnlineCourseVm = userCourses
@@ -268,13 +268,13 @@ namespace KA.Service.Users
                     .Select(i => new OwningCourseVm()
                     {
                         Name = i.c.Name,
-                        DetailCourceLink = "/" + i.c.Name.GetSeoName() + "-" + i.c.Code,
+                        DetailCourceLink = "/khoa-hoc-online/" + i.c.Name.GetSeoName() + "-" + i.c.Id,
                         ThumbnailImageLink = i.c.ThumbNailImageLink
                     }).ToList(),
                 CourseTransactionVms = userCourses.Select(i => new CourseTransactionVm()
                 {
                     CourseName = i.c.Name,
-                    TransactionDate = i.uc.CreatedDate.ToString("dd/MM/yyyy")
+                    TransactionDate = i.uc.UpdatedDate != null ? i.uc.UpdatedDate.Value.ToString("dd/MM/yyyy") : i.uc.CreatedDate.ToString("dd/MM/yyyy")
                 }).ToList()
             };
         }

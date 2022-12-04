@@ -1,5 +1,8 @@
 ﻿@page "/gio-hang"
 @inherits OwningComponentBase
+<HeadContent>
+    <PageTitle>Giỏ hàng - Kolin</PageTitle>
+</HeadContent>
 <div class="cart-page">
     <section class="cart-container">
         <div class="max-width mx-auto">
@@ -15,6 +18,7 @@
                                 <th scope="col">Khóa học</th>
                                 <th scope="col">Số lượng</th>
                                 <th scope="col">Thành tiền</th>
+                                <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -24,6 +28,10 @@
                                     <td>@cartProduct.CourseName</td>
                                     <td>01 khóa</td>
                                     <td>@cartProduct.DiscountPrice.ToVietNameseCurrency()</td>
+                                    <td>
+                                        <img class="bin-icon" src="/img/icon/recycle-bin.png"
+                                     @onclick="()=>RemoveCourseFromCart(cartProduct)" />
+                                    </td>
                                 </tr>
                             }
                         </tbody>
@@ -32,6 +40,7 @@
                                 <th>Tổng</th>
                                 <th>@(cartVm.Amount) khóa</th>
                                 <th class="secondary-color">@cartVm.StringTotal</th>
+                                <th class="secondary-color"></th>
                             </tr>
                         </tfoot>
                     </table>

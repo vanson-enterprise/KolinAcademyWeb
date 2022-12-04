@@ -204,7 +204,7 @@ namespace KA.Service.Courses
             var result = new List<OfflineCourseViewModel>();
             var datas = (from c in _courseRepo.GetAll()
                          join csd in _startDateOfflineCourseRepo.GetAll() on c.Id equals csd.OfflineCourseId
-                         where csd.StartTime > DateTime.Now && c.IsActive  && !c.IsDeleted 
+                         where csd.StartTime > DateTime.Now && c.IsActive && !c.IsDeleted
                          select new { c, csd }).AsEnumerable();
             var groups = from i in datas
                          group i by i.c into gc
@@ -288,7 +288,7 @@ namespace KA.Service.Courses
                 return null;
             var result = new DetailOnlineCourseModel()
             {
-                Id = course.Id,
+                CourseId = course.Id,
                 Name = course.Name,
                 DiscountPrice = course.DiscountPrice,
                 Price = course.Price,
@@ -332,6 +332,24 @@ namespace KA.Service.Courses
                 userLesson.Status = status;
                 await _userLessonRepo.UpdateAsync(userLesson);
             }
+        }
+
+        public async Task<float> UpdateUserCourseProgress(string userId, int courseId)
+        {
+            var userCourse = _userCourseRepo.GetAll().FirstOrDefault(ul => ul.CourseId == courseId && ul.UserId == ul.UserId);
+            if (userCourse != null)
+            {
+                var userLessonStatus = (from l in _lessonRepo.GetAll()
+                                        join ul in _userLessonRepo.GetAll() on l.Id equals ul.LessonId
+                                        where ul.UserId == userId && l.CourseId == courseId
+                                        select ul.Status).ToList();
+                var doneLessons = userLessonStatus.Count(uls => uls == UserLessonStatus.DONE);
+                userCourse.StudyProgress = doneLessons / userLessonStatus.Count();
+                await _userCourseRepo.UpdateAsync(userCourse);
+                return userCourse.StudyProgress;
+            }
+            return 0;
+
         }
         public async Task UpdateUserCourseProgress(int userCourseId)
         {

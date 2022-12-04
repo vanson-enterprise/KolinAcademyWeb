@@ -41,6 +41,7 @@ namespace KAWebHost.Pages.Admin.Blogs
         {
             model.Content = await quillHtml.GetHTML();
             model.CreateUserId = userId;
+            model.CreatedDate = DateTime.Now;
             await _blogService.CreateBlog(model);
             await jsr.InvokeVoidAsync("ShowAppAlert", "Tạo bài viết thành công", "success");
             model = new();
@@ -62,6 +63,7 @@ namespace KAWebHost.Pages.Admin.Blogs
             else
             {
                 await quillHtml.InsertImage(paramImageURL);
+                StateHasChanged();
 
             }
             fileSelectorControl.SetShowFileManager(false);
