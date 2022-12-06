@@ -22,7 +22,7 @@ namespace KAWebHost.Pages.Site
         protected override async Task OnInitializedAsync()
         {
             webRootPath = HostEnvironment.WebRootPath;
-            documentDirectory = Path.Combine(webRootPath, "uploads\\documents");
+            documentDirectory = Path.Combine(webRootPath, "uploads/documents");
             SerializeFiles();
         }
 
