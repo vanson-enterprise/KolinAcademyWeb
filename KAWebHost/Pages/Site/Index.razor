@@ -72,11 +72,11 @@
         <div class="max-width mx-auto">
             <div class="title text-center primary-color">VỀ CHÚNG TÔI</div>
             <div class="home-about_wrapper">
-                <iframe width="420"
-                        height="345"
-                        sandbox="allow-same-origin"
-                        src="./uploads/videos/kolin_home_intro.mp4">
-                </iframe>
+                <video controls preload="auto" 
+                        class="w-100"
+                       poster="/img/introvideo_thumnail.png">
+                    <source id='mp4' src="./uploads/videos/kolin_home_intro.mp4" type='video/mp4' />
+                </video>
                 <div class="detail secondary-color">Xem chi tiết >></div>
             </div>
         </div>
@@ -94,11 +94,11 @@
                     <div class="row mt-4">
                         <div class="col-lg-6 col-md-6 col-12">
                             <div class="video">
-                                <iframe width="420"
-                                    height="345"
-                                    sandbox
-                                    src="@onlineCourse.IntroVideoLink">
-                                </iframe>
+                                <video class="w-100"
+                                    controls
+                                    sandbox>
+                                    <source src="@onlineCourse.IntroVideoLink" type='video/mp4' />
+                                </video>
 
                             </div>
                         </div>

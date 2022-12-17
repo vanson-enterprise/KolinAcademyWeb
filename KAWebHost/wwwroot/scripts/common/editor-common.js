@@ -29,7 +29,15 @@ const roxyFileBrowser = function (callback, value, meta) {
 };
 
 window.initTinymce = function (selector) {
-    tinyMCE.baseURL = "http://localhost:5009/assets/plugins/custom/tinymce";
+    debugger
+    tinymce.baseURL = "http://localhost:5009/assets/plugins/custom/tinymce";
+    tinymce.documentBaseURL = "http://localhost:5009";
+    tinymce.baseURI.source = "http://localhost:5009/assets/plugins/custom/tinymce"
+    tinymce.baseURI.relative = "/assets/plugins/custom/tinymce";
+    tinymce.baseURI.path = "/assets/plugins/custom/tinymce";
+    tinymce.baseURI.directory = "/assets/plugins/custom/tinymce";
+
+
     tinymce.init({
         selector: selector,
         height: 550,
