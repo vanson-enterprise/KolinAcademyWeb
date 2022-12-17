@@ -175,6 +175,16 @@ namespace KA.Service.Orders
 
         }
 
+        public void UpdatePaymentStatus(int orderId, PaymentStatus paymentStatus)
+        {
+            var order = _orderRepo.GetById(orderId);
+            if (order != null)
+            {
+                order.PaymentStatus = paymentStatus;
+                _orderRepo.Update(order);
+            }
+        }
+
         private void InitUserCourse(Order order, Course c)
         {
             var existUc = _userCourseRepo.GetAll().Where((uc) => uc.UserId == order.UserId && uc.CourseId == c.Id).FirstOrDefault();

@@ -97,12 +97,23 @@ namespace KAWebHost.Pages.Site
                     UserId = userId,
                     CartProducts = cartVm.CartProductVms
                 };
+                
                 var order = _orderService.CreateNewOrder(newOrder);
                 if (order.Id > 0)
                 {
                     await _cartService.UpdateCartStatus(cartVm.Id.Value, CartStatus.Ordered);
                     mainLayout.GetCartProductAmount();
-                    navigationManager.NavigateTo("/don-hang/" + order.Id);
+                    if(order.TotalPrice == 0)
+                    {
+                        _orderService.UpdateOrderStatus(order.Id, OrderStatus.COMPLETED);
+                        _orderService.UpdatePaymentStatus(order.Id, PaymentStatus.PAID);
+                        mainLayout.ShowAlert("Bạn đã có thể học các khóa học bạn vừa mua", "Thông báo!");
+                        navigationManager.NavigateTo("/khoa-hoc-truc-tuyen");
+                    }
+                    else
+                    {
+                        navigationManager.NavigateTo("/don-hang/" + order.Id);
+                    }
                 }
                 else
                 {

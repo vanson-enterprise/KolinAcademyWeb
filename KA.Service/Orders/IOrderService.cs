@@ -15,5 +15,6 @@ namespace KA.Service.Orders
         Task<OrderViewModel> GetDetailOrder(int orderId);
         void UpdateOrderInfo(OrderViewModel input);
         void UpdateOrderStatus(int orderId, OrderStatus orderStatus);
+        void UpdatePaymentStatus(int orderId, PaymentStatus paymentStatus);
     }
 }

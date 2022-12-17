@@ -1,0 +1,97 @@
+﻿span.answerhighlight {
+    border: 1px dashed #ff6a00;
+    display: inline;
+}
+
+    span.answerhighlight:before {
+        font-size: 0.6em;
+        vertical-align: top;
+        border-bottom: 1px;
+        padding: 2px;
+        border-right: 1px;
+        border-style: dashed;
+        border-top: none;
+        border-left: none;
+        border-color: #ff6a00;
+        margin-right: 2px;
+    }
+
+    span.answerhighlight.q1:before {
+        content: '1'
+    }
+
+    span.answerhighlight.q2:before {
+        content: '2'
+    }
+
+    span.answerhighlight.q3:before {
+        content: '3'
+    }
+
+    span.answerhighlight.q4:before {
+        content: '4'
+    }
+
+    span.answerhighlight.q5:before {
+        content: '5'
+    }
+
+    span.answerhighlight.q6:before {
+        content: '6'
+    }
+
+    span.answerhighlight.q7:before {
+        content: '7'
+    }
+
+    span.answerhighlight.q8:before {
+        content: '8'
+    }
+
+    span.answerhighlight.q9:before {
+        content: '9'
+    }
+
+    span.answerhighlight.q10:before {
+        content: '10'
+    }
+
+    span.answerhighlight.q11:before {
+        content: '11'
+    }
+
+    span.answerhighlight.q12:before {
+        content: '12'
+    }
+
+    span.answerhighlight.q13:before {
+        content: '13'
+    }
+
+    span.answerhighlight.q14:before {
+        content: '14'
+    }
+
+    span.answerhighlight.q15:before {
+        content: '15'
+    }
+
+    span.answerhighlight.q16:before {
+        content: '16'
+    }
+
+    span.answerhighlight.q17:before {
+        content: '17'
+    }
+
+    span.answerhighlight.q18:before {
+        content: '18'
+    }
+
+    span.answerhighlight.q19:before {
+        content: '19'
+    }
+
+    span.answerhighlight.q20:before {
+        content: '20'
+    }

@@ -37,6 +37,14 @@ namespace KAWebHost.Pages.Admin.Blogs
             model = new();
         }
 
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            await jsr.InvokeVoidAsync("import", "/assets/plugins/custom/tinymce/tinymce.min.js");
+            await jsr.InvokeVoidAsync("import", "/scripts/common/editor-common.js");
+            await jsr.InvokeVoidAsync("import", "/Pages/Admin/Blogs/CreateBlog.razor.js");
+            await jsr.InvokeVoidAsync("createBlogPageJs.init");
+        }
+
         private async Task SubmitForm()
         {
             model.Content = await quillHtml.GetHTML();

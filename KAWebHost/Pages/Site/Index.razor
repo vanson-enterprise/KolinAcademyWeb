@@ -18,8 +18,8 @@
 
 <div class="home-page">
     <section class="home-banner relative">
-        <img class="w-full block" src="./img/home-banner.png" alt="" />
-        <div class="banner-container absolute w-full">
+        <img class="w-full block" src="./img/home-poster.jpg" alt="" />
+       @* <div class="banner-container absolute w-full">
             <div class="d-flex mx-auto max-width">
                 <div class="banner-img relative">
                     <div class="text line-height-normal absolute">KHÓA HỌC</div>
@@ -29,7 +29,7 @@
                     <div>Khóa tạo dáng, chụp hình bằng smartphone</div>
                 </div>
             </div>
-        </div>
+        </div>*@
     </section>
     @if (offlineCourseViewModels != null && offlineCourseViewModels.Count > 0)
     {
@@ -74,7 +74,8 @@
             <div class="home-about_wrapper">
                 <iframe width="420"
                         height="345"
-                        src="https://www.youtube.com/embed/Fmz1uxKIOb4">
+                        sandbox="allow-same-origin"
+                        src="./uploads/videos/kolin_home_intro.mp4">
                 </iframe>
                 <div class="detail secondary-color">Xem chi tiết >></div>
             </div>
