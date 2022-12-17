@@ -18,6 +18,8 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\font\" />
+    <Folder Include="wwwroot\img\profile\" />
+    <Folder Include="wwwroot\img\profile\" />
     <Folder Include="wwwroot\uploads\course-images\" />
     <Folder Include="wwwroot\uploads\documents\" />
     <Folder Include="wwwroot\uploads\videos\" />
