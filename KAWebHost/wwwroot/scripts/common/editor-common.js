@@ -29,10 +29,9 @@ const roxyFileBrowser = function (callback, value, meta) {
 };
 
 window.initTinymce = function (selector) {
-    debugger
-    tinymce.baseURL = "http://localhost:5009/assets/plugins/custom/tinymce";
-    tinymce.documentBaseURL = "http://localhost:5009";
-    tinymce.baseURI.source = "http://localhost:5009/assets/plugins/custom/tinymce"
+    tinymce.baseURL = "https://kolin.vn/assets/plugins/custom/tinymce";
+    tinymce.documentBaseURL = "https://kolin.vn";
+    tinymce.baseURI.source = "https://kolin.vn/assets/plugins/custom/tinymce"
     tinymce.baseURI.relative = "/assets/plugins/custom/tinymce";
     tinymce.baseURI.path = "/assets/plugins/custom/tinymce";
     tinymce.baseURI.directory = "/assets/plugins/custom/tinymce";
@@ -40,7 +39,7 @@ window.initTinymce = function (selector) {
 
     tinymce.init({
         selector: selector,
-        height: 550,
+        height: 1000,
         width: '100%',
         plugins: [
             'advlist autolink lists link image charmap print preview hr anchor pagebreak',

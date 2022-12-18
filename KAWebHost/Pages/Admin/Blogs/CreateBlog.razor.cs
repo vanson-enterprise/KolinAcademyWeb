@@ -13,7 +13,6 @@ namespace KAWebHost.Pages.Admin.Blogs
     {
         private CreateBlogVm model;
         private FileSelector fileSelectorControl;
-        private bool isSelectThumbNailImage;
         private string userId;
 
         // Parameter
@@ -23,10 +22,13 @@ namespace KAWebHost.Pages.Admin.Blogs
 
 
         // Service
-        BlazoredTextEditor quillHtml;
         IBlogService _blogService;
+
         [Inject]
         IJSRuntime jsr { get; set; }
+
+        [Inject]
+        NavigationManager NavigationManager { get; set; }
 
 
         protected override async Task OnInitializedAsync()
@@ -47,33 +49,24 @@ namespace KAWebHost.Pages.Admin.Blogs
 
         private async Task SubmitForm()
         {
-            model.Content = await quillHtml.GetHTML();
+            model.Content = await jsr.InvokeAsync<string>("createBlogPageJs.getTextEditorContent");
             model.CreateUserId = userId;
             model.CreatedDate = DateTime.Now;
             await _blogService.CreateBlog(model);
             await jsr.InvokeVoidAsync("ShowAppAlert", "Tạo bài viết thành công", "success");
+            NavigationManager.NavigateTo("/manager/blogs");
             model = new();
         }
 
         private void OpenSelectImageModal(bool isFromTextEditor)
         {
 
-            isSelectThumbNailImage = !isFromTextEditor;
             fileSelectorControl.SetShowFileManager(true);
         }
 
         async Task InsertImage(string paramImageURL)
         {
-            if (isSelectThumbNailImage)
-            {
-                model.ThumbNailImageLink = paramImageURL;
-            }
-            else
-            {
-                await quillHtml.InsertImage(paramImageURL);
-                StateHasChanged();
-
-            }
+            model.ThumbNailImageLink = paramImageURL;
             fileSelectorControl.SetShowFileManager(false);
         }
 

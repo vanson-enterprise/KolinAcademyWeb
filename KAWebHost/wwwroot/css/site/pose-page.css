@@ -175,3 +175,76 @@
         border-radius: 30px;
         border: 1px solid var(--primary-color);
     }
+
+@media only screen and (max-width: 1160px) {
+    .pose-page section {
+        margin: 4rem 20px;
+    }
+
+    /* introduce */
+    .pose-page .introduce .video,
+    .pose-page .benefit-content,
+    .pose-page .lecture-content,
+    .pose-page .feedback-content,
+    .pose-page .infor-content {
+        padding: 0 68px;
+    }
+
+    .pose-page .introduce iframe {
+        height: 400px;
+    }
+
+    .pose-page .lecture .group-img {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .pose-page .lecture img {
+        max-width: 100%;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    /* home-banner */
+    .banner-container > div {
+        flex-direction: column;
+    }
+
+    .banner-img .text {
+        top: 22%;
+        font-size: 18px;
+    }
+
+    .banner-content > div {
+        margin: 0 auto;
+        position: relative;
+        top: -128%;
+        font-size: 8px;
+    }
+
+    /* introduce */
+    .pose-page .introduce .video,
+    .pose-page .benefit-content,
+    .pose-page .lecture-content,
+    .pose-page .feedback-content,
+    .pose-page .infor-content {
+        padding: 0;
+    }
+
+    .pose-page .introduce iframe,
+    .feedback .video iframe {
+        height: 240px;
+    }
+
+    .pose-page .infor .discount {
+        margin-top: 1rem;
+    }
+
+    .pose-page .infor-content .details {
+        margin-bottom: 1rem;
+    }
+
+    .pose-page .course-for .box {
+        border-radius: 30px;
+    }
+}

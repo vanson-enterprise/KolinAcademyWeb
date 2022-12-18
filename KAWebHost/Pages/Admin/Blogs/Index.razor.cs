@@ -1,4 +1,5 @@
-﻿using KA.Infrastructure.Enums;
+﻿using KA.DataProvider.Entities;
+using KA.Infrastructure.Enums;
 using KA.Service.Blogs;
 using KA.Service.Courses;
 using KA.ViewModels.Blogs;
@@ -35,10 +36,13 @@ namespace KAWebHost.Pages.Admin.Blogs
         {
             dataGrid = await _blogService.GetAllBlogPaging(args.Skip, args.Top);
         }
-
+        private void RedirectToCreatePage()
+        {
+            NavigationManager.NavigateTo($"/manager/create-blog",true);
+        }
         private void EditRow(int blogId)
         {
-            NavigationManager.NavigateTo($"/manager/edit-blog/{blogId}");
+            NavigationManager.NavigateTo($"/manager/edit-blog/{blogId}",true);
         }
 
         private void DeleteBlog(int id)

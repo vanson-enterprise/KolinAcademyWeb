@@ -213,3 +213,54 @@
     .form .btn-right p {
         margin-left: 3rem;
     }
+
+@media only screen and (max-width: 1160px) {
+    .livestream-page section {
+        margin: 4rem 20px;
+    }
+
+    .livestream-page .why-content,
+    .livestream-page .infor-content,
+    .livestream-page .course-for-content,
+    .livestream-page .list-benefit,
+    .livestream-page .guide-content,
+    .livestream-page .lecture-content,
+    .livestream-page .feedback-content {
+        padding: 0 68px;
+    }
+
+    .form button {
+        font-size: 20px;
+        min-width: 320px;
+        margin: 0 0 1.5rem 0;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .livestream-page .why-content,
+    .livestream-page .infor-content,
+    .livestream-page .course-for-content,
+    .livestream-page .list-benefit,
+    .livestream-page .guide-content,
+    .livestream-page .lecture-content,
+    .livestream-page .feedback-content {
+        padding: 0;
+    }
+
+    .livestream-page .benefit-item {
+        margin: 0 0 1.5rem 0;
+    }
+
+    .livestream-page .lecture .group-img {
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .livestream-page .lecture img {
+        max-width: 100%;
+    }
+
+    .livestream-page .feedback iframe {
+        height: 240px;
+    }
+}

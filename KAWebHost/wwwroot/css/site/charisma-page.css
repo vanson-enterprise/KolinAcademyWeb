@@ -1,7 +1,4 @@
-﻿@import url("https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css");
-@import url("https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css");
-
-.charisma-page section {
+﻿.charisma-page section {
     margin: 5rem;
 }
 
@@ -82,7 +79,8 @@
 
 /* lecture */
 .charisma-page .lecture img {
-    width: 700px;
+    max-width: 700px;
+    width: 100%;
 }
 
 /* students kolin */
@@ -158,3 +156,25 @@
         background-image: linear-gradient( to right, var(--secondary-color), var(--primary-color) );
         border: 1px solid var(--primary-color);
     }
+
+@media only screen and (max-width: 1160px) {
+    .charisma-page .infor .box {
+        margin-top: 2rem;
+    }
+}
+
+
+@media only screen and (max-width: 767px) {
+    .charisma-page section {
+        margin: 4rem 20px;
+    }
+
+    .charisma-page .student-info {
+        flex-direction: column;
+    }
+
+        .charisma-page .student-info .img,
+        .charisma-page .student-info .info {
+            max-width: 100%;
+        }
+}

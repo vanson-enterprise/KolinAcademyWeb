@@ -1,6 +1,6 @@
-﻿const createBlogPageJs = function () {
+﻿const editBlogPageJs = function () {
     this.init = () => {
-
+        debugger
         window.initTinymce('#app-text-editor');
     }
 
@@ -9,4 +9,4 @@
     }
 }
 
-window.createBlogPageJs = new createBlogPageJs();
+window.editBlogPageJs = new editBlogPageJs();

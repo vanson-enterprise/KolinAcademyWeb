@@ -13,7 +13,6 @@ namespace KAWebHost.Pages.Admin.Blogs
     {
         private EditBlogVm model;
         private FileSelector fileSelectorControl;
-        private bool isSelectThumbNailImage;
         private string userId;
 
         // Parameter
@@ -25,7 +24,6 @@ namespace KAWebHost.Pages.Admin.Blogs
 
 
         // Service
-        BlazoredTextEditor quillHtml;
         IBlogService _blogService;
         [Inject]
         IJSRuntime jsr { get; set; }
@@ -38,8 +36,15 @@ namespace KAWebHost.Pages.Admin.Blogs
             authenticationState = await authenticationStateTask;
             userId = authenticationState.User.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).Select(c => c.Value).SingleOrDefault();
             model = _blogService.GetBlogForEdit(BlogId);
+           
         }
-
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            await jsr.InvokeVoidAsync("import", "/assets/plugins/custom/tinymce/tinymce.min.js");
+            await jsr.InvokeVoidAsync("import", "/scripts/common/editor-common.js");
+            await jsr.InvokeVoidAsync("import", "/Pages/Admin/Blogs/EditBlog.razor.js");
+            await jsr.InvokeVoidAsync("editBlogPageJs.init");
+        }
         private async Task SubmitForm()
         {
             var blog = _blogService.GetById(BlogId);
@@ -54,7 +59,7 @@ namespace KAWebHost.Pages.Admin.Blogs
                 blog.MetaTitle = model.MetaTitle;
                 blog.Published = model.Published;
                 blog.ThumbNailImageLink = model.ThumbNailImageLink;
-                blog.Content = await quillHtml.GetHTML();
+                blog.Content = await jsr.InvokeAsync<string>("editBlogPageJs.getTextEditorContent");
 
                 await _blogService.UpdateAsync(blog);
                 await jsr.InvokeVoidAsync("ShowAppAlert", "Cập nhật bài viết thành công", "success");
@@ -68,22 +73,13 @@ namespace KAWebHost.Pages.Admin.Blogs
 
         private void OpenSelectImageModal(bool isFromTextEditor)
         {
-
-            isSelectThumbNailImage = !isFromTextEditor;
             fileSelectorControl.SetShowFileManager(true);
         }
 
         async Task InsertImage(string paramImageURL)
         {
-            if (isSelectThumbNailImage)
-            {
-                model.ThumbNailImageLink = paramImageURL;
-            }
-            else
-            {
-                await quillHtml.InsertImage(paramImageURL);
 
-            }
+            model.ThumbNailImageLink = paramImageURL;
             fileSelectorControl.SetShowFileManager(false);
         }
     }
