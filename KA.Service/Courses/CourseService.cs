@@ -238,7 +238,7 @@ namespace KA.Service.Courses
                 return new OnlineCourseViewModel()
                 {
                     Id = course.Id,
-                    DetailLink = "/" + course.Name.GetSeoName() + "-" + course.Code,
+                    DetailLink = "/khoa-hoc-online/" + course.Name.GetSeoName() + "-" + course.Id,
                     Name = course.Name,
                     Price = string.Format("{0:0,0 vnđ}", course.Price),
                     DiscountPrice = string.Format("{0:0,0 vnđ}", course.DiscountPrice),
@@ -258,7 +258,7 @@ namespace KA.Service.Courses
                             .Take(offCourseNumber)
                             .Select(c => new OfflineCourseViewModel()
                             {
-                                DetailCourseLink = "/" + c.Name.GetSeoName() + "-" + c.Code,
+                                DetailCourseLink = "/khoa-hoc-offline/" + c.Name.GetSeoName() + "-" + c.Id,
                                 IntroVideoLink = c.IntroduceVideoLink,
                                 Name = c.Name,
                             })
