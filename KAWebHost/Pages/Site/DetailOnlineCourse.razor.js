@@ -42,7 +42,9 @@
     }
 
     this.loadVideo = () => {
-        document.getElementById("main-video").load();
+        setTimeout(() => {
+            document.getElementById("main-video").load();
+        },500)
     }
 }
 window.onlineCoursePageJs = new onlineCoursePageJs();

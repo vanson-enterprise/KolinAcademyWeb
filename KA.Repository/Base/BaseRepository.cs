@@ -78,6 +78,7 @@ namespace KA.Repository.Base
         {
             try
             {
+
                 DbContext.Entry(entity).State = EntityState.Modified;
                 return await DbContext.SaveChangesAsync();
             }
@@ -86,6 +87,17 @@ namespace KA.Repository.Base
                 throw e;
             }
 
+        }
+
+        public virtual async Task DetachedEntity(T entity)
+        {
+            var local = DbContext.Set<T>()
+                        .Local
+                        .FirstOrDefault(entry => entry.GetHashCode == entity.GetHashCode);
+            if(local != null)
+            {
+                DbContext.Entry(local).State = EntityState.Detached;
+            }
         }
 
         public virtual async Task<int> DeleteAsync(T entity)
@@ -182,5 +194,7 @@ namespace KA.Repository.Base
             return await DbContext.SaveChangesAsync();
         }
         #endregion
+
+
     }
 }

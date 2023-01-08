@@ -32,7 +32,7 @@ builder.Services.AddMvc(options => options.EnableEndpointRouting = false).SetCom
 
 // DbContext
 var connectionString = builder.Configuration.GetConnectionString("Default");
-builder.Services.AddDbContext<ApplicationDbContext>(option =>
+builder.Services.AddDbContextFactory<ApplicationDbContext>(option =>
 {
     option.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 }, ServiceLifetime.Scoped);

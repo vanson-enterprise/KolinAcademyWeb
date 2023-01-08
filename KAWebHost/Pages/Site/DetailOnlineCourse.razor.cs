@@ -1,4 +1,5 @@
 ﻿using Castle.DynamicProxy.Contributors;
+using KA.DataProvider;
 using KA.DataProvider.Entities;
 using KA.Infrastructure.Enums;
 using KA.Service.Carts;
@@ -11,6 +12,7 @@ using KAWebHost.Pages.Admin.Components;
 using KAWebHost.Shared;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.JSInterop;
 using Newtonsoft.Json.Linq;
 using System.Security.Claims;
@@ -35,7 +37,6 @@ namespace KAWebHost.Pages.Site
         private IJSRuntime jsr { get; set; }
 
 
-
         // Properies
         public DetailOnlineCourseModel model { get; set; } = new()
         {
@@ -48,6 +49,7 @@ namespace KAWebHost.Pages.Site
         private ClaimsPrincipal appUser;
         private int courseId;
         private int currentLessonIndex;
+        private string studyProgress;
         public DotNetObjectReference<DetailOnlineCourse> DotNetRef;
 
         protected override async Task OnInitializedAsync()
@@ -127,10 +129,11 @@ namespace KAWebHost.Pages.Site
                 mainLayout.ShowAlert("Bạn phải học xong bài hiện tại mới học được bài kế tiếp", "Thông báo");
 
             }
-            else
+            else if(lessonIndex != currentLessonIndex)
             {
                 currentVideoLink = lesson.VideoLink;
                 currentLessonIndex = lessonIndex;
+                StateHasChanged();
                 LoadVideo();
             }
 
@@ -140,29 +143,33 @@ namespace KAWebHost.Pages.Site
         {
             userLessonVms = await _courseService.GetUserLessons(userId, courseId);
             currentVideoLink = userLessonVms.First(ul => ul.UserLessonStatus == UserLessonStatus.PROCESSING).VideoLink;
+            CaculateStudyProgress();
+        }
+
+        private string CaculateStudyProgress()
+        {
+            var doneLessonNumber = userLessonVms.Count(ul => ul.UserLessonStatus == UserLessonStatus.DONE);
+            studyProgress = (doneLessonNumber * 100 /(float) userLessonVms.Count()).ToString("0.00");
+            return $"width: {studyProgress}%; height:100%";
         }
 
         [JSInvokable("Unlock_And_Go_To_Next_Lesson")]
-        public void UnlockAndGoToNextLesson()
+        public async Task UnlockAndGoToNextLesson()
         {
+            await _courseService.UpdateUserLessonStatus(userLessonVms[currentLessonIndex].UserLessonId, UserLessonStatus.DONE);
+            userLessonVms[currentLessonIndex].UserLessonStatus = UserLessonStatus.DONE;
             // check is the last lesson
-            if ((currentLessonIndex + 1) == userLessonVms.Count)
-            {
-
-                return;
-            }
-            else
+            if ((currentLessonIndex + 1) < userLessonVms.Count)
             {
                 var nextLesson = userLessonVms[currentLessonIndex + 1];
                 nextLesson.UserLessonStatus = UserLessonStatus.PROCESSING;
-                _courseService.UpdateUserLessonStatus(userLessonVms[currentLessonIndex].UserLessonId, UserLessonStatus.DONE);
-                _courseService.UpdateUserLessonStatus(nextLesson.UserLessonId, UserLessonStatus.PROCESSING);
+                await _courseService.UpdateUserLessonStatus(nextLesson.UserLessonId, UserLessonStatus.PROCESSING);
 
                 currentVideoLink = nextLesson.VideoLink;
                 currentLessonIndex++;
-                StateHasChanged();
                 LoadVideo();
             }
+            StateHasChanged();
         }
 
         private void AddToCart(int courseId)

@@ -37,10 +37,12 @@
                 <div class="d-flex justify-content-around">
                     <div class="box text-center">
                         <div>Tiến độ học</div>
-
-                        <div class="progress" style="width:150px">
-                            <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
+                        @if(userLessonVms.Count >0){
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped" role="progressbar" style="@CaculateStudyProgress()" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        }
+                        
                     </div>
                     <div class="box text-center d-flex flex-column justify-content-between">
                         <div>Giá khóa học</div>

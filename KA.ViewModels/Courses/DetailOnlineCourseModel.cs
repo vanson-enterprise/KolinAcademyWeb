@@ -17,6 +17,7 @@ namespace KA.ViewModels.Courses
         public string? MetaTitle { get; set; }
         public string? MetaDescription { get; set; }
         public string? IntroduceVideoLink { get; set; }
+        public float Process { get; set; }
 
         public List<LessonViewModel> Lessons { get; set; }
     }

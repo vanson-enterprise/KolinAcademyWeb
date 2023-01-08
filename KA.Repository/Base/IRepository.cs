@@ -52,6 +52,7 @@ namespace KA.Repository.Base
         Task<int> UpdateRangeAsync(List<T> entities);
 
         Task<int> DeleteAsync(T entity);
+        Task DetachedEntity(T entity);
 
         #endregion
     }

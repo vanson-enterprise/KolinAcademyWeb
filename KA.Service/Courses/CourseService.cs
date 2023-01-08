@@ -320,17 +320,18 @@ namespace KA.Service.Courses
                                    LessonName = l.Name,
                                    UserLessonStatus = ul.Status,
                                    VideoLink = l.VideoLink
-                               }).ToList();
+                               }).AsNoTracking().ToList();
             return userLessons;
         }
 
         public async Task UpdateUserLessonStatus(int userLessonId, UserLessonStatus status)
         {
-            var userLesson = await _userLessonRepo.GetFirstOrDefaultAsync(ul => ul.Id == userLessonId);
+            var userLesson = (await _userLessonRepo.GetFirstOrDefaultAsync(ul => ul.Id == userLessonId));
             if (userLesson != null)
             {
                 userLesson.Status = status;
                 await _userLessonRepo.UpdateAsync(userLesson);
+                await _userLessonRepo.DetachedEntity(userLesson);
             }
         }
 
