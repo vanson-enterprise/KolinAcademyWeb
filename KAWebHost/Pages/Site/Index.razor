@@ -108,7 +108,7 @@
                                 <p class="primary-color name-course">@onlineCourse.Name</p>
 
                                 <p> @(onlineCourse.ShortDescription)</p>
-                                <button class="btn-register inline-block secondary-color mt-3" @onclick="()=>GoToDetailCoursePage(onlineCourse.DetailLink)">
+                                <button class="btn-register inline-block secondary-color mt-3" @onclick="()=>GoToDetailOnlineCourse(onlineCourse.DetailLink)">
                                     Đăng ký học online
                                 </button>
                             </div>
@@ -147,12 +147,12 @@
                                     <div class="text d-flex justify-content-between align-items-end">
                                         <div style="flex: 1">
                                             <p class="heading">KHÓA HỌC</p>
-                                            <p class="name primary-color">
+                                            <NavLink class="name primary-color" href="@offCourse.DetailCourseLink">
                                                 @offCourse.Name
-                                            </p>
+                                            </NavLink>
                                         </div>
                                         <div style="flex: 1" class="d-flex justify-content-end">
-                                            <button class="secondary-color" @onclick="()=>GoToDetailCoursePage(offCourse.DetailCourseLink)">Đăng ký >></button>
+                                            <button class="secondary-color" @onclick="()=>GoToRegisterPage(offCourse.Id)">Đăng ký >></button>
                                         </div>
                                     </div>
                                 </div>
@@ -410,7 +410,7 @@
                             </div>
                             <div class="info">
                                 <div class="name primary-color">NHƯ QUỲNH NGUYỄN</div>
-                                <p>CEO  tại L.II.N Clothing</p>
+                                <p>CEO  tại L.II.N Clothing</p>
                                 <p>Khóa học: Personal Brand Pro</p>
                                 <ul>
                                     <li>Facebook: 42.999 fl</li>

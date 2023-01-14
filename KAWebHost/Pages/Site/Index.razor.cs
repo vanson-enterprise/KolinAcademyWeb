@@ -44,10 +44,14 @@ namespace KAWebHost.Pages.Site
             }
         }
 
-        private void GoToDetailCoursePage(string detailCourseLink)
+        private void GoToRegisterPage(int courseId)
         {
-            NavigationManager.NavigateTo(detailCourseLink);
+            NavigationManager.NavigateTo("/dang-ky-khoa-hoc/" + courseId);
         }
 
+        private void GoToDetailOnlineCourse(string path)
+        {
+            NavigationManager.NavigateTo(path);
+        }
     }
 }

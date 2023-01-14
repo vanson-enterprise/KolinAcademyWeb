@@ -1,0 +1,86 @@
+﻿@page "/dang-ky-khoa-hoc/{CourseId:int}"
+@using KA.Service.Courses
+@using KA.ViewModels.Courses
+@inherits OwningComponentBase
+
+<div class="form-register relative">
+    <div class="wrapper-form d-flex flex-column justify-content-center">
+        <div class="heading primary-color">ĐĂNG KÝ KHÓA HỌC</div>
+        <EditForm Model="model" OnValidSubmit="Register" class="text-center">
+            <DataAnnotationsValidator />
+            <div class="mb-3">
+                <InputText @bind-Value="model.FullName" type="text" class="form-control" placeholder="Họ và tên" />
+            </div>
+
+            <div class="mb-3">
+                <InputText @bind-Value="model.Email" type="email"
+                           class="form-control"
+                           aria-describedby="emailHelp"
+                           placeholder="Email" />
+            </div>
+
+            <div class="mb-3">
+                <InputText @bind-Value="model.PhoneNumber" type="phone"
+                           class="form-control"
+                           placeholder="Số điện thoại" />
+                <ValidationMessage For="@(()=>model.PhoneNumber)" style="text-align:left"></ValidationMessage>
+            </div>
+
+            <div class="mb-3">
+                <InputNumber type="number" @bind-Value="model.MemberAmount"
+                             class="form-control"
+                             placeholder="Số lượng học viên" />
+            </div>
+
+
+            <select class="mb-3 form-control" @bind="model.CourseId">
+                <option value="">--- Chọn khóa học ---</option>
+                @if (offlineCourseSelectedItems != null)
+                {
+                    @foreach (var item in offlineCourseSelectedItems)
+                    {
+                        <option value="@item.Id">@item.CourseName</option>
+                    }
+                }
+            </select>
+            <br />
+            <button type="submit" class="btn">Đăng ký</button>
+        </EditForm>
+    </div>
+    <img src="./img/bg-form.png" alt="" class="bg-form absolute" />
+</div>
+
+
+@code {
+    [Parameter]
+    public int CourseId { get; set; }
+    [CascadingParameter]
+    private MainLayout mainLayout { get; set; }
+
+    ICourseService courseService { get; set; }
+
+    OfflineCourseRegisterInputDto model = new();
+    List<OfflineCourseSelectedItem> offlineCourseSelectedItems;
+
+    protected override async Task OnInitializedAsync()
+    {
+        courseService = ScopedServices.GetRequiredService<ICourseService>();
+        model.CourseId = CourseId;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            offlineCourseSelectedItems = await courseService.GetOfflineCourseSelectedItems();
+            StateHasChanged();
+        }
+    }
+
+    public async Task Register()
+    {
+        await courseService.RegisterOfflineCourse(model);
+        mainLayout.ShowAlert("Bạn đã đăng ký khóa học thành công, chúng tôi sẽ liên hệ bạn sớm nhất có thể!", "Thông báo");
+        model = new();
+    }
+}

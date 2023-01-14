@@ -1,0 +1,85 @@
+﻿@attribute [Authorize(Roles = "Manager")]
+@page "/manager/offline-course-register"
+@using KA.ViewModels.Courses
+@inherits OwningComponentBase
+
+<div class="d-flex flex-column-fluid">
+    <!--begin::Container-->
+    <div class="container-fluid">
+        <!--begin::Card-->
+        <div class="card card-flush">
+            <!--begin::Card header-->
+            <div class="card-header mt-6">
+                <h3 class="card-title">Danh sách đăng ký khóa học offline</h3>
+                <div class="card-toolbar">
+                    <div class="d-flex align-items-center position-relative my-1 me-5">
+                        <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+                        <span class="svg-icon svg-icon-1 position-absolute ms-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="black" />
+                                <path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="black" />
+                            </svg>
+                        </span>
+                        <!--end::Svg Icon-->
+                        <input value="" type="text" data-search-table-filter="search" class="form-control form-control-solid w-250px ps-15 me-5" placeholder="Text Search" />
+                       
+                    </div>
+                </div>
+            </div>
+            <!--end::Card header-->
+            <!--begin::Card body-->
+            <div class="card-body pt-0">
+                @if (dataGrid != null)
+                {
+                    <RadzenDataGrid AllowFiltering="true"
+                                AllowColumnResize="false"
+                                AllowAlternatingRows="false"
+                                FilterMode="FilterMode.Simple"
+                                AllowSorting="true"
+                                AllowPaging="false"
+                                PagerHorizontalAlign="HorizontalAlign.Left"
+                                SelectionMode="DataGridSelectionMode.Single"
+                                Data="@dataGrid.Items"
+                                TItem="OfflineCourseRegisterVm"
+                                LogicalFilterOperator="LogicalFilterOperator.And">
+                        <Columns>
+                            <RadzenDataGridColumn TItem="OfflineCourseRegisterVm" Property="Index" Filterable="false" Title="STT" Width="60px" TextAlign="TextAlign.Center" />
+
+                            <RadzenDataGridColumn TItem="OfflineCourseRegisterVm" Property="FullName" Title="Tên khách hàng" Width="250px" />
+                            <RadzenDataGridColumn TItem="OfflineCourseRegisterVm" Property="PhoneNumber" Title="Số diện thoại" Width="150px" />
+                            <RadzenDataGridColumn TItem="OfflineCourseRegisterVm" Property="CourseName" Title="Tên khóa học" MinWidth="350px" />
+                            <RadzenDataGridColumn TItem="OfflineCourseRegisterVm" Property="Email" Title="Email" Width="250px" />
+                            <RadzenDataGridColumn TItem="OfflineCourseRegisterVm" Property="MemberAmount" Title="Số lượng học viên" Width="150px" />
+                            <RadzenDataGridColumn TItem="OfflineCourseRegisterVm" Property="CreatedDate" Title="Ngày đăng ký" Width="150px" />
+                            @*<RadzenDataGridColumn TItem="OfflineCourseRegisterVm" Context="dataContext" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="50px">
+                                <Template Context="course">
+                                    <RadzenButton Icon="edit"
+                                              ButtonStyle="ButtonStyle.Light"
+                                              Class="m-1"
+                                              Click="@(args => EditRow(course))"
+                                              @onclick:stopPropagation="true">
+                                    </RadzenButton>
+                                </Template>
+                            </RadzenDataGridColumn>
+                            <RadzenDataGridColumn TItem="OfflineCourseRegisterVm" Context="dataContext" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="60px">
+                                <Template Context="course">
+                                    <RadzenButton ButtonStyle="ButtonStyle.Danger"
+                                              Icon="delete"
+                                              Size="ButtonSize.Medium"
+                                              Class="m-2"
+                                              @onclick:stopPropagation="true"
+                                              Click="@(args =>DeleteCourse(course.Id))">
+                                    </RadzenButton>
+                                </Template>
+                            </RadzenDataGridColumn>*@
+                        </Columns>
+                    </RadzenDataGrid>
+                    <RadzenPager ShowPagingSummary="true" PagingSummaryFormat="@pagingSummaryFormat" HorizontalAlign="HorizontalAlign.Right" Count="dataGrid.TotalItem" PageSize="@pageSize" PageNumbersCount="5" PageChanged="@PageChanged" />
+                }
+            </div>
+            <!--end::Card body-->
+        </div>
+        <!--end::Card-->
+    </div>
+    <!--end::Container-->
+</div>

@@ -1,0 +1,250 @@
+.tiktok-page section {
+  margin: 5rem;
+}
+
+.tiktok-page .title {
+  font-size: 28px;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.tiktok-page .title::before {
+  content: "";
+  height: 3px;
+  width: 175px;
+  top: -14px;
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+  background-color: var(--secondary-color);
+}
+
+/* benefit */
+.tiktok-page .list-benefit {
+  padding: 0 140px;
+}
+
+.tiktok-page .benefit-item {
+  width: 100%;
+  padding: 15px;
+  max-width: 350px;
+  min-height: 80px;
+  margin: 0 5px 15px;
+  border-radius: 15px;
+  display: inline-table;
+  border: 1px solid var(--primary-color);
+}
+
+/* guide */
+.tiktok-page .guide-content {
+  padding: 0 140px;
+}
+
+.tiktok-page .guide .box {
+  padding: 25px;
+  display: flex;
+  min-height: 220px;
+  border-radius: 20px;
+  margin-bottom: 25px;
+  align-items: center;
+  border: 1px solid var(--primary-color);
+}
+
+.tiktok-page .guide .box .day {
+  top: -16px;
+  font-size: 18px;
+  padding: 2px 16px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  color: var(--white-color);
+  background: var(--secondary-color);
+  border: 1px solid var(--primary-color);
+}
+
+.tiktok-page .guide .box ul {
+  padding-left: 10px;
+  margin-bottom: 0;
+}
+
+.tiktok-page .guide .box ul li {
+  list-style: disc;
+}
+
+/* lecture */
+.tiktok-page .lecture-content {
+  padding: 0 140px;
+}
+
+.tiktok-page .lecture img {
+  width: 100%;
+  max-width: 50%;
+  position: relative;
+}
+
+.tiktok-page .lecture .group-img {
+  z-index: 1;
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.tiktok-page .lecture .group-img::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  right: 0;
+  top: 50px;
+  bottom: -10px;
+  z-index: -1;
+  background-color: var(--black-color);
+}
+
+/* feedback */
+.tiktok-page .feedback-content {
+  padding: 0 140px;
+}
+
+.tiktok-page .feedback .name-student {
+  text-transform: uppercase;
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.tiktok-page .feedback .video {
+  border-radius: 30px;
+  overflow: hidden;
+  border: 1px solid #fff;
+}
+
+.tiktok-page .feedback iframe {
+  width: 100%;
+  height: 300px;
+  display: block;
+}
+
+/* infor */
+.tiktok-page .infor-content {
+  padding: 0 140px;
+}
+
+.tiktok-page .infor .details p {
+  margin-bottom: 0.5rem;
+  font-size: 18px;
+}
+
+.tiktok-page .infor .price {
+  font-size: 26px !important;
+  padding-top: 1rem;
+}
+
+.tiktok-page .infor .box {
+  padding: 20px;
+  min-height: 190px;
+  border-radius: 60px;
+  align-items: center;
+  text-align: center;
+  justify-content: space-between;
+  border: 1px solid var(--primary-color);
+}
+
+.tiktok-page .infor .box strong {
+  font-size: 20px;
+  margin: 0 4px;
+}
+
+.tiktok-page .infor button {
+  padding: 8px 30px;
+  border-radius: 30px;
+  color: var(--white-color);
+  background-image: linear-gradient(
+    to right,
+    var(--secondary-color),
+    var(--primary-color)
+  );
+  border: 1px solid var(--primary-color);
+}
+
+/* form */
+
+.form button {
+  padding: 10px;
+  border-radius: 30px;
+  font-size: 24px;
+  min-width: 450px;
+  margin-right: 2rem;
+}
+
+.form .btn-left {
+  background-color: var(--primary-color);
+}
+
+.form .btn-right {
+  color: var(--white-color);
+  background-color: var(--secondary-color);
+}
+
+.form .btn-right a {
+  left: 4px;
+  top: 2.5px;
+  border: none;
+  display: block;
+  padding: 6px 16px;
+  border-radius: 25px;
+  color: var(--white-color);
+  background: var(--primary-color);
+}
+
+.form .btn-right p {
+  margin-left: 3rem;
+}
+
+@media only screen and (max-width: 1160px) {
+  .tiktok-page section {
+    margin: 4rem 20px;
+  }
+
+  .tiktok-page .why-content,
+  .tiktok-page .infor-content,
+  .tiktok-page .course-for-content,
+  .tiktok-page .list-benefit,
+  .tiktok-page .guide-content,
+  .tiktok-page .lecture-content,
+  .tiktok-page .feedback-content {
+    padding: 0 68px;
+  }
+
+  .form button {
+    font-size: 20px;
+    min-width: 320px;
+    margin: 0 0 1.5rem 0;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .tiktok-page .why-content,
+  .tiktok-page .infor-content,
+  .tiktok-page .course-for-content,
+  .tiktok-page .list-benefit,
+  .tiktok-page .guide-content,
+  .tiktok-page .lecture-content,
+  .tiktok-page .feedback-content {
+    padding: 0;
+  }
+
+  .tiktok-page .benefit-item {
+    margin: 0 0 1.5rem 0;
+  }
+
+  .tiktok-page .lecture .group-img {
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .tiktok-page .lecture img {
+    max-width: 100%;
+  }
+
+  .tiktok-page .feedback iframe {
+    height: 240px;
+  }
+}

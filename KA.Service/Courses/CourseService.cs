@@ -15,8 +15,9 @@ namespace KA.Service.Courses
         private IRepository<UserLesson> _userLessonRepo;
         private IRepository<UserCourse> _userCourseRepo;
         private IRepository<OfflineCourseStartDate> _startDateOfflineCourseRepo;
+        private IRepository<OfflineCourseRegister> _offlineCourseRegisterRepo;
         private IMapper _mapper;
-        public CourseService(IRepository<Course> baseReponsitory, IMapper mapper, IRepository<Lesson> lessonRepo, IRepository<OfflineCourseStartDate> startDateOfflineCourseRepo, IRepository<UserLesson> userLessonRepo, IRepository<UserCourse> userCourseRepo) : base(baseReponsitory)
+        public CourseService(IRepository<Course> baseReponsitory, IMapper mapper, IRepository<Lesson> lessonRepo, IRepository<OfflineCourseStartDate> startDateOfflineCourseRepo, IRepository<UserLesson> userLessonRepo, IRepository<UserCourse> userCourseRepo, IRepository<OfflineCourseRegister> offlineCourseRegisterRepo) : base(baseReponsitory)
         {
             _courseRepo = baseReponsitory;
             _mapper = mapper;
@@ -24,6 +25,7 @@ namespace KA.Service.Courses
             _startDateOfflineCourseRepo = startDateOfflineCourseRepo;
             _userLessonRepo = userLessonRepo;
             _userCourseRepo = userCourseRepo;
+            _offlineCourseRegisterRepo = offlineCourseRegisterRepo;
         }
 
         #region Admin
@@ -258,6 +260,7 @@ namespace KA.Service.Courses
                             .Take(offCourseNumber)
                             .Select(c => new OfflineCourseViewModel()
                             {
+                                Id = c.Id,
                                 DetailCourseLink = "/khoa-hoc-offline/" + c.Name.GetSeoName() + "-" + c.Id,
                                 IntroVideoLink = c.IntroduceVideoLink,
                                 Name = c.Name,
@@ -352,11 +355,95 @@ namespace KA.Service.Courses
             return 0;
 
         }
-        public async Task UpdateUserCourseProgress(int userCourseId)
-        {
-            var userCourse = await _userCourseRepo.GetFirstOrDefaultAsync(uc => uc.Id == userCourseId);
 
+
+        public async Task RegisterOfflineCourse(OfflineCourseRegisterInputDto input)
+        {
+            await _offlineCourseRegisterRepo.AddAsync(new OfflineCourseRegister()
+            {
+                CourseId = input.CourseId,
+                CreatedDate = DateTime.Now,
+                Email = input.Email,
+                FullName = input.FullName,
+                MemberAmount = input.MemberAmount,
+                PhoneNumber = input.PhoneNumber,
+            });
         }
+
+        public async Task<List<OfflineCourseSelectedItem>> GetOfflineCourseSelectedItems()
+        {
+            var result = new List<OfflineCourseSelectedItem>();
+            //var datas = (from c in _courseRepo.GetAll()
+            //             join csd in _startDateOfflineCourseRepo.GetAll() on c.Id equals csd.OfflineCourseId
+            //             where csd.StartTime > DateTime.Now && c.IsActive && !c.IsDeleted && c.Type == CourseType.OFFLINE
+            //             select new { c, csd }).AsNoTracking().ToList();
+
+            //var groups = from i in datas
+            //             group i by i.c into gc
+            //             select gc;
+
+            //foreach (var groupCourse in groups)
+            //{
+            //    result.Add(new OfflineCourseSelectedItem()
+            //    {
+            //        CourseName = groupCourse.Key.Name,
+            //        Id = groupCourse.Key.Id
+            //    });
+            //}
+
+            var courses = (from c in _courseRepo.GetAll()
+                         where c.IsActive && !c.IsDeleted && c.Type == CourseType.OFFLINE
+                         select  c ).AsNoTracking().ToList();
+
+          
+            foreach (var c in courses)
+            {
+                result.Add(new OfflineCourseSelectedItem()
+                {
+                    CourseName = c.Name,
+                    Id = c.Id
+                });
+            }
+            return result;
+        }
+
+        public async Task<DataGridResponse<OfflineCourseRegisterVm>> GetAllOfflineCourseRegisterPaging(int skip, int top)
+        {
+            var result = new DataGridResponse<OfflineCourseRegisterVm>();
+
+            var registers = (from r in _offlineCourseRegisterRepo.GetAll()
+                             join c in _courseRepo.GetAll() on r.CourseId equals c.Id
+                             select new
+                             {
+                                 FullName = r.FullName,
+                                 Id = r.Id,
+                                 PhoneNumber = r.PhoneNumber,
+                                 Email = r.Email,
+                                 MemberAmount = r.MemberAmount,
+                                 CourseName = c.Name,
+                                 CreatedDate = r.CreatedDate
+                             }).OrderByDescending(r => r.CreatedDate).ToList();
+
+            result.TotalItem = registers.Count();
+            result.Items = registers.Skip(skip).Take(top).ToList().Select((c, i) =>
+            {
+                var ci = new OfflineCourseRegisterVm()
+                {
+                    Id = c.Id,
+                    CreatedDate = c.CreatedDate.ToString("dd/MM/yyyy"),
+                    MemberAmount = c.MemberAmount,
+                    CourseName = c.CourseName,
+                    Email = c.Email,
+                    FullName = c.FullName,
+                    Index = (i + 1) + skip,
+                    PhoneNumber = c.PhoneNumber
+                };
+                return ci;
+            }).ToList();
+            return result;
+        }
+
+
         #endregion
     }
 }
