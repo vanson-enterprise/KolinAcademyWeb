@@ -1,5 +1,6 @@
 ﻿using KA.Infrastructure.Enums;
 using KA.Service.Courses;
+using KA.Service.XLS;
 using KA.ViewModels.Common;
 using KA.ViewModels.Courses;
 using Microsoft.AspNetCore.Components;
@@ -21,8 +22,18 @@ namespace KAWebHost.Pages.Admin.Registers
 
         protected override async Task OnInitializedAsync()
         {
-            _courseService = ScopedServices.GetRequiredService<ICourseService>();
+            _courseService = ScopedServices.GetRequiredService<ICourseService>(); 
+            
             await GetAllCourse();
+        }
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+                await jsr.InvokeVoidAsync("import", "./Pages/Admin/Registers/Index.razor.js");
+                await jsr.InvokeVoidAsync("registerIndexPageJs.init");
+            }
         }
 
         private async Task GetAllCourse()
@@ -59,6 +70,14 @@ namespace KAWebHost.Pages.Admin.Registers
             {
                 jsr.InvokeVoidAsync("ShowAppAlert", result.Message, "success");
             }
+        }
+
+        private async void ExportXLS()
+        {
+            var xls = new OfflineCourseRegisterXLS();
+            var byteArray = xls.Edition(dataGrid.Items);
+            var fileName = "OfflineCourseRegister_" + DateTime.Now.ToString("dd_MM_yyyy") + ".xlsx";
+            await jsr.InvokeVoidAsync("downloadExcelFile", fileName, byteArray);
         }
     }
 }

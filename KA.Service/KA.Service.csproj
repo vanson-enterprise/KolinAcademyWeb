@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="ClosedXML" Version="0.100.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\KA.Infrastructure\KA.Infrastructure.csproj" />
     <ProjectReference Include="..\KA.Repository\KA.Repository.csproj" />
     <ProjectReference Include="..\KA.ViewModels\KA.ViewModels.csproj" />
