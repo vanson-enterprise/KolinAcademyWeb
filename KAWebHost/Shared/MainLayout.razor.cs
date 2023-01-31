@@ -12,13 +12,13 @@ namespace KAWebHost.Shared
     {
         [CascadingParameter]
         private Task<AuthenticationState> authenticationStateTask { get; set; }
-
+        private ClaimsPrincipal user;
         public string alertTitle { get; set; }
         public string alertMessage { get; set; }
         private bool isShowAlert { get; set; }
         private bool isShowForceAuthenAlert { get; set; }
         private int cartProductAmount;
-        private ClaimsPrincipal user;
+        
         private string userId;
 
 

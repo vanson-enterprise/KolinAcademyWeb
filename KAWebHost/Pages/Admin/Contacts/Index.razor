@@ -1,0 +1,75 @@
+﻿@attribute [Authorize(Roles = "Manager")]
+@page "/manager/contact"
+@using KA.ViewModels.Contact
+@inherits OwningComponentBase
+
+<div class="d-flex flex-column-fluid">
+    <!--begin::Container-->
+    <div class="container-fluid">
+        <!--begin::Card-->
+        <div class="card card-flush">
+            <!--begin::Card header-->
+            <div class="card-header mt-6">
+                <h3 class="card-title">Danh sách liên hệ</h3>
+                <div class="card-toolbar">
+                    <div class="d-flex align-items-center position-relative my-1 me-5">
+                       
+                    </div>
+                </div>
+            </div>
+            <!--end::Card header-->
+            <!--begin::Card body-->
+            <div class="card-body pt-0">
+                @if (dataGrid != null)
+                {
+                    <RadzenDataGrid AllowFiltering="true"
+                                AllowColumnResize="false"
+                                AllowAlternatingRows="false"
+                                FilterMode="FilterMode.Simple"
+                                AllowSorting="true"
+                                AllowPaging="false"
+                                PagerHorizontalAlign="HorizontalAlign.Left"
+                                SelectionMode="DataGridSelectionMode.Single"
+                                Data="@dataGrid.Items"
+                                TItem="ContactViewModel"
+                                LogicalFilterOperator="LogicalFilterOperator.And">
+                        <Columns>
+                            <RadzenDataGridColumn TItem="ContactViewModel" Property="Index" Filterable="false" Title="STT" Width="60px" TextAlign="TextAlign.Center" />
+
+                            <RadzenDataGridColumn TItem="ContactViewModel" Property="FullName" Title="Tên khách hàng" Width="250px" />
+                            <RadzenDataGridColumn TItem="ContactViewModel" Property="PhoneNumber" Title="Số diện thoại" Width="150px" />
+                            <RadzenDataGridColumn TItem="ContactViewModel" Property="Email" Title="Email" Width="250px" />
+                            <RadzenDataGridColumn TItem="ContactViewModel" Property="CreatedDate" Title="Ngày đăng ký" Width="150px" />
+                            <RadzenDataGridColumn TItem="ContactViewModel" Property="Note" Title="Ghi chú" Width="350px" />
+                            @*<RadzenDataGridColumn TItem="OfflineCourseRegisterVm" Context="dataContext" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="50px">
+                        <Template Context="course">
+                        <RadzenButton Icon="edit"
+                        ButtonStyle="ButtonStyle.Light"
+                        Class="m-1"
+                        Click="@(args => EditRow(course))"
+                        @onclick:stopPropagation="true">
+                        </RadzenButton>
+                        </Template>
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="OfflineCourseRegisterVm" Context="dataContext" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="60px">
+                        <Template Context="course">
+                        <RadzenButton ButtonStyle="ButtonStyle.Danger"
+                        Icon="delete"
+                        Size="ButtonSize.Medium"
+                        Class="m-2"
+                        @onclick:stopPropagation="true"
+                        Click="@(args =>DeleteCourse(course.Id))">
+                        </RadzenButton>
+                        </Template>
+                        </RadzenDataGridColumn>*@
+                        </Columns>
+                    </RadzenDataGrid>
+                    <RadzenPager ShowPagingSummary="true" PagingSummaryFormat="@pagingSummaryFormat" HorizontalAlign="HorizontalAlign.Right" Count="dataGrid.TotalItem" PageSize="@pageSize" PageNumbersCount="5" PageChanged="@PageChanged" />
+                }
+            </div>
+            <!--end::Card body-->
+        </div>
+        <!--end::Card-->
+    </div>
+    <!--end::Container-->
+</div>

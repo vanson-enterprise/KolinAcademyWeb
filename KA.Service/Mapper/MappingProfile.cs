@@ -3,6 +3,7 @@ using KA.DataProvider.Entities;
 using KA.ViewModels.Authen;
 using KA.ViewModels.Blogs;
 using KA.ViewModels.Carts;
+using KA.ViewModels.Contact;
 using KA.ViewModels.Courses;
 using KA.ViewModels.Lessons;
 using KA.ViewModels.Orders;
@@ -62,6 +63,7 @@ namespace KA.Service.Mapper
             CreateMap<CreateCartVm, Cart>();
             CreateMap<CreateOrderVm, Order>();
             CreateMap<CreateBlogVm, Blog>();
+            CreateMap<ContactInputModel, Contact>();
         }
     }
 }

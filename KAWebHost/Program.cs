@@ -8,6 +8,7 @@ using KA.Service.Address;
 using KA.Service.Base;
 using KA.Service.Blogs;
 using KA.Service.Carts;
+using KA.Service.Contacts;
 using KA.Service.Courses;
 using KA.Service.Mapper;
 using KA.Service.Orders;
@@ -87,6 +88,7 @@ builder.Services.AddHttpClient();
 // DI
 builder.Services.AddTransient<IRepository<AppUser>, BaseRepository<AppUser>>();
 builder.Services.AddTransient<IRepository<Province>, BaseRepository<Province>>();
+builder.Services.AddTransient<IRepository<Contact>, BaseRepository<Contact>>();
 builder.Services.AddTransient<IRepository<District>, BaseRepository<District>>();
 builder.Services.AddTransient<IRepository<Ward>, BaseRepository<Ward>>();
 builder.Services.AddTransient<IRepository<Course>, BaseRepository<Course>>();
@@ -111,6 +113,7 @@ builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IBlogService, BlogService>();
+builder.Services.AddScoped<IContactService, ContactService>();
 builder.Services.AddScoped<CyberSourceService>();
 
 // ======================= MIDDLEWARE =============================

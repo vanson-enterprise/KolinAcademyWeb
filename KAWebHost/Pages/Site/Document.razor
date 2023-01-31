@@ -1,4 +1,5 @@
 ﻿@page "/thu-vien-tai-lieu"
+@using KAWebHost.Shared.Components
 @inherits OwningComponentBase
 <HeadContent>
     <PageTitle>Tài liệu - Kolin</PageTitle>
@@ -26,6 +27,8 @@
                 }
             </div>
         }
-
     </div>
 </div>
+@if(isOpenRegisterInformationDialog){
+    <RegisterContactDialog OnModalCloseBtnClick="ReceiveContactInfo"></RegisterContactDialog>
+}

@@ -51,6 +51,7 @@ namespace KA.DataProvider
         public DbSet<Subscription> Subscriptions { get; set; }
         public DbSet<UserCourse> UserCourses { get; set; }
         public DbSet<UserLesson> UserLessons { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
 
     }
 }

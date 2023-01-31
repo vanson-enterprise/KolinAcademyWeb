@@ -1,0 +1,54 @@
+﻿@using KA.ViewModels.Contact
+@using KA.ViewModels.Courses
+@inherits ComponentBase
+@inject NavigationManager _navigationManager;
+
+<div class="modal fade show" data-bs-backdrop="static" tabindex="-1" style="display: block; background-color: rgba(10,10,10,0.8)">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" style="color:#000">Đăng ký thông tin để nhận tài liệu</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @onclick="()=>OnModalCloseBtnClick(null)"></button>
+            </div>
+            <EditForm Model="model" OnValidSubmit="Submit">
+                <div class="modal-body" style="color:#000">
+
+                    <DataAnnotationsValidator />
+                    <div class="row">
+                        <div class="col-12">
+                            <label class="form-label">Họ và tên</label>
+                            <InputText @bind-Value="model.FullName" class="form-control" placeholder="Họ và tên"></InputText>
+                            <ValidationMessage For="@(()=>model.FullName)" style="text-align:left"></ValidationMessage>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label mt-1">Email</label>
+                            <InputText @bind-Value="model.Email" class="form-control" placeholder="Email"></InputText>
+                            <ValidationMessage For="@(()=>model.Email)" style="text-align:left"></ValidationMessage>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label mt-2">Số điện thoại</label>
+                            <InputText @bind-Value="model.PhoneNumber" class="form-control" placeholder="Số điện thoại"></InputText>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info " @onclick="()=>OnModalCloseBtnClick(null)">Hủy</button>
+                    <button type="submit" class="btn btn-primary">Đăng ký</button>
+                </div>
+            </EditForm>
+        </div>
+    </div>
+</div>
+
+@code {
+    ContactInputModel model = new();
+
+    [Parameter]
+    public Action<ContactInputModel> OnModalCloseBtnClick { get; set; }
+
+    private void Submit()
+    {
+        OnModalCloseBtnClick(model);
+    }
+}
