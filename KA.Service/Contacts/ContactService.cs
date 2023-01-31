@@ -43,7 +43,8 @@ namespace KA.Service.Contacts
                     Email = c.Email,
                     FullName = c.FullName,
                     Index = (i + 1) + skip,
-                    PhoneNumber = c.PhoneNumber
+                    PhoneNumber = c.PhoneNumber,
+                    Note = c.Note,
                 };
                 return ci;
             }).ToList();

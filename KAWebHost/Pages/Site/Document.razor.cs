@@ -1,4 +1,6 @@
-﻿using KA.Service.Contacts;
+﻿using KA.EmailService.Models;
+using KA.EmailService.Services;
+using KA.Service.Contacts;
 using KA.ViewModels.Contact;
 using KAWebHost.Data.Models;
 using Microsoft.AspNetCore.Components;
@@ -22,7 +24,7 @@ namespace KAWebHost.Pages.Site
         bool isOpenRegisterInformationDialog = false;
         string filePath;
         string fileName;
-        
+
 
         // DI
         [Inject]
@@ -30,10 +32,12 @@ namespace KAWebHost.Pages.Site
         [Inject]
         private IJSRuntime JS { get; set; }
         IContactService _contactService { get; set; }
+        IEmailSender _emailSender { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
             _contactService = ScopedServices.GetRequiredService<IContactService>();
+            _emailSender = ScopedServices.GetRequiredService<IEmailSender>();
             user = (await authenticationStateTask).User;
             webRootPath = HostEnvironment.WebRootPath;
             documentDirectory = Path.Combine(webRootPath, "uploads/documents");
@@ -68,12 +72,21 @@ namespace KAWebHost.Pages.Site
         }
         private void ReceiveContactInfo(ContactInputModel input)
         {
-            if(input != null)
+            if (input != null)
             {
                 input.CreatedDate = DateTime.Now;
-                input.Note = "Đăng kí để nhận tài liệu";
+                input.Note = "Đăng kí thông tin để nhận tài liệu";
                 _contactService.SaveContact(input);
                 DownloadFile(filePath, fileName);
+
+                // send mail
+                var emailMesage = new EmailMessage(
+                    new string[] { input.Email },
+                    "Chào mừng đến với Kolin Academy",
+                    "Bạn vừa đăng kí email để nhận tài liệu từ Kolin.vn. Hãy khám phá Kolin tại trang web <a href='kolin.vn'>kolin.vn</a>",
+                    null
+                 );
+                _emailSender.SendEmailAsync(emailMesage);
             }
             isOpenRegisterInformationDialog = false;
             StateHasChanged();

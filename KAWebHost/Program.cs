@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using KA.DataProvider;
 using KA.DataProvider.Entities;
+using KA.EmailService.Models;
+using KA.EmailService.Services;
 using KA.Infrastructure.Authen;
 using KA.PaymentAPI.CyberSource;
 using KA.Repository.Base;
@@ -116,6 +118,9 @@ builder.Services.AddScoped<IBlogService, BlogService>();
 builder.Services.AddScoped<IContactService, ContactService>();
 builder.Services.AddScoped<CyberSourceService>();
 
+var emailConfig = builder.Configuration.GetSection("EmailConfiguration").Get<MailSenderConfiguration>();
+builder.Services.AddSingleton(emailConfig);
+builder.Services.AddScoped<IEmailSender, EmailSender>();
 // ======================= MIDDLEWARE =============================
 var app = builder.Build();
 
