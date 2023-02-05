@@ -5,6 +5,7 @@ using KA.ViewModels.Common;
 using KA.ViewModels.Courses;
 using KA.ViewModels.Lessons;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 namespace KA.Service.Courses
 {
@@ -198,6 +199,7 @@ namespace KA.Service.Courses
         {
             return _startDateOfflineCourseRepo.GetAll().Where(i => i.OfflineCourseId == courseId).ToList();
         }
+
         #endregion
 
         #region Site
@@ -370,32 +372,16 @@ namespace KA.Service.Courses
             });
         }
 
-        public async Task<List<OfflineCourseSelectedItem>> GetOfflineCourseSelectedItems()
+        public async Task<List<OfflineCourseSelectedItem>> GetOfflineCourseSelectedItems(bool? isActive)
         {
             var result = new List<OfflineCourseSelectedItem>();
-            //var datas = (from c in _courseRepo.GetAll()
-            //             join csd in _startDateOfflineCourseRepo.GetAll() on c.Id equals csd.OfflineCourseId
-            //             where csd.StartTime > DateTime.Now && c.IsActive && !c.IsDeleted && c.Type == CourseType.OFFLINE
-            //             select new { c, csd }).AsNoTracking().ToList();
-
-            //var groups = from i in datas
-            //             group i by i.c into gc
-            //             select gc;
-
-            //foreach (var groupCourse in groups)
-            //{
-            //    result.Add(new OfflineCourseSelectedItem()
-            //    {
-            //        CourseName = groupCourse.Key.Name,
-            //        Id = groupCourse.Key.Id
-            //    });
-            //}
 
             var courses = (from c in _courseRepo.GetAll()
-                         where c.IsActive && !c.IsDeleted && c.Type == CourseType.OFFLINE
-                         select  c ).AsNoTracking().ToList();
+                           where !c.IsDeleted && c.Type == CourseType.OFFLINE
+                           where isActive == null || isActive.Value
+                           select c).AsNoTracking().ToList();
 
-          
+
             foreach (var c in courses)
             {
                 result.Add(new OfflineCourseSelectedItem()
@@ -407,25 +393,31 @@ namespace KA.Service.Courses
             return result;
         }
 
-        public async Task<DataGridResponse<OfflineCourseRegisterVm>> GetAllOfflineCourseRegisterPaging(int skip, int top)
+        public async Task<DataGridResponse<OfflineCourseRegisterVm>> GetAllOfflineCourseRegisterPaging(GetAllOfflineCourseRegisterPagingInput input)
         {
             var result = new DataGridResponse<OfflineCourseRegisterVm>();
 
-            var registers = (from r in _offlineCourseRegisterRepo.GetAll()
-                             join c in _courseRepo.GetAll() on r.CourseId equals c.Id
-                             select new
-                             {
-                                 FullName = r.FullName,
-                                 Id = r.Id,
-                                 PhoneNumber = r.PhoneNumber,
-                                 Email = r.Email,
-                                 MemberAmount = r.MemberAmount,
-                                 CourseName = c.Name,
-                                 CreatedDate = r.CreatedDate
-                             }).OrderByDescending(r => r.CreatedDate).ToList();
+            DateTime? fromDate = input.FromDate != null ? DateTime.ParseExact(input.FromDate, "dd-MM-yyyy", CultureInfo.InvariantCulture) : null;
+            DateTime? toDate = input.ToDate != null ? DateTime.ParseExact(input.ToDate, "dd-MM-yyyy", CultureInfo.InvariantCulture) : null;
+
+            var registers = await (from r in _offlineCourseRegisterRepo.GetAll()
+                                   join c in _courseRepo.GetAll() on r.CourseId equals c.Id
+                                   where input.FromDate == null || r.CreatedDate >= fromDate
+                                   where input.ToDate == null || r.CreatedDate <= toDate
+                                   where input.CourseId == 0 || r.CourseId == input.CourseId
+                                   select new
+                                   {
+                                       FullName = r.FullName,
+                                       Id = r.Id,
+                                       PhoneNumber = r.PhoneNumber,
+                                       Email = r.Email,
+                                       MemberAmount = r.MemberAmount,
+                                       CourseName = c.Name,
+                                       CreatedDate = r.CreatedDate
+                                   }).OrderByDescending(r => r.CreatedDate).ToListAsync();
 
             result.TotalItem = registers.Count();
-            result.Items = registers.Skip(skip).Take(top).ToList().Select((c, i) =>
+            result.Items = registers.Skip(input.Skip).Take(input.Top).ToList().Select((c, i) =>
             {
                 var ci = new OfflineCourseRegisterVm()
                 {
@@ -435,7 +427,7 @@ namespace KA.Service.Courses
                     CourseName = c.CourseName,
                     Email = c.Email,
                     FullName = c.FullName,
-                    Index = (i + 1) + skip,
+                    Index = (i + 1) + input.Skip,
                     PhoneNumber = c.PhoneNumber
                 };
                 return ci;

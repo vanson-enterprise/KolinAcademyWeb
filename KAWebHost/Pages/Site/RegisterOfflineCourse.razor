@@ -72,7 +72,7 @@
     {
         if (firstRender)
         {
-            offlineCourseSelectedItems = await courseService.GetOfflineCourseSelectedItems();
+            offlineCourseSelectedItems = await courseService.GetOfflineCourseSelectedItems(true);
             StateHasChanged();
         }
     }

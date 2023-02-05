@@ -77,14 +77,26 @@ namespace KAWebHost.Pages.Site
                 input.CreatedDate = DateTime.Now;
                 input.Note = "Đăng kí thông tin để nhận tài liệu";
                 _contactService.SaveContact(input);
-                DownloadFile(filePath, fileName);
-
+                //DownloadFile(filePath, fileName);
+                var fileStream = GetFileStream(filePath);
+                var fileAttachment = new FormFile(fileStream, 0, fileStream.Length, fileName, fileName)
+                {
+                    Headers = new HeaderDictionary()
+                };
+                if (fileName.Contains(".pdf"))
+                {
+                    fileAttachment.ContentType = "application/pdf";
+                }else if (fileName.Contains(".docx"))
+                {
+                    fileAttachment.ContentType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+                }
+                
                 // send mail
                 var emailMesage = new EmailMessage(
                     new string[] { input.Email },
                     "Chào mừng đến với Kolin Academy",
                     "Bạn vừa đăng kí email để nhận tài liệu từ Kolin.vn. Hãy khám phá Kolin tại trang web <a href='kolin.vn'>kolin.vn</a>",
-                    null
+                    new FormFileCollection() { fileAttachment }
                  );
                 _emailSender.SendEmailAsync(emailMesage);
             }

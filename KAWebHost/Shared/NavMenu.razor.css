@@ -183,3 +183,41 @@
 
     
 }
+
+
+.sub-nav {
+    position: absolute;
+    padding: 8px 5px;
+    top: cacl(100% + 20px);
+    display: none;
+    min-width: 180px;
+    margin-left: 10px;
+    background-color: #130d44;
+    z-index: 1000;
+}
+
+    .sub-nav li a {
+        display: block;
+        text-transform: none;
+    }
+
+.links li {
+    position: relative;
+}
+
+    .links li:hover .sub-nav {
+        display: block;
+    }
+
+@media only screen and (max-width: 1160px) {
+    .sub-nav {
+        position: relative;
+        display: block;
+        padding: 0;
+        background-color: transparent;
+    }
+
+        .sub-nav li a {
+            padding: 8px 0;
+        }
+}

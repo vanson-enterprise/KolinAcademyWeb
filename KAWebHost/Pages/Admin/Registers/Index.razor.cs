@@ -1,9 +1,12 @@
-﻿using KA.Infrastructure.Enums;
+﻿using DocumentFormat.OpenXml.Office.CustomUI;
+using KA.Infrastructure.Enums;
+using KA.Infrastructure.Enums.Extension;
 using KA.Service.Courses;
 using KA.Service.XLS;
 using KA.ViewModels.Common;
 using KA.ViewModels.Courses;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
 using Radzen;
 
@@ -14,17 +17,26 @@ namespace KAWebHost.Pages.Admin.Registers
         string pagingSummaryFormat = "Trang {0} trên {1} (tổng {2} bản ghi)";
 
         [Inject]
-        private IJSRuntime jsr { get; set; }
+        IJSRuntime jsr { get; set; }
 
-        private DataGridResponse<OfflineCourseRegisterVm> dataGrid;
-        private ICourseService _courseService;
-        private int pageSize = 10;
+        DataGridResponse<OfflineCourseRegisterVm> dataGrid;
+        ICourseService _courseService;
+        int pageSize = 10;
+        Dictionary<string, string> offlineCourses;
+        GetAllOfflineCourseRegisterPagingInput searchModel = new GetAllOfflineCourseRegisterPagingInput
+        {
+            Skip = 0,
+            Top = 10
+        };
 
         protected override async Task OnInitializedAsync()
         {
-            _courseService = ScopedServices.GetRequiredService<ICourseService>(); 
-            
-            await GetAllCourse();
+            _courseService = ScopedServices.GetRequiredService<ICourseService>();
+
+            await GetAllOfflineCourseRegister();
+            offlineCourses = (await _courseService
+                            .GetOfflineCourseSelectedItems(null))
+                            .ToDictionary(c => c.Id.ToString(), c => c.CourseName);
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -36,26 +48,23 @@ namespace KAWebHost.Pages.Admin.Registers
             }
         }
 
-        private async Task GetAllCourse()
+        private async Task GetAllOfflineCourseRegister()
         {
-            dataGrid = await _courseService.GetAllOfflineCourseRegisterPaging(0, pageSize);
+            dataGrid = await _courseService.GetAllOfflineCourseRegisterPaging(searchModel);
         }
 
         private async Task PageChanged(PagerEventArgs args)
         {
-            dataGrid = await _courseService.GetAllOfflineCourseRegisterPaging(args.Skip, args.Top);
+            searchModel.Skip = args.Skip;
+            searchModel.Top = args.Top;
+            dataGrid = await _courseService.GetAllOfflineCourseRegisterPaging(searchModel);
         }
 
-        private void EditRow(OfflineCourseRegisterVm course)
+        private async Task SearchRegister()
         {
-            //if (course.Type == CourseType.OFFLINE)
-            //{
-            //    NavigationManager.NavigateTo($"/manager/edit-off-course/{course.Id}");
-            //}
-            //else
-            //{
-            //    NavigationManager.NavigateTo($"/manager/edit-on-course/{course.Id}");
-            //}
+            searchModel.Skip = 0;
+            searchModel.Top = 10;
+            dataGrid = await _courseService.GetAllOfflineCourseRegisterPaging(searchModel);
         }
 
         private void DeleteCourse(int id)
@@ -64,12 +73,17 @@ namespace KAWebHost.Pages.Admin.Registers
             if (result.Status == ResponseStatus.SUCCESS)
             {
                 jsr.InvokeVoidAsync("ShowAppAlert", result.Message, "success");
-                GetAllCourse();
+                GetAllOfflineCourseRegister();
             }
             else
             {
                 jsr.InvokeVoidAsync("ShowAppAlert", result.Message, "success");
             }
+        }
+
+        private async Task OnCourseSelected(int courseId)
+        {
+
         }
 
         private async void ExportXLS()

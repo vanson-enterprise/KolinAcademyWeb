@@ -23,13 +23,13 @@ namespace KA.Service.Courses
         ResponseDto EditLesson(Lesson input);
         Task<DataGridResponse<CourseItem>> GetAllCoursePaging(int skip, int top);
         List<Lesson> GetAllLessonInCourse(int courseId);
-        Task<DataGridResponse<OfflineCourseRegisterVm>> GetAllOfflineCourseRegisterPaging(int skip, int top);
+        Task<DataGridResponse<OfflineCourseRegisterVm>> GetAllOfflineCourseRegisterPaging(GetAllOfflineCourseRegisterPagingInput input);
         List<OnlineCourseViewModel> GetAllOnlineCourse();
         List<OfflineCourseViewModel> GetAllOpeningSoonOfflineCourse();
         List<OfflineCourseStartDate> GetAllStartDatesOfCourse(int courseId);
         Course GetCourseById(int id);
         Task<DetailOnlineCourseModel> GetDetailOnlineCourse(int courseId);
-        Task<List<OfflineCourseSelectedItem>> GetOfflineCourseSelectedItems();
+        Task<List<OfflineCourseSelectedItem>> GetOfflineCourseSelectedItems(bool? isActive);
         Task<List<OfflineCourseViewModel>> GetTopOffCourseForIndexPage(int offCourseNumber);
         Task<OnlineCourseViewModel?> GetTopOneCourseForIndexPage();
         Task<List<UserLessonViewModel>> GetUserLessons(string userId, int courseId);

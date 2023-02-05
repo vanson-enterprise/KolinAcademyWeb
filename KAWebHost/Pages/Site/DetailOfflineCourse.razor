@@ -1,5 +1,6 @@
 ﻿@inherits OwningComponentBase
 @page "/khoa-hoc-offline/{CourseSeoName}"
+@using KAWebHost.Shared.Components
 
 
 @if (model.IsUseExternalHtml)
@@ -23,5 +24,10 @@
 
 
 <div>
+    <button class="d-none" id="show_registor_modal_btn" @onclick="ShowRegisterOfflineCourseModal"></button>
     @((MarkupString)model.Description)
 </div>
+
+@if(isOpenRegisterModal){
+    <RegisterOfflineCourseModal CloseModal="HideRegisterOfflineCourseModal" CourseId="model.Id" />
+}

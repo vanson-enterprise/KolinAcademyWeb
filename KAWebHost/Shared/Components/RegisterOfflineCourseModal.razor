@@ -1,0 +1,102 @@
+﻿@using KA.Service.Courses
+@using KA.Service.Courses
+@using KA.ViewModels.Contact
+@using KA.ViewModels.Courses
+@inherits OwningComponentBase
+@inject NavigationManager _navigationManager;
+
+<div class="modal fade show" data-bs-backdrop="static" tabindex="-1" style="display: block; background-color: rgba(10,10,10,0.8)">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" style="color:#000">Đăng ký khóa học</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @onclick="()=>CloseModal()"></button>
+            </div>
+            <EditForm Model="model" OnValidSubmit="Submit">
+                <div class="modal-body" style="color:#000">
+                    <DataAnnotationsValidator />
+                    <div class="row">
+                        <div class="col-12">
+                            <label class="form-label">Họ và tên</label>
+                            <InputText @bind-Value="model.FullName" class="form-control" placeholder="Họ và tên"></InputText>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label mt-1">Email</label>
+                            <InputText @bind-Value="model.Email" class="form-control" placeholder="Email"></InputText>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label mt-2">Số điện thoại</label>
+                            <InputText @bind-Value="model.PhoneNumber" class="form-control" placeholder="Số điện thoại"></InputText>
+                            <ValidationMessage For="@(()=>model.PhoneNumber)" style="text-align:left"></ValidationMessage>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label mt-1">Số lượng học viên</label>
+                            <InputNumber type="number" @bind-Value="model.MemberAmount"
+                                         class="form-control"
+                                         placeholder="Số lượng học viên" />
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label mt-1">Khóa học</label>
+                            <select class="mb-3 form-control" @bind="model.CourseId">
+                                <option value="">--- Chọn khóa học ---</option>
+                                @if (offlineCourseSelectedItems != null)
+                                {
+                                    @foreach (var item in offlineCourseSelectedItems)
+                                    {
+                                        <option value="@item.Id">@item.CourseName</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info " @onclick="()=>CloseModal()">Hủy</button>
+                    <button type="submit" class="btn btn-primary">Đăng ký</button>
+                </div>
+            </EditForm>
+        </div>
+    </div>
+</div>
+
+@code {
+    OfflineCourseRegisterInputDto model = new();
+    List<OfflineCourseSelectedItem> offlineCourseSelectedItems;
+    ICourseService courseService { get; set; }
+
+    [Parameter]
+    public Action CloseModal { get; set; }
+    [Parameter]
+    public int CourseId { get; set; }
+    [CascadingParameter]
+    private MainLayout mainLayout { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        courseService = ScopedServices.GetRequiredService<ICourseService>();
+        model.CourseId = CourseId;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            offlineCourseSelectedItems = await courseService.GetOfflineCourseSelectedItems(true);
+            StateHasChanged();
+        }
+    }
+
+    private void Submit()
+    {
+
+        Register();
+    }
+
+    private async Task Register()
+    {
+        await courseService.RegisterOfflineCourse(model);
+        mainLayout.ShowAlert("Bạn đã đăng ký khóa học thành công, chúng tôi sẽ liên hệ bạn sớm nhất có thể!", "Thông báo");
+        CloseModal();
+    }
+}

@@ -1,4 +1,4 @@
-﻿const detailCoursePageJs = function () {
+﻿const charismaPageJs = function () {
     this.init = () => {
         import('https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js').then(() => {
             $(".owl-carousel.owl-carousel").owlCarousel({
@@ -40,4 +40,5 @@
     }
 }
 
-window.detailCoursePageJs = new detailCoursePageJs();
+window.charismaPageJs = new charismaPageJs();
+window.charismaPageJs.init();

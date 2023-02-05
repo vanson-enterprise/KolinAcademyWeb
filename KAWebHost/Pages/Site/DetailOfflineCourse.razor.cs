@@ -11,6 +11,7 @@ namespace KAWebHost.Pages.Site
         public string CourseSeoName { get; set; }
         public ICourseService _courseService { get; set; }
         public Course model { get; set; } = new();
+        private static bool isOpenRegisterModal = false;
 
         [Inject]
         private IJSRuntime jsr { get; set; }
@@ -24,11 +25,24 @@ namespace KAWebHost.Pages.Site
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            if(model.IsUseExternalHtml && model.ExternalScriptLink != null)
+            if (model.IsUseExternalHtml && model.ExternalScriptLink != null)
             {
-                await jsr.InvokeVoidAsync("import",model.ExternalScriptLink);
-                await jsr.InvokeVoidAsync("detailCoursePageJs.init");
+                await jsr.InvokeVoidAsync("import", model.ExternalScriptLink);
+                //await jsr.InvokeVoidAsync("detailCoursePageJs.init");
             }
+            await jsr.InvokeVoidAsync("import", "./Pages/Site/DetailOfflineCourse.razor.js");
+            await jsr.InvokeVoidAsync("detailOfflineCoursePageJs.init");
+        }
+
+        public void ShowRegisterOfflineCourseModal()
+        {
+            isOpenRegisterModal = true;
+        }
+
+        private void HideRegisterOfflineCourseModal()
+        {
+            isOpenRegisterModal = false;
+            StateHasChanged();
         }
     }
 }
