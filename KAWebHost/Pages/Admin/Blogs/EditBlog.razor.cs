@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System.Security.Claims;
+using KA.Infrastructure.Enums;
+using KA.Infrastructure.Enums.Extension;
 
 namespace KAWebHost.Pages.Admin.Blogs
 {
@@ -14,6 +16,7 @@ namespace KAWebHost.Pages.Admin.Blogs
         private EditBlogVm model;
         private FileSelector fileSelectorControl;
         private string userId;
+        private Dictionary<string, string> blogTypes = BlogType.KNOWLEDGE.ToDictionary();
 
         // Parameter
         [CascadingParameter]
@@ -36,14 +39,19 @@ namespace KAWebHost.Pages.Admin.Blogs
             authenticationState = await authenticationStateTask;
             userId = authenticationState.User.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).Select(c => c.Value).SingleOrDefault();
             model = _blogService.GetBlogForEdit(BlogId);
-           
+            StateHasChanged();
+
         }
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            await jsr.InvokeVoidAsync("import", "/assets/plugins/custom/tinymce/tinymce.min.js");
-            await jsr.InvokeVoidAsync("import", "/scripts/common/editor-common.js");
-            await jsr.InvokeVoidAsync("import", "/Pages/Admin/Blogs/EditBlog.razor.js");
-            await jsr.InvokeVoidAsync("editBlogPageJs.init");
+            if (firstRender)
+            {
+                await jsr.InvokeVoidAsync("import", "/assets/plugins/custom/tinymce/tinymce.min.js");
+                await jsr.InvokeVoidAsync("import", "/scripts/common/editor-common.js");
+                await jsr.InvokeVoidAsync("import", "/Pages/Admin/Blogs/EditBlog.razor.js");
+                await jsr.InvokeVoidAsync("editBlogPageJs.init");
+            }
+
         }
         private async Task SubmitForm()
         {
@@ -60,6 +68,7 @@ namespace KAWebHost.Pages.Admin.Blogs
                 blog.Published = model.Published;
                 blog.ThumbNailImageLink = model.ThumbNailImageLink;
                 blog.Content = await jsr.InvokeAsync<string>("editBlogPageJs.getTextEditorContent");
+                blog.BlogType = Enum.Parse<BlogType>(model.BlogType);
 
                 await _blogService.UpdateAsync(blog);
                 await jsr.InvokeVoidAsync("ShowAppAlert", "Cập nhật bài viết thành công", "success");

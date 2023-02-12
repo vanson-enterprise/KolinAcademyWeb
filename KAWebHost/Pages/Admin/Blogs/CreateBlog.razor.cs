@@ -1,4 +1,6 @@
 ﻿using Blazored.TextEditor;
+using KA.Infrastructure.Enums;
+using KA.Infrastructure.Enums.Extension;
 using KA.Service.Blogs;
 using KA.ViewModels.Blogs;
 using KAWebHost.Pages.Admin.Components;
@@ -14,7 +16,7 @@ namespace KAWebHost.Pages.Admin.Blogs
         private CreateBlogVm model;
         private FileSelector fileSelectorControl;
         private string userId;
-
+        private Dictionary<string, string> blogTypes = BlogType.KNOWLEDGE.ToDictionary();
         // Parameter
         [CascadingParameter]
         private Task<AuthenticationState> authenticationStateTask { get; set; }
@@ -36,7 +38,10 @@ namespace KAWebHost.Pages.Admin.Blogs
             _blogService = ScopedServices.GetRequiredService<IBlogService>();
             authenticationState = await authenticationStateTask;
             userId = authenticationState.User.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).Select(c => c.Value).SingleOrDefault();
-            model = new();
+            model = new()
+            {
+                BlogType = ((int)BlogType.KNOWLEDGE).ToString()
+            };
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)

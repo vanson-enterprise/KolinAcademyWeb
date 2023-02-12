@@ -17,5 +17,7 @@ namespace KA.ViewModels.Blogs
         public string? MetaDescription { get; set; }
         public string? MetaTitle { get; set; }
         public string? ThumbNailImageLink { get; set; }
+        [Required(ErrorMessage = "Bạn vui lòng chọn loại blog")]
+        public string? BlogType { get; set; }
     }
 }

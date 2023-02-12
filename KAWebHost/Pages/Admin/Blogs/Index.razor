@@ -16,20 +16,20 @@
                     <div class="d-flex align-items-center position-relative my-1 me-5">
 
 
-                            <!--begin::Button-->
+                        <!--begin::Button-->
                         <button type="button" class="btn btn-light-warning mr-5" id="create-product-btn" @onclick="RedirectToCreatePage">
-                                <!--begin::Svg Icon | path: icons/duotune/general/gen035.svg-->
-                                <span class="svg-icon svg-icon-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="black" />
-                                        <rect x="10.8891" y="17.8033" width="12" height="2" rx="1" transform="rotate(-90 10.8891 17.8033)" fill="black" />
-                                        <rect x="6.01041" y="10.9247" width="12" height="2" rx="1" fill="black" />
-                                    </svg>
-                                </span>
-                                <!--end::Svg Icon-->
-                                Tạo mới blog
-                            </button>
-                            <!--end::Button-->
+                            <!--begin::Svg Icon | path: icons/duotune/general/gen035.svg-->
+                            <span class="svg-icon svg-icon-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="black" />
+                                    <rect x="10.8891" y="17.8033" width="12" height="2" rx="1" transform="rotate(-90 10.8891 17.8033)" fill="black" />
+                                    <rect x="6.01041" y="10.9247" width="12" height="2" rx="1" fill="black" />
+                                </svg>
+                            </span>
+                            <!--end::Svg Icon-->
+                            Tạo mới blog
+                        </button>
+                        <!--end::Button-->
                     </div>
                 </div>
             </div>
@@ -55,6 +55,7 @@
                             <RadzenDataGridColumn TItem="BlogItem" Property="Title" Title="Tên bài viết" MinWidth="300px" />
                             <RadzenDataGridColumn TItem="BlogItem" Property="CreateUser" Title="Người tạo" Width="150px" />
                             <RadzenDataGridColumn TItem="BlogItem" Property="CreatedDate" Title="Ngày tạo" Width="150px" />
+                            <RadzenDataGridColumn TItem="BlogItem" Property="BlogType" Title="Loại tin" Width="150px" />
                             <RadzenDataGridColumn Context="dataContext" TItem="BlogItem" Property="Published" Title="Kích hoạt" Width="100px" TextAlign="TextAlign.Center">
                                 <Template Context="blog">
                                     @if (blog.Published)

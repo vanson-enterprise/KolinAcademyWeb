@@ -13,8 +13,17 @@
     <link href="~/css/bootstrap/bootstrap.min.css" rel="stylesheet" />
     <link href="~/css/site/main.css" rel="stylesheet" />
     <link href="css/site/site.css" rel="stylesheet" />
-    <link href="KAWebHost.styles.css" rel="stylesheet"/>
+    <link href="KAWebHost.styles.css" rel="stylesheet" />
     @*<link href="@($"{typeof(App).Assembly.GetName().Name}.styles.css")" rel="stylesheet" />*@
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-B2X28JS0JM"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-B2X28JS0JM');
+    </script>
     <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered" />
 </head>
 

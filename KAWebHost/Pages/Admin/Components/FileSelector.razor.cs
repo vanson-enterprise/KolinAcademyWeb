@@ -118,7 +118,7 @@ namespace KAWebHost.Pages.Admin.Components
             Files = new List<FileObject>();
 
             IEnumerable<string> fileNames = fileNames = Directory.EnumerateFileSystemEntries(CurrentDirectory)
-                .Where(x => x.Contains(".png") || x.Contains(".jpg") || x.Contains(".jpeg") || x.Contains(".mp4"));
+              .Where(x => x.Contains(".PNG") || x.Contains(".png") || x.Contains(".jpg") || x.Contains(".jpeg") || x.Contains(".mp4"));
 
             foreach (var item in fileNames)
             {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KA.Infrastructure.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,5 +22,6 @@ namespace KA.DataProvider.Entities
         public string? CreateUserId { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public string? UpdateUserId { get; set; }
+        public BlogType BlogType { get; set; } = BlogType.KNOWLEDGE;
     }
 }

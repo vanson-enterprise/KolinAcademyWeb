@@ -19,19 +19,26 @@ namespace KAWebHost.Pages.Site
         protected override async Task OnInitializedAsync()
         {
             _courseService = ScopedServices.GetService<ICourseService>();
-            int courseId = Convert.ToInt32(CourseSeoName.Split('-').Last());
-            model = _courseService.GetById(courseId);
+
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
+            GetCourseModel();
             if (model.IsUseExternalHtml && model.ExternalScriptLink != null)
             {
                 await jsr.InvokeVoidAsync("import", model.ExternalScriptLink);
+                await jsr.InvokeVoidAsync("import", "./Pages/Site/DetailOfflineCourse.razor.js");
+                await jsr.InvokeVoidAsync("detailOfflineCoursePageJs.init");
                 //await jsr.InvokeVoidAsync("detailCoursePageJs.init");
             }
-            await jsr.InvokeVoidAsync("import", "./Pages/Site/DetailOfflineCourse.razor.js");
-            await jsr.InvokeVoidAsync("detailOfflineCoursePageJs.init");
+        }
+
+        private void GetCourseModel()
+        {
+            var courseId = Convert.ToInt32(CourseSeoName.Split('-').Last());
+            model = _courseService.GetById(courseId);
+            StateHasChanged();
         }
 
         public void ShowRegisterOfflineCourseModal()

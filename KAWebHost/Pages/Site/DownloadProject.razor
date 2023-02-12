@@ -1,0 +1,50 @@
+﻿@page "/dmp"
+@attribute [Authorize(Roles = "SuperAdmin")]
+@inherits OwningComponentBase
+@using KAWebHost.Data.Models;
+
+<h3>Test</h3>
+
+@code {
+    [Inject]
+    private IJSRuntime JS { get; set; }
+    [Inject]
+    private IWebHostEnvironment HostEnvironment { get; set; }
+
+    string webRootPath { get; set; }
+    string documentDirectory { get; set; }
+    FileObject fileObject { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        webRootPath = HostEnvironment.WebRootPath;
+        documentDirectory = Path.Combine(webRootPath, "my-project");
+        fileObject = Directory.EnumerateFileSystemEntries(documentDirectory)
+                .Select(f => new FileObject()
+                    {
+                        FileName = Path.GetFileName(f),
+                        FilePath = f
+                    }).FirstOrDefault();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Thread.Sleep(5000);
+            await DownloadFile(fileObject.FilePath, fileObject.FileName);
+        }
+    }
+
+    private async Task DownloadFile(string filePath, string fileName)
+    {
+        var fileStream = GetFileStream(filePath);
+        using var streamRef = new DotNetStreamReference(stream: fileStream);
+        await JS.InvokeVoidAsync("downloadFileFromStream", fileName, streamRef);
+    }
+
+    private Stream GetFileStream(string filePath)
+    {
+        return File.OpenRead(@$"{filePath}");
+    }
+}

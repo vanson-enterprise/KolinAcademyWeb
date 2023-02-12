@@ -38,7 +38,8 @@ namespace KA.Service.Blogs
                              b.Title,
                              b.CreatedDate,
                              u.FullName,
-                             b.Published
+                             b.Published,
+                             b.BlogType
                          });
 
             result.TotalItem = blogs.Count();
@@ -51,6 +52,7 @@ namespace KA.Service.Blogs
                 bi.Published = c.Published;
                 bi.Title = c.Title;
                 bi.CreateUser = c.FullName;
+                bi.BlogType = c.BlogType.ToString();
                 return bi;
             }).ToList();
             return result;
@@ -86,7 +88,23 @@ namespace KA.Service.Blogs
         public async Task<BlogSitePageVm> GetAllBlogPagingForSite(int skip, int top)
         {
             BlogSitePageVm result = new();
-            var blogs = _blogRepo.GetAll().Where(b => b.Published).OrderByDescending(b => b.CreatedDate);
+            var blogs = _blogRepo.GetAll().Where(b => b.Published && b.BlogType == BlogType.KNOWLEDGE).OrderByDescending(b => b.CreatedDate);
+            result.TotalPage = (int)Math.Ceiling((decimal)blogs.Count() / top);
+            result.Blogs = blogs.Skip(skip).Take(top).Select(b => new BlogViewModel()
+            {
+                Title = b.Title,
+                DetailBlogLink = "/bai-viet/" + b.Title.GetSeoName() + "-" + b.Id,
+                ShortDescription = b.ShortDescription,
+                ThumbNailImageLink = b.ThumbNailImageLink
+            }).ToList();
+            return result;
+
+        }
+
+        public async Task<BlogSitePageVm> GetAllNewsPagingForSite(int skip, int top)
+        {
+            BlogSitePageVm result = new();
+            var blogs = _blogRepo.GetAll().Where(b => b.Published && b.BlogType == BlogType.NEWS).OrderByDescending(b => b.CreatedDate);
             result.TotalPage = (int)Math.Ceiling((decimal)blogs.Count() / top);
             result.Blogs = blogs.Skip(skip).Take(top).Select(b => new BlogViewModel()
             {
@@ -112,7 +130,7 @@ namespace KA.Service.Blogs
 
         public async Task<List<BlogViewModel>> GetTopFourBlogForHomePage()
         {
-            return await _blogRepo.GetAll().Where(b => b.Published).OrderByDescending(b => b.CreatedDate).Take(4).Select(b => new BlogViewModel()
+            return await _blogRepo.GetAll().Where(b => b.Published && b.BlogType == BlogType.KNOWLEDGE).OrderByDescending(b => b.CreatedDate).Take(4).Select(b => new BlogViewModel()
             {
                 Title = b.Title,
                 DetailBlogLink = "/bai-viet/" + b.Title.GetSeoFriendlyString() + "-" + b.Id,

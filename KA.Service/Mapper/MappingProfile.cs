@@ -50,7 +50,8 @@ namespace KA.Service.Mapper
 
             CreateMap<Lesson, EditLessonModel>();
             CreateMap<Order, OrderItemVm>();
-            CreateMap<Blog, EditBlogVm>();
+            CreateMap<Blog, EditBlogVm>()
+                .ForMember(m => m.BlogType, cf => cf.MapFrom(b => ((int)b.BlogType).ToString()));
         }
 
         private void MappingDtoToEntity()

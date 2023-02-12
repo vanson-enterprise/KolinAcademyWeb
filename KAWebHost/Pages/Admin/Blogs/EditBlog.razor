@@ -37,7 +37,7 @@
                     <div class="row mb-5">
                         <div class="col-3">
                             <button type="button" class="btn btn-primary" @onclick="()=>OpenSelectImageModal(false)">
-                                THÊM ẢNH BÌA
+                                THAY ẢNH BÌA
                             </button>
                         </div>
                         <div class="col-9">
@@ -67,7 +67,16 @@
                         </div>
                     </div>
                     <div class="row mb-5">
-
+                        <div class="col-2">
+                            <label class="form-lable">Loại blog</label>
+                            <Select2 Id="blog_type_selector"
+                                     DataSource="blogTypes"
+                                     TValue="string"
+                                     @bind-Value="model.BlogType"
+                                     Placeholder="Chọn loại blog">
+                            </Select2>
+                            <ValidationMessage For="()=>model.BlogType"></ValidationMessage>
+                        </div>
                         <div class="col-2">
                             <div class="form-check form-check-custom form-check-solid mt-10 ms-10">
                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" @bind="model.Published" />

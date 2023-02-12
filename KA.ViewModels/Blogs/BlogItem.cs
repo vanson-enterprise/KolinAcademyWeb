@@ -14,6 +14,7 @@ namespace KA.ViewModels.Blogs
         public bool Published { get; set; }
         public string CreatedDate { get; set; }
         public string CreateUser { get; set; }
+        public string BlogType { get; set; }
 
     }
 }

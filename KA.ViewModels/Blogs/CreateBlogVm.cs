@@ -19,5 +19,7 @@ namespace KA.ViewModels.Blogs
         public string ThumbNailImageLink { get; set; }
         public DateTime? CreatedDate { get; set; } = DateTime.Now;
         public string? CreateUserId { get; set; }
+        [Required(ErrorMessage = "Bạn vui lòng chọn loại blog")]
+        public string BlogType { get; set; }
     }
 }
