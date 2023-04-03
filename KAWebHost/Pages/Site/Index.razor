@@ -18,7 +18,6 @@
 
 <div class="home-page">
     <section class="home-banner relative">
-        <img class="w-full block" src="./img/hp2.jpg" alt="" />
        @* <div class="banner-container absolute w-full">
             <div class="d-flex mx-auto max-width">
                 <div class="banner-img relative">
@@ -30,6 +29,19 @@
                 </div>
             </div>
         </div>*@
+        <section class="home-banner">
+            <div class="owl-carousel owl-theme owl-carousel2">
+                <div class="item">
+                    <img class="w-full" src="./img/pose-banner.jpg" alt="" />
+                </div>
+                <div class="item">
+                    <img class="w-full" src="./img/personal-brand-banner.jpg" alt="" />
+                </div>
+                <div class="item">
+                    <img class="w-full" src="./img/livestream-master-banner.jpg" alt="" />
+                </div>
+            </div>
+        </section>
     </section>
     @if (offlineCourseViewModels != null && offlineCourseViewModels.Count > 0)
     {
@@ -233,7 +245,7 @@
                 <p class="secondary-color inline-block">HỌC VIÊN THÀNH CÔNG</p>
             </div>
             <div class="container">
-                <div class="owl-carousel owl-theme owl-carousel">
+                <div class="owl-carousel owl-theme owl-carousel1">
                     <div class="item">
                         <div class="student-info d-flex">
                             <div class="img">
