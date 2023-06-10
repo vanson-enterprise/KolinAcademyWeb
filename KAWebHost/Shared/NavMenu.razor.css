@@ -137,7 +137,7 @@
     }
 
     .show-links {
-        height: 25rem;
+        height: 35rem;
     }
 
     .login,
@@ -220,4 +220,13 @@
         .sub-nav li a {
             padding: 8px 0;
         }
+
+    .user-mobile div {
+        gap: 16px;
+    }
+}
+
+.cart-mobile-icon {
+    top: 5px;
+    width: 50px;
 }
