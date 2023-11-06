@@ -50,5 +50,12 @@ namespace KAWebHost.Pages.Admin.Orders
             //    jsr.InvokeVoidAsync("ShowAppAlert", result.Message, "success");
             //}
         }
+
+        private void MarkPaidOrder(int orderid)
+        {
+            _orderService.UpdatePaymentStatus(orderid, PaymentStatus.PAID);
+            _orderService.UpdateOrderStatus(orderid, OrderStatus.COMPLETED);
+            jsr.InvokeVoidAsync("ShowAppAlert", "Chuyển trạng thái đơn hàng thành công", "success");
+        }
     }
 }

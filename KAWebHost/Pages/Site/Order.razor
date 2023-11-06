@@ -8,81 +8,26 @@
 </HeadContent>
 <div class="checkout-page max-width mx-auto">
     <div class="title secondary-color">CHECK OUT</div>
-    <div class="checkout-wrapper">
-        <EditForm Model="model" OnValidSubmit="CheckOut">
-            <div class="row gx-5">
-                <div class="col">
-                    <p class="text">Phương thức thanh toán</p>
-
-                    <InputRadioGroup @bind-Value="model.PaymentMethod" TValue="PaymentMethod">
-                        <div class="form-wrapper">
-                            <div class="form-check">
-                                <InputRadio class="form-check-input" id="pm-ck" Value="PaymentMethod.CK" />
-                                <label class="form-check-label w-100" for="pm-ck">@PaymentMethod.CK.DisplayName()</label>
-                            </div>
-                            <div style="margin-top: 8px;margin-left: 20px;">
-                                <div>
-                                    <strong>CHỦ TK:</strong>
-                                    <span>VŨ DIỆU THÚY</span>
-                                </div>
-                                <div>
-                                    <strong>STK:</strong>
-                                    <span>88166666666666</span>
-                                </div>
-                                <div>
-                                    <strong>NỘI DUNG CK:</strong>
-                                    <span>@("KOLIN_" + model.Code)</span>
-                                </div>
-                                <div>
-                                    <strong>NGÂN HÀNG:</strong>
-                                    <span>VP BANK</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <br />
-                        <div class="form-wrapper">
-                            <div class="form-check">
-                                <InputRadio class="form-check-input" id="vnpay" Value="PaymentMethod.VNPAY" />
-                                <label class="form-check-label w-100" for="vnpay">@PaymentMethod.VNPAY.DisplayName()</label>
-                            </div>
-                        </div>
-                        <br />
-                        <div class="form-wrapper">
-                            <div class="form-check">
-                                <InputRadio class="form-check-input" id="visa" Value="PaymentMethod.VISA" />
-                                <label class="form-check-label w-100" for="visa">@PaymentMethod.VISA.DisplayName()</label>
-                            </div>
-                        </div>
-                    </InputRadioGroup>
-
-                </div>
-                <div class="col">
-                    <p class="text">Tổng tiền</p>
-                    <div class="d-flex justify-content-between mb-1">
-                        <p>Giá gốc</p>
-                        <p>@model.Price.ToVietNameseCurrency()</p>
-                    </div>
-                    <div class="d-flex justify-content-between mb-2">
-                        <p>Giá giảm</p>
-                        <p>0%</p>
-                    </div>
-                    <div class="divider mb-3"></div>
-                    <div class="d-flex justify-content-between mb-4">
-                        <p>Tổng tiền</p>
-                        <p class="secondary-color">@model.TotalPrice.ToVietNameseCurrency()</p>
-                    </div>
-                    @*@if(model.PaymentMethod != PaymentMethod.CK){
-                    <div class="d-flex justify-content-end">
-                    <button type="submit">Thanh toán</button>
-                    </div>
-                    }*@
-                    <div class="d-flex justify-content-end">
-                        <button type="submit">Thanh toán</button>
-                    </div>
-                </div>
-
-            </div>
-        </EditForm>
+    <div class="checkout-wrapper" style="line-height:25px">
+        <h2>Chuyển khoản</h2>
+        <br />
+        <p>
+            1. Vào ứng dụng ngân hàng và đăng nhập tài khoản của bạn
+        </p>
+        <p>
+            2. Vui lòng chuyển tiền tới tài khoản sau:
+        </p>
+        <br />
+        <ul>
+            <li><b>CHỦ TK: </b> VŨ DIỆU THÚY </li>
+            <li><b>NGÂN HÀNG: </b> VP BANK </li>
+            <li><b>STK: </b>88166666666666 </li>
+        </ul>
+        <p>3. Nội dung chuyển khoản: <b style="color:yellow">@("KOLIN_"+model.Code)</b></p>
+        <p>
+            4. Hoàn tất quá trình chuyển tiền (tên người nhận tiền là VU DIEU THUY)
+            <br />
+            Sau khoảng 5 phút, bạn có thể sử dụng khóa học.
+        </p>
     </div>
 </div>
