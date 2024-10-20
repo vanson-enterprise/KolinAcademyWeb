@@ -1,46 +1,67 @@
 ﻿function pageJs() {
-    this.init = () => {
-        $(".owl-carousel1").owlCarousel({
-            loop: true,
-            margin: 10,
-            nav: false,
-            autoplay: true,
-            autoplayTimeout: 4000,
-            autoplayHoverPause: true,
-            responsive: {
-                0: {
-                    items: 1,
-                },
-                600: {
-                    items: 1,
-                },
-                1000: {
-                    items: 2,
-                },
-            },
-        });
+  this.init = () => {
+    var swiper = new Swiper(".swiperBanner", {
+      cssMode: true,
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      mousewheel: true,
+    });
 
-        $(".owl-carousel2").owlCarousel({
-            loop: true,
-            margin: 10,
-            nav: false,
-            autoplay: true,
-            autoplayTimeout: 4000,
-            autoplayHoverPause: true,
-            responsive: {
-                0: {
-                    items: 1,
-                },
-                600: {
-                    items: 1,
-                },
-                1000: {
-                    items: 1,
-                },
-            },
-        });
+    var swiper = new Swiper(".swiperAboutUs", {
+      slidesPerView: 1,
+      spaceBetween: 30,
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      breakpoints: {
+        640: {
+          slidesPerView: 3,
+          spaceBetween: 15,
+        },
+      },
+    });
 
-    }
+    var swiper = new Swiper(".swiperCaseStudy", {
+      slidesPerView: 1,
+      spaceBetween: 30,
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+      breakpoints: {
+        640: {
+          slidesPerView: 2,
+        },
+      },
+    });
+
+    $(".slider-story").slick({
+      infinite: true,
+      slidesToShow: 3,
+      slidesToScroll: 1,
+      infinite: true,
+      centerMode: true,
+      centerPadding: "0",
+      responsive: [
+        {
+          breakpoint: 768,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            centerMode: false,
+            arrows: true,
+          },
+        },
+      ],
+    });
+  };
 }
 
 export const indexPageModule = new pageJs();
