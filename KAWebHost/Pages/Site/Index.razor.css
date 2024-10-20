@@ -25,14 +25,13 @@
         height: 100%;
       }
 
-      .swiper-pagination-bullet,
-      .swiper-pagination-bullet {
-        width: 25px;
-        height: 6px;
-        border-radius: 6px;
-        background: #eee;
-        opacity: 0.9;
-      }
+.swiper-pagination.swiper-pagination-bullet {
+    width: 25px !important;
+    height: 6px !important;
+    border-radius: 6px !important;
+    background: #eee;
+    opacity: 0.9;
+}
 
       .swiper-pagination-bullet-active {
         background: rgb(196, 34, 34);

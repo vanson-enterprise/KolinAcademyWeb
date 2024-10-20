@@ -38,7 +38,6 @@ namespace KAWebHost.Pages.Site
         {
             if (firstRender)
             {
-                await jsr.InvokeVoidAsync("import", "https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js");
                 var module = await jsr.InvokeAsync<IJSObjectReference>("import", "./Pages/Site/Index.razor.js");
                 await module.InvokeVoidAsync("indexPageModule.init");
             }
