@@ -152,6 +152,32 @@
                                         <label for="course_intro_video" class="form-label">Đường dẫn video giới thiệu</label>
                                         <InputText id="course_intro_video" @bind-Value="courseModel.IntroduceVideoLink" class="form-control" placeholder="Nhập đường dẫn video giới thiệu" />
                                     </div>
+                                    
+                                </div>
+                                <div class="row mb-5">
+                                    <div class="col-3">
+                                        <button type="button" class="btn btn-primary" @onclick='()=>OpenSelectImageModal("TN")'>
+                                            THÊM ẢNH BÌA
+                                        </button>
+                                    </div>
+                                    <div class="col-9">
+                                        @if (courseModel.ThumbNailImageLink != null)
+                                        {
+                                            <img src="@courseModel.ThumbNailImageLink" alt="thumbnail-image" style="max-width: 150px" />
+                                        }
+                                    </div>
+                                </div>
+                                <div class="row mb-5">
+                                    <div class="col-12">
+                                        <label class="form-label">Mô tả ngắn</label>
+                                        <InputTextArea @bind-Value="courseModel.ShortDescription"
+                                                        class="form-control"
+                                                        style="height:100px"
+                                                        aria-label="With textarea"
+                                                        
+                                                        placeholder="Nhập mô tả">
+                                        </InputTextArea>
+                                    </div>
                                 </div>
                                  <AuthorizeView Roles="SuperAdmin">
                                     <ChildContent Context="another_context">
@@ -219,7 +245,7 @@
                                                     </span>
                                                     <span class="ql-formats">
                                                         <button type="button" class="btn btn-link" id="custom-button" style="background-image: url('img/icon/imageicon.png')"
-                                                            @onclick="()=>OpenSelectImageModal(true)">
+                                                            @onclick='()=>OpenSelectImageModal("TE")'>
                                                         </button>
                                                     </span>
                                                 </ToolbarContent>
@@ -251,7 +277,7 @@
                                 </div>
                             </EditForm>
                         </div>
-                        <!--begin::Step 1-->
+                        <!--end::Step 1-->
                         <!--begin::Step 2-->
                         <div class="flex-column " data-kt-stepper-element="content">
                             <div class="row gy-5">
@@ -361,7 +387,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!--begin::Step 2-->
+                        <!--end::Step 2-->
                         <!--begin::Step 3-->
                         <div class="flex-column" data-kt-stepper-element="content">
                             <div class="d-flex justify-content-center flex-column align-items-center" style="height: 300px">

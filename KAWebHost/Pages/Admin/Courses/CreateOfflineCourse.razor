@@ -154,7 +154,31 @@
                                         <InputText id="course_intro_video" @bind-Value="model.IntroduceVideoLink" class="form-control" placeholder="Nhập đường dẫn video giới thiệu" />
                                     </div>
                                 </div>
-
+                                 <div class="row mb-5">
+                                    <div class="col-3">
+                                        <button type="button" class="btn btn-primary" @onclick='()=>OpenSelectImageModal("TN")'>
+                                            THÊM ẢNH BÌA
+                                        </button>
+                                    </div>
+                                    <div class="col-9">
+                                        @if (model.ThumbNailImageLink != null)
+                                        {
+                                            <img src="@model.ThumbNailImageLink" alt="thumbnail-image" style="max-width: 150px" />
+                                        }
+                                    </div>
+                                </div>
+                                <div class="row mb-5">
+                                    <div class="col-12">
+                                        <label class="form-label">Mô tả ngắn</label>
+                                        <InputTextArea @bind-Value="model.ShortDescription"
+                                                        class="form-control"
+                                                        style="height:100px"
+                                                        aria-label="With textarea"
+                                                        
+                                                        placeholder="Nhập mô tả">
+                                        </InputTextArea>
+                                    </div>
+                                </div>
                                 <AuthorizeView Roles="SuperAdmin">
                                     <ChildContent Context="another_context">
                                         <div class="row">
@@ -222,7 +246,7 @@
                                                     </span>
                                                     <span class="ql-formats">
                                                         <button type="button" class="btn btn-link" id="custom-button" style="background-image: url('img/icon/imageicon.png')"
-                                                            @onclick="()=>OpenSelectImageModal(true)">
+                                                            @onclick='()=>OpenSelectImageModal("TE")'>
                                                         </button>
                                                     </span>
                                                 </ToolbarContent>

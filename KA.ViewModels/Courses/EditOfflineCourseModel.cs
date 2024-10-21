@@ -29,6 +29,7 @@ namespace KA.ViewModels.Courses
         public string? MetaKeyWord { get; set; }
         public string? MetaTitle { get; set; }
         public string? MetaDescription { get; set; }
+        public string? ShortDescription { get; set; }
         public int Sort { get; set; }
         public string? ThumbNailImageLink { get; set; }
         public string? IntroduceVideoLink { get; set; }

@@ -31,7 +31,7 @@ namespace KA.Service.Courses
         Task<DetailOnlineCourseModel> GetDetailOnlineCourse(int courseId);
         Task<List<OfflineCourseSelectedItem>> GetOfflineCourseSelectedItems(bool? isActive);
         Task<List<OfflineCourseViewModel>> GetTopOffCourseForIndexPage(int offCourseNumber);
-        Task<OnlineCourseViewModel?> GetTopOneCourseForIndexPage();
+        Task<List<OnlineCourseViewModel>> GetTopTwoOnlineCourseForIndexPage();
         Task<List<UserLessonViewModel>> GetUserLessons(string userId, int courseId);
         bool IsDuplicateCourseCode(string code);
         Task RegisterOfflineCourse(OfflineCourseRegisterInputDto input);

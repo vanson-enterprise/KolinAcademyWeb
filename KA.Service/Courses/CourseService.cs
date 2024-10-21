@@ -231,17 +231,14 @@ namespace KA.Service.Courses
 
             return result;
         }
-        public async Task<OnlineCourseViewModel?> GetTopOneCourseForIndexPage()
+        public async Task<List<OnlineCourseViewModel>> GetTopTwoOnlineCourseForIndexPage()
         {
-            var course = await _courseRepo.GetFirstOrDefaultAsync(
-                c => !c.IsDeleted && c.Type == CourseType.ONLINE,
-                (query) => query.OrderBy(c => c.Sort)
-             );
-            if (course != null)
-            {
-                return new OnlineCourseViewModel()
-                {
-                    Id = course.Id,
+            var courses = await _courseRepo.GetAll()
+            .Where(c=>!c.IsDeleted && c.Type == CourseType.ONLINE)
+            .OrderBy(c=>c.Sort)
+            .Take(2)
+            .Select(course=>new OnlineCourseViewModel{
+                Id = course.Id,
                     DetailLink = "/khoa-hoc-online/" + course.Name.GetSeoName() + "-" + course.Id,
                     Name = course.Name,
                     Price = string.Format("{0:0,0 vnđ}", course.Price),
@@ -249,9 +246,8 @@ namespace KA.Service.Courses
                     ThumbNailImageLink = course.ThumbNailImageLink,
                     IntroVideoLink = course.IntroduceVideoLink,
                     ShortDescription = course.ShortDescription
-                };
-            }
-            return null;
+            }).ToListAsync();
+            return courses;
         }
 
         public async Task<List<OfflineCourseViewModel>> GetTopOffCourseForIndexPage(int offCourseNumber)
@@ -266,6 +262,8 @@ namespace KA.Service.Courses
                                 DetailCourseLink = "/khoa-hoc-offline/" + c.Name.GetSeoName() + "-" + c.Id,
                                 IntroVideoLink = c.IntroduceVideoLink,
                                 Name = c.Name,
+                                ShortDescription = c.ShortDescription,
+                                ThumbNailImageLink = c.ThumbNailImageLink
                             })
                             .ToListAsync();
         }

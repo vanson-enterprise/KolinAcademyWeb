@@ -24,7 +24,8 @@ namespace KAWebHost.Pages.Admin.Courses
         private bool showConfirmDeleteStartDateModal;
         private int deleteStartDateIndex;
         private IJSObjectReference jsModule;
-
+        private string fileSelectorMode;    // TE - Quill text editor , TN - Thumbnail select image
+        
         [Inject]
         IJSRuntime jsr { get; set; }
         ICourseService _courseService { get; set; }
@@ -40,13 +41,11 @@ namespace KAWebHost.Pages.Admin.Courses
 
         private void InitDataModel()
         {
-
             model = new CreateOfflineCourseModel()
             {
                 IsActive = true,
                 Type = CourseType.OFFLINE
             };
-
             startDateModel = new();
             s_startDates = new List<OfflineCourseStartDateVm>();
         }
@@ -77,14 +76,19 @@ namespace KAWebHost.Pages.Admin.Courses
             }
         }
 
-        private void OpenSelectImageModal(bool isFromTextEditor)
+        private void OpenSelectImageModal(string mode)
         {
+            fileSelectorMode = mode;
             fileSelectorControl.SetShowFileManager(true);
         }
 
         async Task InsertImage(string paramImageURL)
         {
-            await quillHtml.InsertImage(paramImageURL);
+            if(fileSelectorMode == "TE"){
+                await quillHtml.InsertImage(paramImageURL);
+            }else if(fileSelectorMode == "TN"){
+                model.ThumbNailImageLink = paramImageURL;
+            }
             fileSelectorControl.SetShowFileManager(false);
         }
 

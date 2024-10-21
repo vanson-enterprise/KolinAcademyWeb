@@ -5,7 +5,7 @@
 <HeaderContent>
     <!-- tailwind -->
     <PageTitle>Trang chủ - Kolin</PageTitle>
-   
+    <script src="https://cdn.tailwindcss.com"></script>
 </HeaderContent>
 
 
@@ -15,31 +15,31 @@
         <div class="swiper swiperBanner pb-12">
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
-                    <a href="#" class="block">
+                    <a href="/khoa-hoc-offline/pose----hoc-tao-dang-chup-anh-bang-smartphone-11" title="POSE - HỌC TẠO DÁNG CHỤP ẢNH BẰNG SMARTPHONE" class="block">
                         <img class="block w-full h-full object-cover" src="./img/home-page/slide-01.png"
                             alt="slide-01" />
                     </a>
                 </div>
                 <div class="swiper-slide">
-                    <a href="#" class="block">
+                    <a href="/khoa-hoc-offline/tikmaster:-bung-no-thuong-hieu-va-doanh-so-tiktok-15" title="TIKMASTER: Bùng nổ thương hiệu và doanh số Tiktok" class="block">
                         <img class="block w-full h-full object-cover" src="./img/home-page/slide-02.png"
                             alt="slide-02" />
                     </a>
                 </div>
                 <div class="swiper-slide">
-                    <a href="#" class="block">
+                    <a href="/khoa-hoc-offline/than-thai-khi-chat-9" title="Thần thái khí chất" class="block">
                         <img class="block w-full h-full object-cover" src="./img/home-page/slide-03.png"
                             alt="slide-03" />
                     </a>
                 </div>
                 <div class="swiper-slide">
-                    <a href="#" class="block">
+                    <a href="/khoa-hoc-offline/livestream-master---khoa-hoc-livestream-thuc-chien-so-1-10" title="LIVESTREAM MASTER - KHOÁ HỌC LIVESTREAM THỰC CHIẾN SỐ 1" class="block">
                         <img class="block w-full h-full object-cover" src="./img/home-page/slide-04.png"
                             alt="slide-04" />
                     </a>
                 </div>
                 <div class="swiper-slide">
-                    <a href="#" class="block">
+                    <a href="/khoa-hoc-offline/personal-brand-16" class="block" title="Personal Brand">
                         <img class="block w-full h-full object-cover" src="./img/home-page/slide-05.png"
                             alt="slide-05" />
                     </a>
@@ -95,74 +95,46 @@
 
         <div class="course-online lg:py-28 py-10">
             <div class="grid lg:grid-cols-3 grid-cols-1 gap-4">
-                <!-- grid item -->
+                <!-- grid items -->
                 <div>
                     <h3 class="text-2xl lg:text-[40px] text-red-700 font-semibold">
                         KHÓA HỌC ONLINE
                     </h3>
                 </div>
-                <!-- grid item -->
-                <div class="mb-2">
-                    <div class="max-w-sm rounded-xl overflow-hidden bg-white p-2 h-full">
-                        <img class="w-full rounded-xl h-[160px]" src="https://v1.tailwindcss.com/img/card-top.jpg"
-                            alt="Sunset in the mountains" />
-                        <div class="p-2">
-                            <div class="font-bold text-xl mb-4 text-gray-900 font-semibold line-clamp-3 h-[80px]">
-                                KHÓA ĐÀO TẠO: THẦN THÁI KHÍ CHẤT
-                            </div>
-                            <div class="h-[124px]">
-                                <div class="text-gray-900 text-base mb-1">
-                                    Mô tả khóa học
+                @if (topTwoOnlineCourses != null)
+                {
+                    @foreach (var course in topTwoOnlineCourses)
+                    {
+                        <!-- grid item -->
+                        <div class="mb-2">
+                            <div class="max-w-sm rounded-xl overflow-hidden bg-white p-2 h-full">
+                                <img class="w-full rounded-xl h-[160px]" src="@course.ThumbNailImageLink"
+                                    alt="@course.Name" />
+                                <div class="p-2">
+                                    <div class="font-bold text-xl mb-4 text-gray-900 font-semibold line-clamp-3 h-[80px]">
+                                        @course.Name
+                                    </div>
+                                    <div class="h-[124px]">
+                                        <div class="text-gray-900 text-base mb-1">
+                                            Mô tả khóa học
+                                        </div>
+                                        <div class="text-gray-700 text-base line-clamp-4">
+                                            @course.ShortDescription
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="text-gray-700 text-base line-clamp-4">
-                                    Lorem isum dolor sit amet, consectetur adipisicing elit.
-                                    Voluptatibus quia, nulla! Maiores et perferendis eaque,
-                                    exercitationem praesentium nihil.
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="h-px my-2 bg-gray-200 border-0 dark:bg-gray-700" />
-                        <div class="pt-4 pb-4 ml-1">
-                            <a href="#"
-                                class="inline-block color-white hover:bg-red-900 bg-red-800 font-bold py-3 px-8 text-lg rounded-lg">
-                                TÌM HIỂU THÊM
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <!-- grid item -->
-                <div class="mb-2">
-                    <div class="max-w-sm rounded-xl overflow-hidden bg-white p-2 h-full">
-                        <img class="w-full rounded-xl h-[160px]" src="https://v1.tailwindcss.com/img/card-top.jpg"
-                            alt="Sunset in the mountains" />
-                        <div class="p-2">
-                            <div class="font-bold text-xl mb-4 text-gray-900 font-semibold line-clamp-3 h-[80px]">
-                                KHÓA ĐÀO TẠO : POSE ONLINE - Khóa học tạo dáng, chụp hình
-                                bằng Smartphone
-                            </div>
-                            <div class="h-[124px]">
-                                <div class="text-gray-900 text-base mb-1">
-                                    Mô tả khóa học
-                                </div>
-                                <div class="text-gray-700 text-base line-clamp-4">
-                                    Lorem isum dolor sit amet, consectetur adipisicing elit.
-                                    Voluptatibus quia, Lorem isum dolor sit amet, consectetur
-                                    adipisicing elit. Voluptatibus quia, Lorem isum dolor sit
-                                    amet, consectetur adipisicing elit. Voluptatibus quia,
-                                    Lorem isum dolor sit amet, consectetur adipisicing elit.
-                                    Voluptatibus quia,
+                                <hr class="h-px my-2 bg-gray-200 border-0 dark:bg-gray-700" />
+                                <div class="pt-4 pb-4 ml-1">
+                                    <a href="@course.DetailLink"
+                                        class="inline-block color-white hover:bg-red-900 bg-red-800 font-bold py-3 px-8 text-lg rounded-lg">
+                                        TÌM HIỂU THÊM
+                                    </a>
                                 </div>
                             </div>
                         </div>
-                        <hr class="h-px my-2 bg-gray-200 border-0 dark:bg-gray-700" />
-                        <div class="pt-4 pb-4 ml-1">
-                            <a href="#"
-                                class="inline-block color-white hover:bg-red-900 bg-red-800 font-bold py-3 px-8 text-lg rounded-lg">
-                                TÌM HIỂU THÊM
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                    }
+                }
+
             </div>
         </div>
 
@@ -171,153 +143,41 @@
                 <!-- grid item -->
                 <div>
                     <h3 class="text-2xl lg:text-[40px] text-red-700 font-semibold">
-                        KHÓA HỌC ONLINE
+                        KHÓA HỌC OFFLINE
                     </h3>
                 </div>
-                <!-- grid item -->
-                <div class="mb-2">
-                    <div class="max-w-sm rounded-xl overflow-hidden bg-white p-2 h-full">
-                        <img class="w-full rounded-xl h-[160px]" src="https://v1.tailwindcss.com/img/card-top.jpg"
-                            alt="Sunset in the mountains" />
-                        <div class="p-2">
-                            <div class="font-bold text-xl mb-4 text-gray-900 font-semibold line-clamp-3 h-[80px]">
-                                KHÓA ĐÀO TẠO: LIVESTREAM MASTER - KHOÁ HỌC LIVESTREAM THỰC
-                                CHIẾN SỐ 1
-                            </div>
-                            <div class="h-[124px]">
-                                <div class="text-gray-900 text-base mb-1">
-                                    Mô tả khóa học
+                @if(offlineCourses != null){
+                    @foreach(var course in offlineCourses){
+                        <!-- grid item -->
+                         <div class="mb-2">
+                            <div class="max-w-sm rounded-xl overflow-hidden bg-white p-2 h-full">
+                                <img class="w-full rounded-xl h-[160px]" src="@course.ThumbNailImageLink"
+                                    alt="@course.Name" />
+                                <div class="p-2">
+                                    <div class="font-bold text-xl mb-4 text-gray-900 font-semibold line-clamp-3 h-[80px]">
+                                        @course.Name
+                                    </div>
+                                    <div class="h-[124px]">
+                                        <div class="text-gray-900 text-base mb-1">
+                                            Mô tả khóa học
+                                        </div>
+                                        <div class="text-gray-700 text-base line-clamp-4">
+                                            @course.ShortDescription
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="text-gray-700 text-base line-clamp-4">
-                                    Lorem isum dolor sit amet, consectetur adipisicing elit.
-                                    Voluptatibus quia, nulla! Maiores et perferendis eaque,
-                                    exercitationem praesentium nihil.
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="h-px my-2 bg-gray-200 border-0 dark:bg-gray-700" />
-                        <div class="pt-4 pb-4 ml-1">
-                            <a href="#"
-                                class="inline-block color-white hover:bg-red-900 bg-red-800 font-bold py-3 px-8 text-lg rounded-lg">
-                                TÌM HIỂU THÊM
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <!-- grid item -->
-                <div class="mb-2">
-                    <div class="max-w-sm rounded-xl overflow-hidden bg-white p-2 h-full">
-                        <img class="w-full rounded-xl h-[160px]" src="https://v1.tailwindcss.com/img/card-top.jpg"
-                            alt="Sunset in the mountains" />
-                        <div class="p-2">
-                            <div class="font-bold text-xl mb-4 text-gray-900 font-semibold line-clamp-3 h-[80px]">
-                                KHÓA ĐÀO TẠO: Thần thái khí chất
-                            </div>
-                            <div class="h-[124px]">
-                                <div class="text-gray-900 text-base mb-1">
-                                    Mô tả khóa học
-                                </div>
-                                <div class="text-gray-700 text-base line-clamp-4">
-                                    Lorem isum dolor sit amet, consectetur adipisicing elit.
-                                    Voluptatibus quia,
+                                <hr class="h-px my-2 bg-gray-200 border-0 dark:bg-gray-700" />
+                                <div class="pt-4 pb-4 ml-1">
+                                    <a href="@course.DetailCourseLink"
+                                        class="inline-block color-white hover:bg-red-900 bg-red-800 font-bold py-3 px-8 text-lg rounded-lg">
+                                        TÌM HIỂU THÊM
+                                    </a>
                                 </div>
                             </div>
                         </div>
-                        <hr class="h-px my-2 bg-gray-200 border-0 dark:bg-gray-700" />
-                        <div class="pt-4 pb-4 ml-1">
-                            <a href="#"
-                                class="inline-block color-white hover:bg-red-900 bg-red-800 font-bold py-3 px-8 text-lg rounded-lg">
-                                TÌM HIỂU THÊM
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <!-- grid item -->
-                <div class="mb-2">
-                    <div class="max-w-sm rounded-xl overflow-hidden bg-white p-2 h-full">
-                        <img class="w-full rounded-xl h-[160px]" src="https://v1.tailwindcss.com/img/card-top.jpg"
-                            alt="Sunset in the mountains" />
-                        <div class="p-2">
-                            <div class="font-bold text-xl mb-4 text-gray-900 font-semibold line-clamp-3 h-[80px]">
-                                KHÓA ĐÀO TẠO: TIKMASTER: Bùng nổ thương hiệu và doanh số
-                                Tiktok
-                            </div>
-                            <div class="h-[124px]">
-                                <div class="text-gray-900 text-base mb-1">
-                                    Mô tả khóa học
-                                </div>
-                                <div class="text-gray-700 text-base line-clamp-4">
-                                    Lorem isum dolor
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="h-px my-2 bg-gray-200 border-0 dark:bg-gray-700" />
-                        <div class="pt-4 pb-4 ml-1">
-                            <a href="#"
-                                class="inline-block color-white hover:bg-red-900 bg-red-800 font-bold py-3 px-8 text-lg rounded-lg">
-                                TÌM HIỂU THÊM
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <!-- grid item -->
-                <div class="mb-2">
-                    <div class="max-w-sm rounded-xl overflow-hidden bg-white p-2 h-full">
-                        <img class="w-full rounded-xl h-[160px]" src="https://v1.tailwindcss.com/img/card-top.jpg"
-                            alt="Sunset in the mountains" />
-                        <div class="p-2">
-                            <div class="font-bold text-xl mb-4 text-gray-900 font-semibold line-clamp-3 h-[80px]">
-                                KHÓA ĐÀO TẠO: PERSONAL BRAND PRO - XÂY DỰNG THCN CHUYÊN
-                                NGHIỆP
-                            </div>
-                            <div class="h-[124px]">
-                                <div class="text-gray-900 text-base mb-1">
-                                    Mô tả khóa học
-                                </div>
-                                <div class="text-gray-700 text-base line-clamp-4">
-                                    Lorem isum dolor sit amet, consectetur adipisicing elit.
-                                    Voluptatibus quia, Lorem isum dolor sit amet, consectetur
-                                    adipisicing elit.
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="h-px my-2 bg-gray-200 border-0 dark:bg-gray-700" />
-                        <div class="pt-4 pb-4 ml-1">
-                            <a href="#"
-                                class="inline-block color-white hover:bg-red-900 bg-red-800 font-bold py-3 px-8 text-lg rounded-lg">
-                                TÌM HIỂU THÊM
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <!-- grid item -->
-                <div class="mb-2">
-                    <div class="max-w-sm rounded-xl overflow-hidden bg-white p-2 h-full">
-                        <img class="w-full rounded-xl h-[160px]" src="https://v1.tailwindcss.com/img/card-top.jpg"
-                            alt="Sunset in the mountains" />
-                        <div class="p-2">
-                            <div class="font-bold text-xl mb-4 text-gray-900 font-semibold line-clamp-3 h-[80px]">
-                                KHÓA ĐÀO TẠO: POSE - HỌC TẠO DÁNG CHỤP ẢNH BẰNG SMARTPHONE
-                            </div>
-                            <div class="h-[124px]">
-                                <div class="text-gray-900 text-base mb-1">
-                                    Mô tả khóa học
-                                </div>
-                                <div class="text-gray-700 text-base line-clamp-4">
-                                    Lorem isum dolor sit amet, consectetur adipisicing elit.
-                                    Voluptatibus quia
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="h-px my-2 bg-gray-200 border-0 dark:bg-gray-700" />
-                        <div class="pt-4 pb-4 ml-1">
-                            <a href="#"
-                                class="inline-block color-white hover:bg-red-900 bg-red-800 font-bold py-3 px-8 text-lg rounded-lg">
-                                TÌM HIỂU THÊM
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                    }
+                }
+               
             </div>
         </div>
     </div>
@@ -494,7 +354,7 @@
                 </div>
                 <div class="col-span-1 lg:col-span-2">
                     <iframe class="w-full aspect-[4/2.5] rounded-lg border border-stone-800"
-                        src="https://www.youtube.com/embed/yZPCqNncaNQ?si=C87eGcB2Ur0GQcA6"
+                        src="https://www.youtube.com/embed/8atDIwyZk6I?si=6P1_xuWAws0gHr8N"
                         title="VIDEO GIỚI THIỆU: OCOP PHÚ THỌ"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
@@ -537,21 +397,21 @@
                 <div class="grid lg:grid-cols-3 grid-cols-1 gap-8 mt-12 mb-8">
                     <div>
                         <iframe class="w-full aspect-[4/3] rounded-lg border border-stone-800"
-                            src="https://www.youtube.com/embed/yZPCqNncaNQ?si=C87eGcB2Ur0GQcA6"
+                            src="https://www.youtube.com/embed/dVvBr3wmmXo?si=uP0pN9J2ULncPCaA"
                             title="YouTube video player"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                     </div>
                     <div>
                         <iframe class="w-full aspect-[4/3] rounded-lg border border-stone-800"
-                            src="https://www.youtube.com/embed/yZPCqNncaNQ?si=C87eGcB2Ur0GQcA6"
+                            src="https://www.youtube.com/embed/fVVOWGX8EnE?si=N2L56nyq9vi8r0J1"
                             title="YouTube video player"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                     </div>
                     <div>
                         <iframe class="w-full aspect-[4/3] rounded-lg border border-stone-800"
-                            src="https://www.youtube.com/embed/yZPCqNncaNQ?si=C87eGcB2Ur0GQcA6"
+                            src="https://www.youtube.com/embed/Ka_AWQeWSZQ?si=4w7_e6FClg8BHdck"
                             title="YouTube video player"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
@@ -560,14 +420,14 @@
                 <div class="grid lg:grid-cols-2 grid-cols-1 gap-8">
                     <div>
                         <iframe class="w-full aspect-[4/3] lg:aspect-[4/2] rounded-lg border border-stone-800"
-                            src="https://www.youtube.com/embed/yZPCqNncaNQ?si=C87eGcB2Ur0GQcA6"
+                            src="https://www.youtube.com/embed/Ys94uzObYNs?si=efJDj2KugusWS1ua"
                             title="YouTube video player"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                     </div>
                     <div>
                         <iframe class="w-full aspect-[4/3] lg:aspect-[4/2] rounded-lg border border-stone-800"
-                            src="https://www.youtube.com/embed/yZPCqNncaNQ?si=C87eGcB2Ur0GQcA6"
+                            src="https://www.youtube.com/embed/Ys94uzObYNs?si=efJDj2KugusWS1ua"
                             title="YouTube video player"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
@@ -583,39 +443,33 @@
                 <div class="slider-story">
                     <div class="item">
                         <iframe class="w-full aspect-[4/3] rounded-lg border border-stone-800"
-                            src="https://www.youtube.com/embed/yZPCqNncaNQ?si=C87eGcB2Ur0GQcA6"
+                            src="https://www.youtube.com/embed/UjIn0xT9_p8?si=vMcafTqKJ9sUBZO7"
                             title="YouTube video player"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                     </div>
                     <div class="item">
                         <iframe class="w-full aspect-[4/3] rounded-lg border border-stone-800"
-                            src="https://www.youtube.com/embed/yZPCqNncaNQ?si=C87eGcB2Ur0GQcA6"
+                            src="https://www.youtube.com/embed/t9rJ_xGU2hU?si=VyHfZ-X1IEOmaQr2"
                             title="YouTube video player"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                     </div>
                     <div class="item">
                         <iframe class="w-full aspect-[4/3] rounded-lg border border-stone-800"
-                            src="https://www.youtube.com/embed/yZPCqNncaNQ?si=C87eGcB2Ur0GQcA6"
+                            src="https://www.youtube.com/embed/vG6O1X4z1Ns?si=W2S_EgBbddOVSWav"
                             title="YouTube video player"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                     </div>
                     <div class="item">
                         <iframe class="w-full aspect-[4/3] rounded-lg border border-stone-800"
-                            src="https://www.youtube.com/embed/yZPCqNncaNQ?si=C87eGcB2Ur0GQcA6"
+                            src="https://www.youtube.com/embed/OGLpUBgFHXI?si=pB8mj2yPj8XpYsCS"
                             title="YouTube video player"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                     </div>
-                    <div class="item">
-                        <iframe class="w-full aspect-[4/3] rounded-lg border border-stone-800"
-                            src="https://www.youtube.com/embed/yZPCqNncaNQ?si=C87eGcB2Ur0GQcA6"
-                            title="YouTube video player"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    </div>
+                   
                 </div>
             </div>
         </div>
@@ -739,83 +593,83 @@
                             <div class="max-w-lg bg-white border border-gray-200 rounded-xl p-3">
                                 <a href="#">
                                     <img class="rounded-xl h-[165px] w-full object-cover"
-                                        src="https://flowbite.com/docs/images/blog/image-1.jpg" alt="" />
+                                        src="https://cafefcdn.com/thumb_w/640/pr/2022/photo1669277505077-16692775051451945082346-63804907420097.png" alt="" />
                                 </a>
                                 <div class="flex justify-between mt-5">
                                     <div>
                                         <h5 class="mb-2 text-xl font-bold text-gray-900">
-                                            Tiêu đề 1
+                                            Chuyên gia xây dựng thương hiệu cá nhân Vũ Diệu Thúy - Trao đi để nhận lại
                                         </h5>
-                                        <a href="#" class="text-base text-blue-900 underline">
+                                        <a href="https://cafef.vn/chuyen-gia-xay-dung-thuong-hieu-ca-nhan-vu-dieu-thuy-trao-di-de-nhan-lai-20221124172339972.chn" class="text-base text-blue-900 underline" target="_blank">
                                             Xem chi tiết
                                         </a>
                                     </div>
                                     <div>
                                         <p class="mb-3 text-base text-blue-900">Nguồn</p>
                                         <img class="w-28 h-10 object-cover rounded-lg shadow-lg"
-                                            src="https://flowbite.com/docs/images/blog/image-1.jpg" alt="" />
+                                            src="https://cafefcdn.com/web_images/cafef_logo2022.svg" alt="" />
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="swiper-slide">
                             <div class="max-w-lg bg-white border border-gray-200 rounded-xl p-3">
-                                <a href="#">
+                                <a target="_blank" href="https://kenh14.vn/cung-dinh-hinh-phong-cach-voi-nha-dao-tao-thuong-hieu-ca-nhan-vu-dieu-thuy-20220418123503733.chn">
                                     <img class="rounded-xl h-[165px] w-[350px] object-cover"
-                                        src="https://flowbite.com/docs/images/blog/image-1.jpg" alt="" />
+                                        src="https://channel.mediacdn.vn/thumb_w/640/428462621602512896/2022/4/18/photo-1-16502572358821828980259.jpg" alt="" />
                                 </a>
                                 <div class="flex justify-between mt-5">
                                     <div>
-                                        <h5 class="mb-2 text-xl font-bold text-gray-900 line-clamp-1">
-                                            Tiêu đề 1
+                                        <h5 class="mb-2 text-xl font-bold text-gray-900 line-clamp-3">
+                                            Cùng định hình phong cách với nhà đào tạo thương hiệu cá nhân Vũ Diệu Thúy
                                         </h5>
-                                        <a href="#" class="text-base text-blue-900 underline">
+                                        <a href="https://kenh14.vn/cung-dinh-hinh-phong-cach-voi-nha-dao-tao-thuong-hieu-ca-nhan-vu-dieu-thuy-20220418123503733.chn" target="_blank" class="text-base text-blue-900 underline">
                                             Xem chi tiết
                                         </a>
                                     </div>
                                     <div>
                                         <p class="mb-3 text-base text-blue-900">Nguồn</p>
                                         <img class="w-28 h-10 object-cover rounded-lg shadow-lg"
-                                            src="https://flowbite.com/docs/images/blog/image-1.jpg" alt="" />
+                                            src="https://kenh14cdn.com/web_images/k14_logo2022.svg" alt="" />
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="swiper-slide">
                             <div class="max-w-lg bg-white border border-gray-200 rounded-xl p-3">
-                                <a href="#">
+                                <a href="https://vov.vn/van-hoa/ra-mat-cam-nang-giup-nguoi-tre-xay-dung-thuong-hieu-ca-nhan-833400.vov" target="_blank">
                                     <img class="rounded-xl h-[165px] w-[350px] object-cover"
-                                        src="https://flowbite.com/docs/images/blog/image-1.jpg" alt="" />
+                                        src="https://vov-media.emitech.vn/sites/default/files/styles/og_image/public/2021-01/IMG_3621.jpg?v=1729503307" alt="" />
                                 </a>
                                 <div class="flex justify-between mt-5">
                                     <div>
-                                        <h5 class="mb-2 text-xl font-bold text-gray-900 line-clamp-1">
-                                            Tiêu đề 1
+                                        <h5 class="mb-2 text-xl font-bold text-gray-900 line-clamp-3">
+                                            Ra mắt cẩm nang giúp người trẻ xây dựng thương hiệu cá nhân
                                         </h5>
-                                        <a href="#" class="text-base text-blue-900 underline">
+                                        <a href="https://vov.vn/van-hoa/ra-mat-cam-nang-giup-nguoi-tre-xay-dung-thuong-hieu-ca-nhan-833400.vov" target="_blank" class="text-base text-blue-900 underline">
                                             Xem chi tiết
                                         </a>
                                     </div>
                                     <div>
                                         <p class="mb-3 text-base text-blue-900">Nguồn</p>
                                         <img class="w-28 h-10 object-cover rounded-lg shadow-lg"
-                                            src="https://flowbite.com/docs/images/blog/image-1.jpg" alt="" />
+                                            src="https://vov.vn/themes/custom/vovvn/logo.svg" alt="" />
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="swiper-slide">
                             <div class="max-w-lg bg-white border border-gray-200 rounded-xl p-3">
-                                <a href="#">
+                                <a target="_blank" href="https://ngoisao.vnexpress.net/street-style-ton-dang-cua-hot-mom-vu-dieu-thuy-4483697.html">
                                     <img class="rounded-xl h-[165px] w-[350px] object-cover"
-                                        src="https://flowbite.com/docs/images/blog/image-1.jpg" alt="" />
+                                        src="https://i1-ngoisao.vnecdn.net/2022/07/04/vu-dieu-thuy-5-1656950201-7770-1656950392.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=toK9QP7OH4nsqtCo1GcJMQ" alt="Street style tôn dáng của hot mom Vũ Diệu Thúy" />
                                 </a>
                                 <div class="flex justify-between mt-5">
                                     <div>
-                                        <h5 class="mb-2 text-xl font-bold text-gray-900 line-clamp-1">
-                                            Tiêu đề 1
+                                        <h5 class="mb-2 text-xl font-bold text-gray-900 line-clamp-3">
+                                            Street style tôn dáng của hot mom Vũ Diệu Thúy
                                         </h5>
-                                        <a href="#" class="text-base text-blue-900 underline">
+                                        <a href="https://ngoisao.vnexpress.net/street-style-ton-dang-cua-hot-mom-vu-dieu-thuy-4483697.html" class="text-base text-blue-900 underline" target="_blank">
                                             Xem chi tiết
                                         </a>
                                     </div>
@@ -902,5 +756,3 @@
         </div>
     </div>
 </div>
-
-                            

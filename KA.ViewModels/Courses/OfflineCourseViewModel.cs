@@ -12,6 +12,8 @@ namespace KA.ViewModels.Courses
         public string Name { get; set; }
         public string DetailCourseLink { get; set; }
         public string IntroVideoLink { get; set; }
+        public string? ThumbNailImageLink {get;set;}
+        public string? ShortDescription {get; set;}
         public List<OfflineCourseStartDateVm> StartDates { get; set; }
     }
 }

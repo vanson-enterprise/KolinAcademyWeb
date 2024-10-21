@@ -23,6 +23,7 @@ namespace KAWebHost.Pages.Admin.Courses
 
         private bool showConfirmDeleteStartDate;
         private int deleteStartDateId;
+        private string fileSelectorMode;    // TE - Quill text editor , TN - Thumbnail select image
 
         // Parameter
         [Parameter]
@@ -81,12 +82,13 @@ namespace KAWebHost.Pages.Admin.Courses
             course.MetaDescription = courseModel.MetaDescription;
             course.MetaTitle = courseModel.MetaTitle;
             course.Sort = courseModel.Sort;
-            //course.ThumbNailImageLink = courseModel.ThumbNailImageLink;
+            course.ThumbNailImageLink = courseModel.ThumbNailImageLink;
             course.IntroduceVideoLink = courseModel.IntroduceVideoLink;
             course.UpdatedDate = DateTime.Now;
             course.IsUseExternalHtml = courseModel.IsUseExternalHtml;
             course.ExternalCssLink = courseModel.ExternalCssLink;
             course.ExternalScriptLink = courseModel.ExternalScriptLink;
+            course.ShortDescription = courseModel.ShortDescription;
             await _courseService.Edit(course);
 
             await jsr.InvokeVoidAsync("ShowAppAlert", "Đã cập nhật thông tin chung", "success");
@@ -95,14 +97,21 @@ namespace KAWebHost.Pages.Admin.Courses
 
         }
 
-        private void OpenSelectImageModal(bool isFromTextEditor)
+        private void OpenSelectImageModal(string mode)
         {
+            fileSelectorMode = mode;
             fileSelectorControl.SetShowFileManager(true);
         }
 
+
         async Task InsertImage(string paramImageURL)
         {
-            await quillHtml.InsertImage(paramImageURL);
+            if(fileSelectorMode == "TE"){
+                await quillHtml.InsertImage(paramImageURL);
+            }else if(fileSelectorMode == "TN"){
+                courseModel.ThumbNailImageLink = paramImageURL;
+            }
+
             fileSelectorControl.SetShowFileManager(false);
         }
 

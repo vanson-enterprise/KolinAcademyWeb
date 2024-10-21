@@ -14,8 +14,8 @@ namespace KAWebHost.Pages.Site
         [Inject]
         private NavigationManager NavigationManager { get; set; }
 
-        private List<OfflineCourseViewModel> offlineCourseViewModels;
-        private OnlineCourseViewModel onlineCourse;
+        //private List<OfflineCourseViewModel> offlineCourseViewModels;
+        private List<OnlineCourseViewModel> topTwoOnlineCourses;
         private List<OfflineCourseViewModel> offlineCourses;
         private List<BlogViewModel> blogViewModels;
         protected override async Task OnInitializedAsync()
@@ -28,8 +28,8 @@ namespace KAWebHost.Pages.Site
         private async Task InitData()
         {
 
-            offlineCourseViewModels = _courseService.GetAllOpeningSoonOfflineCourse();
-            onlineCourse = await _courseService.GetTopOneCourseForIndexPage();
+            //offlineCourseViewModels = _courseService.GetAllOpeningSoonOfflineCourse();
+            topTwoOnlineCourses = await _courseService.GetTopTwoOnlineCourseForIndexPage();
             offlineCourses = await _courseService.GetTopOffCourseForIndexPage(6);
             blogViewModels = await _blogService.GetTopFourBlogForHomePage();
             StateHasChanged();
