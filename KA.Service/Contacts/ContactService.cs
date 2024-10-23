@@ -23,7 +23,9 @@ namespace KA.Service.Contacts
 
         public async Task SaveContact(ContactInputModel input)
         {
-            await _contactReponsitory.AddAsync(_mapper.Map<Contact>(input));
+            var contact = _mapper.Map<Contact>(input);
+            contact.CreatedDate = DateTime.Now;
+            await _contactReponsitory.AddAsync(contact);
         }
 
         public async Task<DataGridResponse<ContactViewModel>> GetAllContactPaging(int skip, int top)

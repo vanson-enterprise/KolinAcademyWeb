@@ -52,9 +52,7 @@ namespace KAWebHost.Pages.Site
 
         protected void SaveContactInfo(){
             _contactService.SaveContact(contactModel);
-            //mainLayout.ShowAlert("Cảm ơn bạn đã để lại thông tin! Chúng tôi sẽ liên hệ bạn sớm nhất có thể.", "Thông báo");
-            jsr.InvokeAsync<string>("indexPageModule.showAlert","Cảm ơn bạn đã để lại thông tin! Chúng tôi sẽ liên hệ bạn sớm nhất có thể.");
-            contactModel = new();
+            mainLayout.ShowAlert("Cảm ơn bạn đã để lại thông tin! Chúng tôi sẽ liên hệ bạn sớm nhất có thể.", "Thông báo");            contactModel = new();
         }
         private void GoToRegisterPage(int courseId)
         {

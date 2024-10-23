@@ -1,30 +1,60 @@
 ﻿@inherits ComponentBase
 @inject NavigationManager _navigationManager;
 
-<div class="modal fade show" data-bs-backdrop="static" tabindex="-1" style="display: block; background-color: rgba(10,10,10,0.8)">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" style="color:#000">@AlertTitle</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @onclick="()=>OnModalCloseBtnClick()"></button>
-            </div>
-            <div class="modal-body" style="color:#000">
-                <p>@AlertMessage</p>
-            </div>
-            <div class="modal-footer">
-                @if (IsForceAuthenAlert)
-                {
-                    <button type="button" class="btn btn-info " @onclick="GoToSignInPage">Đăng kí</button>
-                    <button type="button" class="btn btn-primary" @onclick="GoToLoginPage">Đăng nhập</button>
-                }
-                else
-                {
-                    <button type="button" class="btn btn-primary" @onclick="()=>OnModalCloseBtnClick()">Ok</button>
-                }
+<div class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-40">
+    <!-- Modal Content -->
+    <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-6 relative">
+        <h2 class="text-2xl font-semibold mb-4">Thông báo</h2>
+        <button id="closeModal" class="absolute top-2 right-2 text-gray-400 hover:text-gray-600">
+            &times;
+        </button>
 
-            </div>
+
+        <p class="text-gray-600 mb-4">@AlertMessage</p>
+        <!-- OK Button (Center Bottom) -->
+        <div class="flex justify-center mt-auto">
+
+            <!-- Close Button -->
+            @if (IsForceAuthenAlert)
+            {
+                <button type="button" class="bg-blue-500 text-white px-4 py-2 rounded" @onclick="GoToSignInPage">Đăng
+                    kí</button>
+                <button type="button" class="bg-blue-500 text-white px-4 py-2 rounded" @onclick="GoToLoginPage">Đăng
+                    nhập</button>
+            }
+            else
+            {
+                <button type="button" class="bg-blue-500 text-white px-4 py-2 rounded w-[60px]"
+                    @onclick="()=>OnModalCloseBtnClick()">Ok</button>
+            }
         </div>
+
     </div>
+
+    @* <div class="modal-dialog">
+    <div class="modal-content">
+    <div class="modal-header">
+    <h5 class="modal-title" style="color:#000">@AlertTitle</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+    @onclick="()=>OnModalCloseBtnClick()"></button>
+    </div>
+    <div class="modal-body" style="color:#000">
+    <p></p>
+    </div>
+    <div class="modal-footer">
+    @if (IsForceAuthenAlert)
+    {
+    <button type="button" class="btn btn-info " @onclick="GoToSignInPage">Đăng kí</button>
+    <button type="button" class="btn btn-primary" @onclick="GoToLoginPage">Đăng nhập</button>
+    }
+    else
+    {
+    <button type="button" class="btn btn-primary" @onclick="()=>OnModalCloseBtnClick()">Ok</button>
+    }
+
+    </div>
+    </div>
+    </div> *@
 </div>
 
 @code {
