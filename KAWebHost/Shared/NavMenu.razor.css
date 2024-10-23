@@ -22,7 +22,7 @@
     padding: 0.5rem;
     margin: 0 0.5rem;
     text-transform: uppercase;
-    color: var(--primary-color);
+    color: #fff;
     transition: var(--transition);
     font-size: 18px;
     font-weight: 600;

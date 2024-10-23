@@ -1,46 +1,15 @@
 ﻿
-/* ==== footer ===== */
-.footer {
-    position: relative;
-    margin-top: 8rem;
+html,
+body {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
 }
 
-    .footer img {
-        width: 100%;
-    }
-
-.footer-content {
-    max-width: 1000px;
-    margin: 0 auto;
-    font-weight: 300;
+.container-1200 {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-    .footer-content h2 {
-        font-size: 24px;
-        font-weight: 600;
-        color: var(--primary-color);
-    }
-
-@media only screen and (max-width: 1160px) {
-
-    /* ------- footer ------- */
-    .footer {
-        margin-top: 6rem;
-    }
-
-    .footer-content h2 {
-        font-size: 20px;
-    }
-
-    .footer-content {
-        padding: 0 10px;
-    }
-}
-
-
-@media only screen and (max-width: 767px) {
-    .footer {
-        margin-top: 0;
-    }
-}
 

@@ -7,7 +7,7 @@
     <div class="login-mobile">
         <AuthorizeView>
             <NotAuthorized>
-                <div class="d-flex justify-content-end">
+                <div class="flex justify-end">
                     <div><NavLink href="/dang-ki">Đăng ký</NavLink></div>
                     <div class="mx-2">|</div>
                     <div><NavLink href="/dang-nhap">Đăng nhập</NavLink></div>
@@ -16,8 +16,8 @@
             <Authorized>
 
                 <div class="user-mobile">
-                    <div class="d-flex justify-content-end">
-                        <NavLink href="/ca-nhan" class="d-flex justify-content-end">
+                    <div class="flex justify-end">
+                        <NavLink href="/ca-nhan" class="flex justify-end">
                             <svg xmlns="http://www.w3.org/2000/svg"
                                  viewBox="0 0 448 512"
                                  width="20px"
@@ -27,7 +27,7 @@
                             </svg>
                             <div class="name-user">@(UserFullName)</div>
                         </NavLink>
-                        <NavLink href="/gio-hang" style="position:relative" class="cart-mobile-icon"> 
+                        <NavLink href="/gio-hang" class="relative cart-mobile-icon">
                             <svg xmlns="http://www.w3.org/2000/svg"
                                  viewBox="0 0 576 512"
                                  width="24px"
@@ -38,7 +38,7 @@
                             </svg>
                             @if (CartProductAmount > 0)
                             {
-                                <span class="position-absolute translate-middle badge rounded-pill bg-danger" style="left: 29px;top: -2px;">
+                            <span class="absolute transform -translate-x-1/2 -translate-y-1/2 bg-red-600 text-white rounded-full px-2 py-1" style="left: 29px;top: -2px;">
                                     @(CartProductAmount)
                                     <span class="visually-hidden">unread messages</span>
                                 </span>
@@ -51,11 +51,11 @@
         </AuthorizeView>
     </div>
 
-    <div class="nav-center">
+    <div class="nav-center bg-red-800">
         <!-- nav header -->
         <div class="nav-header">
             <a href="/"><img src="./img/logo.png" alt="" /></a>
-            <div class="d-flex align-items-center name-wrapper">
+            <div class="flex items-center name-wrapper">
                 <p class="name-page">Trang chủ</p>
                 <button class="nav-toggle2">
                     <svg xmlns="http://www.w3.org/2000/svg"
@@ -91,14 +91,14 @@
 
         <AuthorizeView>
             <NotAuthorized>
-                <div class="d-flex login">
+                <div class="flex login">
                     <div><NavLink href="/dang-ky">Đăng ký</NavLink></div>
                     <div><NavLink href="/dang-nhap">Đăng nhập</NavLink></div>
                 </div>
             </NotAuthorized>
             <Authorized>
                 <div class="user">
-                    <NavLink href="/ca-nhan" class="d-flex">
+                    <NavLink href="/ca-nhan" class="flex">
                         <svg xmlns="http://www.w3.org/2000/svg"
                              viewBox="0 0 448 512"
                              width="20px"
@@ -113,7 +113,7 @@
         </AuthorizeView>
 
         <div class="cart">
-            <NavLink href="/gio-hang" style="position:relative">
+            <NavLink href="/gio-hang" class="relative">
                 <svg xmlns="http://www.w3.org/2000/svg"
                      viewBox="0 0 576 512"
                      width="24px"
@@ -124,7 +124,7 @@
                 </svg>
                 @if (CartProductAmount > 0)
                 {
-                    <span class="position-absolute translate-middle badge rounded-pill bg-danger" style="left: 29px;top: -2px;">
+                    <span class="absolute translate-middle badge rounded-pill bg-danger" style="left: 29px;top: -2px;">
                         @(CartProductAmount)
                         <span class="visually-hidden">unread messages</span>
                     </span>
