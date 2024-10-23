@@ -24,7 +24,7 @@
     text-transform: uppercase;
     color: #fff;
     transition: var(--transition);
-    font-size: 18px;
+/*    font-size: 18px;*/
     font-weight: 600;
 }
 
@@ -82,7 +82,6 @@
 .user-mobile {
     display: none;
 }
-
 
 @media only screen and (max-width: 1160px) {
     /* ------- header ------ */
@@ -180,12 +179,9 @@
     .user-mobile {
         display: block;
     }
-
-    
 }
 
-
-.sub-nav {
+        .sub-nav {
     position: absolute;
     padding: 8px 5px;
     top: cacl(100% + 20px);
