@@ -62,6 +62,9 @@
       ],
     });
   };
+  this.showAlert = (message) =>{
+    window.alert(message)
+  }
 }
 
 export const indexPageModule = new pageJs();

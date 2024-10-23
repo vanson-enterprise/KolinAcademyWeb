@@ -94,7 +94,7 @@
         </div>
 
         <div class="course-online lg:py-28 py-10">
-            <div class="grid lg:grid-cols-3 grid-cols-1 gap-4">
+            <div class="grid lg:grid-cols-3 grid-cols-1 gap-4 lg:gap-8">
                 <!-- grid items -->
                 <div>
                     <h3 class="text-2xl lg:text-[40px] text-red-700 font-semibold">
@@ -107,7 +107,7 @@
                     {
                         <!-- grid item -->
                         <div class="mb-2">
-                            <div class="max-w-sm rounded-xl overflow-hidden bg-white p-2 h-full">
+                            <div class="rounded-xl overflow-hidden bg-white p-2 h-full">
                                 <img class="w-full rounded-xl h-[160px]" src="@course.ThumbNailImageLink"
                                     alt="@course.Name" />
                                 <div class="p-2">
@@ -138,8 +138,8 @@
             </div>
         </div>
 
-        <div class="course-online">
-            <div class="grid lg:grid-cols-3 grid-cols-1 gap-4">
+        <div class="course-offline">
+            <div class="grid lg:grid-cols-3 grid-cols-1 gap-4 lg:gap-8">
                 <!-- grid item -->
                 <div>
                     <h3 class="text-2xl lg:text-[40px] text-red-700 font-semibold">
@@ -150,7 +150,7 @@
                     @foreach(var course in offlineCourses){
                         <!-- grid item -->
                          <div class="mb-2">
-                            <div class="max-w-sm rounded-xl overflow-hidden bg-white p-2 h-full">
+                            <div class="rounded-xl overflow-hidden bg-white p-2 h-full">
                                 <img class="w-full rounded-xl h-[160px]" src="@course.ThumbNailImageLink"
                                     alt="@course.Name" />
                                 <div class="p-2">
@@ -695,14 +695,14 @@
                 ĐĂNG KÝ NHẬN TƯ VẤN KHÓA HỌC
             </h2>
             <div class="px-4 lg:px-0">
-                <form class="w-full bg-white p-6 lg:p-12 rounded-lg">
+                <EditForm Model="contactModel" OnValidSubmit="SaveContactInfo" class="w-full bg-white p-6 lg:p-12 rounded-lg">
                     <div class="flex flex-wrap -mx-3">
                         <div class="w-full md:w-1/2 px-3">
                             <div class="relative mb-6">
                                 <div class="absolute inset-y-0 start-0 flex items-center ps-2 pointer-events-none">
                                     <img src="./img/home-page/userIcon.svg" alt="user icon" />
                                 </div>
-                                <input type="text" id="input-name"
+                                <InputText @bind-Value="contactModel.FullName" type="text" id="input-name"
                                     class="bg-gray-50 border border-gray-400 text-gray-700 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-12 p-2.5"
                                     placeholder="Họ và tên" />
                             </div>
@@ -712,7 +712,7 @@
                                 <div class="absolute inset-y-0 start-0 flex items-center ps-2 pointer-events-none">
                                     <img src="./img/home-page/phoneIcon.svg" alt="phone icon" />
                                 </div>
-                                <input type="tel" id="input-phone"
+                                <InputText @bind-Value="contactModel.PhoneNumber" type="tel" id="input-phone"
                                     class="bg-gray-50 border border-gray-400 text-gray-700 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-12 p-2.5"
                                     placeholder="Số điện thoại" />
                             </div>
@@ -724,7 +724,7 @@
                                 <div class="absolute inset-y-0 start-0 flex items-center ps-2 pointer-events-none">
                                     <img src="./img/home-page/emailIcon.svg" />
                                 </div>
-                                <input type="email" id="input-email"
+                                <InputText @bind-Value="contactModel.Email"  type="email" id="input-email"
                                     class="bg-gray-50 border border-gray-400 text-gray-700 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-12 p-2.5"
                                     placeholder="Email" />
                             </div>
@@ -734,24 +734,24 @@
                                 <div class="absolute inset-y-0 start-0 flex items-center ps-2 pointer-events-none">
                                     <img src="./img/home-page/locationIcon.svg" />
                                 </div>
-                                <input type="text" id="input-location"
+                                <InputText @bind-Value="contactModel.Address" type="text" id="input-location"
                                     class="bg-gray-50 border border-gray-400 text-gray-700 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-12 p-2.5"
                                     placeholder="Tỉnh thành" />
                             </div>
                         </div>
                     </div>
                     <div class="flex flex-wrap">
-                        <textarea id="message" rows="4"
+                        <InputTextArea @bind-Value="contactModel.Note" id="message" rows="4"
                             class="block p-2.5 w-full text-lg text-gray-900 bg-gray-50 rounded-lg border border-gray-400 focus:ring-blue-500 focus:border-blue-500"
-                            placeholder="Ghi Chú"></textarea>
+                            placeholder="Ghi Chú"></InputTextArea>
                     </div>
                     <div class="text-center">
-                        <button type="button"
+                        <button type="submit"
                             class="text-white text-2xl bg-red-700 hover:bg-blue-800 rounded-lg px-5 py-2.5 me-2 mt-6">
                             ĐĂNG KÝ NGAY
                         </button>
                     </div>
-                </form>
+                </EditForm>
             </div>
         </div>
     </div>

@@ -2,36 +2,43 @@
 using KA.Service.Courses;
 using KA.ViewModels.Blogs;
 using KA.ViewModels.Courses;
+using KA.ViewModels.Contact;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using KA.Service.Contacts;
+using KAWebHost.Shared;
+using System.Reflection;
+using ClosedXML;
 
 namespace KAWebHost.Pages.Site
 {
     public partial class Index : OwningComponentBase
     {
         private ICourseService _courseService;
-        private IBlogService _blogService;
+        private IContactService _contactService;
         [Inject]
         private NavigationManager NavigationManager { get; set; }
+        [CascadingParameter]
+        private MainLayout mainLayout { get; set; }
+        
 
         //private List<OfflineCourseViewModel> offlineCourseViewModels;
         private List<OnlineCourseViewModel> topTwoOnlineCourses;
         private List<OfflineCourseViewModel> offlineCourses;
         private List<BlogViewModel> blogViewModels;
+        private ContactInputModel contactModel = new();
+
         protected override async Task OnInitializedAsync()
         {
             _courseService = ScopedServices.GetRequiredService<ICourseService>();
-            _blogService = ScopedServices.GetRequiredService<IBlogService>();
+            _contactService = ScopedServices.GetRequiredService<IContactService>();
             InitData();
         }
 
         private async Task InitData()
         {
-
-            //offlineCourseViewModels = _courseService.GetAllOpeningSoonOfflineCourse();
             topTwoOnlineCourses = await _courseService.GetTopTwoOnlineCourseForIndexPage();
             offlineCourses = await _courseService.GetTopOffCourseForIndexPage(6);
-            blogViewModels = await _blogService.GetTopFourBlogForHomePage();
             StateHasChanged();
         }
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -43,6 +50,12 @@ namespace KAWebHost.Pages.Site
             }
         }
 
+        protected void SaveContactInfo(){
+            _contactService.SaveContact(contactModel);
+            //mainLayout.ShowAlert("Cảm ơn bạn đã để lại thông tin! Chúng tôi sẽ liên hệ bạn sớm nhất có thể.", "Thông báo");
+            jsr.InvokeAsync<string>("indexPageModule.showAlert","Cảm ơn bạn đã để lại thông tin! Chúng tôi sẽ liên hệ bạn sớm nhất có thể.");
+            contactModel = new();
+        }
         private void GoToRegisterPage(int courseId)
         {
             NavigationManager.NavigateTo("/dang-ky-khoa-hoc/" + courseId);
