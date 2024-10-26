@@ -25,6 +25,7 @@ namespace KA.ViewModels.Courses
         [Range(0, double.MaxValue, ErrorMessage = "Giá khuyến mãi không được nhỏ hơn 0")]
         public decimal DiscountPrice { get; set; }
         public string? Tag { get; set; }
+        [StringLength(int.MaxValue)]
         public string? Description { get; set; }
         public string? MetaKeyWord { get; set; }
         public string? MetaTitle { get; set; }

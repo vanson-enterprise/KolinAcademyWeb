@@ -30,7 +30,8 @@ var builder = WebApplication.CreateBuilder(args);
 // =========================== SERVICE ===============================
 // Blazor service
 builder.Services.AddRazorPages().AddViewLocalization();
-builder.Services.AddServerSideBlazor();
+builder.Services.AddServerSideBlazor().AddHubOptions(options => { options.MaximumReceiveMessageSize = 500 * 1024; });;
+
 builder.Services.AddMvc(options => options.EnableEndpointRouting = false).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
 // DbContext
