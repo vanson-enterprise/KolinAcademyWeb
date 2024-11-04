@@ -1,5 +1,7 @@
 ﻿@page "/gioi-thieu"
-@inherits ComponentBase
+@using KA.Service.Contacts
+@using KA.ViewModels.Contact
+@inherits OwningComponentBase
 @inject IJSRuntime jsr
 
 <PageTitle>
@@ -7,461 +9,391 @@
 </PageTitle>
 
 
-<div class="introduce">
-    <div class="introduce-wrapper">
-        <div class="introduce-heading">
-            <h2>Giới thiệu</h2>
+<div class="intro-kolin">
+      <div class="bg-[url('/img/home-page/bg-reason.png')] bg-center">
+        <div class="container-1200 py-24">
+          <h2
+            class="text-3xl lg:text-[54px] leading-12 font-semibold text-red-700"
+          >
+            KOLIN ACADEMY
+          </h2>
+          <div class="text-xl mb-24">
+            <div class="mt-6">
+              Tiền thân là học viện Nik Academy, Nay là Học Viện Đào Tạo KOL’s
+              Kolin Academy Kolin Academy là đơn vị cung cấp giải pháp, định
+              hướng xây dựng thương hiệu cá nhân cho các cá nhân, đội nhóm,
+              doanh nghiệp thông qua các giải pháp:
+            </div>
+            <ul class="list-disc ml-14 mt-6">
+              <li>
+                Đào tạo và huấn luyện ngắn hạn về thương hiệu cá nhân, xác định
+                hình tượng, định vị bản thân, lựa chọn kênh truyền thông, cách
+                quay, dựng, sản xuất nội dung.
+              </li>
+              <li>
+                Huấn luyện nội bộ, đào tạo nhân sự cho các tổ chức, công ty
+              </li>
+              <li>Lớp học trực tuyến Online Learning</li>
+              <li>Coaching trực tiếp, tư vấn và đồng hành</li>
+              <li>Tổ chức sự kiện/ workshop</li>
+            </ul>
+            <div class="mt-6">
+              Với hơn 8000 học viên đã qua đào tạo đến từ khắp 3 miền trên tổ
+              quốc, Kolin Academy tự hào là đơn vị dẫn đầu về đào tạo xây dựng
+              thương hiệu cá nhân, giúp cho rất nhiều học viên, doanh nghiệp, tổ
+              chức tìm ra được hình thức marketing mới thay thế cho tư duy
+              marketing doanh nghiệp cũ, từ đó đem lại hiệu quả cực kì cao trong
+              hệ thông kinh doanh của các cá nhân, doanh nghiệp
+            </div>
+          </div>
+          <h2
+            class="text-3xl lg:text-[54px] leading-12 font-semibold text-center text-red-700 uppercase"
+          >
+            triết lý kinh doanh
+          </h2>
+          <div
+            class="grid lg:grid-cols-4 grid-cols-1 gap-8 mt-10 uppercase text-center"
+          >
+            <div class="bg-red-700 rounded-lg p-6 text-4xl font-semibold">
+              tiên phong
+            </div>
+            <div class="bg-red-700 rounded-lg p-6 text-4xl font-semibold">
+              khác biệt
+            </div>
+            <div class="bg-red-700 rounded-lg p-6 text-4xl font-semibold">
+              hiệu quả
+            </div>
+            <div class="bg-red-700 rounded-lg p-6 text-4xl font-semibold">
+              thực tiễn
+            </div>
+          </div>
         </div>
-        <article class="about">
-            <!-- button container -->
-            <div class="btn-container">
-                <button class="tab-btn active" data-value=".about">
-                    Về Kolin
-                </button>
-                <button class="tab-btn" data-value=".slogan">
-                    Triết lý kinh doanh
-                </button>
-                <button class="tab-btn" data-value=".mission">
-                    Tầm nhìn, sứ mệnh, giá trị cốt lõi
-                </button>
-                <button class="tab-btn" data-value=".lecturer">Giảng viên</button>
+      </div>
+      <div
+        class="bg-[url('/img/intro/bg-intro.png')] bg-cover bg-no-repeat bg-center"
+      >
+        <div class="container-1200 py-16">
+          <div
+            class="grid grid-cols-1 lg:grid-cols-2 gap-12 place-items-center"
+          >
+            <div>
+              <img
+                class="rounded-xl object-cover w-[325px] lg:w-[492px]"
+                src="./img/course/person-01.png"
+                alt=""
+              />
             </div>
-
-            <!-- content container -->
-            <div class="about-content">
-                <div class="content about">
-                    <div class="content_about-kolin">
-                        <div class="content_about-kolin-img-wrap">
-                            <img src="./img/KOLINACADEMY.png"
-                                 alt=""
-                                 class="content_about-kolin-img" />
-                        </div>
-                        <p>
-                            Tiền thân là học viện Nik Academy, Nay là Học Viện Đào Tạo
-                            KOL’s Kolin Academy
-                        </p>
-                        <p>
-                            Kolin Academy là đơn vị cung cấp giải pháp, định hướng xây
-                            dựng thương hiệu cá nhân cho các cá nhân, đội nhóm, doanh
-                            nghiệp thông qua các giải pháp:
-                        </p>
-                        <p></p>
-                        <ul>
-                            <li>
-                                Đào tạo và huấn luyện ngắn hạn về thương hiệu cá nhân, xác
-                                định hình tượng, định vị bản thân, lựa chọn kênh truyền
-                                thông, cách quay, dựng, sản xuất nội dung.
-                            </li>
-                            <li>
-                                Huấn luyện nội bộ, đào tạo nhân sự cho các tổ chức, công
-                                ty
-                            </li>
-                            <li>Lớp học trực tuyến Online Learning</li>
-                            <li>Coaching trực tiếp, tư vấn và đồng hành</li>
-                            <li>Tổ chức sự kiện/ workshop</li>
-                        </ul>
-                        <br />
-                        <p>
-                            Với hơn 8000 học viên đã qua đào tạo đến từ khắp 3 miền trên
-                            tổ quốc, Kolin Academy tự hào là đơn vị dẫn đầu về đào tạo
-                            xây dựng thương hiệu cá nhân, giúp cho rất nhiều học viên,
-                            doanh nghiệp, tổ chức tìm ra được hình thức marketing mới
-                            thay thế cho tư duy marketing doanh nghiệp cũ, từ đó đem
-                            lại hiệu quả cực kì cao trong hệ thông kinh doanh của các cá
-                            nhân, doanh nghiệp
-                        </p>
-                    </div>
+            <div class="flex flex-col gap-14">
+              <div>
+                <img
+                  class="w-[282px]"
+                  src="./img/intro/su-menh.png"
+                  alt="su menh"
+                />
+                <div class="text-xl">
+                  Trở thành đơn vị Đào tạo - Huấn Luyện - Tư vấn hàng đầu Việt
+                  Nam về xây dựng thương hiệu cá nhân, phát triển con người,
+                  phát triển hệ thống, tổ chức
                 </div>
-                <div class="content slogan">
-                    <div class="content_slogan">
-                        <p>
-                            <img src="./img/tienphong.png"
-                                 alt=""
-                                 class="content_slogan-img" />
-                        </p>
-                        <p>
-                            <img src="./img/khacbiet.png"
-                                 alt=""
-                                 class="content_slogan-img" />
-                        </p>
-                        <p>
-                            <img src="./img/hieuqua.png"
-                                 alt=""
-                                 class="content_slogan-img" />
-                        </p>
-                        <p>
-                            <img src="./img/thuctien.png"
-                                 alt=""
-                                 class="content_slogan-img" />
-                        </p>
-                    </div>
+              </div>
+              <div>
+                <img
+                  class="w-[250px]"
+                  src="./img/intro/tam-nhin.png"
+                  alt="tam nhin"
+                />
+                <div class="text-xl">
+                  Kolin Academy khát khao mang đến những đổi mới về hành trình
+                  xác nhận, xây dựng hình tượng bản thân cho mọi các nhân trên
+                  đất nước Việt Nam, thực hiện hoài bão xây dựng hình ảnh doanh
+                  nghiệp, tổ chức thông qua thương hiệu cá nhân.
                 </div>
-                <div class="content mission">
-                    <div class="content_mission">
-                        <div>
-                            <img src="./img/tamnhin.png"
-                                 alt=""
-                                 class="content_mission-img" />
-                            <p>
-                                Trở thành đơn vị Đào tạo - Huấn Luyện - Tư vấn hàng đầu
-                                Việt Nam về xây dựng thương hiệu cá nhân, phát triển con
-                                người, phát triển hệ thống, tổ chức
-                            </p>
-                        </div>
-                        <div>
-                            <img src="./img/sumenh.png"
-                                 alt=""
-                                 class="content_mission-img" />
-                            <p>
-                                Kolin Academy khát khao mang đến những đổi mới về hành
-                                trình xác nhận, xây dựng hình tượng bản thân cho mọi các
-                                nhân trên đất nước Việt Nam, thực hiện hoài bão xây dựng
-                                hình ảnh doanh nghiệp, tổ chức thông qua thương hiệu cá
-                                nhân.
-                            </p>
-                        </div>
-                        <div>
-                            <img src="./img/giatri.png"
-                                 alt=""
-                                 class="content_mission-img" />
-                            <p>
-                                Gia tăng giá trị khách hàng
-                                <br />
-                                Chính trực
-                                <br />
-                                Tân tâm
-                                <br />
-                                Học hổi và phát triển
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="content lecturer">
-                    <div class="content_lecturer">
-                        <div class="lecturer-item lecturer-item1">
-                            <h3>Vũ Diệu Thúy</h3>
-                            <div class="info">
-                                <p>
-                                    <img src="./img/list.png" alt="" />
-                                    Founder Kolin Academy
-                                </p>
-                                <p style="margin-left: 1.5rem">
-                                    <img src="./img/list.png" alt="" />
-                                    TGD Venus’ secret
-                                </p>
-                                <p>
-                                    <img src="./img/list.png" alt="" />
-                                    Tiktoker 2m5 follower
-                                </p>
-                            </div>
-                            <div class="follow">
-                                <p>Follower</p>
-                                <div class="follow-list">
-                                    <div>
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                             viewBox="0 0 448 512"
-                                             width="18px">
-                                            <path d="M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z"
-                                                  fill="#fff" />
-                                        </svg>
-                                        500K
-                                    </div>
-                                    <div>
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                             viewBox="0 0 448 512"
-                                             width="19px">
-                                            <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"
-                                                  fill="#fff" />
-                                        </svg>
-                                        35K
-                                    </div>
-                                    <div>
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                             viewBox="0 0 448 512"
-                                             width="16px">
-                                            <path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"
-                                                  fill="#fff" />
-                                        </svg>
-                                        2.5M
-                                    </div>
-                                </div>
-                            </div>
-                            <img src="./img/bg.png" alt="" class="lecturer-item_bg" />
-                            <img src="./img/decor.png"
-                                 alt=""
-                                 class="lecturer-item_decor lecturer-item_decor-left" />
-                            <img src="./img/lecturer1.png" alt="" class="picture" />
-                        </div>
-
-                        <div class="lecturer-item lecturer-item2">
-                            <h3>Trần Việt Hoàng</h3>
-                            <div class="info">
-                                <p>
-                                    <img src="./img/list.png" alt="" />
-                                    Diễn viên nam chính phim <br />
-                                    đoạt giải “Bông Sen Bạc “ năm 2019
-                                </p>
-                                <p style="margin-left: 1rem">
-                                    <img src="./img/list.png" alt="" />
-                                    Diễn viên nam chính <br />
-                                    đoạt giải “Cánh Diều Bạc “ năm 2020
-                                </p>
-                                <p style="margin-left: 0.5rem">
-                                    <img src="./img/list.png" alt="" />
-                                    Giám đốc TVH Media
-                                </p>
-                            </div>
-                            <div class="follow">
-                                <p>Follower</p>
-                                <div class="follow-list">
-                                    <div>
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                             viewBox="0 0 448 512"
-                                             width="18px">
-                                            <path d="M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z"
-                                                  fill="#fff" />
-                                        </svg>
-                                        55K
-                                    </div>
-
-                                    <div>
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                             viewBox="0 0 448 512"
-                                             width="16px">
-                                            <path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"
-                                                  fill="#fff" />
-                                        </svg>
-                                        1M3
-                                    </div>
-                                </div>
-                            </div>
-                            <img src="./img/bg.png" alt="" class="lecturer-item_bg" />
-                            <img src="./img/decor.png"
-                                 alt=""
-                                 class="lecturer-item_decor lecturer-item_decor-right" />
-                            <img src="./img/lecturer2.png" alt="" class="picture" />
-                        </div>
-
-                        <div class="lecturer-item lecturer-item3">
-                            <h3>
-                                Nguyễn Trần <br />
-                                Bảo Ngọc
-                            </h3>
-                            <div class="info">
-                                <p>
-                                    <img src="./img/list.png" alt="" />
-                                    C.E.O của Bảo Ngọc Aerobic
-                                </p>
-                                <p>
-                                    <img src="./img/list.png" alt="" />
-                                    Founder của Bảo Ngọc Sport
-                                </p>
-                                <p style="margin-left: 0.5rem; text-align: center">
-                                    <img src="./img/list.png" alt="" />
-                                    Giảng viên đào tạo các khóa HLV Chuyên Nghiệp:“có tâm-
-                                    có tầmcó thương hiệu cá nhân” hàng đầu Việt Nam
-                                </p>
-                                <p style="margin-left: -1.5rem; text-align: center">
-                                    <img src="./img/list.png" alt="" />
-                                    Hội nhóm Aerobic lớn nhất Việt Nam với gần 300.000 thành
-                                    viên
-                                </p>
-                                <p>
-                                    <img src="./img/list.png" alt="" />
-                                    Sở hữu fanpage 1,3 triệu follow
-                                </p>
-                            </div>
-                            <div class="follow">
-                                <p>Follower</p>
-                                <div class="follow-list">
-                                    <div>
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                             viewBox="0 0 448 512"
-                                             width="19px">
-                                            <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"
-                                                  fill="#fff" />
-                                        </svg>
-                                        247K
-                                    </div>
-                                    <div>
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                             viewBox="0 0 448 512"
-                                             width="16px">
-                                            <path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"
-                                                  fill="#fff" />
-                                        </svg>
-                                        350K
-                                    </div>
-                                </div>
-                            </div>
-                            <img src="./img/bg.png" alt="" class="lecturer-item_bg" />
-                            <img src="./img/decor.png"
-                                 alt=""
-                                 class="lecturer-item_decor lecturer-item_decor-left" />
-                            <img src="./img/lecturer3.png" alt="" class="picture" />
-                        </div>
-
-                        <div class="lecturer-item lecturer-item4">
-                            <h3>Vũ Trà My</h3>
-                            <div class="info">
-                                <p style="margin-left: -0.5rem; text-align: center">
-                                    <img src="./img/list.png" alt="" />
-                                    7 năm kinh nghiệm về thời trang <br />
-                                    và kinh doanh thời trang
-                                </p>
-                                <p style="margin-left: 1rem; text-align: center">
-                                    <img src="./img/list.png" alt="" />
-                                    Mẫu ảnh chuyên nghiệp<br />
-                                    về chụp ,quay Lookbook
-                                </p>
-                                <p style="margin-left: 0.5rem">
-                                    <img src="./img/list.png" alt="" />
-                                    Hot TikToker 168k followers
-                                </p>
-                            </div>
-                            <div class="follow">
-                                <p>Follower</p>
-                                <div class="follow-list">
-                                    <div>
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                             viewBox="0 0 448 512"
-                                             width="18px">
-                                            <path d="M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z"
-                                                  fill="#fff" />
-                                        </svg>
-                                        74K
-                                    </div>
-                                    <div>
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                             viewBox="0 0 448 512"
-                                             width="18px">
-                                            <path d="M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z"
-                                                  fill="#fff" />
-                                        </svg>
-                                        25K
-                                    </div>
-
-                                    <div>
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                             viewBox="0 0 448 512"
-                                             width="16px">
-                                            <path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"
-                                                  fill="#fff" />
-                                        </svg>
-                                        168K
-                                    </div>
-                                </div>
-                            </div>
-                            <img src="./img/bg.png" alt="" class="lecturer-item_bg" />
-                            <img src="./img/decor.png"
-                                 alt=""
-                                 class="lecturer-item_decor lecturer-item_decor-right" />
-                            <img src="./img/lecturer4.png" alt="" class="picture" />
-                        </div>
-
-                        <div class="lecturer-item lecturer-item5">
-                            <h3>Vũ Hoàng Diễm</h3>
-                            <div class="info">
-                                <p>
-                                    <img src="./img/list.png" alt="" />
-                                    Hoa khôi Đại học Kinh Tế - Tài Chính 2016
-                                </p>
-                                <p style="margin-left: 2rem; text-align: center">
-                                    <img src="./img/list.png" alt="" />
-                                    3 năm kinh nghiệm kinh doanh thời trang thiết kế.
-                                </p>
-                                <p style="margin-left: -2rem; text-align: center">
-                                    <img src="./img/list.png" alt="" />
-                                    3 năm kinh nghiệm về mẫu ảnh, <br />livestream, đang
-                                    cộng tác với nhiều brand thời trang: Hnoss, Juno, Marc
-                                    Fashion, Dottie,…
-                                </p>
-                            </div>
-                            <div class="follow">
-                                <p>Follower</p>
-                                <div class="follow-list">
-                                    <div>
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                             viewBox="0 0 448 512"
-                                             width="19px">
-                                            <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"
-                                                  fill="#fff" />
-                                        </svg>
-                                        247K
-                                    </div>
-                                    <div>
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                             viewBox="0 0 448 512"
-                                             width="16px">
-                                            <path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"
-                                                  fill="#fff" />
-                                        </svg>
-                                        350K
-                                    </div>
-                                </div>
-                            </div>
-                            <img src="./img/bg.png" alt="" class="lecturer-item_bg" />
-                            <img src="./img/decor.png"
-                                 alt=""
-                                 class="lecturer-item_decor lecturer-item_decor-left" />
-                            <img src="./img/lecturer5.png" alt="" class="picture" />
-                        </div>
-
-                        @* <div class="lecturer-item lecturer-item6">
-                        <h3>Thái Thị Thanh Vy</h3>
-                        <div class="info">
-                        <p style="text-align: center">
-                        <img src="./img/list.png" alt="" />
-                        Kinh doanh chuỗi cửa hàng <br />
-                        thời trang tại HCM
-                        </p>
-                        <p style="margin-left: -0.5rem">
-                        <img src="./img/list.png" alt="" />
-                        Từng làm quản lý tài năng trẻ
-                        </p>
-                        <p style="margin-left: -1rem">
-                        <img src="./img/list.png" alt="" />
-                        Hiện làm mẫu ảnh tự do tại HCM
-                        </p>
-                        </div>
-                        <div class="follow">
-                        <p>Follower</p>
-                        <div class="follow-list">
-                        <div>
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 448 512"
-                        width="18px">
-                        <path d="M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z"
-                        fill="#fff" />
-                        </svg>
-                        41.421
-                        </div>
-                        </div>
-                        </div>
-                        <img src="./img/bg.png" alt="" class="lecturer-item_bg" />
-                        <img src="./img/decor.png"
-                        alt=""
-                        class="lecturer-item_decor lecturer-item_decor-right" />
-                        <img src="./img/lecturer6.png" alt="" class="picture" />
-                        </div>*@
-                        <div class="lecturer-item lecturer-item6" style="background: none;padding: 0;">
-
-                            <img src="./img/nguyentram.png" alt="Nguyễn Trăm - Kolin" style="width: 108%;margin-top: -106px;" />
-                        </div>
-                    </div>
-                </div>
+              </div>
             </div>
-        </article>
+          </div>
+        </div>
+      </div>
+      <div class="container-1200 my-24">
+        <h2
+          class="text-3xl lg:text-[54px] leading-12 font-semibold text-red-700 uppercase text-center"
+        >
+          giá trị cốt lõi
+        </h2>
+        <div class="flex flex-col lg:flex-row gap-12 pt-16 items-center">
+          <div class="uppercase text-xl lg:text-2xl flex flex-col gap-6 flex-1">
+            <div class="flex gap-4 font-semibold bg-red-900 p-5 rounded-lg">
+              <img
+                src="./img/intro/arrow.svg"
+                alt="arrow icon"
+                class="inline-block"
+              />
+              <div>Gia tăng giá trị khách hàng</div>
+            </div>
+            <div class="flex gap-4 font-semibold bg-red-900 p-5 rounded-lg">
+              <img
+                src="./img/intro/arrow.svg"
+                alt="arrow icon"
+                class="inline-block"
+              />
+              <div>Chính trực</div>
+            </div>
+            <div class="flex gap-4 font-semibold bg-red-900 p-5 rounded-lg">
+              <img
+                src="./img/intro/arrow.svg"
+                alt="arrow icon"
+                class="inline-block"
+              />
+              <div>Tận tâm</div>
+            </div>
+            <div class="flex gap-4 font-semibold bg-red-900 p-5 rounded-lg">
+              <img
+                src="./img/intro/arrow.svg"
+                alt="arrow icon"
+                class="inline-block"
+              />
+              <div>Học hỏi và phát triển</div>
+            </div>
+          </div>
+          <div class="flex-1">
+            <img src="./img/intro/gia-tri-cot-loi.png" alt="gia tri cot loi" />
+          </div>
+        </div>
+      </div>
+      <div class="max-w-[1920px] mx-auto px-20">
+        <h2
+          class="text-3xl lg:text-5xl font-semibold text-red-700 uppercase text-center"
+        >
+          học viên nói gì về KOLIN ACADEMY
+        </h2>
+        <div class="text-lg text-center px-0 lg:px-20 mt-2">
+          Thành công lớn nhất của Kolin chính là sự chuyển hoá bản thân tích cực
+          để điều hành doanh nghiệp phát triển bền vững của nhiều chủ doanh
+          nghiệp.
+        </div>
+        <div class="slider-story">
+          <div class="item">
+            <div class="bg-white p-4 rounded-lg">
+              <div class="grid grid-cols-3 gap-4">
+                <div class="col-span-1">
+                  <img
+                    src="./img/intro/img-01.png"
+                    alt="img-01"
+                    class="w-full h-full object-cover rounded-lg"
+                  />
+                </div>
+                <div class="col-span-2 text-black">
+                  <div class="flex justify-between">
+                    <div>
+                      <div class="text-lg lg:text-xl uppercase font-semibold">
+                        Mr. Nguyễn Yên Thế
+                      </div>
+                      <div>CEO Công ty TNHH Thế Thảo</div>
+                    </div>
+                    <div>
+                      <img
+                        src="./img/intro/icon-fb.png"
+                        alt="icon fb"
+                        class="w-[32px]"
+                      />
+                    </div>
+                  </div>
+                  <hr class="h-px my-3 bg-gray-800 border-0" />
+                  <div>
+                    May mắn được đồng hành và htọc tập trong cộng đồng
+                    BusinessMaster. <br />Biết ơn trường doanh nhân HBR và thầy
+                    Nguyễn Tiến Dũng đã luôn chia sẻ , trao đi những kiến thức
+                    quý báu🥰🥰<br />Buổi Q&A tháng 8 chủ đề 'Marketing đa nền
+                    tảng'. 11h đêm mà mng còn chăm chú quá 😃😃
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="bg-white p-4 rounded-lg">
+              <div class="grid grid-cols-3 gap-4">
+                <div class="col-span-1">
+                  <img
+                    src="./img/intro/img-01.png"
+                    alt="img-01"
+                    class="w-full h-full object-cover rounded-lg"
+                  />
+                </div>
+                <div class="col-span-2 text-black">
+                  <div class="flex justify-between">
+                    <div>
+                      <div class="text-lg lg:text-xl uppercase font-semibold">
+                        Mr. Nguyễn Yên Thế
+                      </div>
+                      <div>CEO Công ty TNHH Thế Thảo</div>
+                    </div>
+                    <div>
+                      <img
+                        src="./img/intro/icon-fb.png"
+                        alt="icon fb"
+                        class="w-[32px]"
+                      />
+                    </div>
+                  </div>
+                  <hr class="h-px my-3 bg-gray-800 border-0" />
+                  <div>
+                    May mắn được đồng hành và htọc tập trong cộng đồng
+                    BusinessMaster. <br />Biết ơn trường doanh nhân HBR và thầy
+                    Nguyễn Tiến Dũng đã luôn chia sẻ , trao đi những kiến thức
+                    quý báu🥰🥰<br />Buổi Q&A tháng 8 chủ đề 'Marketing đa nền
+                    tảng'. 11h đêm mà mng còn chăm chú quá 😃😃
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="bg-white p-4 rounded-lg">
+              <div class="grid grid-cols-3 gap-4">
+                <div class="col-span-1">
+                  <img
+                    src="./img/intro/img-01.png"
+                    alt="img-01"
+                    class="w-full h-full object-cover rounded-lg"
+                  />
+                </div>
+                <div class="col-span-2 text-black">
+                  <div class="flex justify-between">
+                    <div>
+                      <div class="text-lg lg:text-xl uppercase font-semibold">
+                        Mr. Nguyễn Yên Thế
+                      </div>
+                      <div>CEO Công ty TNHH Thế Thảo</div>
+                    </div>
+                    <div>
+                      <img
+                        src="./img/intro/icon-fb.png"
+                        alt="icon fb"
+                        class="w-[32px]"
+                      />
+                    </div>
+                  </div>
+                  <hr class="h-px my-3 bg-gray-800 border-0" />
+                  <div>
+                    May mắn được đồng hành và htọc tập trong cộng đồng
+                    BusinessMaster. <br />Biết ơn trường doanh nhân HBR và thầy
+                    Nguyễn Tiến Dũng đã luôn chia sẻ , trao đi những kiến thức
+                    quý báu🥰🥰<br />Buổi Q&A tháng 8 chủ đề 'Marketing đa nền
+                    tảng'. 11h đêm mà mng còn chăm chú quá 😃😃
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="bg-white p-4 rounded-lg">
+              <div class="grid grid-cols-3 gap-4">
+                <div class="col-span-1">
+                  <img
+                    src="./img/intro/img-01.png"
+                    alt="img-01"
+                    class="w-full h-full object-cover rounded-lg"
+                  />
+                </div>
+                <div class="col-span-2 text-black">
+                  <div class="flex justify-between">
+                    <div>
+                      <div class="text-lg lg:text-xl uppercase font-semibold">
+                        Mr. Nguyễn Yên Thế
+                      </div>
+                      <div>CEO Công ty TNHH Thế Thảo</div>
+                    </div>
+                    <div>
+                      <img
+                        src="./img/intro/icon-fb.png"
+                        alt="icon fb"
+                        class="w-[32px]"
+                      />
+                    </div>
+                  </div>
+                  <hr class="h-px my-3 bg-gray-800 border-0" />
+                  <div>
+                    May mắn được đồng hành và htọc tập trong cộng đồng
+                    BusinessMaster. <br />Biết ơn trường doanh nhân HBR và thầy
+                    Nguyễn Tiến Dũng đã luôn chia sẻ , trao đi những kiến thức
+                    quý báu🥰🥰<br />Buổi Q&A tháng 8 chủ đề 'Marketing đa nền
+                    tảng'. 11h đêm mà mng còn chăm chú quá 😃😃
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="text-center mt-4">
+          <a
+            href="#"
+            class="bg-white hover:bg-gray-100 text-red-800 font-bold py-3 px-12 text-base rounded"
+          >
+            Xem chi tiết
+          </a>
+        </div>
+      </div>
+      <!-- FORM ĐĂNG KÝ KHÓA HỌC -->
+      <div>
+        <div class="container-1200 py-16 px-4 lg:px-0">
+          <EditForm Model="contactModel" OnValidSubmit="SaveContactInfo" 
+            class="w-full bg-red-800 py-3 px-3 lg:py-12 lg:px-28 rounded-lg"
+          >
+            <h2
+              class="text-3xl lg:text-[28px] leading-8 font-semibold text-center mb-5 text-white"
+            >
+              ĐĂNG KÝ NHẬN TƯ VẤN KHÓA HỌC
+            </h2>
+            <div class="flex flex-wrap -mx-3">
+              <div class="w-full md:w-1/2 px-1">
+                <InputText
+                  @bind-Value="contactModel.FullName"
+                  type="text"
+                  id="input-name"
+                  class="bg-gray-50 border border-gray-400 text-gray-700 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-5 p-2.5"
+                  placeholder="Họ và tên"
+                />
+              </div>
+              <div class="w-full md:w-1/2 px-1">
+                <InputText
+                  @bind-Value="contactModel.PhoneNumber"
+                  type="tel"
+                  id="input-phone"
+                  class="bg-gray-50 border border-gray-400 text-gray-700 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-5 p-2.5"
+                  placeholder="Số điện thoại"
+                />
+              </div>
+            </div>
+            <div class="flex flex-wrap -mx-3 mt-3">
+              <div class="w-full md:w-1/2 px-1">
+                <InputText
+                    @bind-Value="contactModel.Email"
+                  type="email"
+                  id="input-email"
+                  class="bg-gray-50 border border-gray-400 text-gray-700 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-5 p-2.5"
+                  placeholder="Email"
+                />
+              </div>
+              <div class="w-full md:w-1/2 px-1">
+                <InputText
+                    @bind-Value="contactModel.Note"
+                  type="text"
+                  id="input-location"
+                  class="bg-gray-50 border border-gray-400 text-gray-700 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-5 p-2.5"
+                  placeholder="Lĩnh vực anh/chị quan tâm"
+                />
+              </div>
+            </div>
+            <div class="text-center">
+              <button
+                type="submit"
+                class="text-white text-xl rounded-lg px-20 py-2.5 mt-6 border bg-gradient-to-r from-red-500 to-red-900"
+              >
+                ĐĂNG KÝ NGAY
+              </button>
+            </div>
+          </EditForm>
+        </div>
+      </div>
     </div>
-</div>
 
-
-@code {
-    protected override void OnAfterRender(bool isFirstRender)
-    {
-        if (isFirstRender)
-        {
-            jsr.InvokeVoidAsync("import", "/scripts/site/about.js");
-        }
-    }
-}

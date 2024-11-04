@@ -51,10 +51,16 @@ namespace KAWebHost.Pages.Admin.Orders
             //}
         }
 
-        private void MarkPaidOrder(int orderid)
+        private void MarkPaidOrder(OrderItemVm order)
         {
-            _orderService.UpdatePaymentStatus(orderid, PaymentStatus.PAID);
-            _orderService.UpdateOrderStatus(orderid, OrderStatus.COMPLETED);
+            if(order.OrderStatus == OrderStatus.COMPLETED && order.PaymentStatus == PaymentStatus.PAID){
+                jsr.InvokeVoidAsync("ShowAppAlert", "Đơn hàng đã hoàn thành!", "info");
+                return;
+            }
+            _orderService.UpdatePaymentStatus(order.Id, PaymentStatus.PAID);
+            _orderService.UpdateOrderStatus(order.Id, OrderStatus.COMPLETED);
+            order.OrderStatus = OrderStatus.COMPLETED;
+            order.PaymentStatus = PaymentStatus.PAID;
             jsr.InvokeVoidAsync("ShowAppAlert", "Chuyển trạng thái đơn hàng thành công", "success");
         }
     }

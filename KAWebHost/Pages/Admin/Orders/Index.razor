@@ -84,11 +84,14 @@
                             </RadzenDataGridColumn>
                             <RadzenDataGridColumn TItem="OrderItemVm" Context="dataContext" Title="Phương thức TT" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="120px">
                                 <Template Context="order">
-                                    @if (order.PaymentMethod == PaymentMethod.VNPAY)
+                                    @if(order.PaymentMethod == PaymentMethod.CK){
+                                        <RadzenBadge BadgeStyle="BadgeStyle.Light " Text="Chuyển khoản" />
+                                    }
+                                    else if (order.PaymentMethod == PaymentMethod.VNPAY)
                                     {
                                         <RadzenBadge BadgeStyle="BadgeStyle.Secondary" Text="VNPAY" />
                                     }
-                                    else
+                                    else if (order.PaymentMethod == PaymentMethod.VISA)
                                     {
                                         <RadzenBadge BadgeStyle="BadgeStyle.Info" Text="VISA" />
                                     }
@@ -96,7 +99,7 @@
                             </RadzenDataGridColumn>
                             <RadzenDataGridColumn TItem="OrderItemVm" Property="CreatedDate" Title="Ngày tạo" Width="90px" />
 
-                            <RadzenDataGridColumn TItem="OrderItemVm" Context="dataContext" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="50px">
+                            <RadzenDataGridColumn TItem="OrderItemVm" Context="dataContext" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="100px">
                                 <Template Context="order">
                                     <RadzenButton ButtonStyle="ButtonStyle.Primary"
                                               Icon="info"
@@ -104,6 +107,13 @@
                                               Class="m-2"
                                               @onclick:stopPropagation="true"
                                               Click="@(args =>ShowDetailOrder(order.Id))">
+                                    </RadzenButton>
+                                    <RadzenButton ButtonStyle="ButtonStyle.Success"
+                                              Icon="check"
+                                              Size="ButtonSize.Medium"
+                                              Class="m-2"
+                                              @onclick:stopPropagation="true"
+                                              Click="@(args =>MarkPaidOrder(order))">
                                     </RadzenButton>
                                 </Template>
                             </RadzenDataGridColumn>

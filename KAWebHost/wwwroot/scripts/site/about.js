@@ -1,16 +1,21 @@
-﻿// tabs
-$(document).ready(function () {
-    $(".btn-container .tab-btn").click(function () {
-        $(this).addClass("active").siblings().removeClass("active");
-        $(".about-content > .content").hide();
-        $($(this).data("value")).fadeIn();
+﻿$(document).ready(function () {
+    $(".slider-story").slick({
+      infinite: true,
+      slidesToShow: 3,
+      slidesToScroll: 1,
+      infinite: true,
+      centerMode: true,
+      centerPadding: "0",
+      responsive: [
+        {
+          breakpoint: 768,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            centerMode: false,
+            arrows: true,
+          },
+        },
+      ],
     });
-});
-
-// toggle
-const navToggle = document.querySelector(".nav-toggle");
-const links = document.querySelector(".links");
-
-navToggle.addEventListener("click", function () {
-    links.classList.toggle("show-links");
-});
+  });

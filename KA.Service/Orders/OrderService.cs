@@ -85,6 +85,7 @@ namespace KA.Service.Orders
 
             var orders = from o in _orderRepo.GetAll()
                          join u in _userRepo.GetAll() on o.UserId equals u.Id
+                         orderby o.CreatedDate descending
                          select new { o, u };
 
             result.TotalItem = orders.Count();

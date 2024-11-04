@@ -3,6 +3,7 @@
 @using KA.Infrastructure.Enums.Extension
 @inherits OwningComponentBase
 <HeadContent>
+    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
     <title>@model.Name - Kolin</title>
 </HeadContent>
 <!-- course free -->
@@ -57,7 +58,6 @@
 
                     </div>
                     <div class="box text-center">
-
                         <div>@state.DisplayName()</div>
                         @if (state == OnlineCourseState.UNAUTHEN)
                         {
