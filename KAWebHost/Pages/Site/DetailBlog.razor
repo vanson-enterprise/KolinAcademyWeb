@@ -1,18 +1,89 @@
 ﻿@page "/bai-viet/{BlogSeoName}"
 @inherits OwningComponentBase
 <HeadContent>
-    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
-    <link href="/css/site/quill.snow.css" rel="stylesheet" />
-    <link href="/css/site/detail-blog.css" rel="stylesheet" />
     <PageTitle>@(model?.Title) - Kolin</PageTitle>
 </HeadContent>
 @if (model != null)
 {
-
-    <div class="blog-container">
-        <h1 style="text-align: center">@model.Title</h1>
-        <p>@model.ShortDescription</p>
-        @((MarkupString)model.Content)
+    <div class="max-w-[1240px] mx-auto">
+        <div class="flex gap-3 items-center pt-12 text-2xl">
+            <a href="/">
+                <img src="./img/icon/homeIcon.svg" />
+            </a>
+            <a href="/">Trang chủ</a>/ <a href="/">Tin sự kiện</a> / Xây dựng thương hiệu cá nhân
+        </div>
+        <div class="py-8">
+            <div class="grid grid-cols-12 gap-3 ">
+                <div class="col-span-9 text-gray-800 bg-white px-4 pt-6 pb-10 overflow-hidden rounded-md h-fit">
+                    <h1 class="text-xl lg:text-2xl text-red-800 uppercase font-bold mb-3">@model.Title</h1>
+                    <p class="italic">@model.ShortDescription</p>
+                    @((MarkupString)model.Content)
+                </div>
+                <div class="col-span-3 text-gray-900">
+                    <div class="bg-white rounded-md overflow-x-hidden">
+                        <div class="font-bold bg-gray-100 py-5 px-4 text-lg">Khóa học sắp diễn ra</div>
+                        <div class="h-[500px] overflow-y-auto">
+                            <div class="my-6 mx-3 px-3 border-l-4 border-red-800 text-base">
+                                <div class="text-base lg:text-lg font-bold text-red-800 line-clamp-3">KHÓA ĐÀO TẠO: PERSONAL BRAND PRO - XÂY DỰNG THCN CHUYÊN NGHIỆP</div>
+                                <div class="flex gap-1 mt-3">
+                                    <img src="./img/icon/timeIcon.svg" />
+                                    <span class="line-clamp-1">Thời gian:  ĐÀO TẠO: PERSONAL B ĐÀO TẠO: PERSONAL B</span>
+                                </div>
+                                <div class="flex gap-2 mt-3 line-clamp-1">
+                                    <img src="./img/icon/addressIcon.svg"/>
+                                    <span class="line-clamp-1">Địa điểm:</span>
+                                </div>
+                            </div>
+                            <div class="my-6 mx-3 px-3 border-l-4 border-red-800 text-base">
+                                <div class="text-base lg:text-lg font-bold text-red-800 line-clamp-3">KHÓA ĐÀO TẠO: PERSONAL BRAND PRO - XÂY DỰNG THCN CHUYÊN NGHIỆP</div>
+                                <div class="flex gap-1 mt-3">
+                                    <img src="./img/icon/timeIcon.svg" />
+                                    <span class="line-clamp-1">Thời gian:</span>
+                                </div>
+                                <div class="flex gap-2 mt-3 line-clamp-1">
+                                    <img src="./img/icon/addressIcon.svg" />
+                                    <span class="line-clamp-1">Địa điểm:</span>
+                                </div>
+                            </div>
+                            <div class="my-6 mx-3 px-3 border-l-4 border-red-800 text-base">
+                                <div class="text-base lg:text-lg font-bold text-red-800 line-clamp-3">KHÓA ĐÀO TẠO: PERSONAL BRAND PRO - XÂY DỰNG THCN CHUYÊN NGHIỆP</div>
+                                <div class="flex gap-1 mt-3">
+                                    <img src="./img/icon/timeIcon.svg" />
+                                    <span class="line-clamp-1">Thời gian:</span>
+                                </div>
+                                <div class="flex gap-2 mt-3 line-clamp-1">
+                                    <img src="./img/icon/addressIcon.svg" />
+                                    <span class="line-clamp-1">Địa điểm:</span>
+                                </div>
+                            </div>
+                            </div>
+                    </div>
+                    <div class="mt-10">
+                        <div class="font-bold bg-gray-200 p-4 text-gray-900 text-lg">Các bài viết liên quan</div>
+                        <div class="">
+                            <div class="bg-white col-span-2 row-span-2 rounded-lg border border-gray-400 mt-3">
+                                <img src="./img/home-page/slide-03.png"
+                                     class="w-full h-[205px] object-cover rounded-lg" />
+                                <div class="p-2">
+                                    <a href="/" class="uppercase text-base text-red-800 font-semibold line-clamp-4">
+                                        MCN KOLIN tổ chức chương trình tập huấn livestream bán hàng cho các chủ thể OCOP với 40 đặc sản, thu hút 20 triệu lượt xem và 3000 ngàn đơn hàng
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="bg-white col-span-2 row-span-2 rounded-lg border border-gray-400 mt-3">
+                                <img src="./img/home-page/slide-03.png"
+                                     class="w-full h-[205px] object-cover rounded-lg" />
+                                <div class="p-2">
+                                    <a href="/" class="uppercase text-base text-red-800 font-semibold line-clamp-4">
+                                        MCN KOLIN tổ chức chương trình tập huấn livestream bán hàng
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 }
 
