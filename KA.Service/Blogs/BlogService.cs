@@ -138,6 +138,17 @@ namespace KA.Service.Blogs
                 ThumbNailImageLink = b.ThumbNailImageLink
             }).ToListAsync();
         }
+
+        public async Task<List<BlogViewModel>> GetRelatedNews()
+        {
+            return await _blogRepo.GetAll().Where(b => b.Published && b.BlogType == BlogType.NEWS).OrderByDescending(b => b.CreatedDate).Take(2).Select(b => new BlogViewModel()
+            {
+                Title = b.Title,
+                DetailBlogLink = "/bai-viet/" + b.Title.GetSeoFriendlyString() + "-" + b.Id,
+                ShortDescription = b.ShortDescription,
+                ThumbNailImageLink = b.ThumbNailImageLink
+            }).ToListAsync();
+        }
         #endregion
     }
 }

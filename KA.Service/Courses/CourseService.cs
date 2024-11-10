@@ -209,6 +209,7 @@ namespace KA.Service.Courses
             var datas = (from c in _courseRepo.GetAll()
                          join csd in _startDateOfflineCourseRepo.GetAll() on c.Id equals csd.OfflineCourseId
                          where csd.StartTime > DateTime.Now && c.IsActive && !c.IsDeleted
+                         orderby csd.StartTime 
                          select new { c, csd }).AsEnumerable();
             var groups = from i in datas
                          group i by i.c into gc

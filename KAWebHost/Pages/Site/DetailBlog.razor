@@ -10,7 +10,7 @@
             <a href="/">
                 <img src="./img/icon/homeIcon.svg" />
             </a>
-            <a href="/">Trang chủ</a>/ <a href="/">Tin sự kiện</a> / Xây dựng thương hiệu cá nhân
+            <a href="/">Trang chủ</a>/ <a href="/tin-tuc">Tin sự kiện</a> 
         </div>
         <div class="py-8">
             <div class="grid grid-cols-12 gap-3 ">
@@ -20,65 +20,40 @@
                     @((MarkupString)model.Content)
                 </div>
                 <div class="col-span-3 text-gray-900">
-                    <div class="bg-white rounded-md overflow-x-hidden">
-                        <div class="font-bold bg-gray-100 py-5 px-4 text-lg">Khóa học sắp diễn ra</div>
-                        <div class="h-[500px] overflow-y-auto">
-                            <div class="my-6 mx-3 px-3 border-l-4 border-red-800 text-base">
-                                <div class="text-base lg:text-lg font-bold text-red-800 line-clamp-3">KHÓA ĐÀO TẠO: PERSONAL BRAND PRO - XÂY DỰNG THCN CHUYÊN NGHIỆP</div>
-                                <div class="flex gap-1 mt-3">
-                                    <img src="./img/icon/timeIcon.svg" />
-                                    <span class="line-clamp-1">Thời gian:  ĐÀO TẠO: PERSONAL B ĐÀO TẠO: PERSONAL B</span>
-                                </div>
-                                <div class="flex gap-2 mt-3 line-clamp-1">
-                                    <img src="./img/icon/addressIcon.svg"/>
-                                    <span class="line-clamp-1">Địa điểm:</span>
-                                </div>
-                            </div>
-                            <div class="my-6 mx-3 px-3 border-l-4 border-red-800 text-base">
-                                <div class="text-base lg:text-lg font-bold text-red-800 line-clamp-3">KHÓA ĐÀO TẠO: PERSONAL BRAND PRO - XÂY DỰNG THCN CHUYÊN NGHIỆP</div>
-                                <div class="flex gap-1 mt-3">
-                                    <img src="./img/icon/timeIcon.svg" />
-                                    <span class="line-clamp-1">Thời gian:</span>
-                                </div>
-                                <div class="flex gap-2 mt-3 line-clamp-1">
-                                    <img src="./img/icon/addressIcon.svg" />
-                                    <span class="line-clamp-1">Địa điểm:</span>
-                                </div>
-                            </div>
-                            <div class="my-6 mx-3 px-3 border-l-4 border-red-800 text-base">
-                                <div class="text-base lg:text-lg font-bold text-red-800 line-clamp-3">KHÓA ĐÀO TẠO: PERSONAL BRAND PRO - XÂY DỰNG THCN CHUYÊN NGHIỆP</div>
-                                <div class="flex gap-1 mt-3">
-                                    <img src="./img/icon/timeIcon.svg" />
-                                    <span class="line-clamp-1">Thời gian:</span>
-                                </div>
-                                <div class="flex gap-2 mt-3 line-clamp-1">
-                                    <img src="./img/icon/addressIcon.svg" />
-                                    <span class="line-clamp-1">Địa điểm:</span>
-                                </div>
-                            </div>
-                            </div>
-                    </div>
+                    @if(offlineCourseViewModels.Count() > 0){
+                        <div class="bg-white rounded-md overflow-x-hidden">
+                            <div class="font-bold bg-gray-100 py-5 px-4 text-lg">Khóa học sắp diễn ra</div>
+                            <div class="h-[500px] overflow-y-auto">
+                                @foreach(var offcourse in offlineCourseViewModels){
+                                    <div class="my-6 mx-3 px-3 border-l-4 border-red-800 text-base">
+                                        <a href="@offcourse.DetailCourseLink" class="text-base lg:text-lg font-bold text-red-800 line-clamp-3">@offcourse.Name</a>
+                                        <div class="flex gap-1 mt-3">
+                                            <img src="./img/icon/timeIcon.svg" />
+                                            <span class="line-clamp-1">Thời gian: @offcourse.StartDates[0].StartTime.Value.ToString("dd/MM/yyyy")</span>
+                                        </div>
+                                        <div class="flex gap-2 mt-3 line-clamp-1">
+                                            <img src="./img/icon/addressIcon.svg"/>
+                                            <span class="line-clamp-1">Địa điểm: @offcourse.StartDates[0].Place</span>
+                                        </div>
+                                    </div>
+                                }
+                            </div> 
+                        </div>
+                    }
                     <div class="mt-10">
                         <div class="font-bold bg-gray-200 p-4 text-gray-900 text-lg">Các bài viết liên quan</div>
                         <div class="">
-                            <div class="bg-white col-span-2 row-span-2 rounded-lg border border-gray-400 mt-3">
-                                <img src="./img/home-page/slide-03.png"
-                                     class="w-full h-[205px] object-cover rounded-lg" />
-                                <div class="p-2">
-                                    <a href="/" class="uppercase text-base text-red-800 font-semibold line-clamp-4">
-                                        MCN KOLIN tổ chức chương trình tập huấn livestream bán hàng cho các chủ thể OCOP với 40 đặc sản, thu hút 20 triệu lượt xem và 3000 ngàn đơn hàng
-                                    </a>
+                            @foreach(var news in relatedNewsModel){
+                                <div class="bg-white col-span-2 row-span-2 rounded-lg border border-gray-400 mt-3">
+                                    <img src="@news.ThumbNailImageLink"
+                                        class="w-full h-[205px] object-cover rounded-lg" />
+                                    <div class="p-2">
+                                        <a href="@news.DetailBlogLink" class="uppercase text-base text-red-800 font-semibold line-clamp-4">
+                                            @news.Title
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="bg-white col-span-2 row-span-2 rounded-lg border border-gray-400 mt-3">
-                                <img src="./img/home-page/slide-03.png"
-                                     class="w-full h-[205px] object-cover rounded-lg" />
-                                <div class="p-2">
-                                    <a href="/" class="uppercase text-base text-red-800 font-semibold line-clamp-4">
-                                        MCN KOLIN tổ chức chương trình tập huấn livestream bán hàng
-                                    </a>
-                                </div>
-                            </div>
+                            }
                         </div>
                     </div>
                 </div>
