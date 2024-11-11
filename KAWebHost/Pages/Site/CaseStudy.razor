@@ -1,12 +1,576 @@
 ﻿@page "/hoc-vien"
+@using KA.Service.Contacts;
+@using KA.ViewModels.Contact;
 @inherits OwningComponentBase
 <HeadContent>
-    
     <PageTitle>Học viên - Kolin</PageTitle>
 </HeadContent>
 
-<h3>CaseStudy</h3>
+<div class="">
+    <div class="mb-16">
+        <div class="bg-[url('/img/case-study/bg-case-study.png')] min-h-[400px] bg-bottom bg-cover bg-no-repeat">
+        </div>
+    </div>
+    <div class="max-w-[1400px] mx-auto flex gap-3 items-center pb-8 text-2xl">
+        <a href="/">
+            <img src="./img/icon/homeIcon.svg" />
+        </a>
+        <a href="/">Trang chủ</a>/ <a href="/hoc-vien">Case study học viên thành công</a>
+    </div>
+    <div class="max-w-[1920px] mx-auto p-4">
+        <div class="grid gap-6 case-study-container list">
+            <div class="item flex flex-1 flex-col md:flex-row items-center md:items-start rounded-xl p-3 gap-4 bg-red-900">
+                <div>
+                    <img src="./img/case-study/case-study-01.jpg"
+                         alt="case study 01"
+                         class="w-[300px] h-[310px] rounded-xl border border-stone-300 object-cover" />
+                </div>
+                <div class="text-lg">
+                    DJ Yuu Quỳnh Nhi - DJ of Asia - Asia Artist<br />
+                    Model - Influencer - Actress<br />
+                    Khóa học: Thần thái<br />
+                    Truyền thông<br />
+                    Facebook: 370.520 fl<br />
+                    Insta: 162k<br />
+                    Fanpage : 974K fl <br />
+                </div>
+            </div>
 
+            <div class="item flex flex-1 flex-col md:flex-row items-center md:items-start rounded-xl p-3 gap-4 bg-red-900">
+                <div>
+                    <img src="./img/case-study/case-study-02.jpg"
+                         alt="case study 01"
+                         class="w-[300px] h-[310px] rounded-xl border border-stone-300 object-cover" />
+                </div>
+                <div class="text-lg">
+                    DƯƠNG QUỲNH TRANG (Vanessa Duong) <br />
+                    CEO và Founder của 𝟵 𝗖𝗔𝗥𝗔𝗧 𝗕𝗲𝗮𝘂𝘁𝘆 𝗦𝗽𝗮<br />
+                    Khóa học: Personal Brand Pro<br />
+                    FB: 240.209fl<br />
+                    fanpage: 56k<br />
+                    Youtube: 108N<br />
+                    tiktok: 54,7K<br />
+                    Insta: 17,7N<br />
+                </div>
+            </div>
+
+            <div class="item flex flex-1 flex-col md:flex-row items-center md:items-start rounded-xl p-3 gap-4 bg-red-900">
+                <div>
+                    <img src="./img/case-study/case-study-03.jpg"
+                         alt="case study 01"
+                         class="w-[300px] h-[310px] rounded-xl border border-stone-300 object-cover" />
+                </div>
+                <div class="text-lg">
+                    HƯ QUỲNH NGUYỄN<br />
+                    CEO tại L.II.N Clothing<br />
+                    FB: 42.999fl<br />
+                    Fanpage: 1K4 FL<br />
+                    tiktok : 320,3K fl<br />
+                </div>
+            </div>
+
+            <div class="item flex flex-1 flex-col md:flex-row items-center md:items-start rounded-xl p-3 gap-4 bg-red-900">
+                <div>
+                    <img src="./img/case-study/case-study-04.jpg"
+                         alt="case study 01"
+                         class="w-[300px] h-[310px] rounded-xl border border-stone-300 object-cover" />
+                </div>
+                <div class="text-lg">
+                    HÀ PHƯƠNG TRINH<br />
+                    Giám đốc Cty CP Tokikin<br />
+                    Khóa học: Personal Brand Pro<br />
+                    Truyền thông<br />
+                    Fb: 14.890fl<br />
+                    Instagram : 4,374 fl<br />
+                </div>
+            </div>
+
+            <div class="item flex flex-1 flex-col md:flex-row items-center md:items-start rounded-xl p-3 gap-4 bg-red-900">
+                <div>
+                    <img src="./img/case-study/case-study-05.jpg"
+                         alt="case study 01"
+                         class="w-[300px] h-[310px] rounded-xl border border-stone-300 object-cover" />
+                </div>
+                <div class="text-lg">
+                    MAI PHẠM<br />
+                    Định vị hình tượng: KOC<br />
+                    Khóa học: Change2shine, Tiktok idol<br />
+                    Truyền thông: <br />
+                    Facebook: 7748 theo dõi<br />
+                    Tiktok: 704,2k theo dõi<br />
+                </div>
+            </div>
+
+            <div class="item flex flex-1 flex-col md:flex-row items-center md:items-start rounded-xl p-3 gap-4 bg-red-900">
+                <div>
+                    <img src="./img/case-study/case-study-06.jpg"
+                         alt="case study 01"
+                         class="w-[300px] h-[310px] rounded-xl border border-stone-300 object-cover" />
+                </div>
+                <div class="text-lg">
+                    HOA PHẠM<br />
+                    Định vị hình tượng: KOC<br />
+                    Khóa học: Tiktok idol, Change2shine<br />
+                    Tiktok: 819,4k<br />
+                    Fb: 46k fl<br />
+                    Youtube : 14,7N <br />
+                </div>
+            </div>
+
+            <div class="item flex flex-1 flex-col md:flex-row items-center md:items-start rounded-xl p-3 gap-4 bg-red-900">
+                <div>
+                    <img src="./img/case-study/case-study-07.jpg"
+                         alt="case study 01"
+                         class="w-[300px] h-[310px] rounded-xl border border-stone-300 object-cover" />
+                </div>
+                <div class="text-lg">
+                    TUẤN NGUYỄN<br />
+                    Khóa học: Personal Brand Pro<br />
+                    Fb: 155,926fl<br />
+                    Tiktok: 384,7k<br />
+                    Instagram: 25,9N fl<br />
+                    Fanpage: 124,481 fl<br />
+                </div>
+            </div>
+
+            <div class="item flex flex-1 flex-col md:flex-row items-center md:items-start rounded-xl p-3 gap-4 bg-red-900">
+                <div>
+                    <img src="./img/case-study/case-study-08.jpg"
+                         alt="case study 01"
+                         class="w-[300px] h-[310px] rounded-xl border border-stone-300 object-cover" />
+                </div>
+                <div class="text-lg">
+                    DƯƠNG NGỌC ÁNH<br />
+                    Khóa học: Personal Brand Pro<br />
+                    Truyền thông: <br />
+                    Fb: 70k fl<br />
+                    Tiktok: 2768 fl<br />
+                    fanpage ViVi Academy : 5,5K fl<br />
+                    fanpage Ngọc Gemmy Makeup : 9,6K fl<br />
+                </div>
+            </div>
+
+            <div class="item flex flex-1 flex-col md:flex-row items-center md:items-start rounded-xl p-3 gap-4 bg-red-900">
+                <div>
+                    <img src="./img/case-study/case-study-09.jpg"
+                         alt="case study 01"
+                         class="w-[300px] h-[310px] rounded-xl border border-stone-300 object-cover" />
+                </div>
+                <div class="text-lg">
+                    NGUYỄN THU TRÀ <br />
+                    CEO tại
+                    <a href="https://www.facebook.com/emberbrown.co" class="underline">EMBER BROWN</a><br />
+                    Founder/Manager tại
+                    <a href="https://www.facebook.com/VyVyGiftshop/" class="underline">VyVy Giftshop</a><br />
+                    Khóa học: Personal Brand Pro <br />
+                    fb: 16k fl<br />
+                    Tiktok: 83,4k<br />
+                    Vyvy gift shop 67.498fl<br />
+                    Ember brown 5,4k
+                </div>
+            </div>
+
+            <div class="item flex flex-1 flex-col md:flex-row items-center md:items-start rounded-xl p-3 gap-4 bg-red-900">
+                <div>
+                    <img src="./img/case-study/case-study-10.jpg"
+                         alt="case study 01"
+                         class="w-[300px] h-[310px] rounded-xl border border-stone-300 object-cover" />
+                </div>
+                <div class="text-lg">
+                    VŨ THỊ QUẾ MINH <br />
+                    Creative/Art Director tại M•Styling <br />
+                    Thành Viên Hội Đồng Cấp Cao tại MOI Cosmetics Viet Nam<br />
+                    Khóa học: Personal Brand Pro<br />
+                    Truyền thông<br />
+                    Fb: 17k fl<br />
+                    Fanpage: 2,5k<br />
+                    instagram : 2,928 fl<br />
+                    Youtube :1,2N<br />
+                    Moi cosmetics: 188.722 fl<br />
+                    M Styling : 1,3K fl<br />
+                </div>
+            </div>
+
+            <div class="item flex flex-1 flex-col md:flex-row items-center md:items-start rounded-xl p-3 gap-4 bg-red-900">
+                <div>
+                    <img src="./img/case-study/case-study-11.png"
+                         alt="case study 01"
+                         class="w-[300px] h-[310px] rounded-xl border border-stone-300 object-cover" />
+                </div>
+                <div class="text-lg">
+                    NGUYỄN CÁT TIÊN MINH<br />
+                    <span class="text-sm">Founder tại LanBali Beauty Center</span><br />
+                    <span class="text-sm">
+                        Chief Executive Officer (CEO) & Founder tại 𝗟𝘂𝗰𝗶-𝗠𝘆̃ 𝗣𝗵𝗮̂̉𝗺 𝗧𝗵𝘂𝗮̂̀𝗻
+                        𝗖𝗵𝗮𝘆
+                    </span><br />
+                    <span class="text-sm">Chief Executive Officer (CEO) & Founder tại 𝐋𝐔𝐂𝐈 𝐆𝐑𝐎𝐔𝐏</span><br />
+                    Khóa học: Personal Brand Pro<br />
+                    Truyền thông<br />
+                    Fb: 33k<br />
+                    Tiktok: 12,3k<br />
+                    Luci Group : 23.216 fl<br />
+                    Luci mỹ phẩm thuần chay : 35K fl<br />
+                    Lanbali beauty Center : 9,6K fl<br />
+                </div>
+            </div>
+
+            <div class="item flex flex-1 flex-col md:flex-row items-center md:items-start rounded-xl p-3 gap-4 bg-red-900">
+                <div>
+                    <img src="./img/case-study/case-study-12.jpg"
+                         alt="case study 01"
+                         class="w-[300px] h-[310px] rounded-xl border border-stone-300 object-cover" />
+                </div>
+                <div class="text-lg">
+                    LÊ THỊ BÍCH NGỌC <br />
+                    GĐKD Laco Phân phối M.O.I cosmetics <br />
+                    Giám Đốc Kinh Doanh công ty CP Quốc tế Laco <br />
+                    Khóa học: thần thái, change2shine<br />
+                    Truyền thông <br />
+                    Fb: 20k fl <br />
+                </div>
+            </div>
+
+            <div class="item flex flex-1 flex-col md:flex-row items-center md:items-start rounded-xl p-3 gap-4 bg-red-900">
+                <div>
+                    <img src="./img/case-study/case-study-13.jpg"
+                         alt="case study 01"
+                         class="w-[300px] h-[310px] rounded-xl border border-stone-300 object-cover" />
+                </div>
+                <div class="text-lg">
+                    TRANG ĐỖ<br />
+                    Khóa học: personal Brand Pro<br />
+                    Truyền thông<br />
+                    Fb: 21k fl<br />
+                </div>
+            </div>
+
+            <div class="item flex flex-1 flex-col md:flex-row items-center md:items-start rounded-xl p-3 gap-4 bg-red-900">
+                <div>
+                    <img src="./img/case-study/case-study-16.jpg"
+                         alt="case study 01"
+                         class="w-[300px] h-[310px] rounded-xl border border-stone-300 object-cover" />
+                </div>
+                <div class="text-lg">
+                    SỬ NGỌC LY <br />
+                    <span class="text-sm">
+                        FOUNDER RADIANT HOLLYWOOD SECRET VIETNAM - BAMIAN STORE - SNLY
+                        BEAUTY
+                    </span><br />
+                    <span class="text-sm">CO-FOUNDER tại YellowHolic Dessert & Coffee</span><br />
+                    <span class="text-sm">Founder tại Radiant Hollywood Secret Vietnam</span><br />
+                    CEO tại Dermaesthetics Beverly Hills Hà Nội<br />
+                    Khóa học: Influencer Coaching<br />
+                    Truyền thông<br />
+                    Fb: 143.045 fl<br />
+                    Fanpage: 2156fl<br />
+                    Tiktok: 82,7k<br />
+                </div>
+            </div>
+
+            <div class="item flex flex-1 flex-col md:flex-row items-center md:items-start rounded-xl p-3 gap-4 bg-red-900">
+                <div>
+                    <img src="./img/case-study/case-study-17.jpg"
+                         alt="case study 01"
+                         class="w-[300px] h-[310px] rounded-xl border border-stone-300 object-cover" />
+                </div>
+                <div class="text-lg">
+                    THANH MƠ<br />
+                    Khóa học: Personal Brand Pro<br />
+                    Truyền thông<br />
+                    Fb: 28k fl<br />
+                </div>
+            </div>
+
+            <div class="item flex flex-1 flex-col md:flex-row items-center md:items-start rounded-xl p-3 gap-4 bg-red-900">
+                <div>
+                    <img src="./img/case-study/case-study-18.jpg"
+                         alt="case study 01"
+                         class="w-[300px] h-[310px] rounded-xl border border-stone-300 object-cover" />
+                </div>
+                <div class="text-lg">
+                    MY THẢO HỒ<br />
+                    Founder tại Mina Luxury Fur<br />
+                    Khóa học: Personal Brand Pro<br />
+                    Truyền thông<br />
+                    Fb: 22.667k fl<br />
+                    Fanpage: 120k fl<br />
+                </div>
+            </div>
+
+            <div class="item flex flex-1 flex-col md:flex-row items-center md:items-start rounded-xl p-3 gap-4 bg-red-900">
+                <div>
+                    <img src="./img/case-study/case-study-19.jpg"
+                         alt="case study 01"
+                         class="w-[300px] h-[310px] rounded-xl border border-stone-300 object-cover" />
+                </div>
+                <div class="text-lg">
+                    NGUYỄN ĐỨC NAM<br />
+                    Khóa học: Personal brand pro<br />
+                    truyền thông<br />
+                    fb: 14k fl<br />
+                </div>
+            </div>
+
+            <div class="item flex flex-1 flex-col md:flex-row items-center md:items-start rounded-xl p-3 gap-4 bg-red-900">
+                <div>
+                    <img src="./img/case-study/case-study-21.jpg"
+                         alt="case study 01"
+                         class="w-[300px] h-[310px] rounded-xl border border-stone-300 object-cover" />
+                </div>
+                <div class="text-lg">
+                    LÝ MINH THU<br />
+                    Khóa học: personal bro brand<br />
+                    truyền thông<br />
+                    fb: 4,4k fl<br />
+                    tiktok: 43,7k<br />
+                </div>
+            </div>
+
+            <div class="item flex flex-1 flex-col md:flex-row items-center md:items-start rounded-xl p-3 gap-4 bg-red-900">
+                <div>
+                    <img src="./img/case-study/case-study-22.jpg"
+                         alt="case study 01"
+                         class="w-[300px] h-[310px] rounded-xl border border-stone-300 object-cover" />
+                </div>
+                <div class="text-lg">
+                    HÀ LUX <br />
+                    <span class="text-sm">Đại Sứ Hình ảnh, Hoa Hậu Du Lịch Bản Sắc Việt Nam</span>
+                    <br />
+                    Khóa học: personal brand pro<br />
+                    Truyền thông<br />
+                    fb: 3k fl<br />
+                    fan page: 13k fl<br />
+                </div>
+            </div>
+
+            <div class="item flex flex-1 flex-col md:flex-row items-center md:items-start rounded-xl p-3 gap-4 bg-red-900">
+                <div>
+                    <img src="./img/case-study/case-study-23.jpg"
+                         alt="case study 01"
+                         class="w-[300px] h-[310px] rounded-xl border border-stone-300 object-cover" />
+                </div>
+                <div class="text-lg">
+                    HOÀNG BÍCH NGỌC <br />
+                    <span class="text-sm">Owner and Founder tại Tupperware Ngọc Tường</span>
+                    <br />
+                    Khóa học: personal brand pro<br />
+                    truyền thông<br />
+                    fb: 24k<br />
+                    fan page: 75k<br />
+                </div>
+            </div>
+
+            <div class="item flex flex-1 flex-col md:flex-row items-center md:items-start rounded-xl p-3 gap-4 bg-red-900">
+                <div>
+                    <img src="./img/case-study/case-study-24.jpg"
+                         alt="case study 01"
+                         class="w-[300px] h-[310px] rounded-xl border border-stone-300 object-cover" />
+                </div>
+                <div class="text-lg">
+                    NGÔ HUYỀN TRANG <br />
+                    Khóa học: personal brand pro<br />
+                    truyền thông<br />
+                    fb: 218k<br />
+                    tiktok: 185,7k<br />
+                </div>
+            </div>
+
+            <div class="item flex flex-1 flex-col md:flex-row items-center md:items-start rounded-xl p-3 gap-4 bg-red-900">
+                <div>
+                    <img src="./img/case-study/case-study-25.jpg"
+                         alt="case study 01"
+                         class="w-[300px] h-[310px] rounded-xl border border-stone-300 object-cover" />
+                </div>
+                <div class="text-lg">
+                    PHƯƠNG KIRSCHE<br />
+                    Khóa học: personal brand pro<br />
+                    truyền thông<br />
+                    fb: 9k3 fl<br />
+                    tiktok: 1987fl<br />
+                </div>
+            </div>
+
+            <div class="item flex flex-1 flex-col md:flex-row items-center md:items-start rounded-xl p-3 gap-4 bg-red-900">
+                <div>
+                    <img src="./img/case-study/case-study-26.jpg"
+                         alt="case study 01"
+                         class="w-[300px] h-[310px] rounded-xl border border-stone-300 object-cover" />
+                </div>
+                <div class="text-lg">
+                    TRANG BURN <br />
+                    <span class="text-sm">Boss tại TRANG BURN clothing</span><br />
+                    khóa học: personal brand pro<br />
+                    truyền thông<br />
+                    fan page: 81k fl<br />
+                </div>
+            </div>
+
+            <div class="item flex flex-1 flex-col md:flex-row items-center md:items-start rounded-xl p-3 gap-4 bg-red-900">
+                <div>
+                    <img src="./img/case-study/case-study-27.jpg"
+                         alt="case study 01"
+                         class="w-[300px] h-[310px] rounded-xl border border-stone-300 object-cover" />
+                </div>
+                <div class="text-lg">
+                    TRẦN NGỌC ÁNH <br />
+                    <span class="text-sm"> Boss tại Quân Ánh minimarket</span><br />
+                    Khóa học: personal brand pro, chang2shine<br />
+                    truyền thông<br />
+                    fb: 195.085 fl<br />
+                </div>
+            </div>
+
+            <div class="item flex flex-1 flex-col md:flex-row items-center md:items-start rounded-xl p-3 gap-4 bg-red-900">
+                <div>
+                    <img src="./img/case-study/case-study-28.jpg"
+                         alt="case study 01"
+                         class="w-[300px] h-[310px] rounded-xl border border-stone-300 object-cover" />
+                </div>
+                <div class="text-lg">
+                    ĐÀO THÙY DƯƠNG<br />
+                    <span class="text-sm">Boss tại KIERA Cosmetic - Diamond CEO Đào Thuỳ Dương</span><br />
+                    Khóa học: Personal brand pro<br />
+                    truyền thông<br />
+                    fb: 116k fl<br />
+                    tiktok: 422,9k fl<br />
+                </div>
+            </div>
+
+            <div class="item flex flex-1 flex-col md:flex-row items-center md:items-start rounded-xl p-3 gap-4 bg-red-900">
+                <div>
+                    <img src="./img/case-study/case-study-29.jpg"
+                         alt="case study 01"
+                         class="w-[300px] h-[310px] rounded-xl border border-stone-300 object-cover" />
+                </div>
+                <div class="text-lg">
+                    ĐÀO THANH NHUNG<br />
+                    Khóa học: personal brand pro<br />
+                    truyền thông<br />
+                    fb: 7,6k fl<br />
+                </div>
+            </div>
+
+            <div class="item flex flex-1 flex-col md:flex-row items-center md:items-start rounded-xl p-3 gap-4 bg-red-900">
+                <div>
+                    <img src="./img/case-study/case-study-30.jpg"
+                         alt="case study 01"
+                         class="w-[300px] h-[310px] rounded-xl border border-stone-300 object-cover" />
+                </div>
+                <div class="text-lg">
+                    KIỀU LY PHẠM<br />
+                    <span class="text-sm">Founder tại Choose me</span><br />
+                    <span class="text-sm">Founder tại JOYUS</span><br />
+                    <span class="text-sm">Founder tại Lya Beauty & Academy</span><br />
+                    Khóa học: Personal Brand Pro<br />
+                    Truyền thông:<br />
+                    Insta: 274k<br />
+                    FB: 271k fl<br />
+                    Fanpage: 168k likes<br />
+                    Tiktok: 186k<br />
+                    Youtube: 8,08 sub<br />
+                </div>
+            </div>
+
+            <div class="item flex flex-1 flex-col md:flex-row items-center md:items-start rounded-xl p-3 gap-4 bg-red-900">
+                <div>
+                    <img src="./img/case-study/case-study-31.jpg"
+                         alt="case study 01"
+                         class="w-[300px] h-[310px] rounded-xl border border-stone-300 object-cover" />
+                </div>
+                <div class="text-lg">
+                    BẢO NGỌC <br />
+                    <span class="text-sm">CEO tại Bảo Ngọc Aerobic</span><br />
+                    Khóa học: Personal Brand Pro<br />
+                    Truyền thông<br />
+                    FB: 262k fl<br />
+                    Fanpage: 537k likes<br />
+                    Youtube: 128K sub<br />
+                    Tiktok: 402,3k fl<br />
+                </div>
+            </div>
+        </div>
+        <ul class="listPage"></ul>
+    </div>
+
+    <!-- FORM ĐĂNG KÝ KHÓA HỌC -->
+    <div>
+        <div class="container-1200 py-16 px-4 lg:px-0">
+            <EditForm Model="contactModel" OnValidSubmit="SaveContactInfo"
+                      class="w-full bg-red-800 py-3 px-3 lg:py-12 lg:px-28 rounded-lg">
+                <h2 class="text-3xl lg:text-[28px] leading-8 font-semibold text-center mb-5 text-white">
+                    ĐĂNG KÝ NHẬN TƯ VẤN KHÓA HỌC
+                </h2>
+                <div class="flex flex-wrap -mx-3">
+                    <div class="w-full md:w-1/2 px-1">
+                        <InputText @bind-Value="contactModel.FullName"
+                                   type="text"
+                                   id="input-name"
+                                   class="bg-gray-50 border border-gray-400 text-gray-700 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-5 p-2.5"
+                                   placeholder="Họ và tên" />
+                    </div>
+                    <div class="w-full md:w-1/2 px-1">
+                        <InputText @bind-Value="contactModel.PhoneNumber"
+                                   type="tel"
+                                   id="input-phone"
+                                   class="bg-gray-50 border border-gray-400 text-gray-700 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-5 p-2.5"
+                                   placeholder="Số điện thoại" />
+                    </div>
+                </div>
+                <div class="flex flex-wrap -mx-3 mt-3">
+                    <div class="w-full md:w-1/2 px-1">
+                        <InputText @bind-Value="contactModel.Email"
+                                   type="email"
+                                   id="input-email"
+                                   class="bg-gray-50 border border-gray-400 text-gray-700 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-5 p-2.5"
+                                   placeholder="Email" />
+                    </div>
+                    <div class="w-full md:w-1/2 px-1">
+                        <InputText @bind-Value="contactModel.Note"
+                                   type="text"
+                                   id="input-location"
+                                   class="bg-gray-50 border border-gray-400 text-gray-700 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-5 p-2.5"
+                                   placeholder="Lĩnh vực anh/chị quan tâm" />
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button type="submit"
+                            class="text-white text-xl rounded-lg px-20 py-2.5 mt-6 border bg-gradient-to-r from-red-500 to-red-900">
+                        ĐĂNG KÝ NGAY
+                    </button>
+                </div>
+            </EditForm>
+        </div>
+    </div>
+</div>
 @code {
+    private ContactInputModel contactModel = new();
+    private IContactService _contactService;
 
+    [CascadingParameter]
+    private MainLayout mainLayout { get; set; }
+
+    [Inject]
+    IJSRuntime jsr { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        _contactService = ScopedServices.GetRequiredService<IContactService>();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await jsr.InvokeVoidAsync("import", "./Pages/Site/CaseStudy.razor.js");
+        }
+        
+        //await jsr.InvokeVoidAsync("caseStudyPageJs.initPaging");
+    }
+
+    protected void SaveContactInfo()
+    {
+        _contactService.SaveContact(contactModel);
+        mainLayout.ShowAlert("Cảm ơn bạn đã để lại thông tin! Chúng tôi sẽ liên hệ bạn sớm nhất có thể.", "Thông báo"); contactModel = new();
+    }
 }

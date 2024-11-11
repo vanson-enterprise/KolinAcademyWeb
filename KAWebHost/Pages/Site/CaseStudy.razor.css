@@ -1,2 +1,43 @@
-﻿body {
+﻿.case-study-container {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+
+.listPage {
+    padding: 10px;
+    text-align: center;
+    list-style: none;
+}
+
+.listPage li {
+    background-color: #ffffffBD;
+    padding: 20px;
+    display: inline-block;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+.listPage .active {
+    background-color: #B192EF;
+    color: #fff;
+}
+
+
+@media screen and (min-width: 767px) {
+    .case-study-container {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .case-study-container {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+}
+
+@media screen and (min-width: 1537px) {
+    .case-study-container {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
 }
