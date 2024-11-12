@@ -26,6 +26,7 @@
 
     var swiper = new Swiper(".swiperCaseStudy", {
       slidesPerView: 1,
+      slidesPerGroup: 1,
       spaceBetween: 30,
       pagination: {
         el: ".swiper-pagination",
@@ -37,7 +38,8 @@
       },
       breakpoints: {
         640: {
-          slidesPerView: 2,
+           slidesPerView: 2,
+           slidesPerGroup: 3,
         },
       },
     });

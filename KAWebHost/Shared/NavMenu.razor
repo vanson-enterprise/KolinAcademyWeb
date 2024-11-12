@@ -54,7 +54,7 @@
     <div class="nav-center bg-red-800">
         <!-- nav header -->
         <div class="nav-header">
-            <a href="/"><img src="./img/logo.png" alt="" /></a>
+            <a href="/"><img src="./img/home-page/logo.png" alt="logo" class="max-w-[110px]"/></a>
             <div class="flex items-center name-wrapper">
                 <p class="name-page">Trang chủ</p>
                 <button class="nav-toggle2">
@@ -69,19 +69,20 @@
         </div>
 
         <!-- links -->
-        <ul class="links">
-            <li><NavLink class="text-sm lg:text-base 2xl:text-lg" href="/">Trang chủ</NavLink></li>
-            <li><NavLink class="text-sm lg:text-base 2xl:text-lg" href="/gioi-thieu">Về Kolin</NavLink></li>
+        <ul class="links gap-2 lg:gap-4">
+            <li><NavLink class="text-xs 2xl:text-lg" href="/">Trang chủ</NavLink></li>
+            <li><NavLink class="text-xs 2xl:text-lg" href="/gioi-thieu">Về Kolin</NavLink></li>
             <li>
-                <NavLink class="text-sm lg:text-base 2xl:text-lg" href="/khoa-hoc-truc-tuyen"> Khóa học</NavLink>
+                <NavLink class="text-xs 2xl:text-lg" href="/khoa-hoc-truc-tuyen"> Khóa học</NavLink>
                 <ul class="sub-nav">
-                    <li><NavLink class="text-sm lg:text-base 2xl:text-lg" href="/khoa-hoc-truc-tuyen">Online</NavLink></li>
-                    <li><NavLink class="text-sm lg:text-base 2xl:text-lg" href="/">Offline</NavLink></li>
+                    <li><NavLink class="text-xs 2xl:text-basee" href="/khoa-hoc-truc-tuyen">Online</NavLink></li>
+                    <li><NavLink class="text-xs 2xl:text-base" href="/">Offline</NavLink></li>
                 </ul>
-                </li>
-            <li><NavLink class="text-sm lg:text-base 2xl:text-lg" href="/thu-vien-tai-lieu">Thư viện tài liệu</NavLink></li>
-            <li><NavLink class="text-sm lg:text-base 2xl:text-lg" href="/kien-thuc">Kiến thức</NavLink></li>
-            <li><NavLink class="text-sm lg:text-base 2xl:text-lg" href="/tin-tuc">Tin tức</NavLink></li>
+            </li>
+            <li><NavLink class="text-xs 2xl:text-lg" href="/thu-vien-tai-lieu">Thư viện tài liệu</NavLink></li>
+            <li><NavLink class="text-xs 2xl:text-lg" href="/kien-thuc">Kiến thức</NavLink></li>
+            <li><NavLink class="text-xs 2xl:text-lg" href="/tin-tuc">Tin tức</NavLink></li>
+            <li><NavLink class="text-xs 2xl:text-lg" href="/hoc-vien">Học viên</NavLink></li>
 
 
             <li class="cart-mobile">
@@ -92,8 +93,8 @@
         <AuthorizeView>
             <NotAuthorized>
                 <div class="flex login">
-                    <div><NavLink class="text-sm lg:text-base 2xl:text-lg" href="/dang-ky">Đăng ký</NavLink></div>
-                    <div><NavLink class="text-sm lg:text-base 2xl:text-lg" href="/dang-nhap">Đăng nhập</NavLink></div>
+                    <div><NavLink class="text-xs 2xl:text-lg" href="/dang-ky">Đăng ký</NavLink></div>
+                    <div><NavLink class="text-xs 2xl:text-lg" href="/dang-nhap">Đăng nhập</NavLink></div>
                 </div>
             </NotAuthorized>
             <Authorized>

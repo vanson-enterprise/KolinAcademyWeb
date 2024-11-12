@@ -1,22 +1,4 @@
-﻿* {
-    padding: 0;
-    margin: 0;
-  }
-
-  body {
-    background: #141414;
-    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-    font-size: 14px;
-    color: #eee;
-    box-sizing: border-box;
-  }
-
-  .container-1200 {
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
+﻿
   /* .slick-slide  */
   .slick-slide {
     transform: scale(0.85);

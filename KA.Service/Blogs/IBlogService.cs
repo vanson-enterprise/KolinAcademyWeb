@@ -18,5 +18,6 @@ namespace KA.Service.Blogs
         EditBlogVm GetBlogForEdit(int blogId);
         Task<DetailBlogVm> GetDetailBlog(int blogId);
         Task<List<BlogViewModel>> GetTopFourBlogForHomePage();
+        Task<List<BlogViewModel>> GetRelatedNews();
     }
 }
