@@ -564,8 +564,7 @@
         {
             await jsr.InvokeVoidAsync("import", "./Pages/Site/CaseStudy.razor.js");
         }
-        
-        //await jsr.InvokeVoidAsync("caseStudyPageJs.initPaging");
+        await jsr.InvokeVoidAsync("caseStudyPageJs.initPaging");
     }
 
     protected void SaveContactInfo()
