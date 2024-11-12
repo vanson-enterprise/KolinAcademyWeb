@@ -2,45 +2,51 @@
 @inherits OwningComponentBase
 
 <HeadContent>
-    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
     <title>Khóa học online - Kolin</title>
 </HeadContent>
 
 <div class="store-page relative">
-    <div class="decor">
-        <img src="./img/Frame.svg" alt="" class="absolute decor2" />
-        <img src="./img/offline_decor.png" alt="" class="absolute decor1" />
-    </div>
-    <div class="content">
-        @if (offlineCourseVms != null)
-        {
-            <div class="row">
-                @foreach (var offCourse in offlineCourseVms)
-                {
-                    <div class="col-lg-6 col-md-6 col-12">
-                        <div class="course">
-                            <div class="video">
-                                <iframe width="420"
-                                height="345"
-                                src="@offCourse.IntroVideoLink">
-                                </iframe>
-                            </div>
-                            <div class="text d-flex justify-content-between align-items-end">
-                                <div style="flex: 1">
-                                    <p class="heading">KHÓA HỌC</p>
-                                    <NavLink class="name primary-color" href="@offCourse.DetailCourseLink">
+    <div class="container-1200 lg:py-16 py-8 lg:px-0 px-4">
+        <h3 class="text-2xl lg:text-[38px] lg:leading-10 text-red-700 font-semibold mb-6 lg:mb-12 text-center">
+            KHÓA HỌC OFFLINE
+        </h3>
+        <div class="">
+            @if (offlineCourseVms != null)
+            {
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-8">
+                    @foreach (var offCourse in offlineCourseVms)
+                    {
+                        <div class="mb-2">
+                            <div class="rounded-xl overflow-hidden bg-white p-2 h-full">
+                                <img class="w-full rounded-xl h-[160px] object-cover" src="@offCourse.ThumbNailImageLink"
+                                     alt="@offCourse.Name" />
+                                <div class="p-2">
+                                    <div class="font-bold text-xl mb-4 text-gray-900 font-semibold line-clamp-3 h-[80px]">
                                         @offCourse.Name
-                                    </NavLink>
+                                    </div>
+                                    <div class="h-[124px]">
+                                        <div class="text-gray-900 text-base mb-1">
+                                            Mô tả khóa học
+                                        </div>
+                                        <div class="text-gray-700 text-base line-clamp-4">
+                                            @offCourse.ShortDescription
+                                        </div>
+                                    </div>
                                 </div>
-                                <div style="flex: 1" class="d-flex justify-content-end">
-                                    <button class="secondary-color" @onclick="()=>GoToRegisterPage(offCourse.Id)">Đăng ký >></button>
+                                <hr class="h-px my-2 bg-gray-200 border-0 dark:bg-gray-700" />
+                                <div class="pt-4 pb-4 ml-1">
+                                    <a @*href="@offCourse.DetailCourseLink" *@
+                                       href="/"
+                                       class="inline-block color-white hover:bg-red-900 bg-red-800 font-bold py-3 px-8 text-lg rounded-lg">
+                                        TÌM HIỂU THÊM
+                                    </a>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                }
-            </div>
-        }
+                    }
+                </div>
+            }
+        </div>
     </div>
 </div>
 
