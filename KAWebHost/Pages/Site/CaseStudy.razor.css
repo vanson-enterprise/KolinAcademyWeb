@@ -5,21 +5,11 @@
 
 .listPage {
     padding: 10px;
-    text-align: center;
     list-style: none;
-}
-
-.listPage li {
-    background-color: #ffffffBD;
-    padding: 20px;
-    display: inline-block;
-    margin: 0 10px;
-    cursor: pointer;
-}
-
-.listPage .active {
-    background-color: #B192EF;
-    color: #fff;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 20px;
 }
 
 
