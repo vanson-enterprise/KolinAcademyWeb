@@ -15,17 +15,11 @@ namespace KAWebHost.Pages.Site
         private ICourseService _courseService;
         private ICartService _cartService;
 
-        // model
         private List<OnlineCourseViewModel> onlineCourseViewModels;
-
-        // parameters
         [CascadingParameter]
         private Task<AuthenticationState> authenticationStateTask { get; set; }
         [CascadingParameter]
         private MainLayout mainLayout { get; set; }
-
-
-        // properties
         private string userId;
         private AuthenticationState authState;
 
