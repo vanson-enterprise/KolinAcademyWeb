@@ -1,0 +1,156 @@
+﻿@page "/khoa-hoc"
+@inherits OwningComponentBase
+
+<HeadContent>
+    <title>Khóa học - Kolin</title>
+</HeadContent>
+
+<div class="news container-1200">
+    <div class="flex gap-3 items-center pt-12 text-2xl">
+        <a href="/">
+            <img src="./img/icon/homeIcon.svg" />
+        </a>
+        <a href="/">Trang chủ</a>/ Các khóa học
+    </div>
+    <!-- CÁC KHÓA HỌC-->
+    <div class="">
+        <div class="course-online lg:my-24 my-10">
+            <div class="grid lg:grid-cols-3 grid-cols-1 gap-4 lg:gap-8">
+                <!-- grid items -->
+                <div>
+                    <h3 class="text-2xl lg:text-[38px] lg:leading-10 text-red-700 font-semibold">
+                        KHÓA HỌC ONLINE
+                    </h3>
+                </div>
+               @if (onlineCourseViewModels != null)
+                {
+                    @foreach (var course in onlineCourseViewModels)
+                    { 
+                        <div class="mb-2">
+                            <div class="rounded-xl overflow-hidden bg-white p-2 h-full">
+                                <img class="w-full rounded-xl h-[160px] object-cover" src="@course.ThumbNailImageLink"
+                                     alt="@course.Name" />
+                                <div class="p-2">
+                                    <div class="font-bold text-xl mb-4 text-gray-900 font-semibold line-clamp-3 h-[80px]">
+                                        @course.Name
+                                    </div>
+                                    <div class="h-[124px]">
+                                        <div class="text-gray-900 text-base mb-1">
+                                            Mô tả khóa học
+                                        </div>
+                                        <div class="text-gray-700 text-base line-clamp-4">
+                                            @course.ShortDescription
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="h-px my-2 bg-gray-200 border-0 dark:bg-gray-700" />
+                                <div class="pt-4 pb-4 ml-1">
+                                    <a href="@course.DetailLink"
+                                       class="inline-block color-white hover:bg-red-900 bg-red-800 font-bold py-3 px-8 text-lg rounded-lg">
+                                        TÌM HIỂU THÊM
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+
+            </div>
+        </div>
+
+        <div class="course-offline">
+            <div class="grid lg:grid-cols-3 grid-cols-1 gap-4 lg:gap-8">
+                <!-- grid item -->
+                <div>
+                    <h3 class="text-2xl lg:text-[38px] lg:leading-10 text-red-700 font-semibold">
+                        KHÓA HỌC OFFLINE
+                    </h3>
+                </div>
+               @if (offlineCourseModels != null)
+                {
+                    @foreach (var course in offlineCourseModels)
+                    {
+                        <div class="mb-2">
+                            <div class="rounded-xl overflow-hidden bg-white p-2 h-full">
+                                <img class="w-full rounded-xl h-[160px] object-cover" src="@course.ThumbNailImageLink"
+                                     alt="@course.Name" />
+                                <div class="p-2">
+                                    <div class="font-bold text-xl mb-4 text-gray-900 font-semibold line-clamp-3 h-[80px]">
+                                        @course.Name
+                                    </div>
+                                    <div class="h-[124px]">
+                                        <div class="text-gray-900 text-base mb-1">
+                                            Mô tả khóa học
+                                        </div>
+                                        <div class="text-gray-700 text-base line-clamp-4">
+                                            @course.ShortDescription
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="h-px my-2 bg-gray-200 border-0 dark:bg-gray-700" />
+                                <div class="pt-4 pb-4 ml-1">
+                                    <a href="@course.DetailCourseLink"
+                                       class="inline-block color-white hover:bg-red-900 bg-red-800 font-bold py-3 px-8 text-lg rounded-lg">
+                                        TÌM HIỂU THÊM
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+
+            </div>
+        </div>
+    </div>
+
+    <!-- FORM ĐĂNG KÝ KHÓA HỌC -->
+    <div>
+        <div class="container-1200 py-16 px-4 lg:px-0">
+            <EditForm Model="contactModel" OnValidSubmit="SaveContactInfo"
+                      class="w-full bg-red-800 py-3 px-3 lg:py-12 lg:px-28 rounded-lg">
+                <h2 class="text-3xl lg:text-[28px] leading-8 font-semibold text-center mb-5 text-white">
+                    ĐĂNG KÝ NHẬN TƯ VẤN KHÓA HỌC
+                </h2>
+                <div class="flex flex-wrap -mx-3">
+                    <div class="w-full md:w-1/2 px-1">
+                        <InputText @bind-Value="contactModel.FullName"
+                                   type="text"
+                                   id="input-name"
+                                   class="bg-gray-50 border border-gray-400 text-gray-700 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-5 p-2.5"
+                                   placeholder="Họ và tên" />
+                    </div>
+                    <div class="w-full md:w-1/2 px-1">
+                        <InputText @bind-Value="contactModel.PhoneNumber"
+                                   type="tel"
+                                   id="input-phone"
+                                   class="bg-gray-50 border border-gray-400 text-gray-700 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-5 p-2.5"
+                                   placeholder="Số điện thoại" />
+                    </div>
+                </div>
+                <div class="flex flex-wrap -mx-3 mt-3">
+                    <div class="w-full md:w-1/2 px-1">
+                        <InputText @bind-Value="contactModel.Email"
+                                   type="email"
+                                   id="input-email"
+                                   class="bg-gray-50 border border-gray-400 text-gray-700 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-5 p-2.5"
+                                   placeholder="Email" />
+                    </div>
+                    <div class="w-full md:w-1/2 px-1">
+                        <InputText @bind-Value="contactModel.Note"
+                                   type="text"
+                                   id="input-location"
+                                   class="bg-gray-50 border border-gray-400 text-gray-700 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-5 p-2.5"
+                                   placeholder="Lĩnh vực anh/chị quan tâm" />
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button type="submit"
+                            class="text-white text-xl rounded-lg px-20 py-2.5 mt-6 border bg-gradient-to-r from-red-500 to-red-900">
+                        ĐĂNG KÝ NGAY
+                    </button>
+                </div>
+            </EditForm>
+        </div>
+    </div>
+</div>
+

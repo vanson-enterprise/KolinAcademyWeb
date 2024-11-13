@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DocumentFormat.OpenXml.Drawing;
 using KA.DataProvider.Entities;
 using KA.Infrastructure.Util;
 using KA.ViewModels.Common;
@@ -209,6 +210,7 @@ namespace KA.Service.Courses
             var datas = (from c in _courseRepo.GetAll()
                          join csd in _startDateOfflineCourseRepo.GetAll() on c.Id equals csd.OfflineCourseId
                          where csd.StartTime > DateTime.Now && c.IsActive && !c.IsDeleted
+                         orderby csd.StartTime 
                          select new { c, csd }).AsEnumerable();
             var groups = from i in datas
                          group i by i.c into gc
@@ -280,7 +282,8 @@ namespace KA.Service.Courses
                     Name = c.Name,
                     Price = string.Format("{0:0,0 vnđ}", c.Price),
                     DiscountPrice = string.Format("{0:0,0 vnđ}", c.DiscountPrice),
-                    ThumbNailImageLink = c.ThumbNailImageLink
+                    ThumbNailImageLink = c.ThumbNailImageLink,
+                    ShortDescription = c.ShortDescription,
                 }).ToList();
         }
         public async Task<DetailOnlineCourseModel> GetDetailOnlineCourse(int courseId)
@@ -312,6 +315,20 @@ namespace KA.Service.Courses
 
         public async Task<List<UserLessonViewModel>> GetUserLessons(string userId, int courseId)
         {
+            // get all lesson of course
+            var lessonIds = (from l in _lessonRepo.GetAll()
+                           where l.CourseId == courseId
+                           select l.Id).ToList();
+            var currentUserLessonId = _userLessonRepo.GetAll().Where(ul=>ul.UserId == userId).Select(ul=>ul.LessonId).ToList();
+            
+            var missUserLesson = lessonIds.Where(lid=>!currentUserLessonId.Any(ulid=>ulid == lid)).Select(lid=>new UserLesson{
+                UserId = userId,
+                LessonId = lid,
+                Status = UserLessonStatus.PROCESSING
+            });
+            // add user lesson 
+            await _userLessonRepo.AddManyAsync(missUserLesson);
+
             var userLessons = (from ul in _userLessonRepo.GetAll()
                                join l in _lessonRepo.GetAll() on ul.LessonId equals l.Id
                                where l.CourseId == courseId && ul.UserId == userId
