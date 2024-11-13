@@ -89,14 +89,15 @@
                     {
                         var index = i;
                         <div @onclick="()=>StudyLesson(userLessonVms[index],index)">
-                            @if (userLessonVms[index].UserLessonStatus == UserLessonStatus.BLOCK)
+                            @* @if (userLessonVms[index].UserLessonStatus == UserLessonStatus.BLOCK)
                             {
                                 <img class="lesson-status-icon" src="./img/icon/lock.png" />
                             }
                             else
                             {
-                                <img class="lesson-status-icon" src="./img/icon/check.png" />
-                            }
+                                
+                            } *@
+                            <img class="lesson-status-icon" src="./img/icon/check.png" />
                             @userLessonVms[index].LessonName
                         </div>
                     }
