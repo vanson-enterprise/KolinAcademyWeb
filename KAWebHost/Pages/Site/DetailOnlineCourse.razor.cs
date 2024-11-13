@@ -124,12 +124,12 @@ namespace KAWebHost.Pages.Site
 
         private void StudyLesson(UserLessonViewModel lesson, int lessonIndex)
         {
-            if (lesson.UserLessonStatus == UserLessonStatus.BLOCK)
-            {
-                mainLayout.ShowAlert("Bạn phải học xong bài hiện tại mới học được bài kế tiếp", "Thông báo");
-
-            }
-            else if(lessonIndex != currentLessonIndex)
+            // if (lesson.UserLessonStatus == UserLessonStatus.BLOCK)
+            // {
+            //     mainLayout.ShowAlert("Bạn phải học xong bài hiện tại mới học được bài kế tiếp", "Thông báo");
+            // }
+            // else
+             if(lessonIndex != currentLessonIndex)
             {
                 currentVideoLink = lesson.VideoLink;
                 currentLessonIndex = lessonIndex;

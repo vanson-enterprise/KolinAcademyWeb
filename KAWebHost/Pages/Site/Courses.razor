@@ -1,7 +1,4 @@
 ﻿@page "/khoa-hoc"
-@using KA.Service.Courses;
-@using KA.Service.Contacts;
-@using KA.ViewModels.Contact;
 @inherits OwningComponentBase
 
 <HeadContent>
@@ -25,9 +22,9 @@
                         KHÓA HỌC ONLINE
                     </h3>
                 </div>
-               @* @if (topTwoOnlineCourses != null)
+               @if (onlineCourseViewModels != null)
                 {
-                    @foreach (var course in topTwoOnlineCourses)
+                    @foreach (var course in onlineCourseViewModels)
                     { 
                         <div class="mb-2">
                             <div class="rounded-xl overflow-hidden bg-white p-2 h-full">
@@ -56,7 +53,7 @@
                             </div>
                         </div>
                     }
-                }*@
+                }
 
             </div>
         </div>
@@ -69,9 +66,9 @@
                         KHÓA HỌC OFFLINE
                     </h3>
                 </div>
-               @* @if (offlineCourses != null)
+               @if (offlineCourseModels != null)
                 {
-                    @foreach (var course in offlineCourses)
+                    @foreach (var course in offlineCourseModels)
                     {
                         <div class="mb-2">
                             <div class="rounded-xl overflow-hidden bg-white p-2 h-full">
@@ -101,7 +98,7 @@
                         </div>
                     }
                 }
-*@
+
             </div>
         </div>
     </div>
@@ -157,22 +154,3 @@
     </div>
 </div>
 
-@code {
-    private ContactInputModel contactModel = new();
-    private IContactService _contactService;
-
-    [CascadingParameter]
-    private MainLayout mainLayout { get; set; }
-
-
-    protected override async Task OnInitializedAsync()
-    {
-        _contactService = ScopedServices.GetRequiredService<IContactService>();
-    }
-
-    protected void SaveContactInfo()
-    {
-        _contactService.SaveContact(contactModel);
-        mainLayout.ShowAlert("Cảm ơn bạn đã để lại thông tin! Chúng tôi sẽ liên hệ bạn sớm nhất có thể.", "Thông báo"); contactModel = new();
-    }
-}
