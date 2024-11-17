@@ -1,5 +1,5 @@
 ﻿let thisPage = 1;
-let limit = 6;
+let limit = 9;
 
 window.changePage = (i) => {
   thisPage = i;
@@ -25,7 +25,7 @@ function listPage(list) {
 
   if (thisPage != 1) {
     let prev = document.createElement("li");
-    prev.innerText = "PREV";
+    prev.innerText = "«";
     prev.setAttribute("onclick", "changePage(" + (thisPage - 1) + ")");
     document.querySelector(".listPage").appendChild(prev);
   }
@@ -42,10 +42,11 @@ function listPage(list) {
 
   if (thisPage != count) {
     let next = document.createElement("li");
-    next.innerText = "NEXT";
+    next.innerText = "»";
     next.setAttribute("onclick", "changePage(" + (thisPage + 1) + ")");
     document.querySelector(".listPage").appendChild(next);
-  }
+    }
+
 }
 
 const caseStudyPageJs = function () {
