@@ -13,17 +13,17 @@
             <a href="/">Trang chủ</a>/ <a href="/tin-tuc">Tin sự kiện</a> 
         </div>
         <div class="py-8">
-            <div class="grid grid-cols-12 gap-3 ">
-                <div class="col-span-9 text-gray-800 bg-white px-4 pt-6 pb-10 overflow-hidden rounded-md h-fit">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-3 ">
+                <div class="col-span-1 lg:col-span-9 text-gray-800 bg-white px-4 pt-6 pb-10 overflow-hidden rounded-md h-fit">
                     <h1 class="text-xl lg:text-2xl text-red-800 uppercase font-bold mb-3">@model.Title</h1>
                     <p class="italic">@model.ShortDescription</p>
                     @((MarkupString)model.Content)
                 </div>
-                <div class="col-span-3 text-gray-900">
+                <div class="col-span-1 lg:col-span-3 text-gray-900">
                     @if(offlineCourseViewModels.Count() > 0){
-                        <div class="bg-white rounded-md overflow-x-hidden">
+                        <div class="bg-white rounded-md overflow-x-hidden mb-10">
                             <div class="font-bold bg-gray-100 py-5 px-4 text-lg">Khóa học sắp diễn ra</div>
-                            <div class="h-[500px] overflow-y-auto">
+                            <div class="max-h-[500px] overflow-y-auto">
                                 @foreach(var offcourse in offlineCourseViewModels){
                                     <div class="my-6 mx-3 px-3 border-l-4 border-red-800 text-base">
                                         <a href="@offcourse.DetailCourseLink" class="text-base lg:text-lg font-bold text-red-800 line-clamp-3">@offcourse.Name</a>
@@ -40,7 +40,7 @@
                             </div> 
                         </div>
                     }
-                    <div class="mt-10">
+                    <div class="">
                         <div class="font-bold bg-gray-200 p-4 text-gray-900 text-lg">Các bài viết liên quan</div>
                         <div class="">
                             @foreach(var news in relatedNewsModel){
