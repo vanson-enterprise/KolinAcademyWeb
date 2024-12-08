@@ -8,6 +8,10 @@
     --font-family: "HelveticaNeue";
 }
 
+.cart-page {
+    min-height: calc(100vh - 452px);
+}
+
 .cart-container .title {
     padding: 60px 60px 0;
     font-size: 24px;

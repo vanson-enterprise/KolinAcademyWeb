@@ -5,58 +5,63 @@
     <PageTitle>Giỏ hàng - Kolin</PageTitle>
 </HeadContent>
 <div class="cart-page">
-    <section class="cart-container">
-        <div class="max-width mx-auto">
-            <div class="secondary-color title">
-                <p class="">GIỎ HÀNG</p>
+    <section class="cart-container ">
+        <div class="container-1200">
+            <div class="flex gap-3 items-center pt-12 text-2xl">
+                <a href="/">
+                    <img src="./img/icon/homeIcon.svg" />
+                </a>
+                <a href="/">Trang chủ</a>/ Giỏ hàng
             </div>
             @if (cartVm != null && cartVm.CartProductVms != null && cartVm.CartProductVms.Count > 0)
             {
-                <div class="list-products">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Khóa học</th>
-                                <th scope="col">Số lượng</th>
-                                <th scope="col">Thành tiền</th>
-                                <th scope="col"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var cartProduct in cartVm.CartProductVms)
-                            {
-                                <tr>
-                                    <td>@cartProduct.CourseName</td>
-                                    <td>01 khóa</td>
-                                    <td>@cartProduct.DiscountPrice.ToVietNameseCurrency()</td>
-                                    <td>
-                                        <img class="bin-icon" src="/img/icon/recycle-bin.png"
-                                     @onclick="()=>RemoveCourseFromCart(cartProduct)" />
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>Tổng</th>
-                                <th>@(cartVm.Amount) khóa</th>
-                                <th class="secondary-color">@cartVm.StringTotal</th>
-                                <th class="secondary-color"></th>
-                            </tr>
-                        </tfoot>
-                    </table>
+                <div class="my-8">
+                    @foreach (var cartProduct in cartVm.CartProductVms)
+                    {
+                        <div class="grid grid-cols-12 rounded-xl bg-white p-4 gap-6 text-gray-800 mt-4">
+                            <div class="col-span-4">
+                                <img class="w-full h-[205px] object-cover rounded-xl" src="./img/case-study/case-study-01.jpg" alt="img product" />
+                            </div>
+                            <div class="col-span-6 flex flex-col justify-between">
+                                <div>
+                                    <div class="uppercase text-2xl font-bold line-clamp-2">@cartProduct.CourseName</div>
+                                    <div class="mt-2">Mô tả khóa học:</div>
+                                    <div class="line-clamp-3">
+                                        Với hơn 8000 học viên đã qua đào tạo đến từ khắp 3 miền trên tổ quốc,
+                                        Kolin Academy tự hào là đơn vị dẫn đầu về đào tạo xây dựng thương hiệu
+                                        cá nhân, giúp cho rất nhiều học viên, doanh nghiệp
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="w-2/3 h-px bg-gray-400"></div>
+                                    <div class="text-2xl font-bold mt-2">@cartProduct.DiscountPrice.ToVietNameseCurrency()</div>
+                                </div>
+                            </div>
+                            <div class="col-span-2 flex flex-col justify-center items-center text-lg gap-2 font-bold">
+                                <button class="w-12 h-12 hover:bg-gray-50 rounded-xl">+</button>
+                                <div class="bg-gray-200 rounded-xl w-12 h-12 grid place-center">1</div>
+                                <button class="w-12 h-12 hover:bg-gray-50 rounded-xl" 
+                                    @onclick="()=>RemoveCourseFromCart(cartProduct)">-</button>
+                            </div>
+                        </div>
+                    }
 
-                    <div class="d-flex justify-content-end">
-                        <button class="btn-pay" @onclick="InitOrder">Thanh toán</button>
+                    <hr class="my-8"/>
+                    <div class="font-bold flex justify-between text-2xl px-8">
+                        <div>Tổng Bill: @(cartVm.Amount) khóa học</div>
+                        <div>Thành tiền: @cartVm.StringTotal</div>
+                    </div>
+                    <div class="flex justify-end mt-4 mb-10 px-8">
+                        <button class="text-3xl bg-red-800 text-white px-12 py-2 rounded-xl" @onclick="InitOrder">Thanh toán</button>
                     </div>
                 </div>
             }
             else
             {
                 <div class="d-flex align-items-center flex-column">
-                    <div>Bạn chưa có sản phầm nảo trong giỏ hàng</div>
+                    <div class="text-2xl">Bạn chưa có sản phầm nảo trong giỏ hàng</div>
                     <br>
-                    <NavLink href="/khoa-hoc-truc-tuyen" class="btn btn-info">
+                    <NavLink href="/khoa-hoc" class="text-white bg-red-800 text-2xl py-2 px-4 rounded-lg">
                         Tiếp tục mua hàng
                     </NavLink>
                 </div>
