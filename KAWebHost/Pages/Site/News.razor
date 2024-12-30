@@ -5,8 +5,8 @@
     <title>Tin tức - Kolin</title>
 </HeadContent>
 
- <div class="news container-1200">
-      <div class="flex gap-3 items-center py-8 text-2xl">
+ <div class="news container-1200 px-3 lg:px-0">
+      <div class="flex gap-3 items-center py-4 lg:py-8 text-lg lg:text-2xl">
         <a href="/">
             <img src="./img/icon/homeIcon.svg" />
         </a>
@@ -14,15 +14,15 @@
       </div>
 
       <div
-        class="grid lg:grid-cols-3 lg:grid-rows-[repeat(auto, minmax(0, 288px))] gap-6 mb-8"
+        class="grid grid-cols-1 lg:grid-cols-3 lg:grid-rows-[repeat(auto, minmax(0, 288px))] gap-6 mb-8"
       >
         @for (int i = 0; i < model.Blogs.Count; i++)
         {
             @if(i == 0){
-                <div class="bg-white col-span-2 row-span-2 rounded-xl">
+                <div class="bg-white col-span-1 lg:col-span-2 row-span-1 lg:row-span-2 rounded-xl">
                     <img
                         src="@model.Blogs[i].ThumbNailImageLink"
-                        class="w-full h-[384px] object-cover rounded-xl"
+                        class="w-full h-[192px] lg:h-[384px] object-cover rounded-xl"
                     />
                     <div class="p-4">
                         <a href="@model.Blogs[i].DetailBlogLink" class="uppercase text-xl text-red-800 font-semibold mb-5 line-clamp-1">

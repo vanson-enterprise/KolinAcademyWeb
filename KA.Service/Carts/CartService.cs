@@ -80,7 +80,8 @@ namespace KA.Service.Carts
                     CourseId = i.cp.CourseId,
                     CourseName = i.c.Name,
                     DiscountPrice = i.cp.DiscountPrice,
-                    Price = i.cp.Price
+                    Price = i.cp.Price,
+                    Descriptions = i.c.ShortDescription
                 }).ToList();
                 result.Total = cartProducts.Select(i => i.cp.DiscountPrice).Sum();
                 result.StringTotal = string.Format("{0:0,0.00 vnđ}", result.Total);

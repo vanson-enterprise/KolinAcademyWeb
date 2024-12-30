@@ -8,29 +8,8 @@
     <div class="max-width mx-auto">
         <div class="profile-container">
             <div class="row">
-                <div class="col-4 text-center">
-                    <div class="relative">
-                        <div class="circle">
-                            <img class="profile-pic"
-                                 src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg" />
-                        </div>
-                        <div class="p-image">
-                            <div class="upload-button">
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                     viewBox="0 0 512 512"
-                                     width="20px"
-                                     height="20px">
-                                    <path fill="#b9b9b9"
-                                          d="M149.1 64.8L138.7 96H64C28.7 96 0 124.7 0 160V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V160c0-35.3-28.7-64-64-64H373.3L362.9 64.8C356.4 45.2 338.1 32 317.4 32H194.6c-20.7 0-39 13.2-45.5 32.8zM256 384c-53 0-96-43-96-96s43-96 96-96s96 43 96 96s-43 96-96 96z" />
-                                </svg>
-                            </div>
-                            <input class="file-upload" type="file" accept="image/*" />
-                        </div>
-                    </div>
-
-                    <h2 class="name-account my-4 secondary-color">@FullName</h2>
-
-                    <div class="btn-container d-flex flex-column">
+                <div class="col-4 mb-8">
+                    <div class="btn-container flex gap-4">
                         <button class="tab-btn active" data-value=".info">
                             Thông tin tài khoản
                         </button>
@@ -47,85 +26,124 @@
                     <!-- content container -->
                     <div class="about-content">
                         <div class="content info">
-                            <h2 class="secondary-color">HỒ SƠ CÁ NHÂN</h2>
-                            <br />
-                            <EditForm OnValidSubmit="UpdateUserInfo" Model="userProfileVm.UserProfileInfo">
-                                <DataAnnotationsValidator />
-                                <div class="mb-3">
-                                    <label for="inputEmail" class="form-label">Email</label>
-                                    <InputText type="email"
-                                               class="form-control"
-                                               id="inputEmail"
-                                               aria-describedby="emailHelp"
-                                               @bind-Value="userProfileVm.UserProfileInfo.Email"
-                                               disabled
-                                               placeholder="Nhập email" />
+                            <div class="grid grid-cols-1 lg:grid-cols-10 gap-6">
+                                <div class="col-span-3 bg-white rounded-xl p-6 text-gray-800 text-center">
+                                    <div class="relative">
+                                        <div class="circle">
+                                            <img class="profile-pic"
+                                                 src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg" />
+                                        </div>
+                                        <div class="p-image">
+                                            <div class="upload-button">
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                     viewBox="0 0 512 512"
+                                                     width="20px"
+                                                     height="20px">
+                                                    <path fill="#b9b9b9"
+                                                          d="M149.1 64.8L138.7 96H64C28.7 96 0 124.7 0 160V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V160c0-35.3-28.7-64-64-64H373.3L362.9 64.8C356.4 45.2 338.1 32 317.4 32H194.6c-20.7 0-39 13.2-45.5 32.8zM256 384c-53 0-96-43-96-96s43-96 96-96s96 43 96 96s-43 96-96 96z" />
+                                                </svg>
+                                            </div>
+                                            <input class="file-upload" type="file" accept="image/*" />
+                                        </div>
+                                    </div>
+                                    <h2 class="name-account my-4 text-red-800 font-semiblold text-2xl">@FullName</h2>
+                                </div>
+                                <div class="col-span-7 bg-white rounded-xl p-6 text-gray-800 text-xl">
+                                    <EditForm OnValidSubmit="UpdateUserInfo" Model="userProfileVm.UserProfileInfo">
+                                        <DataAnnotationsValidator />
+                                        <div class="mb-5">
+                                            <label for="inputEmail" class="form-label font-semibold">Email</label>
+                                            <InputText type="email"
+                                                       class="form-control border block w-full rounded-lg p-2 mt-2"
+                                                       id="inputEmail"
+                                                       aria-describedby="emailHelp"
+                                                       @bind-Value="userProfileVm.UserProfileInfo.Email"
+                                                       disabled
+                                                       placeholder="Nhập email" />
 
+                                        </div>
+
+                                        <div class="mb-5">
+                                            <label for="inputPassword" class="form-label font-semibold mb-2">Password</label>
+                                            <InputText type="password"
+                                                       class="form-control border block w-full rounded-lg p-2 mt-2"
+                                                       id="inputPassword"
+                                                       autocomplete="off"
+                                                       @bind-Value="userProfileVm.UserProfileInfo.Password"
+                                                       placeholder="Nhập mật khẩu mới" />
+                                            <ValidationMessage For="()=>userProfileVm.UserProfileInfo.Password"></ValidationMessage>
+                                        </div>
+
+                                        <div class="mb-5">
+                                            <label for="inputPassword" class="form-label font-semibold">Nhập lại password</label>
+                                            <InputText type="password"
+                                                       class="form-control border block w-full rounded-lg p-2 mt-2"
+                                                       id="inputPassword"
+                                                       autocomplete="off"
+                                                       @bind-Value="userProfileVm.UserProfileInfo.ConfirmPassword"
+                                                       placeholder="Nhập lại mật khẩu mới" />
+                                            <ValidationMessage For="()=>userProfileVm.UserProfileInfo.ConfirmPassword"></ValidationMessage>
+                                        </div>
+
+                                        <div class="mb-5">
+                                            <label for="inputName" class="form-label font-semibold">Tên</label>
+                                            <InputText type="text"
+                                                       class="form-control border block w-full rounded-lg p-2 mt-2"
+                                                       id="inputName"
+                                                       @bind-Value="userProfileVm.UserProfileInfo.Name"
+                                                       placeholder="Nhập họ và tên" />
+                                            <ValidationMessage For="()=>userProfileVm.UserProfileInfo.Name"></ValidationMessage>
+                                        </div>
+
+                                        <div class="mb-5">
+                                            <label for="inputPhone" class="form-label font-semibold">Số điện thoại</label>
+                                            <InputText type="phone"
+                                                       class="form-control border block w-full rounded-lg p-2 mt-2"
+                                                       id="inputPhone"
+                                                       @bind-Value="userProfileVm.UserProfileInfo.PhoneNumber"
+                                                       placeholder="Nhập số điện thoại" />
+                                            <ValidationMessage For="()=>userProfileVm.UserProfileInfo.PhoneNumber"></ValidationMessage>
+                                        </div>
+                                        <br />
+                                        <div class="text-center">
+                                            <button type="submit" class="bg-red-800 w-[160px] py-2 text-white rounded-lg">
+                                                Cập nhập
+                                            </button>
+                                        </div>
+                                    </EditForm>
                                 </div>
 
-                                <div class="mb-3">
-                                    <label for="inputPassword" class="form-label">Password</label>
-                                    <InputText type="password"
-                                               class="form-control"
-                                               id="inputPassword"
-                                               autocomplete="off"
-                                               @bind-Value="userProfileVm.UserProfileInfo.Password"
-                                               placeholder="Nhập mật khẩu mới" />
-                                    <ValidationMessage For="()=>userProfileVm.UserProfileInfo.Password"></ValidationMessage>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="inputPassword" class="form-label">Nhập lại password</label>
-                                    <InputText type="password"
-                                               class="form-control"
-                                               id="inputPassword"
-                                               autocomplete="off"
-                                               @bind-Value="userProfileVm.UserProfileInfo.ConfirmPassword"
-                                               placeholder="Nhập lại mật khẩu mới" />
-                                    <ValidationMessage For="()=>userProfileVm.UserProfileInfo.ConfirmPassword"></ValidationMessage>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="inputName" class="form-label">Tên</label>
-                                    <InputText type="text"
-                                               class="form-control"
-                                               id="inputName"
-                                               @bind-Value="userProfileVm.UserProfileInfo.Name"
-                                               placeholder="Nhập họ và tên" />
-                                    <ValidationMessage For="()=>userProfileVm.UserProfileInfo.Name"></ValidationMessage>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="inputPhone" class="form-label">Số điện thoại</label>
-                                    <InputText type="phone"
-                                               class="form-control"
-                                               id="inputPhone"
-                                               @bind-Value="userProfileVm.UserProfileInfo.PhoneNumber"
-                                               placeholder="Nhập số điện thoại" />
-                                    <ValidationMessage For="()=>userProfileVm.UserProfileInfo.PhoneNumber"></ValidationMessage>
-                                </div>
-                                <br />
-                                <button type="submit" class="btn btn-primary">
-                                    Cập nhập
-                                </button>
-                            </EditForm>
+                            </div>
                         </div>
                         <div class="content course">
                             <div class="course-item">
-                                <h3 class="primary-color">Khóa học trực tuyến</h3>
-                                <div class="row">
+                                <h3 class="text-lg color-red-800 mb-3 font-semibold">KHÓA HỌC TRỰC TUYẾN</h3>
+                                <div class="grid grid-cols-1 lg:grid-cols-3 gap-3 lg:gap-6">
                                     @foreach (var course in userProfileVm.OwningOnlineCourseVm)
                                     {
-                                        <div class="col-6">
-                                            <div class="content">
-                                                <div class="thumb">
-                                                    <img src="@course.ThumbnailImageLink"
-                                                     alt="@course.Name"
-                                                     class="w-full" />
+
+                                        <div class="mb-2">
+                                            <div class="rounded-xl overflow-hidden bg-white p-2 h-full">
+                                                <img class="w-full rounded-xl h-[160px] object-cover" src="@course.ThumbnailImageLink" alt="@course.Name" />
+                                                <div class="p-2">
+                                                    <div class="font-bold text-xl mb-4 text-gray-900 font-semibold line-clamp-3 h-[80px]">
+                                                        @course.Name
+                                                    </div>
+                                                    <div class="h-[124px]">
+                                                        <div class="text-gray-900 text-base mb-1">
+                                                            Mô tả khóa học
+                                                        </div>
+                                                        <div class="text-gray-700 text-base line-clamp-4">
+                                                            @course.
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="text d-flex justify-content-between">
-                                                    <p class="name">@course.Name</p>
-                                                    <a href="@course.DetailCourceLink" class="link secondary-color">Vào học</a>
+                                                <hr class="h-px my-2 bg-gray-200 border-0 dark:bg-gray-700" />
+                                                <div class="pt-4 pb-4 ml-1">
+                                                    <a href="@course.DetailCourceLink"
+                                                       class="inline-block color-white hover:bg-red-900 bg-red-800 font-bold py-3 px-8 text-lg rounded-lg">
+                                                        VÀO HỌC
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>
@@ -134,20 +152,32 @@
                             </div>
 
                             <div class="course-item">
-                                <h3 class="primary-color">Khóa học trực tiếp</h3>
-                                <div class="row">
+                                <h3 class="text-lg color-red-800 mb-3 font-semibold">KHÓA HỌC TRỰC TIẾP</h3>
+                                <div class="grid grid-cols-1 lg:grid-cols-3 gap-3 lg:gap-6">
                                     @foreach (var course in userProfileVm.OwningOfflineCourseVm)
                                     {
-                                        <div class="col-6">
-                                            <div class="content">
-                                                <div class="thumb">
-                                                    <img src="@course.ThumbnailImageLink"
-                                                     alt="@course.Name"
-                                                     class="w-full" />
+                                        <div class="mb-2">
+                                            <div class="rounded-xl overflow-hidden bg-white p-2 h-full">
+                                                <img class="w-full rounded-xl h-[160px] object-cover" src="@course.ThumbnailImageLink" alt="@course.Name" />
+                                                <div class="p-2">
+                                                    <div class="font-bold text-xl mb-4 text-gray-900 font-semibold line-clamp-3 h-[80px]">
+                                                        @course.Name
+                                                    </div>
+                                                    <div class="h-[124px]">
+                                                        <div class="text-gray-900 text-base mb-1">
+                                                            Mô tả khóa học
+                                                        </div>
+                                                        <div class="text-gray-700 text-base line-clamp-4">
+                                                            @course.
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="text d-flex justify-content-between">
-                                                    <p class="name">@course.Name</p>
-                                                    <a href="@course.DetailCourceLink" class="link secondary-color">Vào học</a>
+                                                <hr class="h-px my-2 bg-gray-200 border-0 dark:bg-gray-700" />
+                                                <div class="pt-4 pb-4 ml-1">
+                                                    <a href="@course.DetailCourceLink"
+                                                       class="inline-block color-white hover:bg-red-900 bg-red-800 font-bold py-3 px-8 text-lg rounded-lg">
+                                                        VÀO HỌC
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>
@@ -156,22 +186,29 @@
                             </div>
                         </div>
                         <div class="content history">
-                            <h3 class="primary-color">Khóa học</h3>
+                            <div class="px-4">
+                                <div class="grid grid-cols-12 font-semibold text-lg">
+                                    <div class="col-span-8">Tên khóa học</div>
+                                    <div class="col-span-2 text-center">Trạng thái</div>
+                                    <div class="col-span-2 text-right">Ngày thanh toán</div>
+                                </div>
+                                <hr class="my-3"/>
 
-                            <ul>
-                                @foreach (var trans in userProfileVm.CourseTransactionVms)
-                                {
-                                    <li class="d-flex justify-content-between">
-                                        <p>@trans.CourseName</p>
-                                        <p class="secondary-color">Đã mua</p>
-                                        <p>@trans.TransactionDate</p>
-                                    </li>
-                                }
-
-
-                            </ul>
+                                <div class="text-xl">
+                                    @foreach (var trans in userProfileVm.CourseTransactionVms)
+                                    {
+                                        <div class ="grid grid-cols-12 mb-4">
+                                            <div class="col-span-8 font-bold uppercase">@trans.CourseName</div>
+                                            <div class="col-span-2 text-center font-light">Thành công</div>
+                                            <div class="col-span-2 text-right font-light">@trans.TransactionDate</div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
                         </div>
-                        <div class="content logout"><a href="/dang-xuat">Đăng xuất</a></div>
+                        <div class="content logout text-xl">
+                            <a href="/dang-xuat" class="ml-6 py-4 px-6 color-white bg-red-800 inline-block rounded-lg">Đăng xuất</a>
+                        </div>
                     </div>
                 </div>
             </div>

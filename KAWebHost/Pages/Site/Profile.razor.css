@@ -1,8 +1,11 @@
 ﻿/* avatar */
 .profile-pic {
-    width: 200px;
-    max-height: 200px;
+    width: 255px;
+    height: 237px;
     display: inline-block;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #b9b9b9;
 }
 
 .file-upload {
@@ -10,8 +13,8 @@
 }
 
 .circle {
-    width: 128px;
-    height: 128px;
+    width: 240px;
+    height: 240px;
     margin: 0 auto;
     overflow: hidden;
     border-radius: 100% !important;
@@ -23,9 +26,13 @@ img {
     max-width: 100%;
 }
 
+.course-item img {
+    height: 160px;
+}
+
 .p-image {
-    top: 95px;
-    right: 38%;
+    bottom: 8px;
+    right: 15%;
     color: #666666;
     position: absolute;
 }
@@ -46,17 +53,16 @@ img {
     text-align: left;
     padding: 3px 15px;
     background: transparent;
-    color: var(--primary-color);
+    color: white;
     transition: var(--transition);
-    border-bottom: 1px solid var(--white-color);
 }
 
     .tab-btn:hover:not(.active) {
-        color: var(--secondary-color);
+        color: #89241e;
     }
 
 .active {
-    color: var(--secondary-color);
+    border-bottom: 4px solid #89241e;
 }
 
 .about-content .content:not(:first-of-type) {
@@ -64,7 +70,7 @@ img {
 }
 
 .profile-container {
-    padding: 100px;
+    padding: 80px;
 }
 
 .btn-container,
