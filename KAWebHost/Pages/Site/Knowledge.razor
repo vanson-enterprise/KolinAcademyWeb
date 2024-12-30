@@ -1,7 +1,7 @@
 ﻿@inherits OwningComponentBase
 @page "/kien-thuc"
 <HeadContent>
-   @*<link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />*@
+    @*<link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />*@
     <title>Kiến thức - Kolin</title>
 </HeadContent>
 <div class="container-1200 px-3 lg:px-0">
@@ -15,7 +15,7 @@
         <div class="col-span-1 lg:col-span-9 grid grid-cols-1 gap-6 lg:grid-cols-2 rounded-lg bg-white p-4">
             @for (int i = 0; i < blogsNumber; i++)
             {
-                <div class="col-span-1"> 
+                <div class="col-span-1">
                     <div class="thumb h-[300px] border">
                         <img src="@model.Blogs[i].ThumbNailImageLink" alt="@model.Blogs[i].Title" />
                     </div>
@@ -32,160 +32,56 @@
         </div>
         <div class="col-span-1 lg:col-span-3">
             @*Khóa học sắp diễn ra*@
-            <div class="bg-white rounded-md overflow-x-hidden mb-8">
-                <div class="font-bold bg-gray-100 p-4 text-lg">Khóa học sắp diễn ra</div>
-                <div class="max-h-[500px] overflow-y-auto">
-
-                    <div class="my-6 mx-3 px-3 border-l-4 border-red-800 text-base">
-                        <a href="#" class="text-base lg:text-lg font-bold text-red-800 line-clamp-3">KHÓA ĐÀO TẠO: PERSONAL BRAND PRO - XÂY DỰNG THCN CHUYÊN NGHIỆP</a>
-                        <div class="flex gap-1 mt-3">
-                            <img src="./img/icon/timeIcon.svg" />
-                            <span class="line-clamp-1">Thời gian: </span>
-                        </div>
-                        <div class="flex gap-2 mt-3 line-clamp-1">
-                            <img src="./img/icon/addressIcon.svg"/>
-                            <span class="line-clamp-1">Địa điểm: </span>
-                        </div>
+            @if (offlineCourseViewModels.Count() > 0)
+            {
+                <div class="bg-white rounded-md overflow-x-hidden mb-8">
+                    <div class="font-bold bg-gray-100 py-5 px-4 text-lg">Khóa học sắp diễn ra</div>
+                    <div class="max-h-[500px] overflow-y-auto">
+                        @foreach (var offcourse in offlineCourseViewModels)
+                        {
+                            <div class="my-6 mx-3 px-3 border-l-4 border-red-800 text-base">
+                                <a href="@offcourse.DetailCourseLink"
+                                    class="text-base lg:text-lg font-bold text-red-800 line-clamp-3">@offcourse.Name</a>
+                                <div class="flex gap-1 mt-3">
+                                    <img src="./img/icon/timeIcon.svg" />
+                                    <span class="line-clamp-1">Thời gian:
+                                        @offcourse.StartDates[0].StartTime.Value.ToString("dd/MM/yyyy")</span>
+                                </div>
+                                <div class="flex gap-2 mt-3 line-clamp-1">
+                                    <img src="./img/icon/addressIcon.svg" />
+                                    <span class="line-clamp-1">Địa điểm: @offcourse.StartDates[0].Place</span>
+                                </div>
+                            </div>
+                        }
                     </div>
-
-                     <div class="my-6 mx-3 px-3 border-l-4 border-red-800 text-base">
-                        <a href="#" class="text-base lg:text-lg font-bold text-red-800 line-clamp-3">KHÓA ĐÀO TẠO 2: PERSONAL BRAND PRO - XÂY DỰNG THCN CHUYÊN NGHIỆP</a>
-                        <div class="flex gap-1 mt-3">
-                            <img src="./img/icon/timeIcon.svg" />
-                            <span class="line-clamp-1">Thời gian: </span>
-                        </div>
-                        <div class="flex gap-2 mt-3 line-clamp-1">
-                            <img src="./img/icon/addressIcon.svg"/>
-                            <span class="line-clamp-1">Địa điểm: </span>
-                        </div>
-                    </div>
-
                 </div>
-            </div>
+            }
 
             @*Các bài viết liên quan*@
-            <div class="">
-                <div class="font-bold bg-gray-200 p-4 text-gray-900 text-lg">Các bài viết liên quan</div>
+            @if (relatedNewsModel != null)
+            {
                 <div class="">
-                    <div class="bg-white col-span-2 row-span-2 rounded-lg border border-gray-400 mt-3">
-                        <img src="./img/knowledge.png" class="w-full h-[205px] object-cover rounded-lg" />
-                        <div class="p-2 mt-1">
-                            <a href="/" class="uppercase text-base text-red-800 font-semibold line-clamp-4">
-                                MCN KOLIN tổ chức chương trình tập huấn livestream bán hàng cho các chủ thể OCOP với 40 đặc sản, thu hút 20 triệu lượt xem và 3000 ngàn đơn hàng
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-@*        <div class="row">
-        <div class="col-12 col-md-12 col-lg-9">
-            @if (blogsNumber > 0)
-            {
-                <div class="knowledge-banner">
-                    <div class="thumb">
-                        <img src="@model.Blogs[0].ThumbNailImageLink" alt="@model.Blogs[0].Title" />
-                    </div>
-                    <div class="text d-flex flex-column justify-content-between">
-                        <div>
-                            <p class="heading primary-color">
-                                @model.Blogs[0].Title
-                            </p>
-                            <p class="disc">
-                                @model.Blogs[0].ShortDescription
-                            </p>
-                        </div>
-                        <p class="relative d-flex justify-content-end knowledge-btn">
-                            <a class="" href="@model.Blogs[0].DetailBlogLink">
-                                <img src="./img/btn.png" alt="" />
-                            </a>
-                        </p>
+                    <div class="font-bold bg-gray-200 p-4 text-gray-900 text-lg">Các bài viết liên quan</div>
+                    <div class="">
+                        @foreach (var news in relatedNewsModel)
+                        {
+                            <div class="bg-white col-span-2 row-span-2 rounded-lg border border-gray-400 mt-3">
+                                <img src="@news.ThumbNailImageLink" class="w-full h-[205px] object-cover rounded-lg" />
+                                <div class="p-2">
+                                    <a href="@news.DetailBlogLink"
+                                        class="uppercase text-base text-red-800 font-semibold line-clamp-4">
+                                        @news.Title
+                                    </a>
+                                </div>
+                            </div>
+                        }
                     </div>
                 </div>
             }
-        </div>
-        <div class="col-12 col-md-12 col-lg-3">
-            @if (blogsNumber >= 2)
-            {
-                <div class="knowledge-sub-banner">
-                    <div class="thumb">
-                        <img src="@model.Blogs[1].ThumbNailImageLink" alt="@model.Blogs[1].Title" />
-                    </div>
-                    <div class="text d-flex flex-column justify-content-between">
-                        <div>
-                            <p class="heading primary-color">
-                                @model.Blogs[1].Title
-                            </p>
-                            <p class="disc">
-                                @model.Blogs[1].ShortDescription
-                            </p>
-                        </div>
-                        <p class="relative d-flex justify-content-end knowledge-btn">
-                            <a class="" href="@model.Blogs[1].DetailBlogLink">
-                                <img src="./img/btn.png" alt="" />
-                            </a>
-                        </p>
-                    </div>
-                </div>
-            }
-            @if (blogsNumber >= 3)
-            {
-                <div class="knowledge-sub-banner">
-                    <div class="thumb">
-                        <img src="@model.Blogs[2].ThumbNailImageLink" alt="@model.Blogs[2].Title" />
-                    </div>
-                    <div class="text d-flex flex-column justify-content-between">
-                        <div>
-                            <p class="heading primary-color">
-                                @model.Blogs[2].Title
-                            </p>
-                            <p class="disc">
-                                @model.Blogs[2].ShortDescription
-                            </p>
-                        </div>
-                        <p class="relative d-flex justify-content-end knowledge-btn">
-                            <a class="" href="@model.Blogs[2].DetailBlogLink">
-                                <img src="./img/btn.png" alt="" />
-                            </a>
-                        </p>
-                    </div>
-                </div>
-            }
+
         </div>
     </div>
 
-    <br />
-
-    <div class="row">
-        @for (int i = 3; i < blogsNumber; i++)
-        {
-            <div class="col-12 col-md-6 col-lg-6">
-                <div class="knowledge-item d-flex">
-                    <div class="thumb">
-                        <img src="@model.Blogs[i].ThumbNailImageLink" alt="@model.Blogs[i].Title" />
-                    </div>
-                    <div class="text d-flex flex-column justify-content-between">
-                        <div>
-                            <p class="heading primary-color">
-                                @model.Blogs[i].Title
-                            </p>
-                            <p class="disc">
-                                @model.Blogs[i].ShortDescription
-                            </p>
-                        </div>
-                        <p class="relative d-flex justify-content-end knowledge-btn">
-                            <a class="" href="@model.Blogs[i].DetailBlogLink">
-                                <img src="./img/btn.png" alt="" />
-                            </a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        }
-    </div>
-*@
     <div class="mt-8 mb-8">
         <nav aria-label="Page navigation">
             <ul class="flex gap-4 justify-center">
@@ -197,7 +93,8 @@
                 @for (int i = 1; i <= model.TotalPage; i++)
                 {
                     var index = i;
-                        <li class="page-item" @onclick="() => OnPageChange(index)"><a class="page-link" style="pointer-events: none;cursor:default" href="#">@i</a></li>
+                    <li class="page-item" @onclick="() => OnPageChange(index)"><a class="page-link"
+                            style="pointer-events: none;cursor:default" href="#">@i</a></li>
                 }
                 <li class="page-item" @onclick="()=>OnPageChange(0)">
                     <a class="page-link" href="#" style="pointer-events: none;cursor:default" aria-label="Next">

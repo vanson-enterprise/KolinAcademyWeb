@@ -13,5 +13,6 @@ namespace KA.ViewModels.Carts
         public string CourseName { get; set; }
         public decimal Price { get; set; }
         public decimal DiscountPrice { get; set; }
+        public string? Descriptions;
     }
 }
